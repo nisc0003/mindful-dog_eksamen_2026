@@ -4,20 +4,6 @@
 @import "tailwindcss-animated";
 @import "tailwindcss-intersect";
 
-/* @font-face {
-  font-family: 'Honk';
-  src: url('/fonts/Honk-Regular-VariableFont_MORF,SHLN.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Quicksand';
-  src: url('/fonts/Quicksand-VariableFont_wght.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Domine';
-  src: url('/fonts/Domine-Regular.ttf') format('truetype');
-} */
 
 @theme {
   /* Her tilføjes theme variable // tokens */
@@ -30,10 +16,9 @@
   --color-secondary-500: #F5A600;
   --color-secondary-600: #F57A00; */
 
-  /*Typografi */
-  /* --font-display: 'Honk', monospace;
-  --font-sans: 'Quicksand', sans-serif;
-  --font-serif: 'Domine', serif; */
+  /* Typografi */
+  --font-display: "Geologica", sans-serif;
+  --font-sans: "Manrope", sans-serif;
 }
 
 @layer base {
