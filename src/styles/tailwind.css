@@ -544,4 +544,6 @@
   }
 
   .border-default {
-    border-color: var(--
+    border-color: var(--color-border);
+  }
+}

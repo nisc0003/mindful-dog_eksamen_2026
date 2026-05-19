@@ -25,8 +25,8 @@
     "@tailwindcss/vite": "^4.3.0",
     "@types/alpinejs": "^3.13.11",
     "astro": "^6.3.3",
-    "prettier": "^3.8.3",
-    "prettier-plugin-astro": "^0.14.1",
+    "prettier": "3.8.3",
+    "prettier-plugin-astro": "0.14.1",
     "tailwindcss": "^4.3.0"
   }
 }
