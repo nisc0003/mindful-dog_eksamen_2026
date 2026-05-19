@@ -1,39 +1,39 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 const { title } = Astro.props;
 ---
 
 <html lang="da">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
 
-		<title>{title}</title>
+    <title>{title}</title>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-		<link
-			href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&family=Manrope:wght@200..800&display=swap"
-			rel="stylesheet"
-		/>
-	</head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-	<body>
-		<header>
-			<Header />
-		</header>
+  <body>
+    <header>
+      <Header />
+    </header>
 
-		<main>
-			<slot />
-		</main>
+    <main>
+      <slot />
+    </main>
 
-		<footer>
-			<Footer />
-		</footer>
-	</body>
+    <footer>
+      <Footer />
+    </footer>
+  </body>
 </html>

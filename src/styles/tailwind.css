@@ -4,7 +4,6 @@
 @import "tailwindcss-animated";
 @import "tailwindcss-intersect";
 
-
 /* =========================================================
    DESIGN SYSTEM
    Primitive → Semantic → Theme → Tailwind Mapping
@@ -16,135 +15,125 @@
    - CSS only defines the design language
 ========================================================= */
 
-
 /* =========================================================
    PRIMITIVE TOKENS
    DO NOT CHANGE OR USE THESE
 ========================================================= */
 
 :root {
-
   /* Typography */
   --font-display: "Geologica", sans-serif;
   --font-sans: "Manrope", sans-serif;
-
 
   /* ======================================================
      COLORS — MAIN
   ====================================================== */
 
-  --primitive-main-100: #F9F8DB;
-  --primitive-main-200: #ECE8A4;
-  --primitive-main-300: #B2B068;
-  --primitive-main-400: #79772C;
-  --primitive-main-500: #403E00;
-
+  --primitive-main-100: #f9f8db;
+  --primitive-main-200: #ece8a4;
+  --primitive-main-300: #b2b068;
+  --primitive-main-400: #79772c;
+  --primitive-main-500: #403e00;
 
   /* ======================================================
      COLORS — ACCENT
   ====================================================== */
 
-  --primitive-accent-100: #C2E8FF;
-  --primitive-accent-200: #9DBBDF;
-  --primitive-accent-300: #788EAA;
+  --primitive-accent-100: #c2e8ff;
+  --primitive-accent-200: #9dbbdf;
+  --primitive-accent-300: #788eaa;
   --primitive-accent-400: #526276;
-  --primitive-accent-500: #2C3642;
-
+  --primitive-accent-500: #2c3642;
 
   /* ======================================================
      COLORS — NEUTRAL
   ====================================================== */
 
-  --primitive-neutral-100: #F7F7F7;
-  --primitive-neutral-200: #E6E6E6;
-  --primitive-neutral-300: #A8A8A8;
-  --primitive-neutral-400: #4B4B4B;
+  --primitive-neutral-100: #f7f7f7;
+  --primitive-neutral-200: #e6e6e6;
+  --primitive-neutral-300: #a8a8a8;
+  --primitive-neutral-400: #4b4b4b;
   --primitive-neutral-500: #191618;
-
 
   /* ======================================================
      FONT SIZES
   ====================================================== */
 
-    /* ── PRIMITIVE: Font sizes ── */
-      /* 10px */
-    --primitive-font-10:  0.625rem;   
-    /* 15px */
-    --primitive-font-15:  0.9375rem;  
-    /* 17px */
-    --primitive-font-17:  1.0625rem;  
-       /* 20px */
-    --primitive-font-20:  1.25rem;    
-      /* 25px */
-    --primitive-font-25:  1.5625rem;  
+  /* ── PRIMITIVE: Font sizes ── */
+  /* 10px */
+  --primitive-font-10: 0.625rem;
+  /* 15px */
+  --primitive-font-15: 0.9375rem;
+  /* 17px */
+  --primitive-font-17: 1.0625rem;
+  /* 20px */
+  --primitive-font-20: 1.25rem;
+  /* 25px */
+  --primitive-font-25: 1.5625rem;
   /* 30px */
-    --primitive-font-30:  1.875rem;   
-    /* 40px */
-    --primitive-font-40:  2.5rem;     
-    /* 65px */
-    --primitive-font-65:  4.0625rem;  
-   /* 80px */
-    --primitive-font-80:  5rem;       
-    /* 100px */
-    --primitive-font-100: 6.25rem;    
-    /* 180px */
-    --primitive-font-180: 11.25rem;  
+  --primitive-font-30: 1.875rem;
+  /* 40px */
+  --primitive-font-40: 2.5rem;
+  /* 65px */
+  --primitive-font-65: 4.0625rem;
+  /* 80px */
+  --primitive-font-80: 5rem;
+  /* 100px */
+  --primitive-font-100: 6.25rem;
+  /* 180px */
+  --primitive-font-180: 11.25rem;
 
   /* ======================================================
      SPACING SCALE
      FIXED MISSING TOKENS
   ====================================================== */
 
---primitive-space-0:   0px;
---primitive-space-4:   4px;
---primitive-space-8:   8px;
---primitive-space-12:   12px;
---primitive-space-16:   16px;
---primitive-space-20:   20px;
---primitive-space-24:   24px;
---primitive-space-28:   28px;
---primitive-space-32:   32px;
---primitive-space-36:   36px;
---primitive-space-40:  40px;
---primitive-space-44:  44px;
---primitive-space-48:  48px;
---primitive-space-56:  56px;
---primitive-space-64:  64px;
---primitive-space-96:  96px;
---primitive-space-80:  80px;
---primitive-space-128:  128px;
---primitive-space-144:  144px;
---primitive-space-112:  112px;
---primitive-space-160:  160px;
---primitive-space-176:  176px;
---primitive-space-192:  192px;
---primitive-space-208:  208px;
---primitive-space-224:  224px;
---primitive-space-240:  240px;
---primitive-space-256:  256px;
---primitive-space-288:  288px;
---primitive-space-320:  320px;
---primitive-space-384:  384px;
-
+  --primitive-space-0: 0px;
+  --primitive-space-4: 4px;
+  --primitive-space-8: 8px;
+  --primitive-space-12: 12px;
+  --primitive-space-16: 16px;
+  --primitive-space-20: 20px;
+  --primitive-space-24: 24px;
+  --primitive-space-28: 28px;
+  --primitive-space-32: 32px;
+  --primitive-space-36: 36px;
+  --primitive-space-40: 40px;
+  --primitive-space-44: 44px;
+  --primitive-space-48: 48px;
+  --primitive-space-56: 56px;
+  --primitive-space-64: 64px;
+  --primitive-space-96: 96px;
+  --primitive-space-80: 80px;
+  --primitive-space-128: 128px;
+  --primitive-space-144: 144px;
+  --primitive-space-112: 112px;
+  --primitive-space-160: 160px;
+  --primitive-space-176: 176px;
+  --primitive-space-192: 192px;
+  --primitive-space-208: 208px;
+  --primitive-space-224: 224px;
+  --primitive-space-240: 240px;
+  --primitive-space-256: 256px;
+  --primitive-space-288: 288px;
+  --primitive-space-320: 320px;
+  --primitive-space-384: 384px;
 
   /* ======================================================
      RADIUS
   ====================================================== */
 
-    --primitive-radius-none:   0px;
-    --primitive-radius-xs:     2px;
-    --primitive-radius-sm:     4px;
-    --primitive-radius-md:     6px;
-    --primitive-radius-lg:     8px;
-    --primitive-radius-xl:     12px;
-    --primitive-radius-2xl:    16px;
-    --primitive-radius-3xl:    24px;
-    --primitive-radius-4xl:    32px;
-    --primitive-radius-full:   9999px;
-
+  --primitive-radius-none: 0px;
+  --primitive-radius-xs: 2px;
+  --primitive-radius-sm: 4px;
+  --primitive-radius-md: 6px;
+  --primitive-radius-lg: 8px;
+  --primitive-radius-xl: 12px;
+  --primitive-radius-2xl: 16px;
+  --primitive-radius-3xl: 24px;
+  --primitive-radius-4xl: 32px;
+  --primitive-radius-full: 9999px;
 }
-
-
 
 /* =========================================================
    SEMANTIC TOKENS — STANDARD THEME
@@ -152,7 +141,6 @@
 
 :root,
 [data-theme="standard"] {
-
   /* Backgrounds */
   --color-bg: var(--primitive-neutral-100);
   --color-surface: var(--primitive-neutral-200);
@@ -176,23 +164,21 @@
 
   /* accent1 */
   --color-accent1: var(--primitive-main-400);
---color-accent1-dark: var(--primitive-main-500);
+  --color-accent1-dark: var(--primitive-main-500);
 
   /* accent2 */
---color-accent2: var(--primitive-accent-400);
---color-accent2-dark: var(--primitive-accent-500);
+  --color-accent2: var(--primitive-accent-400);
+  --color-accent2-dark: var(--primitive-accent-500);
 
   /* Theme */
-  --theme-overlay: rgba(255,255,255,0.8);
+  --theme-overlay: rgba(255, 255, 255, 0.8);
 }
-
 
 /* =========================================================
    SEMANTIC TOKENS — DARK THEME
 ========================================================= */
 
 [data-theme="dark"] {
-
   /* Backgrounds */
   --color-bg: var(--primitive-neutral-100);
   --color-surface: var(--primitive-neutral-200);
@@ -216,17 +202,15 @@
 
   /* accent1 */
   --color-accent1: var(--primitive-main-400);
---color-accent1-dark: var(--primitive-main-500);
+  --color-accent1-dark: var(--primitive-main-500);
 
   /* accent2 */
---color-accent2: var(--primitive-accent-400);
---color-accent2-dark: var(--primitive-accent-500);
+  --color-accent2: var(--primitive-accent-400);
+  --color-accent2-dark: var(--primitive-accent-500);
 
   /* Theme */
-  --theme-overlay: rgba(255,255,255,0.8);
+  --theme-overlay: rgba(255, 255, 255, 0.8);
 }
-
-
 
 /* =========================================================
    COMPONENT TOKENS
@@ -234,21 +218,18 @@
 ========================================================= */
 
 :root {
-
   /* page width */
   /* --layout-max-width: 0px;
   --layout-max-width-narrow: 0px;
   --layout-max-width-wide: 0px; */
 
-    /* page margin & padding */
+  /* page margin & padding */
   /* --layout-padding: clamp(16px, 5vw, 96px);
   --section-spacing: clamp(48px, 8vw, 160px); */
 
-    /* sections Layout */
+  /* sections Layout */
   /* --layout-padding: clamp(16px, 5vw, 96px);
   --section-spacing: clamp(48px, 8vw, 160px); */
-
-
 
   /* Component Foundations */
   --button-radius: var(--radius-full);
@@ -263,14 +244,11 @@
   --header-height: 72px;
 }
 
-
-
 /* =========================================================
    TAILWIND V4 THEME MAPPING
 ========================================================= */
 
 @theme {
-
   /* Breakpoints */
   --breakpoint-xs: 480px;
   --breakpoint-sm: 600px;
@@ -278,7 +256,6 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
-
 
   /* Colors */
   /* --color-bg: var(--color-bg);
@@ -298,7 +275,6 @@
   --color-accent-hover: var(--color-accent-hover);
   --color-accent-soft: var(--color-accent-soft); */
 
-
   /* Text Sizes */
   /* --text-xs: var(--text-xs);
   --text-sm: var(--text-sm);
@@ -310,7 +286,6 @@
   --text-3xl: var(--text-3xl);
   --text-4xl: var(--text-4xl); */
 
-
   /* Radius */
   /* --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
@@ -320,13 +295,11 @@
   --radius-3xl: var(--radius-3xl);
   --radius-full: var(--radius-full); */
 
-
   /* Shadows */
   /* --shadow-sm: var(--shadow-sm);
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
   --shadow-card: var(--shadow-card); */
-
 
   /* Layout */
   /* --max-w-page: var(--layout-max-width);
@@ -334,14 +307,11 @@
   --max-w-page-wide: var(--layout-max-width-wide); */
 }
 
-
-
 /* =========================================================
    BASE STYLES
 ========================================================= */
 
 @layer base {
-
   *,
   *::before,
   *::after {
@@ -415,15 +385,12 @@
   }
 }
 
-
-
 /* =========================================================
    COMPONENT HELPERS
    SMALL REUSABLE FOUNDATIONS
 ========================================================= */
 
 @layer components {
-
   .container {
     width: 100%;
     max-width: var(--layout-max-width);
@@ -439,11 +406,9 @@
     max-width: var(--layout-max-width-wide);
   }
 
-
   .section {
     padding-block: var(--section-spacing);
   }
-
 
   .card {
     background: var(--color-surface);
@@ -461,7 +426,6 @@
       transform var(--transition-base);
   }
 
-
   .btn {
     display: inline-flex;
     align-items: center;
@@ -471,9 +435,7 @@
     border: none;
     border-radius: var(--button-radius);
 
-    padding:
-      var(--button-padding-y)
-      var(--button-padding-x);
+    padding: var(--button-padding-y) var(--button-padding-x);
 
     cursor: pointer;
 
@@ -491,7 +453,6 @@
     transform: translateY(0);
   }
 
-
   .input {
     width: 100%;
 
@@ -501,9 +462,7 @@
     background: var(--color-surface);
     color: var(--color-text);
 
-    padding:
-      var(--primitive-space-3)
-      var(--primitive-space-4);
+    padding: var(--primitive-space-3) var(--primitive-space-4);
 
     transition:
       border-color var(--transition-base),
@@ -516,14 +475,11 @@
   }
 }
 
-
-
 /* =========================================================
    UTILITIES
 ========================================================= */
 
 @layer utilities {
-
   .theme-transition {
     transition:
       background-color var(--transition-base),
