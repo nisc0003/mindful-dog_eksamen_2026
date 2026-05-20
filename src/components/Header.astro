@@ -4,7 +4,7 @@ import Logo from "../assets/svg/snudeLogo.svg"
 <header class="sticky top-0 z-10">
   <nav class="flex justify-betweenitems-center font-bold w-[80cqw] gap-4 p-4 mt-0 m-auto mb-8">
     <a href="/"><Logo class="min-w-18 max-w-25 h-auto" /></a>
-    <ul class="menu flex justify-between list-none w-1/2 sm:max-md:hidden">
+    <ul class="menu sm:hidden md:flex justify-between list-none w-1/2 ">
       <li>
         <a href="/" class="no-underline relative inline-block text-2xl">FORSIDE</a>
       </li>
@@ -18,7 +18,7 @@ import Logo from "../assets/svg/snudeLogo.svg"
         <a href="/" class="no-underline relative inline-block text-2xl">BLOG</a>
       </li>
     </ul>
-      <a href="/Bliv_instruktoer" class="menu no-underline text-2xl sm:max-md:hidden">BLIV INSTRUKTØR</a>
+      <a href="/Bliv_instruktoer" class="menu sm:hidden md:block no-underline text-2xl">BLIV INSTRUKTØR</a>
     <div id="burger" class="absolute top-30 right-30 w-30 h-30 rounded-5 cursor-pointer content-center md:hidden sm:max-md:block">
       <span class="block relative bg-red-600 w-8 h-1 rounded-1 mb-1 z-10"></span>
       <span class="block relative bg-red-600 w-8 h-1 rounded-1 mb-1 z-10"></span>
@@ -73,6 +73,8 @@ import Logo from "../assets/svg/snudeLogo.svg"
       z-index: 1;
       text-align: center;
     }
+
+
     nav.active .menu.second {
       display: block;
       position: absolute;
