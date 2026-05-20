@@ -1,2 +1,201 @@
 ---
+
 ---
+<header>
+  <nav>
+    <a href="/"><img class="logo" />LOGO HER</a>
+    <ul class="menu">
+      <li class="fill-animation">
+        <a href="/" class="underline-animation">FORSIDE</a>
+      </li>
+      <li class="fill-animation">
+        <a href="/Hold_oversigt" class="underline-animation">HOLD OVERSIGT</a>
+      </li>
+      <li class="fill-animation">
+        <a href="/Om_os" class="underline-animation">OM OS</a>
+      </li>
+      <li class="fill-animation">
+        <a href="/" class="underline-animation">BLOG</a>
+      </li>
+    </ul>
+      <a href="/Bliv_instruktoer" class="underline-animation"
+      >BLIV INSTRUKTØR</a
+      >
+    <div id="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .logo {
+    max-width: 284px;
+    height: auto;
+  }
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+  li {
+    list-style: none;
+  }
+
+  nav > ul > li > a {
+    color: green;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.5rem;
+    display: inline-block;
+    position: relative;
+  }
+header{
+  position: sticky;
+  width: 100%;
+  top: 0;
+}
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80cqw;
+    padding: 16px;
+    margin: 0 auto 32px;
+    gap: 16px;
+    z-index: 10;
+  }
+
+  #burger {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    align-content: center;
+    cursor: pointer;
+  }
+  span {
+    display: block;
+    position: relative;
+    background-color: red;
+    width: 100%;
+    height: 4px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    z-index: 1;
+    transition:
+      transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      opacity 0.55s ease;
+  }
+
+  nav > #burger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(0, -1px);
+  }
+
+  nav > #burger span:nth-child(1) {
+    transform-origin: 0% 0%;
+  }
+  nav > #burger.active span:nth-child(2) {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  nav > #burger span:nth-child(2) {
+    opacity: 1;
+    transition: opacity 0.55s ease-in;
+  }
+
+  nav > #burger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(0, 1px);
+  }
+  nav > #burger span:nth-child(3) {
+    transform-origin: 0% 100%;
+  }
+
+  @media screen and (max-width: 975px) {
+    nav.active .menu.first {
+      display: block;
+      position: absolute;
+      background-color: blue;
+      top: 90px;
+      right: 0;
+      width: 100%;
+      z-index: 1;
+      text-align: center;
+    }
+    nav.active .menu.second {
+      display: block;
+      position: absolute;
+      background-color: blue;
+      top: 165px;
+      right: 0;
+      width: 100%;
+      z-index: 1;
+      text-align: center;
+    }
+    nav.active .fill-animation > a {
+      color: green
+      display: block;
+      width: 100%;
+    }
+
+    .fill-animation {
+      background: linear-gradient(
+        90deg,
+        blue 50%,
+        red 50%
+      );
+      background-position: -100%;
+      background-size: 200% 100%;
+      transition: background-position 0.3s ease-in;
+      animation-direction: alternate;
+    }
+
+    .fill-animation:hover {
+      background-position: 0;
+    }
+    nav.active .fill-animation > a {
+      color: transparent;
+      background-image: linear-gradient(
+        90deg,
+        blue 50%,
+        black 50%
+      );
+      background-position: -100%;
+      background-size: 200% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      transition: background-position 0.3s ease-in;
+      animation-direction: alternate;
+    }
+    nav.active .fill-animation:hover > a {
+      background-position: 0;
+    }
+
+    .menu {
+      display: none;
+    }
+
+    #burger {
+      display: block;
+    }
+
+    .underline-animation:after {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 975px) {
+    .underline-animation:after:hover {
+      transform: scaleX(0);
+    }
+    #burger {
+      display: none;
+    }
+  }
+</style>
+
+<script src="../assets/js/burger.js"></script>
