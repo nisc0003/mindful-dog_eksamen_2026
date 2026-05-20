@@ -1,9 +1,10 @@
 ---
-import Logo from "../assets/svg/snudeLogo.svg"
+import Logo from "../assets/icon/snudeLogo.webp"
+import {Image} from "astro:assets"
 ---
 <header class="sticky top-0 z-10">
   <nav class="flex justify-betweenitems-center font-bold w-[80cqw] gap-4 p-4 mt-0 m-auto mb-8">
-    <a href="/"><Logo class="min-w-18 max-w-25 h-auto" /></a>
+    <a href="/"><Image src={Logo} alt="Logo" class="min-w-18 max-w-25 h-auto" /></a>
     <ul class="menu sm:hidden md:flex justify-between list-none w-1/2 ">
       <li>
         <a href="/" class="no-underline relative inline-block text-2xl">FORSIDE</a>
