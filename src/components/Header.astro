@@ -1,29 +1,33 @@
 ---
 import Logo from "../assets/icon/snudeLogo.webp"
-import {Image} from "astro:assets"
+import {Image} from "astro:assets";
 ---
 <header class="sticky top-0 z-10">
-  <nav class="flex justify-betweenitems-center font-bold w-[80cqw] gap-4 p-4 mt-0 m-auto mb-8">
-    <a href="/"><Image src={Logo} alt="Logo" class="min-w-18 max-w-25 h-auto" /></a>
-    <ul class="menu sm:hidden md:flex justify-between list-none w-1/2 ">
+  <nav class="flex justify-between items-center text-center font-bold w-[100cqw] gap-4 p-4 mt-0 m-auto mb-8">
+    <div class="w-[16.5cqw]">
+      <a href="/"><Image src={Logo} alt="Logo" class="w-18 h-auto" /></a>
+    </div>
+    <ul class="menu first hidden list-none sm:flex sm:justify-between sm:gap-8
+  [&_li]:no-underline [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl">
       <li>
-        <a href="/" class="no-underline relative inline-block text-2xl">FORSIDE</a>
+        <a href="/">FORSIDE</a>
       </li>
       <li>
-        <a href="/Hold_oversigt" class="no-underline relative inline-block text-2xl">HOLD OVERSIGT</a>
+        <a href="/Hold_oversigt">HOLD OVERSIGT</a>
       </li>
       <li>
-        <a href="/Om_os" class="no-underline relative inline-block text-2xl">OM OS</a>
+        <a href="/Om_os">OM OS</a>
       </li>
       <li>
-        <a href="/" class="no-underline relative inline-block text-2xl">BLOG</a>
+        <a href="/">BLOG</a>
       </li>
     </ul>
-      <a href="/Bliv_instruktoer" class="menu sm:hidden md:block no-underline text-2xl">BLIV INSTRUKTØR</a>
-    <div id="burger" class="absolute top-30 right-30 w-30 h-30 rounded-5 cursor-pointer content-center md:hidden sm:max-md:block">
-      <span class="block relative bg-red-600 w-8 h-1 rounded-1 mb-1 z-10"></span>
-      <span class="block relative bg-red-600 w-8 h-1 rounded-1 mb-1 z-10"></span>
-      <span class="block relative bg-red-600 w-8 h-1 rounded-1 mb-1 z-10"></span>
+      <a href="/Bliv_instruktoer" class="menu second no-underline text-2xl hidden sm:block sm:text-sm sm:text-right md:text-lg lg:text-2xl">BLIV INSTRUKTØR</a>
+    <div id="burger" class="relative w-10 h-10 rounded-5 cursor-pointer mr-2 sm:hidden
+    [&_span]:block [&_span]:relative [&_span]:bg-neutral-900 [&_span]:w-full [&_span]:h-1.5 [&_span]:rounded-sm [&_span]:my-1.5 z-10">
+      <span ></span>
+      <span ></span>
+      <span ></span>
     </div>
   </nav>
 </header>
@@ -40,7 +44,7 @@ import {Image} from "astro:assets"
   }
 
   nav > #burger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(0, -1px);
+    transform: rotate(45deg) translate(0, -2px);
   }
 
   nav > #burger span:nth-child(1) {
@@ -57,22 +61,22 @@ import {Image} from "astro:assets"
   }
 
   nav > #burger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(0, 1px);
+    transform: rotate(-45deg) translate(0, 2px);
   }
   nav > #burger span:nth-child(3) {
     transform-origin: 0% 100%;
   }
 
-  @media screen and (max-width: 975px) {
     nav.active .menu.first {
       display: block;
       position: absolute;
       background-color: blue;
-      top: 90px;
+      top: calc(var(--spacing)*21);
       right: 0;
       width: 100%;
       z-index: 1;
-      text-align: center;
+      text-align: right;
+       padding-right: calc(var(--spacing)*4);
     }
 
 
@@ -80,41 +84,12 @@ import {Image} from "astro:assets"
       display: block;
       position: absolute;
       background-color: blue;
-      top: 165px;
+      top: calc(var(--spacing)*53);
       right: 0;
       width: 100%;
       z-index: 1;
-      text-align: center;
-    }
-    nav.active .fill-animation > a {
-      color: green
-      display: block;
-      width: 100%;
-    }
-
-  
-
-  
-    nav.active .fill-animation > a {
-      color: transparent;
-      background-image: linear-gradient(
-        90deg,
-        blue 50%,
-        black 50%
-      );
-      background-position: -100%;
-      background-size: 200% 100%;
-      background-clip: text;
-      -webkit-background-clip: text;
-      transition: background-position 0.3s ease-in;
-      animation-direction: alternate;
-    }
-    nav.active .fill-animation:hover > a {
-      background-position: 0;
-    }
-
-    .menu {
-      display: none;
+      text-align: right;
+      padding-right: calc(var(--spacing)*4);
     }
 
 </style>
