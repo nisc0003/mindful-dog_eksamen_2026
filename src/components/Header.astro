@@ -1,91 +1,38 @@
 ---
-
+import Logo from "../assets/svg/snudeLogo.svg"
 ---
-<header>
-  <nav>
-    <a href="/"><img class="logo" />LOGO HER</a>
-    <ul class="menu">
-      <li class="fill-animation">
-        <a href="/" class="underline-animation">FORSIDE</a>
+<header class="sticky top-0 z-10">
+  <nav class="flex justify-betweenitems-center font-bold w-[80cqw] gap-4 p-4 mt-0 m-auto mb-8">
+    <a href="/"><Logo class="min-w-18 max-w-25 h-auto" /></a>
+    <ul class="menu flex justify-between list-none w-1/2 sm:max-md:hidden">
+      <li>
+        <a href="/" class="no-underline relative inline-block text-2xl">FORSIDE</a>
       </li>
-      <li class="fill-animation">
-        <a href="/Hold_oversigt" class="underline-animation">HOLD OVERSIGT</a>
+      <li>
+        <a href="/Hold_oversigt" class="no-underline relative inline-block text-2xl">HOLD OVERSIGT</a>
       </li>
-      <li class="fill-animation">
-        <a href="/Om_os" class="underline-animation">OM OS</a>
+      <li>
+        <a href="/Om_os" class="no-underline relative inline-block text-2xl">OM OS</a>
       </li>
-      <li class="fill-animation">
-        <a href="/" class="underline-animation">BLOG</a>
+      <li>
+        <a href="/" class="no-underline relative inline-block text-2xl">BLOG</a>
       </li>
     </ul>
-      <a href="/Bliv_instruktoer" class="underline-animation"
-      >BLIV INSTRUKTØR</a
-      >
-    <div id="burger">
-      <span></span>
-      <span></span>
-      <span></span>
+      <a href="/Bliv_instruktoer" class="menu no-underline text-2xl sm:max-md:hidden">BLIV INSTRUKTØR</a>
+    <div id="burger" class="absolute top-30 right-30 w-30 h-30 rounded-5 cursor-pointer content-center md:hidden sm:max-md:block">
+      <span class="block relative bg-red-600 w-8 h-1 rounded-1 mb-1 z-10"></span>
+      <span class="block relative bg-red-600 w-8 h-1 rounded-1 mb-1 z-10"></span>
+      <span class="block relative bg-red-600 w-8 h-1 rounded-1 mb-1 z-10"></span>
     </div>
   </nav>
 </header>
 
 <style>
-  .logo {
-    max-width: 284px;
-    height: auto;
-  }
-  .menu {
-    display: flex;
-    justify-content: space-between;
-    width: 50%;
-  }
-  li {
-    list-style: none;
-  }
 
-  nav > ul > li > a {
-    color: green;
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 1.5rem;
-    display: inline-block;
-    position: relative;
-  }
-header{
-  position: sticky;
-  width: 100%;
-  top: 0;
-}
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 80cqw;
-    padding: 16px;
-    margin: 0 auto 32px;
-    gap: 16px;
-    z-index: 10;
-  }
 
-  #burger {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
-    align-content: center;
-    cursor: pointer;
-  }
+
+
   span {
-    display: block;
-    position: relative;
-    background-color: red;
-    width: 100%;
-    height: 4px;
-    border-radius: 3px;
-    margin-bottom: 5px;
-    z-index: 1;
     transition:
       transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
       opacity 0.55s ease;
@@ -142,21 +89,9 @@ header{
       width: 100%;
     }
 
-    .fill-animation {
-      background: linear-gradient(
-        90deg,
-        blue 50%,
-        red 50%
-      );
-      background-position: -100%;
-      background-size: 200% 100%;
-      transition: background-position 0.3s ease-in;
-      animation-direction: alternate;
-    }
+  
 
-    .fill-animation:hover {
-      background-position: 0;
-    }
+  
     nav.active .fill-animation > a {
       color: transparent;
       background-image: linear-gradient(
@@ -179,23 +114,6 @@ header{
       display: none;
     }
 
-    #burger {
-      display: block;
-    }
-
-    .underline-animation:after {
-      display: none;
-    }
-  }
-
-  @media screen and (min-width: 975px) {
-    .underline-animation:after:hover {
-      transform: scaleX(0);
-    }
-    #burger {
-      display: none;
-    }
-  }
 </style>
 
 <script src="../assets/js/burger.js"></script>
