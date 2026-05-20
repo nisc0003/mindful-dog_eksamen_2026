@@ -1,28 +1,29 @@
 ---
-import Logo from '../assets/svg/snudeLogo.svg';
-import InstaLogo from '../assets/svg/Instagram_Glyph_White.svg';
-import FBLogo from '../assets/svg/Facebook_Logo_White.svg';
-import LinkedInLogo from '../assets/svg/In-Bug_white.svg';
+import Logo from '../assets/icon/snudeLogo.webp';
+import InstaLogo from '../assets/icon/Instagram_Glyph_White.svg';
+import FBLogo from '../assets/icon/Facebook_Logo_White.svg';
+import LinkedInLogo from '../assets/icon/In-Bug_white.svg';
+import {Image} from "astro:assets";
 ---
 
-<footer>
+<footer class="bg-gray-800 text-white p-8 mt-8">
     <h1>Mindful Dog Academy</h1>
-    <p>Kontakt</p>\
+    <p>Kontakt</p>
     <p>Mindful-Dog Hovedkontor</p>
     <p>Tlf.: +45 29 60 55 39</p>
     <p>E-mail: grace@mindful-dog.dk</p>
     <p>Information</p>
     <a href="">Salgs- og Handelsbetingelser</a>
     <a href="">Læs om Mindful-Dog Metoden</a>
-    <div class="grid grid-cols-4 gap-2">
-        <span class="inline-block bg-red-600 w-full h-2 col-span-2"></span>
-        <Logo>
-        <span class="inline-block bg-red-600 w-full h-2"></span>
+    <div class="grid grid-cols-4 gap-2 place-items-center">
+        <span class="inline-block bg-red-600 w-full h-2 col-span-2 mbs-auto"></span>
+        <Image src={Logo} alt="Logo" class="w-full h-auto"/>
+        <span class="inline-block bg-red-600 w-full h-2 mbs-auto"></span>
     </div>
    <div class="grid grid-cols-5 gap-2">
-    <Insta-logo>
-    <FB-logo>
-    <LinkedIn-logo>
-    <button></button>
+    <InstaLogo class="w-full h-auto"/>
+    <FBLogo class="w-full h-auto"/>
+    <LinkedInLogo class="w-full h-auto"/>
+    <button class="row-start-2 col-span-4"></button>
    </div>
-    <footer/>
+<footer/>
