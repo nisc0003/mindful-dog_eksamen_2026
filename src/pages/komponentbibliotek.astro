@@ -1,9 +1,74 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from "../components/Button.astro";
 import Link from "../components/Link.astro";
 ---
 
 <MainLayout title="Komponentbibliotek">
-  <article></article>
+  <!-- Sideoverskrift og kort forklaring på hvad biblioteket viser. -->
+  <article
+    class="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-12 md:px-10 lg:px-16"
+  >
+    <header class="max-w-3xl space-y-4">
+      <!-- Lille label over overskriften. -->
+      <p class="text-text-label text-sm tracking-[0.3em] uppercase">
+        Komponentbibliotek
+      </p>
+      <!-- Hovedoverskrift for siden. -->
+      <h1 class="text-text-primary text-4xl font-semibold md:text-6xl">
+        Buttons og linkbuttons
+      </h1>
+      <!-- Kort intro til indholdet. -->
+      <p class="text-text-secondary text-lg">
+        Her kan du se de forskellige varianter, størrelser og farvetemaer.
+        Størrelserne skalerer med dine typografitokens fra standard til lg.
+      </p>
+    </header>
+
+    <!-- Sektion med linkbuttons. -->
+    <section
+      class="bg-page-bg-secondary space-y-5 rounded-3xl border border-neutral-200 p-6 shadow-sm"
+    >
+      <div class="space-y-2">
+        <!-- Sektionstitel for linkbuttons. -->
+        <h2 class="text-text-primary text-2xl font-semibold">Link buttons</h2>
+        <!-- Undertekst til linkknapperne. -->
+        <p class="text-text-secondary text-sm">
+          Text links, knap-links og image-linkbuttons med samme tone- og
+          storrelsesskala.
+        </p>
+      </div>
+
+      <!-- Eksempler på tekstlink og logo-link. -->
+      <!-- textlink -->
+      <Link href="/" variant="textlink" size="default">text link</Link>
+      <Link href="/" variant="textlink" size="large">text link</Link>
+      <Link href="/" variant="textlink" size="medium">text link</Link>
+      <Link href="/" variant="textlink" size="small">text link</Link>
+      <!-- primary link -->
+      <Link href="/" variant="primary" size="default">Primary link</Link>
+      <Link href="/" variant="primary" size="large">Primary link</Link>
+      <Link href="/" variant="primary" size="medium">Primary link</Link>
+      <Link href="/" variant="primary" size="small">Primary link</Link>
+      <!-- secondary link -->
+      <Link href="/" variant="secondary" size="default">Secondary link</Link>
+      <Link href="/" variant="secondary" size="large">Secondary link</Link>
+      <Link href="/" variant="secondary" size="medium">Secondary link</Link>
+      <Link href="/" variant="secondary" size="small">Secondary link</Link>
+      <!-- tertiary link -->
+      <Link href="/" variant="tertiary" size="default">tertiary link</Link>
+      <Link href="/" variant="tertiary" size="large">tertiary link</Link>
+      <Link href="/" variant="tertiary" size="medium">tertiary link</Link>
+      <Link href="/" variant="tertiary" size="small">tertiary link</Link>
+      <!-- quaternary link -->
+      <Link href="/" variant="quaternary" size="default">quaternary link</Link>
+      <Link href="/" variant="quaternary" size="large"> quaternary link </Link>
+      <Link href="/" variant="quaternary" size="medium"> quaternary link </Link>
+      <Link href="/" variant="quaternary" size="small"> quaternary link </Link>
+      <!-- outline link -->
+      <Link href="/" variant="outline" size="default">outline link</Link>
+      <Link href="/" variant="outline" size="large">outline link</Link>
+      <Link href="/" variant="outline" size="medium">outline link</Link>
+      <Link href="/" variant="outline" size="small">outline link</Link>
+    </section>
+  </article>
 </MainLayout>

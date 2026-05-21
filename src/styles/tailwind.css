@@ -161,38 +161,68 @@
   --neutral-900: var(--primitive-neutral-0);
 }
 
-/* =========================================================
-    SEMANTISKE TOKEN
-    Holdes samlet, enkel og let at ændre senere.
-    ========================================================= */
+@theme inline {
+  --color-main-100: var(--main-100);
+  --color-main-200: var(--main-200);
+  --color-main-300: var(--main-300);
+  --color-main-400: var(--main-400);
+  --color-main-500: var(--main-500);
 
-:root {
-  /* =========================
-     SIDE OG SEKTIONER
-     ========================= */
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
 
-  /* Side-layout: margin/padding pr. breakpoint */
-  --page-space-inline: clamp(
-    var(--primitive-space-20),
-    4vw,
-    var(--primitive-space-128)
-  );
+  --color-neutral-0: var(--neutral-0);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-900: var(--neutral-900);
 
-  /* Sektion-layout: vertikal padding */
-  --section-space-y: clamp(
-    var(--primitive-space-20),
-    6vw,
-    var(--primitive-space-128)
-  );
+  /* ___pages___ */
+  --color-page-bg-main: var(--neutral-100);
+  --color-page-bg-secondary: var(--neutral-0);
+  --color-page-bg-tertiary: var(--neutral-500);
 
-  /* ____________________page background____________________ */
-  --page-bg-main: var(--neutral-100);
-  --page-bg-secondary: var(--neutral-0);
-  --page-bg-tertiary: var(--neutral-500);
+  /* ___link and buttons___ */
+  --color-link-text: var(--neutral-400);
+  --color-link-text-hover: var(--accent-500);
 
-  /* ____________________Typography____________________ */
-  --font-heading: var(--primitive-font-display);
-  --font-body: var(--primitive-font-body);
+  --color-button-primary-bg: var(--main-200);
+  --color-button-primary-bg-hover: var(--main-400);
+  --color-button-primary-text: var(--neutral-0);
+  --color-button-primary-text-hover: var(--neutral-100);
+
+  --color-button-secondary-bg: var(--accent-200);
+  --color-button-secondary-bg-hover: var(--accent-400);
+  --color-button-secondary-text: var(--neutral-0);
+  --color-button-secondary-text-hover: var(--neutral-100);
+
+  --color-button-tertiary-bg: var(--neutral-500);
+  --color-button-tertiary-bg-hover: var(--neutral-400);
+  --color-button-tertiary-text: var(--neutral-100);
+  --color-button-tertiary-text-hover: var(--neutral-0);
+
+  --color-button-quaternary-bg: var(--neutral-100);
+  --color-button-quaternary-bg-hover: var(--neutral-200);
+  --color-button-quaternary-text: var(--neutral-500);
+  --color-button-quaternary-text-hover: var(--neutral-900);
+
+  --color-button-outline-bg: transparent;
+  --color-button-outline-bg-hover: transparent;
+  --color-button-outline-border: var(--neutral-500);
+  --color-button-outline-border-hover: var(--neutral-400);
+  --color-button-outline-text: var(--neutral-500);
+  --color-button-outline-text-hover: var(--neutral-400);
+
+  /* ___text and heading___ */
+  --color-text-primary: var(--neutral-500);
+  --color-text-muted: var(--neutral-400);
+  --color-text-inverse: var(--neutral-0);
+  --color-text-label: var(--neutral-400);
 
   --text-size-10: var(--primitive-font-10);
   --text-size-12: var(--primitive-font-12);
@@ -209,57 +239,6 @@
   --text-size-100: var(--primitive-font-100);
   --text-size-180: var(--primitive-font-180);
 
-  --heading-1-size: var(--primitive-font-180);
-  --heading-2-size: var(--primitive-font-100);
-  --heading-3-size: var(--primitive-font-80);
-  --heading-4-size: var(--primitive-font-40);
-  --heading-5-size: var(--primitive-font-30);
-  --heading-6-size: var(--primitive-font-20);
-
-  --text-primary: var(--neutral-500);
-  --text-secondary: var(--neutral-400);
-  --text-muted: var(--neutral-300);
-  --text-inverse: var(--neutral-0);
-  --text-label: var(--neutral-400);
-
-  /* ____________________Links____________________ */
-  --link-text: var(--accent-400);
-  --link-text-hover: var(--accent-500);
-
-  /* ____________________Buttons and linkbuttons____________________ */
-  --button-primary-bg: var(--main-400);
-  --button-primary-bg-hover: var(--main-500);
-  --button-primary-text: var(--neutral-0);
-
-  --button-secondary-bg: var(--accent-200);
-  --button-secondary-bg-hover: var(--accent-400);
-  --button-secondary-text: var(--neutral-0);
-
-  --button-accent-bg: var(--accent-200);
-  --button-accent-bg-hover: var(--accent-400);
-  --button-accent-text: var(--neutral-500);
-
-  --button-main-bg: var(--main-200);
-  --button-main-bg-hover: var(--main-400);
-  --button-main-text: var(--neutral-500);
-
-  --button-neutral-bg: var(--neutral-500);
-  --button-neutral-bg-hover: var(--neutral-300);
-  --button-neutral-text: var(--neutral-0);
-
-  --button-outline-bg: transparent;
-  --button-outline-bg-hover: transparent;
-  --button-outline-border: var(--neutral-500);
-  --button-outline-border-hover: var(--neutral-300);
-  --button-outline-text: var(--neutral-500);
-
-  --button-soft-bg: var(--accent-100);
-  --button-soft-bg-hover: var(--accent-300);
-  --button-soft-text: var(--neutral-500);
-
-  /* ____________________Sections____________________ */
-  --section-bg-1: var(--main-200);
-  --section-bg-2: var(--accent-200);
-  --section-bg-3: var(--main-400);
-  --section-bg-4: var(--accent-400);
+  --font-heading: var(--primitive-font-display);
+  --font-body: var(--primitive-font-body);
 }

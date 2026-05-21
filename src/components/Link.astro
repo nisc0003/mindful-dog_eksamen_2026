@@ -1,3 +1,56 @@
 ---
+const {
+  href = "#",
+  target = "_self",
+  variant = "textlink",
+  size = "default",
+} = Astro.props as {
+  href?: string;
+  target?: string;
+  variant?:
+    | "textlink"
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "quaternary"
+    | "outline";
+  size?: "default" | "large" | "medium" | "small";
+};
 
+const linkStyling = "";
+
+const variantClasses = {
+  textlink:
+    "border-transparent bg-transparent text-link-text hover:text-link-text-hover hover:underline underline-offset-4 hover:shadow-none",
+
+  primary:
+    "border-2 border-button-primary-bg bg-button-primary-bg text-button-primary-text hover:bg-button-primary-bg-hover hover:border-button-primary-bg-hover hover:text-button-primary-text-hover",
+
+  secondary:
+    "border-2 border-button-secondary-bg bg-button-secondary-bg text-button-secondary-text hover:bg-button-secondary-bg-hover hover:border-button-secondary-bg-hover hover:text-button-secondary-text-hover",
+
+  tertiary:
+    "border-2 border-button-tertiary-bg bg-button-tertiary-bg text-button-tertiary-text hover:bg-button-tertiary-bg-hover hover:border-button-tertiary-bg-hover hover:text-button-tertiary-text-hover",
+
+  quaternary:
+    "border-2 border-button-quaternary-bg bg-button-quaternary-bg text-button-quaternary-text hover:bg-button-quaternary-bg-hover hover:border-button-quaternary-bg-hover hover:text-button-quaternary-text-hover",
+
+  outline:
+    "border-button-outline-border bg-button-outline-bg text-button-outline-text hover:bg-button-outline-bg-hover hover:border-button-outline-border-hover hover:text-button-outline-text-hover",
+} as const;
+
+const sizeClasses = {
+  default: "text-size-16 lg:text-size-20 px-5 py-3 uppercase",
+  large: "text-size-20 lg:text-size-25 px-22 py-4 uppercase",
+  medium: "text-size-16 lg:text-size-25 px-5 py-3 uppercase",
+  small: "text-size-14 lg:text-size-16 px-4 py-2",
+} as const;
 ---
+
+<a
+  href={href}
+  target={target}
+  class:list={[linkStyling, variantClasses[variant], sizeClasses[size]]}
+>
+  <slot />
+</a>
