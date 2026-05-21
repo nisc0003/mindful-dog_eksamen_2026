@@ -1,3 +1,13 @@
 ---
-
+const { titel } = Astro.props;
 ---
+
+<article
+  class="mx-auto h-auto w-[50cqw] rounded-lg bg-(--primitive-neutral-100) p-8 text-(--primitive-neutral-500)"
+>
+  <div class="grid grid-cols-3">
+    <slot name="ikon" />
+    <h2 class="col-span-2 mb-4 text-2xl font-bold">{titel}</h2>
+  </div>
+  <slot />
+</article>
