@@ -11,10 +11,10 @@
 
 :root {
   /* Skrifttype til overskrifter og display-tekst */
-  --primitive-font-display: "Geologica", sans-serif;
+  --font-display: "Geologica", sans-serif;
 
   /* Skrifttype til brødtekst og UI */
-  --primitive-font-body: "Manrope", sans-serif;
+  --font-sans: "Manrope", sans-serif;
 
   /* Primær farveskala */
   --primitive-main-100: #f9f8db;
