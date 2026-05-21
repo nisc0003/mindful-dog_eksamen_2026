@@ -1,15 +1,18 @@
 ---
-<<<<<<< HEAD
-import Logo from "../assets/icon/snudeLogo.webp"
-import {Image} from "astro:assets";
+import Logo from "../assets/icon/snudeLogo.webp";
+import { Image } from "astro:assets";
 ---
+
 <header class="sticky top-0 z-10">
-  <nav class="flex justify-between items-center text-center font-bold w-[100cqw] gap-4 p-4 mt-0 m-auto mb-8">
+  <nav
+    class="m-auto mt-0 mb-8 flex w-[100cqw] items-center justify-between gap-4 p-4 text-center font-bold"
+  >
     <div class="w-[16.5cqw]">
-      <a href="/"><Image src={Logo} alt="Logo" class="w-18 h-auto" /></a>
+      <a href="/"><Image src={Logo} alt="Logo" class="h-auto w-18" /></a>
     </div>
-    <ul class="menu first hidden list-none sm:flex sm:justify-between sm:gap-8
-  [&_li]:no-underline [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl">
+    <ul
+      class="menu first hidden list-none sm:flex sm:justify-between sm:gap-8 [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:no-underline [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl"
+    >
       <li>
         <a href="/">FORSIDE</a>
       </li>
@@ -23,21 +26,23 @@ import {Image} from "astro:assets";
         <a href="/">BLOG</a>
       </li>
     </ul>
-      <a href="/Bliv_instruktoer" class="menu second no-underline text-2xl hidden sm:block sm:text-sm sm:text-right md:text-lg lg:text-2xl">BLIV INSTRUKTØR</a>
-    <div id="burger" class="relative w-10 h-10 rounded-5 cursor-pointer mr-2 sm:hidden
-    [&_span]:block [&_span]:relative [&_span]:bg-neutral-900 [&_span]:w-full [&_span]:h-1.5 [&_span]:rounded-sm [&_span]:my-1.5 z-10">
-      <span ></span>
-      <span ></span>
-      <span ></span>
+    <a
+      href="/Bliv_instruktoer"
+      class="menu second hidden text-2xl no-underline sm:block sm:text-right sm:text-sm md:text-lg lg:text-2xl"
+      >BLIV INSTRUKTØR</a
+    >
+    <div
+      id="burger"
+      class="rounded-5 relative z-10 mr-2 h-10 w-10 cursor-pointer sm:hidden [&_span]:relative [&_span]:my-1.5 [&_span]:block [&_span]:h-1.5 [&_span]:w-full [&_span]:rounded-sm [&_span]:bg-neutral-900"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </nav>
 </header>
 
 <style>
-
-
-
-
   span {
     transition:
       transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
@@ -68,35 +73,29 @@ import {Image} from "astro:assets";
     transform-origin: 0% 100%;
   }
 
-    nav.active .menu.first {
-      display: block;
-      position: absolute;
-      background-color: blue;
-      top: calc(var(--spacing)*21);
-      right: 0;
-      width: 100%;
-      z-index: 1;
-      text-align: right;
-       padding-right: calc(var(--spacing)*4);
-    }
+  nav.active .menu.first {
+    display: block;
+    position: absolute;
+    background-color: blue;
+    top: calc(var(--spacing) * 21);
+    right: 0;
+    width: 100%;
+    z-index: 1;
+    text-align: right;
+    padding-right: calc(var(--spacing) * 4);
+  }
 
-
-    nav.active .menu.second {
-      display: block;
-      position: absolute;
-      background-color: blue;
-      top: calc(var(--spacing)*53);
-      right: 0;
-      width: 100%;
-      z-index: 1;
-      text-align: right;
-      padding-right: calc(var(--spacing)*4);
-    }
-
+  nav.active .menu.second {
+    display: block;
+    position: absolute;
+    background-color: blue;
+    top: calc(var(--spacing) * 53);
+    right: 0;
+    width: 100%;
+    z-index: 1;
+    text-align: right;
+    padding-right: calc(var(--spacing) * 4);
+  }
 </style>
 
 <script src="../assets/js/burger.js"></script>
-=======
-
----
->>>>>>> feature/Tailwind.css

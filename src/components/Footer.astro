@@ -1,53 +1,52 @@
 ---
-<<<<<<< HEAD
-import Logo from '../assets/icon/snudeLogo.webp';
-import InstaLogo from '../assets/icon/Instagram_Glyph_White.svg';
-import FBLogo from '../assets/icon/Facebook_Logo_White.svg';
-import LinkedInLogo from '../assets/icon/In-Bug_white.svg';
-import {Image} from "astro:assets";
+import Logo from "../assets/icon/snudeLogo.webp";
+import InstaLogo from "../assets/icon/Instagram_Glyph_White.svg";
+import FBLogo from "../assets/icon/Facebook_Logo_White.svg";
+import LinkedInLogo from "../assets/icon/In-Bug_white.svg";
+import { Image } from "astro:assets";
 ---
 
-<footer class="flex flex-col bg-gray-800 text-white p-6 mt-8 gap-4
-[&_a]:text-sm [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline sm:[&_a]:text-lg">
-<div class="sm:flex sm:justify-between sm:gap-8">
+<footer
+  class="mt-8 flex flex-col gap-4 bg-gray-800 p-6 text-white [&_a]:text-sm [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline sm:[&_a]:text-lg"
+>
+  <div class="sm:flex sm:justify-between sm:gap-8">
+    <h1 class="mt-5 text-6xl font-bold">Mindful<br />Dog<br />Academy</h1>
 
-    <h1 class="text-6xl font-bold mt-5">Mindful<br>Dog<br>Academy</h1>
-    
-    <div class="flex flex-col gap-4 mt-5 sm:flex-row sm:gap-16">
-        <div class="flex flex-col gap-4">
-            <p class="text-xs font-thin">Kontakt</p>
-            <div class="[&_p]:text-sm sm:[&_p]:text-lg">
-                <p class="font-semibold">Mindful-Dog Hovedkontor</p>
-                <p>Grace Hidalgo</p>
-            </div>
-            <p class="text-sm sm:text-lg">Tlf.: +45 29 60 55 39</p>
-            <p class="text-sm sm:text-lg">E-mail: grace@mindful-dog.dk</p>
+    <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:gap-16">
+      <div class="flex flex-col gap-4">
+        <p class="text-xs font-thin">Kontakt</p>
+        <div class="[&_p]:text-sm sm:[&_p]:text-lg">
+          <p class="font-semibold">Mindful-Dog Hovedkontor</p>
+          <p>Grace Hidalgo</p>
         </div>
-        <div class="flex flex-col gap-4">
-            <p class="text-xs font-thin">Information</p>
-            <a href="" class="font-semibold ">Salgs- og Handelsbetingelser</a>
-            <a href="" class="font-semibold">Læs om Mindful-Dog Metoden</a>
-        </div>    
+        <p class="text-sm sm:text-lg">Tlf.: +45 29 60 55 39</p>
+        <p class="text-sm sm:text-lg">E-mail: grace@mindful-dog.dk</p>
+      </div>
+      <div class="flex flex-col gap-4">
+        <p class="text-xs font-thin">Information</p>
+        <a href="" class="font-semibold">Salgs- og Handelsbetingelser</a>
+        <a href="" class="font-semibold">Læs om Mindful-Dog Metoden</a>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="grid grid-cols-4 gap-4 place-items-center sm:col-span-3
-    [&_span]:bg-neutral-100 [&_span]:w-full [&_span]:h-0.5 [&_span]:my-auto sm:[&_span]:h-1">
-    <span class="col-span-2 "></span>
-    <Image src={Logo} alt="Logo" class="w-4/5 h-auto"/>
+  <div
+    class="grid grid-cols-4 place-items-center gap-4 sm:col-span-3 [&_span]:my-auto [&_span]:h-0.5 [&_span]:w-full [&_span]:bg-neutral-100 sm:[&_span]:h-1"
+  >
+    <span class="col-span-2"></span>
+    <Image src={Logo} alt="Logo" class="h-auto w-4/5" />
     <span class="col-span-1"></span>
-</div>
+  </div>
 
-<div class="flex flex-wrap gap-4 sm:flex-nowrap sm:justify-between">
+  <div class="flex flex-wrap gap-4 sm:flex-nowrap sm:justify-between">
     <div class="flex gap-4 sm:order-2">
-        <InstaLogo class=" aspect-square h-auto w-[10vw] sm:w-[5vw]"/>
-        <FBLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]"/>
-        <LinkedInLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]"/>
+      <InstaLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]" />
+      <FBLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]" />
+      <LinkedInLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]" />
     </div>
-    <button class="w-[66vw] sm:w-[33vw] h-fit sm:order-1 sm:col-start-1 sm:text-[2cqw] sm:place-self-center bg-neutral-100 text-gray-800 font-extrabold px-6 py-2 rounded-lg">TILMELD NYHEDSBREV</button>
-</div>
-<footer/>
-=======
-
----
->>>>>>> feature/Tailwind.css
+    <button
+      class="h-fit w-[66vw] rounded-lg bg-neutral-100 px-6 py-2 font-extrabold text-gray-800 sm:order-1 sm:col-start-1 sm:w-[33vw] sm:place-self-center sm:text-[2cqw]"
+      >TILMELD NYHEDSBREV</button
+    >
+  </div>
+</footer>
