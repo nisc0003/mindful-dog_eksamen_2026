@@ -3,7 +3,7 @@ import Logo from "../assets/icon/snudeLogo.webp";
 import { Image } from "astro:assets";
 ---
 
-<header class="sticky top-0 z-10">
+<header class="sticky top-0 z-10 bg-(--primitive-neutral-100)">
   <nav
     class="m-auto mt-0 mb-8 flex w-[100cqw] items-center justify-between gap-4 p-4 text-center font-bold"
   >
@@ -11,7 +11,7 @@ import { Image } from "astro:assets";
       <a href="/"><Image src={Logo} alt="Logo" class="h-auto w-18" /></a>
     </div>
     <ul
-      class="menu first hidden list-none sm:flex sm:justify-between sm:gap-8 [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:no-underline [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl"
+      class="menu first hidden list-none sm:flex sm:justify-between sm:gap-8 [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:text-(--primitive-neutral-500) [&_li]:no-underline [&_li]:transition-colors [&_li]:duration-150 [&_li]:hover:text-(--primitive-accent-200) [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl"
     >
       <li>
         <a href="/">FORSIDE</a>
@@ -76,7 +76,7 @@ import { Image } from "astro:assets";
   nav.active .menu.first {
     display: block;
     position: absolute;
-    background-color: blue;
+    background-color: var(--primitive-neutral-100);
     top: calc(var(--spacing) * 21);
     right: 0;
     width: 100%;
@@ -88,7 +88,7 @@ import { Image } from "astro:assets";
   nav.active .menu.second {
     display: block;
     position: absolute;
-    background-color: blue;
+    background-color: var(--primitive-neutral-100);
     top: calc(var(--spacing) * 53);
     right: 0;
     width: 100%;
