@@ -1,12 +1,18 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import Button from '../components/Button.astro';
+import BBlue from '../components/ButtonBlue.astro';
+import BGreen from '../components/ButtonGreen.astro';
+import BBlack from '../components/ButtonBlack.astro';
+import BWhite from '../components/ButtonWhite.astro';
 import Link from '../components/Link.astro';
 ---
 <MainLayout title="Forside">
 	<article>
 		<h1>Forside</h1>
-		<Button>Klik!</Button>
+		<BBlue link="" text="TEST KNAP"/>
+		<BGreen link="" text="TEST KNAP"/>
+		<BBlack link="" text="TEST KNAP"/>
+		<BWhite link="" text="TEST KNAP"/>
 		<p>Link til <Link href="https://www.kea.dk" target="_blank">En anden side</Link></p>
 	</article>
 </MainLayout>

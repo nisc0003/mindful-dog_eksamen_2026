@@ -4,14 +4,14 @@ import InstaLogo from '../assets/icon/Instagram_Glyph_White.svg';
 import FBLogo from '../assets/icon/Facebook_Logo_White.svg';
 import LinkedInLogo from '../assets/icon/In-Bug_white.svg';
 import {Image} from "astro:assets";
+import BTN from './ButtonBlue.astro'
+
 ---
 
-<footer class="flex flex-col bg-gray-800 text-white p-6 mt-8 gap-4
+<footer class="flex flex-col bg-gray-800 text-white p-6 mt-8 gap-4">
+<div class="sm:flex sm:justify-between sm:gap-8
 [&_a]:text-sm [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline sm:[&_a]:text-lg">
-<div class="sm:flex sm:justify-between sm:gap-8">
-
     <h1 class="text-6xl font-bold mt-5">Mindful<br>Dog<br>Academy</h1>
-    
     <div class="flex flex-col gap-4 mt-5 sm:flex-row sm:gap-16">
         <div class="flex flex-col gap-4">
             <p class="text-xs font-thin">Kontakt</p>
@@ -43,6 +43,15 @@ import {Image} from "astro:assets";
         <FBLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]"/>
         <LinkedInLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]"/>
     </div>
-    <button class="w-[66vw] sm:w-[33vw] h-fit sm:order-1 sm:col-start-1 sm:text-[2cqw] sm:place-self-center bg-neutral-100 text-gray-800 font-extrabold px-6 py-2 rounded-lg">TILMELD NYHEDSBREV</button>
+    <button class="w-[66vw] sm:w-[33vw] h-fit sm:order-1 sm:col-start-1 sm:text-[2cqw] sm:place-self-center
+    bg-neutral-100 text-gray-800 font-extrabold px-6 py-2 rounded-lg hover:bg-gray-500 transition-colors duration-300"
+    >TILMELD NYHEDSBREV</button>
 </div>
 <footer/>
+
+<style>
+    .buttonStyle{
+        background-color: #000000;
+        color: #333;
+    }
+</style>
