@@ -5,89 +5,57 @@
 @import "tailwindcss-intersect";
 
 /* =========================================================
-   DESIGN SYSTEM
-   Primitive → Semantic → Theme → Tailwind Mapping
-
-   IMPORTANT:
-   - Primitive tokens stay untouched
-   - Semantic tokens are theme-aware
-   - Components should mostly style themselves in Astro
-   - CSS only defines the design language
-========================================================= */
-
-/* =========================================================
-   PRIMITIVE TOKENS
-   DO NOT CHANGE OR USE THESE
-========================================================= */
+   PRIMITIVE-VÆRDIER
+   Rå værdier som ALT andet bygger på.
+   ========================================================= */
 
 :root {
-  /* Typography */
-  --font-display: "Geologica", sans-serif;
-  --font-sans: "Manrope", sans-serif;
+  /* Skrifttype til overskrifter og display-tekst */
+  --primitive-font-display: "Geologica", sans-serif;
 
-  /* ======================================================
-     COLORS — MAIN
-  ====================================================== */
+  /* Skrifttype til brødtekst og UI */
+  --primitive-font-body: "Manrope", sans-serif;
 
+  /* Primær farveskala */
   --primitive-main-100: #f9f8db;
   --primitive-main-200: #ece8a4;
   --primitive-main-300: #b2b068;
   --primitive-main-400: #79772c;
   --primitive-main-500: #403e00;
 
-  /* ======================================================
-     COLORS — ACCENT
-  ====================================================== */
-
+  /* Accent farveskala */
   --primitive-accent-100: #c2e8ff;
   --primitive-accent-200: #9dbbdf;
   --primitive-accent-300: #788eaa;
   --primitive-accent-400: #526276;
   --primitive-accent-500: #2c3642;
 
-  /* ======================================================
-     COLORS — NEUTRAL
-  ====================================================== */
-
+  /* Neutral farveskala */
+  --primitive-neutral-0: #ffffff;
   --primitive-neutral-100: #f7f7f7;
   --primitive-neutral-200: #e6e6e6;
   --primitive-neutral-300: #a8a8a8;
   --primitive-neutral-400: #4b4b4b;
   --primitive-neutral-500: #191618;
+  --primitive-neutral-900: #000000;
 
-  /* ======================================================
-     FONT SIZES
-  ====================================================== */
-
-  /* ── PRIMITIVE: Font sizes ── */
-  /* 10px */
+  /* Skriftstørrelser */
   --primitive-font-10: 0.625rem;
-  /* 15px */
+  --primitive-font-12: 0.75rem;
+  --primitive-font-14: 0.875rem;
   --primitive-font-15: 0.9375rem;
-  /* 17px */
+  --primitive-font-16: 1rem;
   --primitive-font-17: 1.0625rem;
-  /* 20px */
   --primitive-font-20: 1.25rem;
-  /* 25px */
   --primitive-font-25: 1.5625rem;
-  /* 30px */
   --primitive-font-30: 1.875rem;
-  /* 40px */
   --primitive-font-40: 2.5rem;
-  /* 65px */
   --primitive-font-65: 4.0625rem;
-  /* 80px */
   --primitive-font-80: 5rem;
-  /* 100px */
   --primitive-font-100: 6.25rem;
-  /* 180px */
   --primitive-font-180: 11.25rem;
 
-  /* ======================================================
-     SPACING SCALE
-     FIXED MISSING TOKENS
-  ====================================================== */
-
+  /* Afstandsskala */
   --primitive-space-0: 0px;
   --primitive-space-4: 4px;
   --primitive-space-8: 8px;
@@ -103,11 +71,12 @@
   --primitive-space-48: 48px;
   --primitive-space-56: 56px;
   --primitive-space-64: 64px;
-  --primitive-space-96: 96px;
+  --primitive-space-72: 72px;
   --primitive-space-80: 80px;
+  --primitive-space-96: 96px;
+  --primitive-space-112: 112px;
   --primitive-space-128: 128px;
   --primitive-space-144: 144px;
-  --primitive-space-112: 112px;
   --primitive-space-160: 160px;
   --primitive-space-176: 176px;
   --primitive-space-192: 192px;
@@ -119,10 +88,7 @@
   --primitive-space-320: 320px;
   --primitive-space-384: 384px;
 
-  /* ======================================================
-     RADIUS
-  ====================================================== */
-
+  /* Radius-skala */
   --primitive-radius-none: 0px;
   --primitive-radius-xs: 2px;
   --primitive-radius-sm: 4px;
@@ -136,370 +102,164 @@
 }
 
 /* =========================================================
-   SEMANTIC TOKENS — STANDARD THEME
-========================================================= */
+   OVERORDNET TEMA
+   Her defineres standardtemaet og det mørke tema ud fra primitive værdier.
+   ========================================================= */
 
 :root,
 [data-theme="standard"] {
-  /* Backgrounds */
-  --color-bg: var(--primitive-neutral-100);
-  --color-surface: var(--primitive-neutral-200);
-  --color-surface-raised: #ffffff;
+  /* Primær farveskala */
+  --main-100: var(--primitive-main-100);
+  --main-200: var(--primitive-main-200);
+  --main-300: var(--primitive-main-300);
+  --main-400: var(--primitive-main-400);
+  --main-500: var(--primitive-main-500);
 
-  /* Text */
-  --color-text: var(--primitive-neutral-500);
-  --color-text-muted: var(--primitive-neutral-400);
-  --color-text-subtle: var(--primitive-neutral-300);
-  --color-text-inverse: var(--primitive-neutral-100);
+  /* Accent farveskala */
+  --accent-100: var(--primitive-accent-100);
+  --accent-200: var(--primitive-accent-200);
+  --accent-300: var(--primitive-accent-300);
+  --accent-400: var(--primitive-accent-400);
+  --accent-500: var(--primitive-accent-500);
 
-  /* main */
-  --color-primary: var(--primitive-main-200);
-  --color-primary-dark: var(--primitive-main-300);
-  --color-primary-light: var(--primitive-main-100);
+  /* Neutral farveskala */
+  --neutral-100: var(--primitive-neutral-100);
+  --neutral-200: var(--primitive-neutral-200);
+  --neutral-300: var(--primitive-neutral-300);
+  --neutral-400: var(--primitive-neutral-400);
+  --neutral-500: var(--primitive-neutral-500);
 
-  /* secondary */
-  --color-secondary: var(--primitive-accent-200);
-  --color-secondary-dark: var(--primitive-accent-300);
-  --color-secondary-light: var(--primitive-accent-100);
-
-  /* accent1 */
-  --color-accent1: var(--primitive-main-400);
-  --color-accent1-dark: var(--primitive-main-500);
-
-  /* accent2 */
-  --color-accent2: var(--primitive-accent-400);
-  --color-accent2-dark: var(--primitive-accent-500);
-
-  /* Theme */
-  --theme-overlay: rgba(255, 255, 255, 0.8);
+  /*  ikke rigtigt brugt */
+  --neutral-0: var(--primitive-neutral-0);
+  --neutral-900: var(--primitive-neutral-900);
 }
-
-/* =========================================================
-   SEMANTIC TOKENS — DARK THEME
-========================================================= */
 
 [data-theme="dark"] {
-  /* Backgrounds */
-  --color-bg: var(--primitive-neutral-100);
-  --color-surface: var(--primitive-neutral-200);
-  --color-surface-raised: #ffffff;
+  /* Primær farveskala */
+  --main-100: var(--primitive-accent-500);
+  --main-200: var(--primitive-accent-400);
+  --main-300: var(--primitive-accent-300);
+  --main-400: var(--primitive-accent-200);
+  --main-500: var(--primitive-accent-100);
 
-  /* Text */
-  --color-text: var(--primitive-neutral-500);
-  --color-text-muted: var(--primitive-neutral-400);
-  --color-text-subtle: var(--primitive-neutral-300);
-  --color-text-inverse: var(--primitive-neutral-100);
+  /* Accent farveskala */
+  --accent-100: var(--primitive-main-500);
+  --accent-200: var(--primitive-main-400);
+  --accent-300: var(--primitive-main-300);
+  --accent-400: var(--primitive-main-200);
+  --accent-500: var(--primitive-main-100);
 
-  /* main */
-  --color-primary: var(--primitive-main-200);
-  --color-primary-dark: var(--primitive-main-300);
-  --color-primary-light: var(--primitive-main-100);
+  /* Neutral farveskala */
+  --neutral-100: var(--primitive-neutral-500);
+  --neutral-200: var(--primitive-neutral-400);
+  --neutral-300: var(--primitive-neutral-300);
+  --neutral-400: var(--primitive-neutral-200);
+  --neutral-500: var(--primitive-neutral-100);
 
-  /* secondary */
-  --color-secondary: var(--primitive-accent-200);
-  --color-secondary-dark: var(--primitive-accent-300);
-  --color-secondary-light: var(--primitive-accent-100);
-
-  /* accent1 */
-  --color-accent1: var(--primitive-main-400);
-  --color-accent1-dark: var(--primitive-main-500);
-
-  /* accent2 */
-  --color-accent2: var(--primitive-accent-400);
-  --color-accent2-dark: var(--primitive-accent-500);
-
-  /* Theme */
-  --theme-overlay: rgba(255, 255, 255, 0.8);
+  /*  ikke rigtigt brugt */
+  --neutral-0: var(--primitive-neutral-900);
+  --neutral-900: var(--primitive-neutral-0);
 }
 
 /* =========================================================
-   COMPONENT TOKENS
-   SMALL + SIMPLE
-========================================================= */
+    SEMANTISKE TOKEN
+    Holdes samlet, enkel og let at ændre senere.
+    ========================================================= */
 
 :root {
-  /* page width */
-  /* --layout-max-width: 0px;
-  --layout-max-width-narrow: 0px;
-  --layout-max-width-wide: 0px; */
+  /* =========================
+     SIDE OG SEKTIONER
+     ========================= */
 
-  /* page margin & padding */
-  /* --layout-padding: clamp(16px, 5vw, 96px);
-  --section-spacing: clamp(48px, 8vw, 160px); */
+  /* Side-layout: margin/padding pr. breakpoint */
+  --page-space-inline: clamp(
+    var(--primitive-space-20),
+    4vw,
+    var(--primitive-space-128)
+  );
 
-  /* sections Layout */
-  /* --layout-padding: clamp(16px, 5vw, 96px);
-  --section-spacing: clamp(48px, 8vw, 160px); */
+  /* Sektion-layout: vertikal padding */
+  --section-space-y: clamp(
+    var(--primitive-space-20),
+    6vw,
+    var(--primitive-space-128)
+  );
 
-  /* Component Foundations */
-  --button-radius: var(--radius-full);
-  --button-padding-x: var(--primitive-space-6);
-  --button-padding-y: var(--primitive-space-3);
+  /* ____________________page background____________________ */
+  --page-bg-main: var(--neutral-100);
+  --page-bg-secondary: var(--neutral-0);
+  --page-bg-tertiary: var(--neutral-500);
 
-  --card-radius: var(--radius-2xl);
-  --card-padding: var(--primitive-space-6);
+  /* ____________________Typography____________________ */
+  --font-heading: var(--primitive-font-display);
+  --font-body: var(--primitive-font-body);
 
-  --input-radius: var(--radius-lg);
+  --text-size-10: var(--primitive-font-10);
+  --text-size-12: var(--primitive-font-12);
+  --text-size-14: var(--primitive-font-14);
+  --text-size-15: var(--primitive-font-15);
+  --text-size-16: var(--primitive-font-16);
+  --text-size-17: var(--primitive-font-17);
+  --text-size-20: var(--primitive-font-20);
+  --text-size-25: var(--primitive-font-25);
+  --text-size-30: var(--primitive-font-30);
+  --text-size-40: var(--primitive-font-40);
+  --text-size-65: var(--primitive-font-65);
+  --text-size-80: var(--primitive-font-80);
+  --text-size-100: var(--primitive-font-100);
+  --text-size-180: var(--primitive-font-180);
 
-  --header-height: 72px;
-}
+  --heading-1-size: var(--primitive-font-180);
+  --heading-2-size: var(--primitive-font-100);
+  --heading-3-size: var(--primitive-font-80);
+  --heading-4-size: var(--primitive-font-40);
+  --heading-5-size: var(--primitive-font-30);
+  --heading-6-size: var(--primitive-font-20);
 
-/* =========================================================
-   TAILWIND V4 THEME MAPPING
-========================================================= */
+  --text-primary: var(--neutral-500);
+  --text-secondary: var(--neutral-400);
+  --text-muted: var(--neutral-300);
+  --text-inverse: var(--neutral-0);
+  --text-label: var(--neutral-400);
 
-@theme {
-  /* Breakpoints */
-  --breakpoint-xs: 480px;
-  --breakpoint-sm: 600px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
+  /* ____________________Links____________________ */
+  --link-text: var(--accent-400);
+  --link-text-hover: var(--accent-500);
 
-  /* Colors */
-  /* --color-bg: var(--color-bg);
-  --color-surface: var(--color-surface);
+  /* ____________________Buttons and linkbuttons____________________ */
+  --button-primary-bg: var(--main-400);
+  --button-primary-bg-hover: var(--main-500);
+  --button-primary-text: var(--neutral-0);
 
-  --color-text: var(--color-text);
-  --color-text-muted: var(--color-text-muted);
-  --color-text-subtle: var(--color-text-subtle);
+  --button-secondary-bg: var(--accent-200);
+  --button-secondary-bg-hover: var(--accent-400);
+  --button-secondary-text: var(--neutral-0);
 
-  --color-border: var(--color-border);
+  --button-accent-bg: var(--accent-200);
+  --button-accent-bg-hover: var(--accent-400);
+  --button-accent-text: var(--neutral-500);
 
-  --color-primary: var(--color-primary);
-  --color-primary-hover: var(--color-primary-hover);
-  --color-primary-soft: var(--color-primary-soft);
+  --button-main-bg: var(--main-200);
+  --button-main-bg-hover: var(--main-400);
+  --button-main-text: var(--neutral-500);
 
-  --color-accent: var(--color-accent);
-  --color-accent-hover: var(--color-accent-hover);
-  --color-accent-soft: var(--color-accent-soft); */
+  --button-neutral-bg: var(--neutral-500);
+  --button-neutral-bg-hover: var(--neutral-300);
+  --button-neutral-text: var(--neutral-0);
 
-  /* Text Sizes */
-  /* --text-xs: var(--text-xs);
-  --text-sm: var(--text-sm);
-  --text-base: var(--text-base);
-  --text-md: var(--text-md);
-  --text-lg: var(--text-lg);
-  --text-xl: var(--text-xl);
-  --text-2xl: var(--text-2xl);
-  --text-3xl: var(--text-3xl);
-  --text-4xl: var(--text-4xl); */
+  --button-outline-bg: transparent;
+  --button-outline-bg-hover: transparent;
+  --button-outline-border: var(--neutral-500);
+  --button-outline-border-hover: var(--neutral-300);
+  --button-outline-text: var(--neutral-500);
 
-  /* Radius */
-  /* --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
-  --radius-2xl: var(--radius-2xl);
-  --radius-3xl: var(--radius-3xl);
-  --radius-full: var(--radius-full); */
+  --button-soft-bg: var(--accent-100);
+  --button-soft-bg-hover: var(--accent-300);
+  --button-soft-text: var(--neutral-500);
 
-  /* Shadows */
-  /* --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-card: var(--shadow-card); */
-
-  /* Layout */
-  /* --max-w-page: var(--layout-max-width);
-  --max-w-page-narrow: var(--layout-max-width-narrow);
-  --max-w-page-wide: var(--layout-max-width-wide); */
-}
-
-/* =========================================================
-   BASE STYLES
-========================================================= */
-
-@layer base {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-  }
-
-  body {
-    margin: 0;
-
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    line-height: 1.6;
-
-    color: var(--color-text);
-    background-color: var(--color-bg);
-
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    transition:
-      background-color var(--transition-base),
-      color var(--transition-base);
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0;
-
-    font-family: var(--font-heading);
-    font-weight: 700;
-    line-height: 1.1;
-
-    color: var(--color-text);
-  }
-
-  p {
-    margin: 0;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  img,
-  video {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-
-  button,
-  input,
-  textarea,
-  select {
-    font: inherit;
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--color-focus);
-    outline-offset: 2px;
-  }
-}
-
-/* =========================================================
-   COMPONENT HELPERS
-   SMALL REUSABLE FOUNDATIONS
-========================================================= */
-
-@layer components {
-  .container {
-    width: 100%;
-    max-width: var(--layout-max-width);
-    margin-inline: auto;
-    padding-inline: var(--layout-padding);
-  }
-
-  .container--narrow {
-    max-width: var(--layout-max-width-narrow);
-  }
-
-  .container--wide {
-    max-width: var(--layout-max-width-wide);
-  }
-
-  .section {
-    padding-block: var(--section-spacing);
-  }
-
-  .card {
-    background: var(--color-surface);
-
-    border: 1px solid var(--color-border);
-    border-radius: var(--card-radius);
-
-    padding: var(--card-padding);
-
-    box-shadow: var(--shadow-card);
-
-    transition:
-      background-color var(--transition-base),
-      border-color var(--transition-base),
-      transform var(--transition-base);
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--primitive-space-2);
-
-    border: none;
-    border-radius: var(--button-radius);
-
-    padding: var(--button-padding-y) var(--button-padding-x);
-
-    cursor: pointer;
-
-    transition:
-      background-color var(--transition-base),
-      color var(--transition-base),
-      transform var(--transition-base);
-  }
-
-  .btn:hover {
-    transform: translateY(-1px);
-  }
-
-  .btn:active {
-    transform: translateY(0);
-  }
-
-  .input {
-    width: 100%;
-
-    border: 1px solid var(--color-border);
-    border-radius: var(--input-radius);
-
-    background: var(--color-surface);
-    color: var(--color-text);
-
-    padding: var(--primitive-space-3) var(--primitive-space-4);
-
-    transition:
-      border-color var(--transition-base),
-      background-color var(--transition-base);
-  }
-
-  .input:focus {
-    border-color: var(--color-focus);
-    outline: none;
-  }
-}
-
-/* =========================================================
-   UTILITIES
-========================================================= */
-
-@layer utilities {
-  .theme-transition {
-    transition:
-      background-color var(--transition-base),
-      color var(--transition-base),
-      border-color var(--transition-base);
-  }
-
-  .text-muted {
-    color: var(--color-text-muted);
-  }
-
-  .text-subtle {
-    color: var(--color-text-subtle);
-  }
-
-  .bg-surface {
-    background-color: var(--color-surface);
-  }
-
-  .border-default {
-    border-color: var(--color-border);
-  }
+  /* ____________________Sections____________________ */
+  --section-bg-1: var(--main-200);
+  --section-bg-2: var(--accent-200);
+  --section-bg-3: var(--main-400);
+  --section-bg-4: var(--accent-400);
 }
