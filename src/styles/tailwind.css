@@ -219,7 +219,7 @@
   --text-primary: var(--neutral-500);
   --text-secondary: var(--neutral-400);
   --text-muted: var(--neutral-300);
-  --text-inverse: var(--neutral-0);
+  --text-inverse: var(--neutral-100);
   --text-label: var(--neutral-400);
 
   /* ____________________Links____________________ */

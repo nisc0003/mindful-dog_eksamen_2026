@@ -1,0 +1,56 @@
+---
+// @ts-nocheck
+import MainLayout from "../../layouts/MainLayout.astro";
+import ProductCard from "../../components/ProductCard.astro";
+
+export async function getStaticPaths() {
+  const url =
+    "https://iizbqssfazgwknvhsdwf.supabase.co/rest/v1/services?select=slug";
+  const key = "sb_publishable_uwi_g2DvwOpYYYft7DfkXg_cFJcJTNH";
+
+  const res = await fetch(url, {
+    headers: {
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+    },
+  });
+
+  const data = await res.json();
+
+  const slugs = data.map((item) => item.slug.trim());
+  console.log(" Static slugs generated:", slugs);
+
+  return slugs.map((slug) => ({
+    params: { slug },
+  }));
+}
+
+const { slug: rawSlug } = Astro.params;
+const slug = rawSlug.trim();
+
+const fetchUrl = `https://iizbqssfazgwknvhsdwf.supabase.co/rest/v1/services?slug=eq.${slug}&select=*`;
+
+const key = "sb_publishable_uwi_g2DvwOpYYYft7DfkXg_cFJcJTNH";
+
+const res = await fetch(fetchUrl, {
+  headers: {
+    apikey: key,
+    Authorization: `Bearer ${key}`,
+  },
+});
+const data = await res.json();
+
+console.log(" Project fetch result for slug:", slug, data);
+
+const hold = data[0];
+---
+
+<MainLayout>
+  <ProductCard
+    img={hold.produkt_img}
+    type={hold.type}
+    hold={hold.hold}
+    traener={hold.traener}
+    lokation={hold.lokation}
+  />
+</MainLayout>

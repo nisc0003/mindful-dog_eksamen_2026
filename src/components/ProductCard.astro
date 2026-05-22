@@ -1,3 +1,32 @@
 ---
-
+const { img, type, traener, path, lokation, hold } = Astro.props;
 ---
+
+<li class={`${lokation ? `lokation-${lokation}` : ""}`}>
+  <a href={"/portfolio/" + path}>
+    <article class="max-w-[20vw] overflow-hidden rounded-md bg-(--neutral-100)">
+      <img
+        src={img}
+        alt={type}
+        class="aspect-3/2 h-auto w-[100cqw] object-cover object-[0%_20%]"
+      />
+      <div
+        class="flex gap-2 [&_h3]:m-2 [&_h3]:rounded-md [&_h3]:px-3 [&_h3]:py-1 [&_h3]:text-center [&_h3]:text-(length:--font-body)"
+      >
+        <h3 class="bg-(--neutral-500) text-(--text-inverse)">
+          {lokation}
+        </h3>
+        <h3 class="bg-(--neutral-200) text-(--text-primary)">
+          {type}
+        </h3>
+        <h3 class="bg-(--neutral-200) text-(--text-primary)">
+          {traener}
+        </h3>
+      </div>
+      <div>
+        <h4 class="text-(length:--heading-4-size)">{hold}</h4>
+        <p></p>
+      </div>
+    </article>
+  </a>
+</li>
