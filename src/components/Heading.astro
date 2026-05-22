@@ -1,14 +1,4 @@
 ---
-// Henter parametrene fra Astro.props
-const {
-  htmlheading = "h2",
-  size = "h2",
-  font = "sans",
-  weight = "regular",
-  stylingclasses = "",
-} = Astro.props;
-const Htmlheading = htmlheading;
-
 //Definer den styling (Tailwind classes), der gør sig gældende for de forskellige størrelser.
 const sizeClasses = {
   h1: "text-size-65 md:text-size-80 lg:text-size-100 xl:text-size-180",
@@ -30,6 +20,28 @@ const weightClasses = {
   regular: "text-regular",
   light: "text-light",
 };
+
+type HeadingSize = keyof typeof sizeClasses;
+type HeadingFont = keyof typeof fontClasses;
+type HeadingWeight = keyof typeof weightClasses;
+
+interface Props {
+  htmlheading?: string;
+  size?: HeadingSize;
+  font?: HeadingFont;
+  weight?: HeadingWeight;
+  stylingclasses?: string;
+}
+
+// Henter parametrene fra Astro.props
+const {
+  htmlheading = "h2",
+  size = "h2",
+  font = "sans",
+  weight = "regular",
+  stylingclasses = "",
+} = Astro.props as Props;
+const Htmlheading = htmlheading;
 ---
 
 <Htmlheading
