@@ -1,0 +1,168 @@
+---
+//@ts-nocheck
+import MainLayout from "../layouts/MainLayout.astro";
+import Button from "../components/Button.astro";
+import Link from "../components/Link.astro";
+import ProductCard from "../components/ProductCard.astro";
+
+const selectedLokation = Astro.props.selectedLokation || "Alle";
+
+const apiUrl =
+  "https://iizbqssfazgwknvhsdwf.supabase.co/rest/v1/services?select=*";
+const key = "sb_publishable_uwi_g2DvwOpYYYft7DfkXg_cFJcJTNH";
+
+const options = {
+  headers: {
+    apikey: key,
+  },
+};
+
+const services = await fetch(apiUrl, options).then((res) => res.json());
+
+// Definerer lokationsgrupperne, hvor hver gruppe indeholder en liste af lokationer
+const lokationGroups = {
+  Sydfyn: ["Svendborg"],
+  Vestsjælland: ["Vestsjælland"],
+  Midtjylland: ["Ikast"],
+  Sydjylland: ["Vejen", "Sydjylland"],
+  Sønderjylland: ["Sønderjylland", "Skærbæk"],
+  Als: ["Als"],
+};
+
+const lokationNames = Object.keys(lokationGroups);
+
+const groupStyles = {
+  Sydfyn: "border-(--accent-200)",
+  Vestsjælland: "bg-emerald-50 border-emerald-300",
+  Midtjylland: "bg-yellow-50 border-yellow-300",
+  Sydjylland: "bg-pink-50 border-pink-300",
+  Sønderjylland: "bg-purple-50 border-purple-300",
+  Als: "bg-lime-50 border-lime-300",
+};
+
+// Tjekker gruppen for en kategori, og returnerer gruppenavnet hvis det findes, ellers null
+// Returner gruppenavnet hvis det findes, ellers null
+function getLokationGroup(cat) {
+  for (const group in lokationGroups) {
+    if (lokationGroups[group].includes(cat)) {
+      return group;
+    }
+  }
+  return null;
+}
+
+const selectedGroup =
+  selectedLokation === "Alle"
+    ? null
+    : lokationGroups[selectedLokation]
+      ? selectedLokation
+      : getLokationGroup(selectedLokation);
+
+const filteredData =
+  selectedLokation === "Alle"
+    ? services
+    : selectedGroup
+      ? services.filter((item) =>
+          lokationGroups[selectedGroup].includes(item.lokation),
+        )
+      : [];
+
+const groupedByLokation = {};
+lokationNames.forEach((group) => {
+  groupedByLokation[group] = filteredData
+    .filter((item) => lokationGroups[group].includes(item.lokation))
+    .sort((a, b) => (a.hold > b.hold ? 1 : -1)); // Sorterer elementerne inden for hver gruppe alfabetisk efter hold
+});
+
+const displayedGroups =
+  selectedLokation === "Alle"
+    ? lokationNames.filter(
+        (group) =>
+          groupedByLokation[group] && groupedByLokation[group].length > 0,
+      )
+    : selectedGroup
+      ? [selectedGroup]
+      : [];
+
+function krTilDKK(pris) {
+  return Number(pris).toLocaleString("da-DK", {
+    style: "currency",
+    currency: "DKK",
+    currencyDisplay: "code",
+  });
+}
+---
+
+<div class="m-8 flex gap-4 [&_a]:bg-(--main-300)">
+  <a href="?lokation=Alle">Alle</a>
+  {
+    lokationNames.map((filter) => {
+      const groupClass = getLokationGroup(filter);
+      return <a href={`?lokation=${encodeURIComponent(filter)}`}>{filter}</a>;
+    })
+  }
+</div>
+
+<section>
+  {
+    displayedGroups.map((group) => {
+      const groupClass = getLokationGroup(group);
+
+      return (
+        <article
+          data-group={group}
+          class={`mb-8 border p-6 ${groupStyles[group] || "border-(--neutral-500) bg-(--neutral-100)"}`}
+        >
+          <h2 class="mb-4 text-2xl font-semibold text-slate-900">{group}</h2>
+          <ul class="flex flex-wrap gap-4">
+            {groupedByLokation[group].map((item, index) => {
+              const prisTekst = krTilDKK(item.pris);
+              return (
+                <ProductCard
+                  type={item.type}
+                  lokation={item.lokation}
+                  pris={prisTekst}
+                  hold={item.hold}
+                  img={item.produkt_img}
+                  traener={item.traener}
+                  path={item.slug}
+                />
+              );
+            })}
+          </ul>
+        </article>
+      );
+    })
+  }
+</section>
+
+<script is:inline>
+  const params = new URLSearchParams(window.location.search);
+  const selectedLokation = params.get("lokation") || "Alle";
+  const lokationGroups = {
+    Sydfyn: ["Svendborg"],
+    Vestsjælland: ["Vestsjælland"],
+    Midtjylland: ["Ikast"],
+    Sydjylland: ["Vejen", "Sydjylland"],
+    Sønderjylland: ["Sønderjylland", "Skærbæk"],
+    Als: ["Als"],
+  };
+
+  const selectedGroup =
+    selectedLokation === "Alle"
+      ? "Alle"
+      : lokationGroups[selectedLokation]
+        ? selectedLokation
+        : Object.keys(lokationGroups).find((group) =>
+            lokationGroups[group].includes(selectedLokation),
+          );
+
+  document.querySelectorAll("article[data-group]").forEach((article) => {
+    const group = article.dataset.group;
+    if (selectedGroup === "Alle" || group === selectedGroup) {
+      article.style.display = "";
+    } else {
+      article.style.display = "none";
+    }
+  });
+</script>

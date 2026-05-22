@@ -43,26 +43,8 @@ const data = await res.json();
 console.log(" Project fetch result for slug:", slug, data);
 
 const hold = data[0];
-
-//const minPris = hold.pris.toLocaleString("da-DA", {
-//style: "currency",
-// currency: "DKK",
-//});
-
-let krTilDKK = hold.pris.toLocaleString("da-DK", {
-  style: "currency",
-  currency: "DKK",
-});
-const minPris = krTilDKK.replace("kr.", "DKK").trim();
 ---
 
 <MainLayout>
-  <ProductCard
-    type={hold.type}
-    lokation={hold.lokation}
-    pris={minPris}
-    hold={hold.hold}
-    img={hold.produkt_img}
-    traener={hold.traener}
-  />
+  <ProductCard hold={hold} />
 </MainLayout>
