@@ -3,15 +3,15 @@ import Logo from "../assets/icon/snudeLogo.webp";
 import { Image } from "astro:assets";
 ---
 
-<header class="sticky top-0 z-10 bg-(--primitive-neutral-100)">
+<header class="sticky top-0 z-10 bg-(--neutral-100)">
   <nav
-    class="m-auto mt-0 mb-8 flex w-[95cqw] items-center justify-between gap-4 p-4 text-center font-bold"
+    class="m-auto mt-0 mb-8 grid w-[95cqw] grid-cols-5 items-center gap-4 p-4 text-center font-bold"
   >
-    <div class="w-[16.5cqw]">
-      <a href="/"><Image src={Logo} alt="Logo" class="h-auto w-18" /></a>
-    </div>
+    <a href="/" class="h-auto w-fit"
+      ><Image src={Logo} alt="Logo" class="h-auto w-18" /></a
+    >
     <ul
-      class="menu first hidden list-none sm:flex sm:justify-between sm:gap-8 [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:text-(--primitive-neutral-500) [&_li]:no-underline [&_li]:transition-colors [&_li]:duration-150 [&_li]:hover:text-(--primitive-accent-200) [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl"
+      class="menu first hidden list-none sm:col-span-3 sm:flex sm:justify-between sm:gap-8 [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:text-(--neutral-500) [&_li]:no-underline [&_li]:transition-colors [&_li]:duration-150 [&_li]:hover:text-(--accent-200) [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl"
     >
       <li>
         <a href="/">FORSIDE</a>
@@ -26,10 +26,10 @@ import { Image } from "astro:assets";
         <a href="/">BLOG</a>
       </li>
     </ul>
-    <div class="menu second hidden sm:block">
+    <div class="menu second hidden sm:block sm:justify-self-end">
       <a
         href="/Bliv_instruktoer"
-        class="rounded-sm bg-(--primitive-accent-200) px-8 py-1 text-2xl text-(--primitive-neutral-200) no-underline transition-colors duration-150 hover:bg-(--primitive-neutral-500) sm:text-right sm:text-sm md:text-lg lg:text-2xl"
+        class="rounded-sm bg-(--accent-200) px-8 py-1 text-2xl text-(--neutral-200) no-underline transition-colors duration-150 hover:bg-(--neutral-500) sm:place-self-end sm:text-right sm:text-sm md:text-lg lg:text-2xl"
         >BLIV INSTRUKTØR</a
       >
     </div>
@@ -78,7 +78,7 @@ import { Image } from "astro:assets";
   nav.active .menu.first {
     display: block;
     position: absolute;
-    background-color: var(--primitive-neutral-100);
+    background-color: var(--neutral-100);
     top: calc(var(--spacing) * 21);
     right: 0;
     width: 100%;
@@ -90,7 +90,7 @@ import { Image } from "astro:assets";
   nav.active .menu.second {
     display: block;
     position: absolute;
-    background-color: var(--primitive-neutral-100);
+    background-color: var(--neutral-100);
     top: calc(var(--spacing) * 53);
     right: 0;
     width: 100%;
