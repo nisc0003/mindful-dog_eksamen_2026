@@ -3,15 +3,15 @@ import Logo from "../assets/icon/snudeLogo.webp";
 import { Image } from "astro:assets";
 ---
 
-<header class="sticky top-0 z-10">
+<header class="sticky top-0 z-10 bg-(--primitive-neutral-100)">
   <nav
-    class="m-auto mt-0 mb-8 flex w-[100cqw] items-center justify-between gap-4 p-4 text-center font-bold"
+    class="m-auto mt-0 mb-8 flex w-[95cqw] items-center justify-between gap-4 p-4 text-center font-bold"
   >
     <div class="w-[16.5cqw]">
       <a href="/"><Image src={Logo} alt="Logo" class="h-auto w-18" /></a>
     </div>
     <ul
-      class="menu first hidden list-none sm:flex sm:justify-between sm:gap-8 [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:no-underline [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl"
+      class="menu first hidden list-none sm:flex sm:justify-between sm:gap-8 [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:text-(--primitive-neutral-500) [&_li]:no-underline [&_li]:transition-colors [&_li]:duration-150 [&_li]:hover:text-(--primitive-accent-200) [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl"
     >
       <li>
         <a href="/">FORSIDE</a>
@@ -26,11 +26,13 @@ import { Image } from "astro:assets";
         <a href="/">BLOG</a>
       </li>
     </ul>
-    <a
-      href="/Bliv_instruktoer"
-      class="menu second hidden text-2xl no-underline sm:block sm:text-right sm:text-sm md:text-lg lg:text-2xl"
-      >BLIV INSTRUKTØR</a
-    >
+    <div class="menu second hidden sm:block">
+      <a
+        href="/Bliv_instruktoer"
+        class="rounded-sm bg-(--primitive-accent-200) px-8 py-1 text-2xl text-(--primitive-neutral-200) no-underline transition-colors duration-150 hover:bg-(--primitive-neutral-500) sm:text-right sm:text-sm md:text-lg lg:text-2xl"
+        >BLIV INSTRUKTØR</a
+      >
+    </div>
     <div
       id="burger"
       class="rounded-5 relative z-10 mr-2 h-10 w-10 cursor-pointer sm:hidden [&_span]:relative [&_span]:my-1.5 [&_span]:block [&_span]:h-1.5 [&_span]:w-full [&_span]:rounded-sm [&_span]:bg-neutral-900"
@@ -76,7 +78,7 @@ import { Image } from "astro:assets";
   nav.active .menu.first {
     display: block;
     position: absolute;
-    background-color: blue;
+    background-color: var(--primitive-neutral-100);
     top: calc(var(--spacing) * 21);
     right: 0;
     width: 100%;
@@ -88,7 +90,7 @@ import { Image } from "astro:assets";
   nav.active .menu.second {
     display: block;
     position: absolute;
-    background-color: blue;
+    background-color: var(--primitive-neutral-100);
     top: calc(var(--spacing) * 53);
     right: 0;
     width: 100%;
