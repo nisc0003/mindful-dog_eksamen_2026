@@ -1,31 +1,44 @@
 ---
-const { img, type, traener, path, lokation, hold } = Astro.props;
+const { img, type, traener, path, lokation, hold, pris } = Astro.props;
 ---
 
 <li class={`${lokation ? `lokation-${lokation}` : ""}`}>
   <a href={"/portfolio/" + path}>
-    <article class="max-w-[20vw] overflow-hidden rounded-md bg-(--neutral-100)">
+    <article
+      class="mx-auto max-w-[66vw] overflow-hidden rounded-md bg-(--neutral-100)"
+    >
       <img
         src={img}
         alt={type}
         class="aspect-3/2 h-auto w-[100cqw] object-cover object-[0%_20%]"
       />
-      <div
-        class="flex gap-2 place-self-center [&_h3]:m-2 [&_h3]:rounded-md [&_h3]:px-3 [&_h3]:py-1 [&_h3]:text-center [&_h3]:text-(length:--font-body)"
-      >
-        <h3 class="bg-(--neutral-500) text-(--text-inverse)">
-          {lokation}
-        </h3>
-        <h3 class="bg-(--neutral-200) text-(--text-primary)">
-          {type}
-        </h3>
-        <h3 class="bg-(--neutral-200) text-(--text-primary)">
-          {traener}
-        </h3>
-      </div>
-      <div>
-        <h4 class="text-(length:--heading-4-size)">{hold}</h4>
-        <p></p>
+      <div class="p-[2cqw]">
+        <div
+          class="flex gap-2 [&_h3]:my-3 [&_h3]:rounded-md [&_h3]:px-3 [&_h3]:py-1 [&_h3]:text-center [&_h3]:text-(length:--text-size-10)"
+        >
+          <h3 class="bg-(--neutral-500) text-(--text-inverse)">
+            {lokation}
+          </h3>
+          <h3 class="bg-(--neutral-200) text-(--text-primary)">
+            {type}
+          </h3>
+          <h3 class="bg-(--neutral-200) text-(--text-primary)">
+            {traener}
+          </h3>
+        </div>
+        <div>
+          <h5 class="text-(length:--text-size-20) font-bold">{hold}</h5>
+          <p>Her skal der være en beskrivelse af holdet.</p>
+        </div>
+        <div class="my-4 flex items-center justify-between">
+          <p class="text-(length:--text-size-16) font-bold">{pris}</p>
+          <a
+            href="/Hold_oversigt"
+            class="rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(length:--text-size-16) text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
+          >
+            SE HOLD
+          </a>
+        </div>
       </div>
     </article>
   </a>

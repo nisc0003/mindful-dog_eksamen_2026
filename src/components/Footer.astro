@@ -7,27 +7,41 @@ import { Image } from "astro:assets";
 ---
 
 <footer
-  class="mt-8 flex flex-col gap-4 bg-(--main-400) p-6 text-(--main-200) [&_a]:text-sm [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline sm:[&_a]:text-lg"
+  class="mt-8 flex flex-col gap-4 bg-(--main-400) p-6 text-(--main-200) [&_a]:text-(length:--text-size-30) [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline sm:[&_a]:text-(length:--text-size-25)"
 >
   <div class="sm:flex sm:justify-between sm:gap-8">
-    <h3 class="mt-5 text-(length:--heading-3-size) font-bold">
+    <h3 class="text-(length:--heading-3-size) font-bold">
       Mindful<br />Dog<br />Academy
     </h3>
 
     <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:gap-16">
       <div class="flex flex-col gap-4">
-        <p class="text-xs font-thin">Kontakt</p>
-        <div class="[&_p]:text-sm sm:[&_p]:text-lg">
+        <p
+          class="text-(length:--text-size-20) font-thin sm:text-(length:--text-size-16)"
+        >
+          Kontakt
+        </p>
+        <div
+          class="[&_p]:text-(length:--text-size-30) sm:[&_p]:sm:text-(length:--text-size-25)"
+        >
           <p class="font-semibold">Mindful-Dog Hovedkontor</p>
           <p>Grace Hidalgo</p>
         </div>
-        <p class="text-sm sm:text-lg">Tlf.: +45 29 60 55 39</p>
-        <p class="text-sm sm:text-lg">E-mail: grace@mindful-dog.dk</p>
+        <p class="text-(length:--text-size-30) sm:text-(length:--text-size-25)">
+          Tlf.: +45 29 60 55 39
+        </p>
+        <p class="text-(length:--text-size-30) sm:text-(length:--text-size-25)">
+          E-mail: grace@mindful-dog.dk
+        </p>
       </div>
       <div class="flex flex-col gap-4">
-        <p class="text-xs font-thin">Information</p>
-        <a href="" class="font-semibold">Salgs- og Handelsbetingelser</a>
-        <a href="" class="font-semibold">Læs om Mindful-Dog Metoden</a>
+        <p
+          class="text-(length:--text-size-20) font-thin sm:text-(length:--text-size-16)"
+        >
+          Information
+        </p>
+        <a href="">Salgs- og Handelsbetingelser</a>
+        <a href="">Læs om Mindful-Dog Metoden</a>
       </div>
     </div>
   </div>

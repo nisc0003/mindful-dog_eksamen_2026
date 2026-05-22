@@ -5,7 +5,7 @@ import { Image } from "astro:assets";
 
 <header class="sticky top-0 z-10 bg-(--neutral-100)">
   <nav
-    class="m-auto mt-0 mb-8 grid w-[95cqw] grid-cols-5 items-center gap-4 p-4 text-center font-bold"
+    class="m-auto mt-0 mb-8 flex w-[95cqw] grid-cols-5 items-center justify-between gap-4 p-4 text-center font-bold sm:grid"
   >
     <a href="/" class="h-auto w-fit"
       ><Image src={Logo} alt="Logo" class="h-auto w-18" /></a
@@ -35,7 +35,7 @@ import { Image } from "astro:assets";
     </div>
     <div
       id="burger"
-      class="rounded-5 relative z-10 mr-2 h-10 w-10 cursor-pointer sm:hidden [&_span]:relative [&_span]:my-1.5 [&_span]:block [&_span]:h-1.5 [&_span]:w-full [&_span]:rounded-sm [&_span]:bg-neutral-500"
+      class="rounded-5 relative z-10 mr-2 h-10 w-10 cursor-pointer sm:hidden [&_span]:relative [&_span]:my-1.5 [&_span]:block [&_span]:h-1.5 [&_span]:w-full [&_span]:rounded-sm [&_span]:bg-(--neutral-500)"
     >
       <span></span>
       <span></span>
