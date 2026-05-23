@@ -1,3 +1,31 @@
 ---
-
+const { hold, pris, lokation } = Astro.props;
 ---
+
+<article
+  class="mx-auto grid w-[85cqw] grid-cols-5 items-center gap-6 rounded-md border px-6 py-4"
+>
+  <div class="col-span-2 flex gap-4 pr-2">
+    <slot name="ikon" />
+    <div>
+      <h6>{hold}</h6>
+      <p>Åben for tilmelding</p>
+    </div>
+  </div>
+  <div class="col-span-2 flex gap-4">
+    <div>
+      <p class="font-bold">LOKATION</p>
+      <p>{lokation}</p>
+    </div>
+    <div>
+      <p class="font-bold">PRIS</p>
+      <p>{pris}</p>
+    </div>
+  </div>
+  <a
+    href="/Hold_oversigt"
+    class="justify-self-end rounded-md bg-(--main-300) px-4 py-2 text-(length:--text-size-16) whitespace-nowrap text-(--text-inverse) transition-colors duration-150 hover:bg-(--main-400)"
+  >
+    LÆS MERE
+  </a>
+</article>
