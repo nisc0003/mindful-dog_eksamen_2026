@@ -56,15 +56,33 @@ import { Image } from "astro:assets";
 
   <div class="flex flex-wrap gap-4 sm:flex-nowrap sm:justify-between">
     <div class="flex gap-4 sm:order-2">
-      <InstaLogo
-        class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
-      />
-      <FBLogo
-        class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
-      />
-      <LinkedInLogo
-        class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
-      />
+      <a
+        href="https://www.instagram.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <InstaLogo
+          class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
+        />
+      </a>
+      <a
+        href="https://www.facebook.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FBLogo
+          class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
+        />
+      </a>
+      <a
+        href="https://www.linkedin.com/company/mindful-dog"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <LinkedInLogo
+          class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
+        />
+      </a>
     </div>
     <button
       class="h-fit w-[66vw] rounded-lg bg-(--main-200) px-6 py-2 font-extrabold text-(--main-400) transition-colors duration-150 hover:bg-(--main-500) sm:order-1 sm:col-start-1 sm:w-[33vw] sm:place-self-center sm:text-[2cqw]"
