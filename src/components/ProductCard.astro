@@ -1,10 +1,9 @@
 ---
-const { img, type, traener, path, lokation, hold, pris, dataLokation } =
-  Astro.props;
+const { img, type, traener, path, lokation, hold, pris } = Astro.props;
 ---
 
 <li class="mx-auto max-w-[33vw] overflow-hidden rounded-md bg-(--neutral-100)">
-  <a href={"/Hold_oversigt/" + path}>
+  <a href={"/Hold_side/" + path}>
     <article>
       <img
         src={img}
@@ -27,13 +26,15 @@ const { img, type, traener, path, lokation, hold, pris, dataLokation } =
         </div>
         <div>
           <h6 class="text-(length:--heading-6-size) font-bold">{hold}</h6>
-          <p>Her skal der være en beskrivelse af holdet.</p>
+          <p class="text-(length:--text-size-16)">
+            Her skal der være en beskrivelse af holdet.
+          </p>
         </div>
         <div class="my-4 flex items-center justify-between">
-          <h6 class="text-(length:--heading-6-size) font-bold">{pris}</h6>
+          <p class="text-(length:--text-size-20) font-bold">{pris}</p>
           <a
             href="/Hold_oversigt"
-            class="rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(length:--heading-6-size) text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
+            class="rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(length:--text-size-20) text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
           >
             SE HOLD
           </a>

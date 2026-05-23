@@ -84,13 +84,11 @@ const displayedGroups =
       ? [selectedGroup]
       : [];
 
-function krTilDKK(pris) {
-  return Number(pris).toLocaleString("da-DK", {
-    style: "currency",
-    currency: "DKK",
-    currencyDisplay: "code",
-  });
-}
+const krTilDKK = new Intl.NumberFormat("da-DK", {
+  style: "currency",
+  currency: "DKK",
+  currencyDisplay: "code",
+});
 ---
 
 <div class="m-8 flex gap-4 [&_a]:bg-(--main-300)">
@@ -116,7 +114,7 @@ function krTilDKK(pris) {
           <h2 class="mb-4 text-2xl font-semibold text-slate-900">{group}</h2>
           <ul class="flex flex-wrap gap-4">
             {groupedByLokation[group].map((item, index) => {
-              const prisTekst = krTilDKK(item.pris);
+              const prisTekst = krTilDKK.format(Number(item.pris));
               return (
                 <ProductCard
                   type={item.type}
