@@ -219,7 +219,7 @@
   --text-primary: var(--neutral-500);
   --text-secondary: var(--neutral-400);
   --text-muted: var(--neutral-300);
-  --text-inverse: var(--neutral-0);
+  --text-inverse: var(--neutral-100);
   --text-label: var(--neutral-400);
 
   /* ____________________Links____________________ */
@@ -262,4 +262,40 @@
   --section-bg-2: var(--accent-200);
   --section-bg-3: var(--main-400);
   --section-bg-4: var(--accent-400);
+}
+/* ____________________Global sizing____________________ */
+
+h1 {
+  font-size: var(--heading-1-size);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+h2 {
+  font-size: var(--heading-2-size);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+h3 {
+  font-size: var(--heading-3-size);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+h4 {
+  font-size: var(--heading-4-size);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+h5 {
+  font-size: var(--heading-5-size);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+h6 {
+  font-size: var(--heading-6-size);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+p {
+  font-family: var(--font-body);
 }

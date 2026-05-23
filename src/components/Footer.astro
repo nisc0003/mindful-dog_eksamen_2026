@@ -1,37 +1,53 @@
 ---
 import Logo from "../assets/icon/snudeLogo.webp";
-import InstaLogo from "../assets/icon/Instagram_Glyph_White.svg";
-import FBLogo from "../assets/icon/Facebook_Logo_White.svg";
-import LinkedInLogo from "../assets/icon/In-Bug_white.svg";
+import InstaLogo from "../assets/icon/Instagram_Glyph_Green.svg";
+import FBLogo from "../assets/icon/Facebook_Logo_Green.svg";
+import LinkedInLogo from "../assets/icon/In-Bug_Green.svg";
 import { Image } from "astro:assets";
 ---
 
 <footer
-  class="mt-8 flex flex-col gap-4 bg-(--primitive-main-400) p-6 text-(--primitive-main-200) [&_a]:text-sm [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline sm:[&_a]:text-lg"
+  class="flex flex-col gap-4 bg-(--main-400) p-6 text-(--main-200) [&_a]:text-(length:--text-size-30) [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline sm:[&_a]:text-(length:--text-size-25)"
 >
   <div class="sm:flex sm:justify-between sm:gap-8">
-    <h1 class="mt-5 text-6xl font-bold">Mindful<br />Dog<br />Academy</h1>
+    <h3 class="text-(length:--heading-3-size) font-bold">
+      Mindful<br />Dog<br />Academy
+    </h3>
 
     <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:gap-16">
       <div class="flex flex-col gap-4">
-        <p class="text-xs font-thin">Kontakt</p>
-        <div class="[&_p]:text-sm sm:[&_p]:text-lg">
+        <p
+          class="text-(length:--text-size-20) font-thin sm:text-(length:--text-size-16)"
+        >
+          Kontakt
+        </p>
+        <div
+          class="[&_p]:text-(length:--text-size-30) sm:[&_p]:sm:text-(length:--text-size-25)"
+        >
           <p class="font-semibold">Mindful-Dog Hovedkontor</p>
           <p>Grace Hidalgo</p>
         </div>
-        <p class="text-sm sm:text-lg">Tlf.: +45 29 60 55 39</p>
-        <p class="text-sm sm:text-lg">E-mail: grace@mindful-dog.dk</p>
+        <p class="text-(length:--text-size-30) sm:text-(length:--text-size-25)">
+          Tlf.: +45 29 60 55 39
+        </p>
+        <p class="text-(length:--text-size-30) sm:text-(length:--text-size-25)">
+          E-mail: grace@mindful-dog.dk
+        </p>
       </div>
       <div class="flex flex-col gap-4">
-        <p class="text-xs font-thin">Information</p>
-        <a href="" class="font-semibold">Salgs- og Handelsbetingelser</a>
-        <a href="" class="font-semibold">Læs om Mindful-Dog Metoden</a>
+        <p
+          class="text-(length:--text-size-20) font-thin sm:text-(length:--text-size-16)"
+        >
+          Information
+        </p>
+        <a href="">Salgs- og Handelsbetingelser</a>
+        <a href="">Læs om Mindful-Dog Metoden</a>
       </div>
     </div>
   </div>
 
   <div
-    class="grid grid-cols-4 place-items-center gap-4 sm:col-span-3 [&_span]:my-auto [&_span]:h-0.5 [&_span]:w-full [&_span]:bg-(--primitive-main-200) sm:[&_span]:h-1"
+    class="grid grid-cols-4 place-items-center gap-4 sm:col-span-3 [&_span]:my-auto [&_span]:h-0.5 [&_span]:w-full [&_span]:bg-(--main-200) sm:[&_span]:h-1"
   >
     <span class="col-span-2"></span>
     <Image src={Logo} alt="Logo" class="h-auto w-4/5" />
@@ -40,18 +56,36 @@ import { Image } from "astro:assets";
 
   <div class="flex flex-wrap gap-4 sm:flex-nowrap sm:justify-between">
     <div class="flex gap-4 sm:order-2">
-      <InstaLogo
-        class="aspect-square h-auto w-[10vw] fill-(--primitive-main-200) sm:w-[5vw]"
-      />
-      <FBLogo
-        class="aspect-square h-auto w-[10vw] fill-(--primitive-main-200) sm:w-[5vw]"
-      />
-      <LinkedInLogo
-        class="aspect-square h-auto w-[10vw] fill-(--primitive-main-200) sm:w-[5vw]"
-      />
+      <a
+        href="https://www.instagram.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <InstaLogo
+          class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
+        />
+      </a>
+      <a
+        href="https://www.facebook.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FBLogo
+          class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
+        />
+      </a>
+      <a
+        href="https://www.linkedin.com/company/mindful-dog"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <LinkedInLogo
+          class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
+        />
+      </a>
     </div>
     <button
-      class="h-fit w-[66vw] rounded-lg bg-(--primitive-main-200) px-6 py-2 font-extrabold text-(--primitive-main-400) transition-colors duration-150 hover:bg-(--primitive-main-500) sm:order-1 sm:col-start-1 sm:w-[33vw] sm:place-self-center sm:text-[2cqw]"
+      class="h-fit w-[66vw] rounded-lg bg-(--main-200) px-6 py-2 font-extrabold text-(--main-400) transition-colors duration-150 hover:bg-(--main-500) sm:order-1 sm:col-start-1 sm:w-[33vw] sm:place-self-center sm:text-[2cqw]"
       >TILMELD NYHEDSBREV</button
     >
   </div>

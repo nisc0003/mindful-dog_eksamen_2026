@@ -3,15 +3,15 @@ import Logo from "../assets/icon/snudeLogo.webp";
 import { Image } from "astro:assets";
 ---
 
-<header class="sticky top-0 z-10 bg-(--primitive-neutral-100)">
+<header class="sticky top-0 z-10 bg-(--neutral-100)">
   <nav
-    class="m-auto mt-0 mb-8 flex w-[95cqw] items-center justify-between gap-4 p-4 text-center font-bold"
+    class="m-auto mt-0 mb-8 flex w-[95cqw] grid-cols-5 items-center justify-between gap-4 p-4 text-center font-(--font-body) font-semibold md:grid"
   >
-    <div class="w-[16.5cqw]">
-      <a href="/"><Image src={Logo} alt="Logo" class="h-auto w-18" /></a>
-    </div>
+    <a href="/" class="h-auto w-fit"
+      ><Image src={Logo} alt="Logo" class="h-auto w-18" /></a
+    >
     <ul
-      class="menu first hidden list-none sm:flex sm:justify-between sm:gap-8 [&_li]:relative [&_li]:block [&_li]:text-2xl [&_li]:text-(--primitive-neutral-500) [&_li]:no-underline [&_li]:transition-colors [&_li]:duration-150 [&_li]:hover:text-(--primitive-accent-200) [&_li]:sm:mx-auto [&_li]:sm:text-sm [&_li]:md:text-lg [&_li]:lg:text-2xl"
+      class="menu first hidden list-none gap-8 md:col-span-3 md:flex md:justify-between [&_li]:relative [&_li]:my-4 [&_li]:block [&_li]:text-2xl [&_li]:text-(--neutral-500) [&_li]:no-underline [&_li]:transition-colors [&_li]:duration-150 [&_li]:hover:text-(--accent-200) [&_li]:md:mx-auto [&_li]:md:text-base [&_li]:lg:my-0 [&_li]:lg:text-xl"
     >
       <li>
         <a href="/">FORSIDE</a>
@@ -26,16 +26,18 @@ import { Image } from "astro:assets";
         <a href="/">BLOG</a>
       </li>
     </ul>
-    <div class="menu second hidden sm:block">
+    <div class="menu second hidden md:block md:justify-self-end">
       <a
         href="/Bliv_instruktoer"
-        class="rounded-sm bg-(--primitive-accent-200) px-8 py-1 text-2xl text-(--primitive-neutral-200) no-underline transition-colors duration-150 hover:bg-(--primitive-neutral-500) sm:text-right sm:text-sm md:text-lg lg:text-2xl"
+        class="rounded-md bg-(--neutral-500) px-2 py-1 text-2xl whitespace-nowrap text-(--neutral-200) no-underline transition-colors duration-150 hover:bg-(--accent-200) md:place-self-end md:text-right md:text-base lg:text-xl"
         >BLIV INSTRUKTØR</a
       >
     </div>
+    <span class="menu mbg md:hidden"></span>
+    <span class="menu mline md:hidden"></span>
     <div
       id="burger"
-      class="rounded-5 relative z-10 mr-2 h-10 w-10 cursor-pointer sm:hidden [&_span]:relative [&_span]:my-1.5 [&_span]:block [&_span]:h-1.5 [&_span]:w-full [&_span]:rounded-sm [&_span]:bg-neutral-900"
+      class="rounded-5 relative z-10 mr-2 h-10 w-10 cursor-pointer md:hidden [&_span]:relative [&_span]:my-1.5 [&_span]:block [&_span]:h-1.5 [&_span]:w-full [&_span]:rounded-sm [&_span]:bg-(--neutral-500)"
     >
       <span></span>
       <span></span>
@@ -78,11 +80,11 @@ import { Image } from "astro:assets";
   nav.active .menu.first {
     display: block;
     position: absolute;
-    background-color: var(--primitive-neutral-100);
+    /* background-color: var(--neutral-100); */
     top: calc(var(--spacing) * 21);
     right: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 10;
     text-align: right;
     padding-right: calc(var(--spacing) * 4);
   }
@@ -90,13 +92,38 @@ import { Image } from "astro:assets";
   nav.active .menu.second {
     display: block;
     position: absolute;
-    background-color: var(--primitive-neutral-100);
-    top: calc(var(--spacing) * 53);
+    /* background-color: var(--neutral-100); */
+    top: calc(var(--spacing) * 80);
+    right: 0;
+    width: 100%;
+    z-index: 10;
+    text-align: right;
+    padding-right: calc(var(--spacing) * 4);
+  }
+
+  nav.active .menu.mbg {
+    display: block;
+    position: absolute;
+    background-color: var(--neutral-100);
+    width: 100%;
+    height: 30vh;
+    top: calc(var(--spacing) * 21);
     right: 0;
     width: 100%;
     z-index: 1;
-    text-align: right;
-    padding-right: calc(var(--spacing) * 4);
+    border-top: 2px solid var(--accent-300);
+    /* border-bottom: 2px solid var(--accent-300); */
+  }
+  nav.active .menu.mline {
+    display: block;
+    position: absolute;
+    background-color: var(--accent-300);
+    width: 100%;
+    height: calc(var(--spacing) * 0.5);
+    top: calc(var(--spacing) * 74);
+    right: 0;
+    width: 100%;
+    z-index: 10;
   }
 </style>
 
