@@ -1,0 +1,36 @@
+// Alle kolonner fra database, så det nemt can copy/pastes
+
+const pageData = service
+  ? {
+      type: service.type,
+      lokation: service.lokation,
+      pris: service.pris,
+      hold: service.hold,
+      tilbud: service.tilbud,
+      tilbud_procent: service.opstart,
+      opstart: service.opstart,
+      afslut: service.afslut,
+      img: service.produkt_img,
+      traener: traener.traener,
+      slug: traener.slug,
+    }
+  : traener
+    ? {
+        fornavn: traener.fornavn,
+        efternavn: traener.efternavn,
+        lokation: traener.lokation,
+        adresse_1: traener.adresse_1,
+        postnummer_1: traener.postnummer_1,
+        bynavn_1: traener.bynavn_1,
+        adresse_2: traener.adresse_2,
+        postnummer_2: traener.postnummer_2,
+        bynavn_2: traener.bynavn_2,
+        traener_mail: traener.traener_mail,
+        traener_tlf: traener.traener_tlf,
+        traener_info: traener.traener_info,
+        profilbillede_img: traener.profilbillede_img,
+        testimonial_1: traener.testimonial_1,
+        testimonial_2: traener.testimonial_2,
+        testimonial_3: traener.testimonial_3,
+      }
+    : null;
