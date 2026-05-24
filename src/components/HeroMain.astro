@@ -1,3 +1,82 @@
 ---
+import Heading from "./Heading.astro";
+import Text from "./Text.astro";
 
+const {
+  title = ["Mindful", "Dog", "academy"],
+  text = "Ro og forståelse mellem dig og din hund",
+  ctaHref = "#hold",
+  ctaLabel = "Se hold",
+  image = "https://placehold.co/600x400",
+  imageAlt = "Hund og ejer i et roligt træningsøjeblik",
+} = Astro.props;
+
+const heroImageSrc = typeof image === "string" ? image : (image?.src ?? image);
 ---
+
+<section
+  id="forside"
+  class="relative isolate overflow-hidden bg-[linear-gradient(180deg,var(--neutral-0)_0%,var(--main-100)_100%)] py-12 sm:py-16 lg:py-24"
+>
+  <div
+    class="absolute inset-x-0 top-0 -z-10 h-64 bg-[radial-gradient(circle_at_top,rgba(184,176,104,0.22),transparent_70%)]"
+  >
+  </div>
+
+  <div
+    class="mx-auto grid max-w-7xl gap-10 px-(--page-space-inline) lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-16"
+  >
+    <div class="space-y-8">
+      <Heading
+        htmlheading="h1"
+        size="h1"
+        font="display"
+        weight="bold"
+        stylingclasses="max-w-[10ch] leading-[0.88] tracking-[-0.05em] text-(--main-500)"
+      >
+        <span class="block">{title[0]}</span>
+        <span class="block">{title[1]}</span>
+        <span class="block">{title[2]}</span>
+      </Heading>
+
+      <figure
+        class="overflow-hidden rounded-(--primitive-radius-4xl) border border-white/70 bg-(--neutral-0) shadow-[0_24px_80px_rgba(64,62,0,0.12)] lg:hidden"
+      >
+        <img
+          src={heroImageSrc}
+          alt={imageAlt}
+          class="block h-auto w-full object-cover"
+        />
+      </figure>
+
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
+        <Text
+          size="p2"
+          font="sans"
+          weight="regular"
+          stylingclasses="max-w-xl text-(--text-primary)"
+        >
+          {text}
+        </Text>
+
+        <a
+          class="inline-flex w-fit items-center justify-center rounded-full bg-(--main-400) px-8 py-4 font-sans text-base font-semibold text-(--button-primary-text) transition-colors duration-200 hover:bg-(--main-500) focus-visible:ring-2 focus-visible:ring-(--main-400) focus-visible:ring-offset-2 focus-visible:outline-none"
+          href={ctaHref}
+        >
+          {ctaLabel}
+        </a>
+      </div>
+    </div>
+
+    <figure
+      class="hidden overflow-hidden rounded-(--primitive-radius-4xl) border border-white/70 bg-(--neutral-0) shadow-[0_32px_100px_rgba(64,62,0,0.18)] lg:block"
+    >
+      <img
+        src={heroImageSrc}
+        alt={imageAlt}
+        class="block h-full w-full object-cover"
+      />
+    </figure>
+  </div>
+</section>
+--- ---
