@@ -6,7 +6,9 @@
 
 import MainLayout from "../layouts/MainLayout.astro";
 import Button from "../components/Button.astro";
+import Heading from "../components/Heading.astro";
 import Link from "../components/Link.astro";
+import Text from "../components/Text.astro";
 
 /* =========================
    Available sizes
@@ -56,7 +58,15 @@ const longText =
        ========================================================= */
     }
     <section>
-      <h2 class="font-display text-size-30 mb-4">1. Search button</h2>
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-4 !text-size-30"
+      >
+        1. Search button
+      </Heading>
 
       <div class="flex flex-col gap-4">
         {
@@ -79,11 +89,19 @@ const longText =
        ========================================================= */
     }
     <section>
-      <h2 class="font-display text-size-30 mb-4">2. Dropdown button</h2>
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-4 !text-size-30"
+      >
+        2. Dropdown button
+      </Heading>
 
-      <p class="text-size-15 mb-3 text-(--neutral-400)">
+      <Text stylingclasses="mb-3 text-(--neutral-400) !text-size-15">
         Filtrerer kort-griddet nedenfor på kategori.
-      </p>
+      </Text>
 
       <div class="flex flex-wrap items-center gap-4">
         {
@@ -107,11 +125,19 @@ const longText =
        ========================================================= */
     }
     <section>
-      <h2 class="font-display text-size-30 mb-4">3. Location button</h2>
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-4 !text-size-30"
+      >
+        3. Location button
+      </Heading>
 
-      <p class="text-size-15 mb-3 text-(--neutral-400)">
+      <Text stylingclasses="mb-3 text-(--neutral-400) !text-size-15">
         Filtrerer kort-griddet nedenfor på lokation.
-      </p>
+      </Text>
 
       <div class="space-y-3">
         {
@@ -162,7 +188,15 @@ const longText =
       }`}
     >
       <div class="mb-4 flex items-center justify-between">
-        <h2 class="font-display text-size-30">Kort-grid (filtreret)</h2>
+        <Heading
+          htmlheading="h2"
+          size="h2"
+          font="display"
+          weight="bold"
+          stylingclasses="!text-size-30"
+        >
+          Kort-grid (filtreret)
+        </Heading>
 
         {/* Reset filters */}
         <button
@@ -178,18 +212,25 @@ const longText =
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <template x-for="card in visible()" :key="card.id">
           <article class="rounded-md border p-5">
-            <h3 class="font-display text-size-20 mb-1" x-text="card.title"></h3>
-            <p class="text-size-14 text-(--neutral-400)">
+            <Heading
+              htmlheading="h3"
+              size="h3"
+              font="display"
+              weight="bold"
+              stylingclasses="mb-1 !text-size-20"
+              x-text="card.title"
+            />
+            <Text stylingclasses="text-(--neutral-400) !text-size-14">
               <span x-text="card.category"></span> ·
               <span x-text="card.location"></span>
-            </p>
+            </Text>
           </article>
         </template>
 
         {/* Empty state */}
-        <p x-show="visible().length === 0" class="col-span-full">
+        <Text x-show="visible().length === 0" stylingclasses="col-span-full">
           Ingen resultater for de valgte filtre.
-        </p>
+        </Text>
       </div>
     </section>
 
@@ -199,12 +240,20 @@ const longText =
        ========================================================= */
     }
     <section>
-      <h2 class="font-display text-size-30 mb-4">4. Standard button</h2>
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-4 !text-size-30"
+      >
+        4. Standard button
+      </Heading>
 
       {
         sizes.map((s) => (
           <div class="mb-4">
-            <p class="text-size-12 mb-2 uppercase">size: {s}</p>
+            <Text stylingclasses="mb-2 uppercase !text-size-12">size: {s}</Text>
 
             <div class="flex flex-wrap gap-3">
               {colors.map((c) => (
@@ -227,12 +276,20 @@ const longText =
        ========================================================= */
     }
     <section>
-      <h2 class="font-display text-size-30 mb-4">5. Link buttons</h2>
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-4 !text-size-30"
+      >
+        5. Link buttons
+      </Heading>
 
       {
         sizes.map((s) => (
           <div class="mb-4">
-            <p class="text-size-12 mb-2 uppercase">size: {s}</p>
+            <Text stylingclasses="mb-2 uppercase !text-size-12">size: {s}</Text>
 
             <div class="flex flex-wrap gap-3">
               {colors.map((c) => (
@@ -256,12 +313,20 @@ const longText =
        ========================================================= */
     }
     <section>
-      <h2 class="font-display text-size-30 mb-4">6. Social links</h2>
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-4 !text-size-30"
+      >
+        6. Social links
+      </Heading>
 
       {
         sizes.map((s) => (
           <div class="mb-4 flex items-center gap-3">
-            <span class="text-size-12 w-12 uppercase">{s}</span>
+            <Text stylingclasses="w-12 uppercase !text-size-12">{s}</Text>
 
             <Link
               variant="social"
@@ -295,11 +360,19 @@ const longText =
        ========================================================= */
     }
     <section>
-      <h2 class="font-display text-size-30 mb-4">7. Breadcrumb</h2>
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-4 !text-size-30"
+      >
+        7. Breadcrumb
+      </Heading>
 
-      <p class="text-size-15 mb-3 text-(--neutral-400)">
+      <Text stylingclasses="mb-3 text-(--neutral-400) !text-size-15">
         Opdaterer filter via Alpine store.
-      </p>
+      </Text>
 
       <Link
         variant="crawl"
@@ -319,7 +392,15 @@ const longText =
        ========================================================= */
     }
     <section>
-      <h2 class="font-display text-size-30 mb-4">8. Read more</h2>
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-4 !text-size-30"
+      >
+        8. Read more
+      </Heading>
 
       <Button
         variant="readmore"
@@ -336,7 +417,15 @@ const longText =
        ========================================================= */
     }
     <section>
-      <h2 class="font-display text-size-30 mb-4">9. Video controls</h2>
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-4 !text-size-30"
+      >
+        9. Video controls
+      </Heading>
 
       <div class="max-w-xl space-y-4">
         <video

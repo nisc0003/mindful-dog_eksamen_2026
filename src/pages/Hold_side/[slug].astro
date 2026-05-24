@@ -2,6 +2,7 @@
 // @ts-nocheck
 import MainLayout from "../../layouts/MainLayout.astro";
 import HoldSingle from "../../components/HoldSingle.astro";
+import Text from "../../components/Text.astro";
 
 export async function getStaticPaths() {
   const apiUrl =
@@ -54,7 +55,7 @@ const service =
         path={service.slug}
       />
     ) : (
-      <p>Holdet blev ikke fundet.</p>
+      <Text>Holdet blev ikke fundet.</Text>
     )
   }
 </MainLayout>

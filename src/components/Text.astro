@@ -37,10 +37,12 @@ const {
   weight = "regular",
   size = "p2",
   stylingclasses = "",
+  ...rest
 } = Astro.props as Props;
 ---
 
 <p
+  {...rest}
   class:list={[
     stylingclasses,
     sizeClasses[size],

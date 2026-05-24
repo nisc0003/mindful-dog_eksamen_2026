@@ -1,17 +1,25 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import Button from "../components/Button.astro";
+import Heading from "../components/Heading.astro";
 import Link from "../components/Link.astro";
+import Text from "../components/Text.astro";
 ---
 
 <MainLayout title="Bliv instruktør">
   <article>
-    <h1>Bliv instruktør</h1>
+    <Heading
+      htmlheading="h1"
+      size="h2"
+      font="display"
+      weight="bold"
+      stylingclasses="mb-6 !text-size-30"
+    >
+      Bliv instruktør
+    </Heading>
     <Button>Klik!</Button>
-    <p>
-      Link til <Link href="https://www.kea.dk" target="_blank"
-        >En anden side</Link
-      >
-    </p>
+    <Text stylingclasses="mt-4 !text-size-16">
+      Link til <Link href="https://www.kea.dk">En anden side</Link>
+    </Text>
   </article>
 </MainLayout>

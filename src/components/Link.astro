@@ -58,6 +58,8 @@ interface Props {
   href?: string;
   label?: string;
   stylingclasses?: string;
+  target?: string;
+  rel?: string;
 
   /* Social icon type */
   network?: SocialNetwork;
@@ -76,8 +78,11 @@ const {
   href = "#",
   label = "",
   stylingclasses = "",
+  target,
+  rel,
   network = "facebook",
   trail = [],
+  ...rest
 } = Astro.props as Props;
 
 /* =========================
@@ -116,7 +121,7 @@ const socialClass = [
      STANDARD LINK
      ========================================================= -->{
   variant === "standard" && (
-    <a href={href} class={stdClass}>
+    <a {...rest} href={href} target={target} rel={rel} class={stdClass}>
       <slot>{label}</slot>
     </a>
   )
@@ -128,6 +133,7 @@ const socialClass = [
 {
   variant === "social" && (
     <a
+      {...rest}
       href={href}
       aria-label={network}
       class={socialClass}
@@ -161,7 +167,11 @@ const socialClass = [
      ========================================================= -->
 {
   variant === "crawl" && (
-    <nav aria-label="Breadcrumb" class="text-size-15 text-(--neutral-400)">
+    <nav
+      {...rest}
+      aria-label="Breadcrumb"
+      class="text-size-15 text-(--neutral-400)"
+    >
       <ol class="flex flex-wrap items-center gap-2">
         {/* Loop breadcrumb steps */}
         {trail.map((step, i) => (

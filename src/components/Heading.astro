@@ -40,11 +40,13 @@ const {
   font = "sans",
   weight = "regular",
   stylingclasses = "",
+  ...rest
 } = Astro.props as Props;
 const Htmlheading = htmlheading;
 ---
 
 <Htmlheading
+  {...rest}
   class:list={[
     stylingclasses,
     sizeClasses[size],
