@@ -1,0 +1,139 @@
+---
+/* =========================================================
+   RULLELISTE-KNAP (WIDTH FIXED VERSION)
+   Dropdown width = exact same as button width
+   ========================================================= */
+
+type DropdownButtonSize = "sm" | "md" | "lg" | "xl";
+type DropdownButtonColor =
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "neutral"
+  | "outline"
+  | "main";
+
+type DropdownButtonFont = "display" | "sans";
+
+interface Props {
+  size?: DropdownButtonSize;
+  color?: DropdownButtonColor;
+  font?: DropdownButtonFont;
+  label?: string;
+  options?: string[];
+  stylingclasses?: string;
+}
+
+const {
+  size = "md",
+  color = "outline",
+  font = "display",
+  label = "Vælg kategori",
+  options = [],
+  stylingclasses = "",
+} = Astro.props as Props;
+
+const sizeClasses = {
+  sm: "h-[36px] px-4 text-sm rounded-md gap-2",
+  md: "h-[44px] px-5 text-base rounded-md gap-2",
+  lg: "h-[52px] px-6 text-lg rounded-lg gap-3",
+  xl: "h-[64px] px-8 text-xl rounded-lg gap-3",
+};
+
+const fontClasses = {
+  display: "font-display",
+  sans: "font-sans",
+};
+
+const colorClasses = {
+  main: "bg-(--button-main-bg) text-(--button-main-text) hover:bg-(--button-main-bg-hover)",
+  primary:
+    "bg-(--button-primary-bg) text-(--button-primary-text) hover:bg-(--button-primary-bg-hover)",
+
+  secondary:
+    "bg-(--button-secondary-bg) text-(--button-secondary-text) hover:bg-(--button-secondary-bg-hover)",
+
+  accent:
+    "bg-(--button-accent-bg) text-(--button-accent-text) hover:bg-(--button-accent-bg-hover)",
+
+  neutral:
+    "bg-(--button-neutral-bg) text-(--button-neutral-text) hover:bg-(--button-neutral-bg-hover)",
+
+  outline:
+    "bg-transparent border border-(--button-outline-border) text-(--button-outline-text) hover:bg-(--button-outline-bg-hover)",
+};
+
+const baseButton =
+  "inline-flex items-center justify-between w-full font-semibold leading-none transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-(--main-400) focus-visible:ring-offset-2";
+
+const buttonClass = [
+  baseButton,
+  sizeClasses[size],
+  colorClasses[color],
+  fontClasses[font],
+  stylingclasses,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<!-- WRAPPER = controls exact width -->
+<div
+  x-data={`{
+    open: false,
+    selected: ${JSON.stringify(label)},
+    toggle() { this.open = !this.open },
+    close() { this.open = false },
+    select(value) {
+      this.selected = value || ${JSON.stringify(label)};
+      this.close()
+    }
+  }`}
+  class="relative inline-block w-fit"
+>
+  <!-- BUTTON (defines width) -->
+  <button type="button" @click="toggle()" class={buttonClass}>
+    <span class="truncate" x-text="selected"></span>
+
+    <svg
+      class="ml-3 size-4 transition-transform duration-200"
+      :class="open ? 'rotate-180' : ''"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
+
+  <!-- DROPDOWN = EXACT SAME WIDTH -->
+  <div
+    x-show="open"
+    x-transition.opacity.scale.90
+    @click.outside="close()"
+    x-cloak
+    class="absolute left-0 z-50 w-full overflow-hidden rounded-lg border border-(--neutral-200) bg-(--neutral-0) shadow-lg"
+  >
+    <button
+      type="button"
+      @click="select('')"
+      class="w-full px-4 py-2 text-left font-medium transition hover:bg-(--neutral-200)"
+    >
+      Alle
+    </button>
+
+    {
+      options.map((option) => (
+        <button
+          type="button"
+          @click={`select(${JSON.stringify(option)})`}
+          class="w-full px-4 py-2 text-left transition hover:bg-(--neutral-200)"
+        >
+          {option}
+        </button>
+      ))
+    }
+  </div>
+</div>

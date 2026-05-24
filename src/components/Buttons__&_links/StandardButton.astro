@@ -1,0 +1,64 @@
+---
+/* =========================================================
+   STANDARD-KNAP
+   Almindelig knap uden ekstra interaktion.
+   ========================================================= */
+
+type StandardButtonSize = "sm" | "md" | "lg" | "xl";
+type StandardButtonColor =
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "neutral"
+  | "outline";
+
+interface Props {
+  size?: StandardButtonSize;
+  color?: StandardButtonColor;
+  label?: string;
+  type?: "button" | "submit" | "reset";
+  stylingclasses?: string;
+}
+
+const {
+  size = "md",
+  color = "primary",
+  label = "Knap",
+  type = "button",
+  stylingclasses = "",
+} = Astro.props as Props;
+
+const sizeClasses = {
+  sm: "h-[35px] px-4 text-size-14 rounded-sm gap-2",
+  md: "h-[44px] px-5 text-size-15 rounded-md gap-2",
+  lg: "h-[53px] px-6 text-size-17 rounded-md gap-3",
+  xl: "h-[81px] px-8 text-size-30 rounded-md gap-3",
+};
+
+const colorClasses = {
+  main: "bg-(--button-main-bg) text-(--button-main-text) hover:bg-(--button-main-bg-hover)",
+  primary:
+    "bg-(--button-primary-bg) text-(--button-primary-text) hover:bg-(--button-primary-bg-hover)",
+  secondary:
+    "bg-(--button-secondary-bg) text-(--button-secondary-text) hover:bg-(--button-secondary-bg-hover)",
+  accent:
+    "bg-(--button-accent-bg) text-(--button-accent-text) hover:bg-(--button-accent-bg-hover)",
+  neutral:
+    "bg-(--button-neutral-bg) text-(--button-neutral-text) hover:bg-(--button-neutral-bg-hover)",
+  outline:
+    "bg-transparent border border-(--button-outline-border) text-(--button-outline-text) hover:bg-(--button-outline-bg-hover)",
+};
+
+const buttonClass = [
+  "inline-flex items-center justify-center font-sans font-semibold leading-none transition-colors transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-(--main-400) focus-visible:ring-offset-2 cursor-pointer",
+  sizeClasses[size],
+  colorClasses[color],
+  stylingclasses,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<button type={type} class={buttonClass}>
+  <slot>{label}</slot>
+</button>

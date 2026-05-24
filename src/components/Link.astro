@@ -1,12 +1,9 @@
 ---
 /* =========================================================
-   LINK.Astro
-   Reusable link component (button + social + breadcrumb)
-   ========================================================= */
+  LINK.Astro
+  Genbrugelig link-komponent til standard, social og breadcrumb
+  ========================================================= */
 
-/* =========================
-   Button-like link sizes
-   ========================= */
 const sizeClasses = {
   sm: "h-[35px] px-4 text-size-14 rounded-sm gap-2",
   md: "h-[44px] px-5 text-size-15 rounded-md gap-2",
@@ -14,9 +11,6 @@ const sizeClasses = {
   xl: "h-[81px] px-8 text-size-30 rounded-md gap-3",
 };
 
-/* =========================
-   Social icon sizes
-   ========================= */
 const socialSizeClasses = {
   sm: "size-[32px]",
   md: "size-[44px]",
@@ -24,9 +18,6 @@ const socialSizeClasses = {
   xl: "size-[72px]",
 };
 
-/* =========================
-   Color tokens
-   ========================= */
 const colorClasses = {
   primary:
     "bg-(--button-primary-bg) text-(--button-primary-text) hover:bg-(--button-primary-bg-hover)",
@@ -40,17 +31,11 @@ const colorClasses = {
     "bg-transparent border border-(--button-outline-border) text-(--button-outline-text) hover:bg-(--button-outline-bg-hover)",
 };
 
-/* =========================
-   Types
-   ========================= */
 type LinkVariant = "standard" | "social" | "crawl";
 type LinkSize = keyof typeof sizeClasses;
 type LinkColor = keyof typeof colorClasses;
 type SocialNetwork = "facebook" | "x" | "instagram";
 
-/* =========================
-   Props interface
-   ========================= */
 interface Props {
   variant?: LinkVariant;
   size?: LinkSize;
@@ -60,17 +45,10 @@ interface Props {
   stylingclasses?: string;
   target?: string;
   rel?: string;
-
-  /* Social icon type */
   network?: SocialNetwork;
-
-  /* Breadcrumb trail */
   trail?: { label: string; href?: string; filter?: string }[];
 }
 
-/* =========================
-   Default props
-   ========================= */
 const {
   variant = "standard",
   size = "md",
@@ -82,18 +60,11 @@ const {
   rel,
   network = "facebook",
   trail = [],
-  ...rest
 } = Astro.props as Props;
 
-/* =========================
-   Base link styling
-   ========================= */
 const baseLink =
   "inline-flex items-center justify-center font-sans font-semibold leading-none transition-colors transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-(--main-400) focus-visible:ring-offset-2 no-underline cursor-pointer";
 
-/* =========================
-   Standard link styles
-   ========================= */
 const stdClass = [
   baseLink,
   sizeClasses[size],
@@ -103,9 +74,6 @@ const stdClass = [
   .filter(Boolean)
   .join(" ");
 
-/* =========================
-   Social link styles
-   ========================= */
 const socialClass = [
   baseLink,
   socialSizeClasses[size],
@@ -117,40 +85,29 @@ const socialClass = [
   .join(" ");
 ---
 
-<!-- =========================================================
-     STANDARD LINK
-     ========================================================= -->{
+{
   variant === "standard" && (
-    <a {...rest} href={href} target={target} rel={rel} class={stdClass}>
+    <a href={href} target={target} rel={rel} class={stdClass}>
       <slot>{label}</slot>
     </a>
   )
 }
 
-<!-- =========================================================
-     SOCIAL ICON LINK
-     ========================================================= -->
 {
   variant === "social" && (
     <a
-      {...rest}
       href={href}
       aria-label={network}
       class={socialClass}
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
     >
-      {/* Facebook icon */}
       {network === "facebook" && (
         <img src="https://placehold.co/32x32" alt="Facebook" class="size-1/2" />
       )}
-
-      {/* X icon */}
       {network === "x" && (
         <img src="https://placehold.co/32x32" alt="X" class="size-1/2" />
       )}
-
-      {/* Instagram icon */}
       {network === "instagram" && (
         <img
           src="https://placehold.co/32x32"
@@ -162,31 +119,25 @@ const socialClass = [
   )
 }
 
-<!-- =========================================================
-     BREADCRUMB / CRAWL NAV
-     ========================================================= -->
 {
   variant === "crawl" && (
     <nav
-      {...rest}
+      x-data="crawlTrail()"
       aria-label="Breadcrumb"
       class="text-size-15 text-(--neutral-400)"
     >
       <ol class="flex flex-wrap items-center gap-2">
-        {/* Loop breadcrumb steps */}
-        {trail.map((step, i) => (
+        {trail.map((step, index) => (
           <li class="flex items-center gap-2">
-            {/* Filter step (updates store) */}
             {step.filter ? (
               <button
                 type="button"
-                @click={`$store.filters.category = '${step.filter}'`}
+                @click={`select(${JSON.stringify(step.filter)})`}
                 class="hover:text-(--link-text-hover) hover:underline"
               >
                 {step.label}
               </button>
             ) : (
-              /* Normal link step */
               <a
                 href={step.href || "#"}
                 class="hover:text-(--link-text-hover) hover:underline"
@@ -195,8 +146,7 @@ const socialClass = [
               </a>
             )}
 
-            {/* Separator arrow */}
-            {i < trail.length - 1 && <span aria-hidden="true">›</span>}
+            {index < trail.length - 1 && <span aria-hidden="true">›</span>}
           </li>
         ))}
       </ol>

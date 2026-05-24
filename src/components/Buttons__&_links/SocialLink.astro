@@ -1,0 +1,88 @@
+---
+/* =========================================================
+   SOCIAL LINK (ICON-ONLY COLOR SYSTEM)
+   ========================================================= */
+
+type SocialLinkSize = "sm" | "md" | "lg";
+type SocialNetwork = "facebook" | "x" | "instagram";
+
+interface Props {
+  size?: SocialLinkSize;
+  network?: SocialNetwork;
+  href?: string;
+  stylingclasses?: string;
+}
+
+const {
+  size = "md",
+  network = "facebook",
+  href = "#",
+  stylingclasses = "",
+} = Astro.props as Props;
+
+/* =========================================================
+   SIZE (BIGGER + CLEAN)
+========================================================= */
+const sizeClasses = {
+  sm: "w-[52px] h-[52px]",
+  md: "w-[64px] h-[64px]",
+  lg: "w-[80px] h-[80px]",
+};
+
+/* =========================================================
+   ICON COLOR SYSTEM (NO BACKGROUND)
+   - uses CSS filters instead of bg colors
+========================================================= */
+const iconTone = {
+  facebook: "opacity-80 hover:opacity-100",
+  x: "opacity-80 hover:opacity-100",
+  instagram: "opacity-80 hover:opacity-100",
+};
+
+const linkClass = [
+  "inline-flex items-center justify-center rounded-full transition-all duration-150 hover:scale-[1.05] active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-(--main-400) focus-visible:ring-offset-2 cursor-pointer",
+  sizeClasses[size],
+  iconTone[network],
+  stylingclasses,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<a
+  href={href}
+  aria-label={network}
+  class={linkClass}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  {
+    network === "facebook" && (
+      <img
+        src="https://placehold.co/64x64"
+        alt="Facebook"
+        class="h-full w-full object-contain"
+      />
+    )
+  }
+
+  {
+    network === "x" && (
+      <img
+        src="https://placehold.co/64x64"
+        alt="X"
+        class="h-full w-full object-contain"
+      />
+    )
+  }
+
+  {
+    network === "instagram" && (
+      <img
+        src="https://placehold.co/64x64"
+        alt="Instagram"
+        class="h-full w-full object-contain"
+      />
+    )
+  }
+</a>

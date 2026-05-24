@@ -1,0 +1,73 @@
+---
+/* =========================================================
+   LOKATIONS-KNAP (FIXED LAYOUT)
+   - sm/md: auto width (content-based)
+   - lg/xl: full width (card style)
+   ========================================================= */
+
+type LocationButtonSize = "sm" | "md" | "lg" | "xl";
+type LocationButtonColor = "main" | "primary" | "secondary";
+
+interface Props {
+  size?: LocationButtonSize;
+  color?: LocationButtonColor;
+  location?: string;
+  address?: string;
+  stylingclasses?: string;
+}
+
+const {
+  size = "md",
+  color = "main",
+  location = "",
+  address = "",
+  stylingclasses = "",
+} = Astro.props as Props;
+
+const sizeClasses = {
+  sm: "px-4 py-2 text-sm rounded-md",
+  md: "px-5 py-3 text-base rounded-md",
+  lg: "px-6 py-4 text-base rounded-md",
+  xl: "w-full px-6 py-5 text-lg rounded-md",
+};
+
+const colorClasses = {
+  main: "bg-(--button-main-bg) text-(--button-main-text) hover:bg-(--button-main-bg-hover)",
+  primary:
+    "bg-(--button-primary-bg) text-(--button-primary-text) hover:bg-(--button-primary-bg-hover)",
+  secondary:
+    "bg-(--button-secondary-bg) text-(--button-secondary-text) hover:bg-(--button-secondary-bg-hover)",
+};
+
+const baseButton =
+  "inline-flex flex-col text-left font-sans font-semibold transition-colors duration-150 hover:scale-[1.01] active:scale-[0.99] focus:outline-none";
+
+const buttonClass = [
+  baseButton,
+  sizeClasses[size],
+  colorClasses[color],
+  stylingclasses,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<button
+  type="button"
+  x-data="{ active: false }"
+  @click="active = !active"
+  class={buttonClass}
+  :class="active ? '' : ''"
+>
+  <!-- LOCATION NAME -->
+  <span class="font-display leading-tight">
+    {location}
+  </span>
+
+  <!-- ADDRESS ONLY FOR LG / XL -->
+  {
+    (size === "lg" || size === "xl") && address && (
+      <span class="font-sans text-sm leading-tight opacity-80">{address}</span>
+    )
+  }
+</button>
