@@ -12,59 +12,66 @@ export async function getServices() {
   return res.json();
 }
 
-/** All holds with nested traenere row (same FK as single hold page). */
-export async function getServicesWithTraenere() {
-  const res = await fetch(`${url}/services?select=*,traenere(*)`, options);
-  const data = await res.json();
-  if (!Array.isArray(data)) return data;
-
-  const needsManualJoin = data.some((row) => !row.traenere);
-  if (!needsManualJoin) {
-    return data.map((row) => ({ ...row, traener: row.traenere }));
-  }
-
-  const traenere = await getTraenere();
-  return joinServicesWithTraenere(data, traenere);
-}
-
-export function getTraenerDisplayName(traener) {
-  if (!traener) return "";
-  if (typeof traener === "string") return traener;
-  return `${traener.fornavn ?? ""} ${traener.efternavn ?? ""}`.trim();
-}
-
 export async function getTraenere() {
   const res = await fetch(`${url}/traenere?select=*`, options);
   return res.json();
 }
 
-/** FK on services → traenere.traener_id (int8), e.g. 1001 */
-export function getServiceTraenerId(service) {
-  return service?.traener_id ?? service?.services_traener_id ?? null;
+export async function getIkoner() {
+  const res = await fetch(`${url}/ikoner?select=*`, options);
+  return res.json();
 }
 
-export async function getServicesAndTraenerBySlug(slug) {
+/** Services og tranere nested sammen. */
+export async function getAllData() {
   const res = await fetch(
-    `${url}/services?slug=eq.${encodeURIComponent(slug)}&select=*,traenere(*)`,
+    `${url}/services?select=*,traenere(*),ikoner(*)`,
     options,
   );
   const data = await res.json();
-  if (!Array.isArray(data) || data.length === 0) return data;
+  if (!Array.isArray(data)) return data;
 
-  const row = data[0];
-  if (row.traenere) return data;
+  // const needsManualJoin = data.some((row) => !row.traenere);
+  // if (!needsManualJoin) {
+  //   return data.map((row) => ({ ...row, traener: row.traenere }));
+  // }
 
-  const traenerId = getServiceTraenerId(row);
-  if (traenerId == null) return data;
-
-  const tRes = await fetch(
-    `${url}/traenere?traener_id=eq.${traenerId}&select=*`,
-    options,
-  );
-  const trainers = await tRes.json();
-  row.traenere = Array.isArray(trainers) ? (trainers[0] ?? null) : null;
-  return data;
+  const traenere = await getTraenere();
+  const ikoner = await getIkoner();
+  return joinAllData(data, traenere, ikoner);
 }
+
+/** FK services → traenere.traener_id (int8), e.g. 1001 */
+export function getTraenerId(service) {
+  return service?.["services.traener_id"] ?? service?.traener_id ?? null;
+}
+
+export function getIkonId(service) {
+  return service?.["services.ikon_id"] ?? service?.ikon_id ?? null;
+}
+
+// export async function getServicesAndTraenerBySlug(slug) {
+//   const res = await fetch(
+//     `${url}/services?slug=eq.${encodeURIComponent(slug)}&select=*,traenere(*)`,
+//     options,
+//   );
+//   const data = await res.json();
+//   if (!Array.isArray(data) || data.length === 0) return data;
+
+//   const row = data[0];
+//   if (row.traenere) return data;
+
+//   const traenerId = getServiceTraenerId(row);
+//   if (traenerId == null) return data;
+
+//   const tRes = await fetch(
+//     `${url}/traenere?traener_id=eq.${traenerId}&select=*`,
+//     options,
+//   );
+//   const trainers = await tRes.json();
+//   row.traenere = Array.isArray(trainers) ? (trainers[0] ?? null) : null;
+//   return data;
+// }
 
 export async function getServicesBySlug(slug) {
   const res = await fetch(
@@ -79,13 +86,13 @@ export async function getServicesSlugs() {
   return res.json();
 }
 
-export async function getTraenereBySlug(slug) {
-  const res = await fetch(
-    `${url}/traenere?traener_slug=eq.${encodeURIComponent(slug)}&select=*`,
-    options,
-  );
-  return res.json();
-}
+// export async function getTraenereBySlug(slug) {
+//   const res = await fetch(
+//     `${url}/traenere?traener_slug=eq.${encodeURIComponent(slug)}&select=*`,
+//     options,
+//   );
+//   return res.json();
+// }
 
 // Definerer lokationsgrupperne, hvor hver gruppe indeholder en liste af lokationer
 export const lokationGroups = {
@@ -162,45 +169,50 @@ export function firstRow(rows) {
   return Array.isArray(rows) ? (rows[0] ?? null) : null;
 }
 
-export function getPageData(service) {
-  if (!service) return null;
-  const t = service.traenere ?? null;
-  return {
-    // services
-    type: service.type,
-    lokation: service.lokation,
-    pris: service.pris,
-    hold: service.hold,
-    tilbud: service.tilbud,
-    tilbud_procent: service.opstart,
-    opstart: service.opstart,
-    afslut: service.afslut,
-    img: service.produkt_img,
-    slug: service.slug,
-    // traenere
-    fornavn: t?.fornavn,
-    efternavn: t?.efternavn,
-    adresse_1: t?.adresse_1,
-    postnummer_1: t?.postnummer_1,
-    bynavn_1: t?.bynavn_1,
-    adresse_2: t?.adresse_2,
-    postnummer_2: t?.postnummer_2,
-    bynavn_2: t?.bynavn_2,
-    traener_mail: t?.traener_mail,
-    traener_tlf: t?.traener_tlf,
-    traener_info: t?.traener_info,
-    profilbillede_img: t?.profilbillede_img,
-    testimonial_1: t?.testimonial_1,
-    testimonial_2: t?.testimonial_2,
-    testimonial_3: t?.testimonial_3,
-  };
-}
+// export function getPageData(service) {
+//   if (!service) return null;
+//   const t = service.traenere ?? null;
+//   const i = service.ikoner ?? null;
+//   return {
+//     // services
+//     type: service.type,
+//     lokation: service.lokation,
+//     pris: service.pris,
+//     hold: service.hold,
+//     tilbud: service.tilbud,
+//     tilbud_procent: service.opstart,
+//     opstart: service.opstart,
+//     afslut: service.afslut,
+//     img: service.produkt_img,
+//     tilmelding: service.tilmelding,
+//     slug: service.slug,
+//     // traenere
+//     fornavn: t?.fornavn,
+//     efternavn: t?.efternavn,
+//     adresse_1: t?.adresse_1,
+//     postnummer_1: t?.postnummer_1,
+//     bynavn_1: t?.bynavn_1,
+//     adresse_2: t?.adresse_2,
+//     postnummer_2: t?.postnummer_2,
+//     bynavn_2: t?.bynavn_2,
+//     traener_mail: t?.traener_mail,
+//     traener_tlf: t?.traener_tlf,
+//     traener_info: t?.traener_info,
+//     profilbillede_img: t?.profilbillede_img,
+//     testimonial_1: t?.testimonial_1,
+//     testimonial_2: t?.testimonial_2,
+//     testimonial_3: t?.testimonial_3,
+//     // ikoner
+//     status_txt: i?.status_txt,
+//     status_ikon: i?.ikon_url,
+//   };
+// }
 
 // Map Services db og Traenere db sammen, sammenlign foreign key som er traener_id
-export function joinServicesWithTraenere(services, traenere) {
+export function joinAllData(services, traenere, ikoner) {
   return services.map((s) => ({
     ...s,
-    traener:
-      traenere.find((t) => t.traener_id === getServiceTraenerId(s)) ?? null,
+    traener: traenere.find((t) => t.traener_id === getTraenerId(s)) ?? null,
+    ikon: ikoner.find((i) => i.ikon_id === getIkonId(s)) ?? null,
   }));
 }

@@ -2,9 +2,9 @@
 const { img, type, traener, path, lokation, hold, pris } = Astro.props;
 ---
 
-<li class="mx-auto max-w-[33vw] overflow-hidden rounded-md bg-(--neutral-100)">
+<li class="mx-auto overflow-hidden rounded-md bg-(--neutral-100)">
   <a href={"/Hold_side/" + path}>
-    <article>
+    <article class="row-span-2 grid grid-rows-subgrid">
       <img
         src={img}
         alt={type}

@@ -1,31 +1,38 @@
 ---
-const { hold, pris, adresse } = Astro.props;
+const { hold, pris, adresse, status_ikon, status_txt } = Astro.props;
 ---
 
-<article
-  class="mx-auto grid w-[85cqw] grid-cols-5 items-center gap-6 rounded-md border px-6 py-4"
->
-  <div class="col-span-2 flex gap-4 pr-2">
-    <slot name="ikon" />
-    <div>
-      <h6>{hold}</h6>
-      <p>Åben for tilmelding</p>
-    </div>
-  </div>
-  <div class="col-span-2 flex gap-4">
-    <div>
-      <p class="font-bold">LOKATION</p>
-      <p>{adresse}</p>
-    </div>
-    <div>
-      <p class="font-bold">PRIS</p>
-      <p>{pris}</p>
-    </div>
-  </div>
-  <a
-    href="/Hold_oversigt"
-    class="justify-self-end rounded-md bg-(--main-300) px-4 py-2 text-(length:--text-size-16) whitespace-nowrap text-(--text-inverse) transition-colors duration-150 hover:bg-(--main-400)"
+<li class="row-span-2 grid">
+  <article
+    class="grid grid-cols-subgrid gap-2 rounded-md border p-4 md:grid-cols-6"
   >
-    LÆS MERE
-  </a>
-</article>
+    <div class="flex gap-2 max-md:-translate-x-2 md:col-span-2 md:gap-4">
+      <img src={status_ikon} alt={status_txt} class="aspect-square h-12" />
+      <div>
+        <h6>{hold}</h6>
+        <p>{status_txt}</p>
+      </div>
+    </div>
+
+    <div class="flex grid-cols-4 justify-between md:col-span-4 md:grid">
+      <div class="flex gap-6 md:col-span-3">
+        <div class="hidden md:inline-block">
+          <p class="font-bold">LOKATION</p>
+          <p>{adresse}</p>
+        </div>
+        <div>
+          <p class="font-bold">PRIS</p>
+          <p>{pris}</p>
+        </div>
+      </div>
+      <span class="my-auto">
+        <a
+          href="/Hold_oversigt"
+          class="rounded-md bg-(--main-400) px-4 py-2 text-(length:--text-size-14) whitespace-nowrap text-(--text-inverse) transition-colors duration-150 hover:bg-(--main-500) md:text-(length:--text-size-16)"
+        >
+          LÆS MERE
+        </a>
+      </span>
+    </div>
+  </article>
+</li>
