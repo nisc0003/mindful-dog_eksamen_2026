@@ -209,6 +209,13 @@
   --text-size-100: var(--primitive-font-100);
   --text-size-180: var(--primitive-font-180);
 
+  --text-primary: var(--neutral-500);
+  --text-secondary: var(--neutral-400);
+  --text-muted: var(--neutral-300);
+  --text-inverse: var(--neutral-100);
+  --text-label: var(--neutral-400);
+
+  /* ____________________Desktop headers____________________ */
   --heading-1-size: var(--primitive-font-180);
   --heading-2-size: var(--primitive-font-100);
   --heading-3-size: var(--primitive-font-80);
@@ -216,11 +223,13 @@
   --heading-5-size: var(--primitive-font-30);
   --heading-6-size: var(--primitive-font-20);
 
-  --text-primary: var(--neutral-500);
-  --text-secondary: var(--neutral-400);
-  --text-muted: var(--neutral-300);
-  --text-inverse: var(--neutral-100);
-  --text-label: var(--neutral-400);
+  /* ____________________Mobile headers____________________ */
+  --heading-1-mobile: var(--primitive-font-65);
+  --heading-2-mobile: var(--primitive-font-40);
+  --heading-3-mobile: var(--primitive-font-25);
+  --heading-4-mobile: var(--primitive-font-25);
+  --heading-5-mobile: var(--primitive-font-25);
+  --heading-6-mobile: var(--primitive-font-15);
 
   /* ____________________Links____________________ */
   --link-text: var(--accent-400);
@@ -266,36 +275,67 @@
 /* ____________________Global sizing____________________ */
 
 h1 {
-  font-size: var(--heading-1-size);
   font-family: var(--font-heading);
+  font-size: var(--heading-1-mobile);
   font-weight: 600;
+  line-height: 80px;
 }
 h2 {
-  font-size: var(--heading-2-size);
   font-family: var(--font-heading);
+  font-size: var(--heading-2-mobile);
   font-weight: 600;
+  line-height: 80px;
 }
 h3 {
-  font-size: var(--heading-3-size);
   font-family: var(--font-heading);
+  font-size: var(--heading-3-mobile);
   font-weight: 600;
+  line-height: 30px;
 }
 h4 {
-  font-size: var(--heading-4-size);
   font-family: var(--font-heading);
+  font-size: var(--heading-4-mobile);
   font-weight: 600;
+  line-height: 30px;
 }
 h5 {
-  font-size: var(--heading-5-size);
   font-family: var(--font-heading);
+  font-size: var(--heading-5-mobile);
   font-weight: 600;
+  line-height: 30px;
 }
 h6 {
-  font-size: var(--heading-6-size);
   font-family: var(--font-heading);
+  font-size: var(--heading-6-mobile);
   font-weight: 600;
+  line-height: 26px;
 }
 
 p {
   font-family: var(--font-body);
+}
+
+@media (width >= 48rem) {
+  h1 {
+    font-size: var(--var(--heading-1-size));
+  }
+  h2 {
+    font-size: var(--var(--heading-2-size));
+  }
+  h3 {
+    font-size: var(--var(--heading-3-size));
+    line-height: 80px;
+  }
+  h4 {
+    font-size: var(--var(--heading-4-size));
+    line-height: 48px;
+  }
+  h5 {
+    font-size: var(--var(--heading-5-size));
+    line-height: 34px;
+  }
+  h6 {
+    font-size: var(--var(--heading-6-size));
+    line-height: 26px;
+  }
 }

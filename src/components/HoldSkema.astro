@@ -3,11 +3,9 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import Button from "../components/Button.astro";
 import Link from "../components/Link.astro";
-import ProductCard from "../components/ProductCard.astro";
-
+import ProfileCard from "../components/ProfileCard.astro";
 import {
   getAllData,
-  getTraenerDisplayName,
   lokationGroups,
   groupStyles,
   getLokationGroup,
@@ -15,13 +13,12 @@ import {
   getGroupedByLokation,
   getDisplayedGroups,
   krTilDKK,
-  getServices,
 } from "../assets/js/supabase_v2.js";
 
 const selectedLokation = Astro.props.selectedLokation || "Alle";
 
-const tjek = await getServices();
 const services = await getAllData();
+// console.log(services);
 
 const filterLokation = getFilterLokation(services, selectedLokation);
 const groupedByLokation = getGroupedByLokation(filterLokation);
@@ -50,20 +47,27 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
           data-group={group}
           class={`mb-8 border p-6 ${groupStyles[group] || "border-(--neutral-500) bg-(--neutral-100)"}`}
         >
-          <h4 class="mb-4 font-semibold text-slate-900">{group}</h4>
-          <ul class="grid auto-rows-auto gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <h4 class="mb-4 font-semibold text-(--neutral-500)">{group}</h4>
+          <ul class="grid auto-rows-auto gap-2 sm:max-md:grid-cols-2 2xl:grid-cols-2">
             {groupedByLokation[group].map((item, index) => {
               const prisTekst = krTilDKK.format(Number(item.pris));
               const t = item.traenere;
+              const i = item.ikoner;
               return (
-                <ProductCard
-                  type={item.type}
-                  lokation={item.lokation}
+                <ProfileCard
+                  adresse={
+                    t?.adresse_1 +
+                    "," +
+                    " " +
+                    t?.postnummer_1 +
+                    " " +
+                    t?.bynavn_1
+                  }
                   pris={prisTekst}
                   hold={item.hold}
-                  img={item.produkt_img}
-                  traener={t?.fornavn}
                   path={item.slug}
+                  status_ikon={i?.ikon_url}
+                  status_txt={i?.status_txt}
                 />
               );
             })}

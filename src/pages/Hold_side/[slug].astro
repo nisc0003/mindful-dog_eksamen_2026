@@ -2,56 +2,38 @@
 // @ts-nocheck
 import MainLayout from "../../layouts/MainLayout.astro";
 import HoldSingle from "../../components/HoldSingle.astro";
+import {
+  getServicesSlugs,
+  getServicesAndTraenerBySlug,
+  getPageData,
+  firstRow,
+} from "../../assets/js/supabase_v2";
 
 export async function getStaticPaths() {
-  const apiUrl =
-    "https://iizbqssfazgwknvhsdwf.supabase.co/rest/v1/services?select=slug";
-  const key = "sb_publishable_uwi_g2DvwOpYYYft7DfkXg_cFJcJTNH";
-
-  const options = {
-    headers: {
-      apikey: key,
-    },
-  };
-
-  const services = await fetch(apiUrl, options).then((res) => res.json());
-
-  return services.map((service) => ({
-    params: { slug: service.slug },
+  const slugs = await getServicesSlugs();
+  return slugs.map((item) => ({
+    params: { slug: item.slug },
   }));
 }
 
-const { slug: rawSlug } = Astro.params;
-const slug = rawSlug && rawSlug.trim();
+const slug = Astro.params.slug?.trim();
 
-const servicesUrl = `https://iizbqssfazgwknvhsdwf.supabase.co/rest/v1/services?slug=eq.${encodeURIComponent(
-  slug,
-)}&select=*`;
-const key = "sb_publishable_uwi_g2DvwOpYYYft7DfkXg_cFJcJTNH";
-
-const options = {
-  headers: {
-    apikey: key,
-  },
-};
-const servicesRes = await fetch(servicesUrl, options);
-
-const servicesData = await servicesRes.json();
-const service =
-  Array.isArray(servicesData) && servicesData.length ? servicesData[0] : null;
+const rows = await getServicesAndTraenerBySlug(slug);
+const service = firstRow(rows);
+const pageData = getPageData(service);
 ---
 
 <MainLayout>
   {
-    service ? (
+    pageData ? (
       <HoldSingle
-        hold={service.hold}
-        type={service.type}
-        traener={service.traener}
-        pris={service.pris}
-        img={service.produkt_img}
-        lokation={service.lokation}
-        path={service.slug}
+        hold={pageData.hold}
+        type={pageData.type}
+        traener={pageData.fornavn + " " + pageData.efternavn}
+        pris={pageData.pris}
+        img={pageData.img}
+        lokation={pageData.lokation}
+        path={pageData.slug}
       />
     ) : (
       <p>Holdet blev ikke fundet.</p>
