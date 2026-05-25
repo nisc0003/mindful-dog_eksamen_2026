@@ -11,11 +11,9 @@ import Shop from "../components/Shop.astro";
   <article>
     <h1>Hold oversigt</h1>
     <Button>Klik!</Button>
-    <p>
-      Link til <Link href="https://www.kea.dk" target="_blank"
-        >En anden side</Link
-      >
-    </p>
+    <a href="/Hold_skema">
+      Link til <Link href="/Hold_skema" target="_blank">En anden side</Link>
+    </a>
   </article>
   <Shop selectedLokation={Astro.url.searchParams.get("lokation") || "Alle"} />
 </MainLayout>

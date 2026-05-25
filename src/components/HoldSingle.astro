@@ -1,11 +1,7 @@
 ---
-const { img, type, traener, lokation, hold, pris } = Astro.props;
-
-const krTilDKK = new Intl.NumberFormat("da-DK", {
-  style: "currency",
-  currency: "DKK",
-  currencyDisplay: "code",
-});
+import { krTilDKK } from "../assets/js/supabase_v2";
+const { img, type, fornavn, efternavn, lokation, hold, pris, traener } =
+  Astro.props;
 
 const prisTekst = krTilDKK.format(Number(pris));
 ---
@@ -49,7 +45,7 @@ const prisTekst = krTilDKK.format(Number(pris));
 <section class="bg-(--accent-200) p-8">
   <p>UNDERVISER</p>
   <div class="bg-(--neutral-100) p-4">
-    <h5 class>{traener}</h5>
+    <h5 class="semibold">{traener}</h5>
   </div>
 </section>
 <section class="bg-(--neutral-100) p-8">
