@@ -1,4 +1,5 @@
 ---
+import Heading from "../components/Heading.astro";
 import { krTilDKK } from "../assets/js/supabase_v2";
 const { img, type, lokation, hold, pris, traener, profil_img, traener_txt } =
   Astro.props;
@@ -19,7 +20,9 @@ const prisTekst = krTilDKK.format(Number(pris));
       {lokation}
     </p>
     <div>
-      <h3 class="heading-3-size) font-bold">{hold}</h3>
+      <Heading htmlheading="h3" size="h3" font="display" weight="semibold"
+        >{hold}</Heading
+      >
       <p class="text-size-16">Her skal der være en beskrivelse af holdet.</p>
     </div>
     <div

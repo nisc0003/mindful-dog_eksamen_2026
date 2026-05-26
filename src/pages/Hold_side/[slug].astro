@@ -1,6 +1,7 @@
 ---
 // @ts-nocheck
 import MainLayout from "../../layouts/MainLayout.astro";
+import Heading from "../../components/Heading.astro";
 import EmployeeCard from "../../components/cards/EmployeeCard.astro";
 import HoldSingle from "../../components/HoldSingle.astro";
 import ProfileCard from "../../components/cards/ProfileCard.astro";
@@ -40,11 +41,15 @@ const pageData = getPageData(service);
         path={pageData.slug}
       />
     ) : (
-      <p>Holdet blev ikke fundet.</p>
+      <Heading htmlheading="h2" size="h2" font="display" weight="semibold">
+        Holdet blev ikke fundet.
+      </Heading>
     )
   }
   <section class="bg-(--accent-200) p-8">
-    <p>UNDERVISER</p>
+    <Heading htmlheading="h2" size="h2" font="display" weight="semibold"
+      >UNDERVISER</Heading
+    >
     <ProfileCard
       traener={pageData.fornavn + " " + pageData.efternavn}
       profil_img={pageData.profil_img}
@@ -52,7 +57,9 @@ const pageData = getPageData(service);
     />
   </section>
   <section class="bg-(--neutral-100) p-8">
-    <p>INKLUDERET</p>
+    <Heading htmlheading="h2" size="h2" font="display" weight="semibold"
+      >INKLUDERET</Heading
+    >
     <EmployeeCard
       traener={pageData.fornavn + " " + pageData.efternavn}
       lokation={pageData.lokation}
@@ -60,7 +67,9 @@ const pageData = getPageData(service);
     />
   </section>
   <section class="bg-(--main-200) p-8">
-    <p>FORMAAL</p>
+    <Heading htmlheading="h2" size="h2" font="display" weight="semibold"
+      >FORMÅL</Heading
+    >
     <Nyhedsbrev />
   </section>
 </MainLayout>

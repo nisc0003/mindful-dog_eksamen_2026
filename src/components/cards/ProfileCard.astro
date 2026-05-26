@@ -1,4 +1,5 @@
 ---
+import Heading from "../Heading.astro";
 import Link from "../../components/Buttons__&_links/Link.astro";
 const { traener, traener_info, profil_img } = Astro.props;
 ---
@@ -9,7 +10,15 @@ const { traener, traener_info, profil_img } = Astro.props;
     alt={traener}
     class="w-fill aspect-square h-auto object-cover object-[0%_20%]"
   />
-  <h5 class="md:col-start-2 md:col-end-5 md:row-end-1">{traener}</h5>
+  <Heading
+    htmlheading="h5"
+    size="h5"
+    font="display"
+    weight="semibold"
+    stylingclasses="md:col-start-2 md:col-end-5 md:row-end-1"
+  >
+    {traener}
+  </Heading>
   <p class="col-span-2 md:col-start-2 md:col-end-5 md:row-end-1 md:pt-8">
     {traener_info}
   </p>

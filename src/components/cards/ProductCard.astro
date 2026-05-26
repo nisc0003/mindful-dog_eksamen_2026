@@ -1,4 +1,5 @@
 ---
+import Heading from "../Heading.astro";
 const { img, type, traener, path, lokation, hold, pris } = Astro.props;
 ---
 
@@ -23,16 +24,18 @@ const { img, type, traener, path, lokation, hold, pris } = Astro.props;
           <p class="bg-(--neutral-200) text-(--text-primary)">{traener}</p>
         </div>
         <div>
-          <h6 class="heading-6-size) font-bold">{hold}</h6>
+          <Heading htmlheading="h6" size="h6" font="display" weight="bold">
+            {hold}
+          </Heading>
           <p class="text-size-16">
             Her skal der være en beskrivelse af holdet.
           </p>
         </div>
         <div class="my-4 flex items-center justify-between">
-          <p class="text-size-20) font-bold">{pris}</p>
+          <p class="text-size-20 font-bold">{pris}</p>
           <a
             href="/Hold_oversigt"
-            class="text-size-20) rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
+            class="text-size-20 rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
           >
             SE HOLD
           </a>

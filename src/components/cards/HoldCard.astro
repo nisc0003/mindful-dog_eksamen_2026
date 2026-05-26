@@ -1,4 +1,5 @@
 ---
+import Heading from "../Heading.astro";
 const { hold, pris, adresse, status_ikon, status_txt } = Astro.props;
 ---
 
@@ -9,7 +10,9 @@ const { hold, pris, adresse, status_ikon, status_txt } = Astro.props;
     <div class="flex gap-2 max-md:-translate-x-2 md:col-span-2 md:gap-4">
       <img src={status_ikon} alt={status_txt} class="aspect-square h-12" />
       <div>
-        <h6>{hold}</h6>
+        <Heading htmlheading="h6" size="h6" font="display" weight="semibold">
+          {hold}
+        </Heading>
         <p>{status_txt}</p>
       </div>
     </div>
@@ -28,7 +31,7 @@ const { hold, pris, adresse, status_ikon, status_txt } = Astro.props;
       <span class="my-auto">
         <a
           href="/Hold_oversigt"
-          class="text-size-14) md:text-size-16) rounded-md bg-(--main-400) px-4 py-2 whitespace-nowrap text-(--text-inverse) transition-colors duration-150 hover:bg-(--main-500)"
+          class="text-size-14 md:text-size-16) rounded-md bg-(--main-400) px-4 py-2 whitespace-nowrap text-(--text-inverse) transition-colors duration-150 hover:bg-(--main-500)"
         >
           LÆS MERE
         </a>

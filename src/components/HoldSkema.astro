@@ -1,6 +1,7 @@
 ---
 //@ts-nocheck
 import MainLayout from "../layouts/MainLayout.astro";
+import Heading from "./Heading.astro";
 import Button from "../components/Buttons__&_links/Button.astro";
 import Link from "../components/Buttons__&_links/Link.astro";
 import HoldCard from "../components/cards/HoldCard.astro";
@@ -47,7 +48,15 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
           data-group={group}
           class={`mb-8 border p-6 ${groupStyles[group] || "border-(--neutral-500) bg-(--neutral-100)"}`}
         >
-          <h4 class="mb-4 font-semibold text-(--neutral-500)">{group}</h4>
+          <Heading
+            stylingclassesclass="mb-4"
+            htmlheading="h4"
+            size="h4"
+            font="display"
+            weight="semibold"
+          >
+            {group}
+          </Heading>
           <ul class="grid auto-rows-auto gap-2 sm:max-md:grid-cols-2 2xl:grid-cols-2">
             {groupedByLokation[group].map((item, index) => {
               const prisTekst = krTilDKK.format(Number(item.pris));
