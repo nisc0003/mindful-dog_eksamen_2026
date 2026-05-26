@@ -1,5 +1,5 @@
 ---
-import Link from "../../components/Link.astro";
+import Link from "../../components/Buttons__&_links/Link.astro";
 const { traener, traener_info, profil_img } = Astro.props;
 ---
 
@@ -15,12 +15,6 @@ const { traener, traener_info, profil_img } = Astro.props;
   </p>
 
   <div class="my-auto flex flex-wrap md:place-self-end">
-    <Link
-      variant="standard"
-      size="md"
-      color="primary"
-      href="#"
-      label="SE PROFIL"
-    />
+    <Link href="#" label="SE PROFIL" />
   </div>
 </article>

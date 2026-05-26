@@ -12,7 +12,7 @@ const { img, type, traener, path, lokation, hold, pris } = Astro.props;
       />
       <div class="p-[2cqw]">
         <div
-          class="flex gap-2 [&_p]:my-3 [&_p]:rounded-md [&_p]:px-3 [&_p]:py-1 [&_p]:text-center [&_p]:text-(length:--text-size-10) [&_p]:font-semibold"
+          class="[&_p]:text-size-10) flex gap-2 [&_p]:my-3 [&_p]:rounded-md [&_p]:px-3 [&_p]:py-1 [&_p]:text-center [&_p]:font-semibold"
         >
           <p class="bg-(--neutral-500) text-(--text-inverse)">
             {lokation}
@@ -23,16 +23,16 @@ const { img, type, traener, path, lokation, hold, pris } = Astro.props;
           <p class="bg-(--neutral-200) text-(--text-primary)">{traener}</p>
         </div>
         <div>
-          <h6 class="text-(length:--heading-6-size) font-bold">{hold}</h6>
-          <p class="text-(length:--text-size-16)">
+          <h6 class="heading-6-size) font-bold">{hold}</h6>
+          <p class="text-size-16">
             Her skal der være en beskrivelse af holdet.
           </p>
         </div>
         <div class="my-4 flex items-center justify-between">
-          <p class="text-(length:--text-size-20) font-bold">{pris}</p>
+          <p class="text-size-20) font-bold">{pris}</p>
           <a
             href="/Hold_oversigt"
-            class="rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(length:--text-size-20) text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
+            class="text-size-20) rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
           >
             SE HOLD
           </a>

@@ -9,35 +9,29 @@ import { Image } from "astro:assets";
 <footer class="flex flex-col gap-4 bg-(--main-400) p-6 text-(--main-200)">
   <div class="lg:flex lg:justify-between lg:gap-8">
     <span
-      class="font font-(family-name:var(--font-heading)) text-(length:--text-size-65) leading-(--text-size-65) font-bold md:text-(length:--text-size-100) md:leading-(--text-size-100)"
+      class="font font-display text-size-65 md:text-size-100 leading-(--text-size-65) font-bold md:leading-(--text-size-100)"
     >
       Mindful<br />Dog<br />Academy
     </span>
 
     <div
-      class="mt-5 flex flex-col gap-4 lg:flex-row lg:gap-16 [&_p]:text-(length:--text-size-20)"
+      class="[&_p]:text-size-20 mt-5 flex flex-col gap-4 lg:flex-row lg:gap-16"
     >
       <div class="flex flex-col gap-4">
-        <span
-          class="font-(family-name:var(--font-body)) text-(length:--text-size-10) font-semibold tracking-widest"
-        >
+        <span class="text-size-10 font-sans font-semibold tracking-widest">
           Kontakt
         </span>
-        <div class="[&_p]:text-(length:--text-size-20)">
-          <h6 class="text-(length:--text-size-20) font-semibold">
-            Mindful-Dog Hovedkontor
-          </h6>
+        <div class="[&_p]:text-size-20">
+          <h6 class="text-size-20 font-semibold">Mindful-Dog Hovedkontor</h6>
           <p class="font-thin">Grace Hidalgo</p>
         </div>
         <p class="font-thin">Tlf.: +45 29 60 55 39</p>
         <p class="font-thin">E-mail: grace@mindful-dog.dk</p>
       </div>
       <div
-        class="font font-(family-name:var(--font-heading)) flex flex-col gap-4 [&_a]:text-(length:--text-size-20) [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline"
+        class="font font-display [&_a]:text-size-20 flex flex-col gap-4 [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline"
       >
-        <span
-          class="font-(family-name:var(--font-body)) text-(length:--text-size-10) font-semibold tracking-widest"
-        >
+        <span class="text-size-10 font-sans font-semibold tracking-widest">
           Information
         </span>
         <a href="">Salgs- og Handelsbetingelser</a>
