@@ -34,142 +34,159 @@ const videoSrc =
   "https://cdn.coverr.co/videos/coverr-a-puppy-running-in-the-grass-4929/1080p.mp4";
 
 const headingVariants = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
-const textVariants = ["p1", "p2", "p3", "p4", "label_1", "label_2"] as const;
+const textVariants = ["p1", "p2", "p3", "p4", "label_1", "label_1"] as const;
 const fontVariants = ["display", "sans"] as const;
-const weightVariants = ["bold", "regular", "light"] as const;
+const weightVariants = ["bold", "semibold", "regular", "light"] as const;
 ---
 
 <MainLayout title="Komponentbibliotek — knapper og links">
   <div class="m-4 space-y-24 py-8 text-(--neutral-500)">
     <!-- =========================================================
-         0. TYPOGRAFI
-    ========================================================= -->
+     0. TYPOGRAFI
+========================================================= -->
     <section class="my-4 space-y-8 bg-white p-6">
-      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
-        >Overskrifter</Heading
-      >
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">
+        Overskrifter
+      </Heading>
 
+      <!-- =========================================================
+       OVERSKRIFTSSTØRRELSER
+  ========================================================= -->
       <div class="grid gap-4">
-        {
-          headingVariants.map((variant) => (
-            <article class="rounded-lg border border-(--neutral-200) p-4">
-              <p class="text-size-12 mb-2 tracking-[0.16em] text-(--neutral-300) uppercase">
-                {variant}
-              </p>
-              <Heading
-                htmlheading={variant}
-                size={variant}
-                font="display"
-                weight="bold"
-              >
-                Mindful Dog — {variant.toUpperCase()}
-              </Heading>
-            </article>
-          ))
-        }
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h1</Text>
+          <Heading htmlheading="h1" size="h1" font="display" weight="bold">
+            Mindful Dog — H1
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h2</Text>
+          <Heading htmlheading="h2" size="h2" font="display" weight="bold">
+            Mindful Dog — H2
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h3</Text>
+          <Heading htmlheading="h3" size="h3" font="display" weight="bold">
+            Mindful Dog — H3
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h4</Text>
+          <Heading htmlheading="h4" size="h4" font="display" weight="bold">
+            Mindful Dog — H4
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h5</Text>
+          <Heading htmlheading="h5" size="h5" font="display" weight="bold">
+            Mindful Dog — H5
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h6</Text>
+          <Heading htmlheading="h6" size="h6" font="display" weight="bold">
+            Mindful Dog — H6
+          </Heading>
+        </article>
       </div>
 
+      <!-- =========================================================
+       HEADING FONTS
+  ========================================================= -->
       <div class="grid gap-4 md:grid-cols-2">
         <article class="rounded-lg border border-(--neutral-200) p-4">
-          <p
-            class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
-          >
+          <Text size="label_1" font="display" weight="semibold">
             Skrifttype
-          </p>
+          </Text>
+
           <div class="space-y-3">
-            {
-              fontVariants.map((font) => (
-                <Heading
-                  htmlheading="h4"
-                  size="h4"
-                  font={font}
-                  weight="regular"
-                >
-                  {font === "display"
-                    ? "Geologica / font-display"
-                    : "Manrope / font-sans"}
-                </Heading>
-              ))
-            }
+            <Heading htmlheading="h4" size="h4" font="display" weight="regular">
+              Geologica / font-display
+            </Heading>
+
+            <Heading htmlheading="h4" size="h4" font="sans" weight="regular">
+              Manrope / font-sans
+            </Heading>
           </div>
         </article>
 
+        <!-- =========================================================
+         HEADING VÆGTE
+    ========================================================= -->
         <article class="rounded-lg border border-(--neutral-200) p-4">
-          <p
-            class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
-          >
-            Vægt
-          </p>
+          <Text size="label_1" font="display" weight="semibold"> Vægt </Text>
+
           <div class="space-y-3">
-            {
-              weightVariants.map((weight) => (
-                <Heading
-                  htmlheading="h4"
-                  size="h4"
-                  font="display"
-                  weight={weight}
-                >
-                  {weight}
-                </Heading>
-              ))
-            }
+            <Heading htmlheading="h4" size="h4" font="display" weight="bold">
+              Bold
+            </Heading>
+
+            <Heading htmlheading="h4" size="h4" font="display" weight="regular">
+              Regular
+            </Heading>
+
+            <Heading htmlheading="h4" size="h4" font="display" weight="light">
+              Light
+            </Heading>
           </div>
         </article>
       </div>
 
+      <!-- =========================================================
+       PARAGRAPH TEXT
+  ========================================================= -->
       <div class="grid gap-4">
         <article class="rounded-lg border border-(--neutral-200) p-4">
-          <p
-            class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
-          >
-            Tekststørrelser
-          </p>
+          <Text size="label_1" font="display" weight="semibold">
+            Paragraph text
+          </Text>
+
           <div class="space-y-3">
-            {
-              textVariants.map((variant) => (
-                <Text size={variant} font="sans" weight="regular">
-                  {variant} - Dette er en eksempeltekst, som viser størrelsen i
-                  typografisystemet.
-                </Text>
-              ))
-            }
+            <Text size="p1" font="sans" weight="regular">
+              p1 - Dette er en eksempeltekst, som viser størrelsen i
+              typografisystemet.
+            </Text>
+
+            <Text size="p2" font="sans" weight="regular">
+              p2 - Dette er en eksempeltekst, som viser størrelsen i
+              typografisystemet.
+            </Text>
+
+            <Text size="p3" font="sans" weight="regular">
+              p3 - Dette er en eksempeltekst, som viser størrelsen i
+              typografisystemet.
+            </Text>
+
+            <Text size="p4" font="sans" weight="regular">
+              p4 - Dette er en eksempeltekst, som viser størrelsen i
+              typografisystemet.
+            </Text>
           </div>
         </article>
 
+        <!-- =========================================================
+         LABEL TEXT (SEPARAT SEKTION)
+    ========================================================= -->
         <div class="grid gap-4 md:grid-cols-2">
           <article class="rounded-lg border border-(--neutral-200) p-4">
-            <p
-              class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
-            >
-              Tekstfonte
-            </p>
-            <div class="space-y-3">
-              {
-                fontVariants.map((font) => (
-                  <Text size="p2" font={font} weight="regular">
-                    {font === "display"
-                      ? "font-display bruges til markante tekster"
-                      : "font-sans bruges til brødtekst og UI"}
-                  </Text>
-                ))
-              }
-            </div>
-          </article>
+            <Text size="label_1" font="display" weight="semibold">
+              Labels
+            </Text>
 
-          <article class="rounded-lg border border-(--neutral-200) p-4">
-            <p
-              class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
-            >
-              Tekstvægte
-            </p>
             <div class="space-y-3">
-              {
-                weightVariants.map((weight) => (
-                  <Text size="p2" font="sans" weight={weight}>
-                    {weight} - Eksempel på vægt i tekstkomponenten.
-                  </Text>
-                ))
-              }
+              <Text size="label_1" font="sans" weight="regular">
+                label_1 - Dette er en eksempeltekst til labels.
+              </Text>
+
+              <Text size="label_2" font="sans" weight="regular">
+                label_1 - Dette er en eksempeltekst til labels.
+              </Text>
             </div>
           </article>
         </div>
@@ -184,11 +201,9 @@ const weightVariants = ["bold", "regular", "light"] as const;
         >Søgeknapper</Heading
       >
 
-      <div class="flex flex-wrap gap-3">
+      <div class="grid gap-6">
         <SearchButton size="sm" />
-        <SearchButton size="md" />
         <SearchButton size="lg" />
-        <SearchButton size="xl" />
       </div>
     </section>
 

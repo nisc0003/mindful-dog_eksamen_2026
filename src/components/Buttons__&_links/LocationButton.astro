@@ -1,6 +1,6 @@
 ---
 /* =========================================================
-   LOKATIONS-KNAP (FIXED LAYOUT)
+   LOKATIONS-KNAP
    - sm/md: auto width (content-based)
    - lg/xl: full width (card style)
    ========================================================= */
@@ -24,13 +24,12 @@ const {
   stylingclasses = "",
 } = Astro.props as Props;
 
-// Knappen bruger temaets farver og en tydelig typografisk opdeling mellem navn og adresse.
-
+// Bruger text-size-* tokens fra tailwind.css i stedet for Tailwinds egne text-sm/base/lg.
 const sizeClasses = {
-  sm: "px-4 py-2 text-sm rounded-md",
-  md: "px-5 py-3 text-base rounded-md",
-  lg: "px-6 py-4 text-base rounded-md",
-  xl: "w-full px-6 py-5 text-lg rounded-md",
+  sm: "px-4 py-2 text-size-14 rounded-md",
+  md: "px-5 py-3 text-size-15 rounded-md",
+  lg: "px-6 py-4 text-size-17 rounded-md",
+  xl: "w-full px-6 py-5 text-size-20 rounded-md",
 };
 
 const colorClasses = {
@@ -42,7 +41,7 @@ const colorClasses = {
 };
 
 const baseButton =
-  "inline-flex flex-col text-left font-sans font-semibold transition-colors duration-150 hover:scale-[1.01] active:scale-[0.99] focus:outline-none";
+  "inline-flex flex-col text-left font-sans font-semibold transition-colors duration-150 hover:scale-[1.01] active:scale-[0.99] focus:outline-none cursor-pointer";
 
 const buttonClass = [
   baseButton,
@@ -59,17 +58,16 @@ const buttonClass = [
   x-data="{ active: false }"
   @click="active = !active"
   class={buttonClass}
-  :class="active ? '' : ''"
 >
-  <!-- LOCATION NAME -->
   <span class="font-display leading-tight">
     {location}
   </span>
 
-  <!-- ADDRESS ONLY FOR LG / XL -->
   {
     (size === "lg" || size === "xl") && address && (
-      <span class="font-sans text-sm leading-tight opacity-80">{address}</span>
+      <span class="text-size-14 font-sans leading-tight opacity-80">
+        {address}
+      </span>
     )
   }
 </button>

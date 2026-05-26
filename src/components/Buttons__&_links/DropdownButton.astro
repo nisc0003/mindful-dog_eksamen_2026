@@ -1,7 +1,8 @@
 ---
 /* =========================================================
-   RULLELISTE-KNAP (WIDTH FIXED VERSION)
+   DROPDOWN-KNAP
    Dropdown width = exact same as button width
+   FIX: Prevent text clipping + better vertical alignment
    ========================================================= */
 
 type DropdownButtonSize = "sm" | "md" | "lg" | "xl";
@@ -12,7 +13,6 @@ type DropdownButtonColor =
   | "neutral"
   | "outline"
   | "main";
-
 type DropdownButtonFont = "display" | "sans";
 
 interface Props {
@@ -33,14 +33,13 @@ const {
   stylingclasses = "",
 } = Astro.props as Props;
 
-// Pil-ikonet er en pladsholder, så komponenten ikke bruger inline SVG.
 const chevronSrc = "https://placehold.co/24x24";
 
 const sizeClasses = {
-  sm: "h-[36px] px-4 text-size-14 rounded-md gap-2",
-  md: "h-[44px] px-5 text-size-15 rounded-md gap-2",
-  lg: "h-[52px] px-6 text-size-17 rounded-lg gap-3",
-  xl: "h-[64px] px-8 text-size-20 rounded-lg gap-3",
+  sm: "h-[36px] px-4 text-size-14 rounded-md gap-2 leading-tight",
+  md: "h-[44px] px-5 text-size-15 rounded-md gap-2 leading-tight",
+  lg: "h-[52px] px-6 text-size-17 rounded-lg gap-3 leading-tight",
+  xl: "h-[64px] px-8 text-size-20 rounded-lg gap-3 leading-tight",
 };
 
 const fontClasses = {
@@ -52,35 +51,30 @@ const colorClasses = {
   main: "bg-(--button-main-bg) text-(--button-main-text) hover:bg-(--button-main-bg-hover)",
   primary:
     "bg-(--button-primary-bg) text-(--button-primary-text) hover:bg-(--button-primary-bg-hover)",
-
   secondary:
     "bg-(--button-secondary-bg) text-(--button-secondary-text) hover:bg-(--button-secondary-bg-hover)",
-
   accent:
     "bg-(--button-accent-bg) text-(--button-accent-text) hover:bg-(--button-accent-bg-hover)",
-
   neutral:
     "bg-(--button-neutral-bg) text-(--button-neutral-text) hover:bg-(--button-neutral-bg-hover)",
-
   outline:
     "bg-transparent border border-(--button-outline-border) text-(--button-outline-text) hover:bg-(--button-outline-bg-hover)",
 };
 
 const baseButton =
-  "inline-flex items-center justify-between w-full font-semibold leading-none transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-(--main-400) focus-visible:ring-offset-2";
+  "inline-flex items-center justify-between w-full font-semibold leading-tight transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-(--main-400) focus-visible:ring-offset-2";
 
 const buttonClass = [
   baseButton,
   sizeClasses[size],
-  colorClasses[color],
   fontClasses[font],
+  colorClasses[color],
   stylingclasses,
 ]
   .filter(Boolean)
   .join(" ");
 ---
 
-<!-- WRAPPER = controls exact width -->
 <div
   x-data={`{
     open: false,
@@ -94,20 +88,20 @@ const buttonClass = [
   }`}
   class="relative inline-block w-fit"
 >
-  <!-- Knapdelen bestemmer bredden og viser den valgte tekst. -->
+  <!-- BUTTON -->
   <button type="button" @click="toggle()" class={buttonClass}>
-    <span class="truncate" x-text="selected"></span>
+    <span class="truncate leading-tight" x-text="selected"></span>
 
     <img
       src={chevronSrc}
       alt=""
       aria-hidden="true"
-      class="ml-3 size-4 transition-transform duration-200"
+      class="ml-3 size-4 shrink-0 transition-transform duration-200"
       :class="open ? 'rotate-180' : ''"
     />
   </button>
 
-  <!-- Dropdown-listen matcher knappens bredde og viser valgmulighederne. -->
+  <!-- DROPDOWN -->
   <div
     x-show="open"
     x-transition.opacity.scale.90
@@ -118,7 +112,7 @@ const buttonClass = [
     <button
       type="button"
       @click="select('')"
-      class="w-full px-4 py-2 text-left font-medium transition hover:bg-(--neutral-200)"
+      class="w-full cursor-pointer px-4 py-2 text-left font-medium transition hover:bg-(--neutral-200)"
     >
       Alle
     </button>
@@ -128,7 +122,7 @@ const buttonClass = [
         <button
           type="button"
           @click={`select(${JSON.stringify(option)})`}
-          class="w-full px-4 py-2 text-left transition hover:bg-(--neutral-200)"
+          class="w-full cursor-pointer px-4 py-2 text-left transition hover:bg-(--neutral-200)"
         >
           {option}
         </button>

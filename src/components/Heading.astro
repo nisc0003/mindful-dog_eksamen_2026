@@ -9,17 +9,16 @@ const sizeClasses = {
   h6: "text-size-15 md:text-size-16 lg:text-size-17 xl:text-size-20",
 };
 
-// Font-valget peger på de skrifttyper, der er defineret i tailwind.css.
 const fontClasses = {
   display: "font-display",
   sans: "font-sans",
 };
 
-// Vægtklasserne bruges til at vise, hvordan typografien ændrer sig i biblioteket.
 const weightClasses = {
-  bold: "text-bold",
-  regular: "text-regular",
-  light: "text-light",
+  bold: "font-bold",
+  semibold: "font-semibold",
+  regular: "font-normal",
+  light: "font-light",
 };
 
 type HeadingSize = keyof typeof sizeClasses;
@@ -34,7 +33,6 @@ interface Props {
   stylingclasses?: string;
 }
 
-// Henter de valgte værdier fra Astro.props og sender resten videre til HTML-tagget.
 const {
   htmlheading = "h2",
   size = "h2",

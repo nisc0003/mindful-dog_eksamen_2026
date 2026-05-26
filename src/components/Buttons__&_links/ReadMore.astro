@@ -16,7 +16,6 @@ const {
 } = Astro.props as Props;
 
 // Den korte tekst vises først, og knappen skifter mellem kort og fuld version.
-
 const previewText =
   fullText.length > previewLength
     ? `${fullText.slice(0, previewLength)}…`
