@@ -28,7 +28,7 @@ const pageData = service
         traener_mail: traener.traener_mail,
         traener_tlf: traener.traener_tlf,
         traener_info: traener.traener_info,
-        profilbillede_img: traener.profilbillede_img,
+        profil_img: traener.profil_img,
         testimonial_1: traener.testimonial_1,
         testimonial_2: traener.testimonial_2,
         testimonial_3: traener.testimonial_3,

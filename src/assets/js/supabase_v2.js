@@ -50,28 +50,28 @@ export function getIkonId(service) {
   return service?.["services.ikon_id"] ?? service?.ikon_id ?? null;
 }
 
-// export async function getServicesAndTraenerBySlug(slug) {
-//   const res = await fetch(
-//     `${url}/services?slug=eq.${encodeURIComponent(slug)}&select=*,traenere(*)`,
-//     options,
-//   );
-//   const data = await res.json();
-//   if (!Array.isArray(data) || data.length === 0) return data;
+export async function getServicesAndTraenerBySlug(slug) {
+  const res = await fetch(
+    `${url}/services?slug=eq.${encodeURIComponent(slug)}&select=*,traenere(*)`,
+    options,
+  );
+  const data = await res.json();
+  if (!Array.isArray(data) || data.length === 0) return data;
 
-//   const row = data[0];
-//   if (row.traenere) return data;
+  const row = data[0];
+  if (row.traenere) return data;
 
-//   const traenerId = getServiceTraenerId(row);
-//   if (traenerId == null) return data;
+  const traenerId = getServiceTraenerId(row);
+  if (traenerId == null) return data;
 
-//   const tRes = await fetch(
-//     `${url}/traenere?traener_id=eq.${traenerId}&select=*`,
-//     options,
-//   );
-//   const trainers = await tRes.json();
-//   row.traenere = Array.isArray(trainers) ? (trainers[0] ?? null) : null;
-//   return data;
-// }
+  const tRes = await fetch(
+    `${url}/traenere?traener_id=eq.${traenerId}&select=*`,
+    options,
+  );
+  const trainers = await tRes.json();
+  row.traenere = Array.isArray(trainers) ? (trainers[0] ?? null) : null;
+  return data;
+}
 
 export async function getServicesBySlug(slug) {
   const res = await fetch(
@@ -169,44 +169,44 @@ export function firstRow(rows) {
   return Array.isArray(rows) ? (rows[0] ?? null) : null;
 }
 
-// export function getPageData(service) {
-//   if (!service) return null;
-//   const t = service.traenere ?? null;
-//   const i = service.ikoner ?? null;
-//   return {
-//     // services
-//     type: service.type,
-//     lokation: service.lokation,
-//     pris: service.pris,
-//     hold: service.hold,
-//     tilbud: service.tilbud,
-//     tilbud_procent: service.opstart,
-//     opstart: service.opstart,
-//     afslut: service.afslut,
-//     img: service.produkt_img,
-//     tilmelding: service.tilmelding,
-//     slug: service.slug,
-//     // traenere
-//     fornavn: t?.fornavn,
-//     efternavn: t?.efternavn,
-//     adresse_1: t?.adresse_1,
-//     postnummer_1: t?.postnummer_1,
-//     bynavn_1: t?.bynavn_1,
-//     adresse_2: t?.adresse_2,
-//     postnummer_2: t?.postnummer_2,
-//     bynavn_2: t?.bynavn_2,
-//     traener_mail: t?.traener_mail,
-//     traener_tlf: t?.traener_tlf,
-//     traener_info: t?.traener_info,
-//     profilbillede_img: t?.profilbillede_img,
-//     testimonial_1: t?.testimonial_1,
-//     testimonial_2: t?.testimonial_2,
-//     testimonial_3: t?.testimonial_3,
-//     // ikoner
-//     status_txt: i?.status_txt,
-//     status_ikon: i?.ikon_url,
-//   };
-// }
+export function getPageData(service) {
+  if (!service) return null;
+  const t = service.traenere ?? null;
+  const i = service.ikoner ?? null;
+  return {
+    // services
+    type: service.type,
+    lokation: service.lokation,
+    pris: service.pris,
+    hold: service.hold,
+    tilbud: service.tilbud,
+    tilbud_procent: service.opstart,
+    opstart: service.opstart,
+    afslut: service.afslut,
+    img: service.produkt_img,
+    tilmelding: service.tilmelding,
+    slug: service.slug,
+    // traenere
+    fornavn: t?.fornavn,
+    efternavn: t?.efternavn,
+    adresse_1: t?.adresse_1,
+    postnummer_1: t?.postnummer_1,
+    bynavn_1: t?.bynavn_1,
+    adresse_2: t?.adresse_2,
+    postnummer_2: t?.postnummer_2,
+    bynavn_2: t?.bynavn_2,
+    traener_mail: t?.traener_mail,
+    traener_tlf: t?.traener_tlf,
+    traener_info: t?.traener_info,
+    profil_img: t?.profilbillede_img,
+    testimonial_1: t?.testimonial_1,
+    testimonial_2: t?.testimonial_2,
+    testimonial_3: t?.testimonial_3,
+    // ikoner
+    status_txt: i?.status_txt,
+    status_ikon: i?.ikon_url,
+  };
+}
 
 // Map Services db og Traenere db sammen, sammenlign foreign key som er traener_id
 export function joinAllData(services, traenere, ikoner) {

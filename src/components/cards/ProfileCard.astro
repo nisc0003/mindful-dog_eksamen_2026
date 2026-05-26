@@ -1,0 +1,26 @@
+---
+import Link from "../../components/Link.astro";
+const { traener, traener_info, profil_img } = Astro.props;
+---
+
+<article class="grid grid-cols-2 gap-4 bg-(--neutral-100) p-8 md:grid-cols-5">
+  <img
+    src={profil_img}
+    alt={traener}
+    class="w-fill aspect-square h-auto object-cover object-[0%_20%]"
+  />
+  <h5 class="md:col-start-2 md:col-end-5 md:row-end-1">{traener}</h5>
+  <p class="col-span-2 md:col-start-2 md:col-end-5 md:row-end-1 md:pt-8">
+    {traener_info}
+  </p>
+
+  <div class="my-auto flex flex-wrap md:place-self-end">
+    <Link
+      variant="standard"
+      size="md"
+      color="primary"
+      href="#"
+      label="SE PROFIL"
+    />
+  </div>
+</article>

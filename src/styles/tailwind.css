@@ -238,11 +238,11 @@
   /* ____________________Buttons and linkbuttons____________________ */
   --button-primary-bg: var(--main-400);
   --button-primary-bg-hover: var(--main-500);
-  --button-primary-text: var(--neutral-0);
+  --button-primary-text: var(--neutral-100);
 
   --button-secondary-bg: var(--accent-200);
   --button-secondary-bg-hover: var(--accent-400);
-  --button-secondary-text: var(--neutral-0);
+  --button-secondary-text: var(--neutral-100);
 
   --button-accent-bg: var(--accent-200);
   --button-accent-bg-hover: var(--accent-400);
@@ -254,7 +254,7 @@
 
   --button-neutral-bg: var(--neutral-500);
   --button-neutral-bg-hover: var(--neutral-300);
-  --button-neutral-text: var(--neutral-0);
+  --button-neutral-text: var(--neutral-100);
 
   --button-outline-bg: transparent;
   --button-outline-bg-hover: transparent;

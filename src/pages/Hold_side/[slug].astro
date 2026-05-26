@@ -1,13 +1,17 @@
 ---
 // @ts-nocheck
 import MainLayout from "../../layouts/MainLayout.astro";
+import EmployeeCard from "../../components/cards/EmployeeCard.astro";
 import HoldSingle from "../../components/HoldSingle.astro";
+import ProfileCard from "../../components/cards/ProfileCard.astro";
+import Nyhedsbrev from "../../components/Nyhedsbrev.astro";
 import {
   getServicesSlugs,
   getServicesAndTraenerBySlug,
   getPageData,
   firstRow,
 } from "../../assets/js/supabase_v2";
+import EmployeeCard from "../../components/cards/EmployeeCard.astro";
 
 export async function getStaticPaths() {
   const slugs = await getServicesSlugs();
@@ -39,4 +43,24 @@ const pageData = getPageData(service);
       <p>Holdet blev ikke fundet.</p>
     )
   }
+  <section class="bg-(--accent-200) p-8">
+    <p>UNDERVISER</p>
+    <ProfileCard
+      traener={pageData.fornavn + " " + pageData.efternavn}
+      profil_img={pageData.profil_img}
+      traener_info={pageData.traener_info}
+    />
+  </section>
+  <section class="bg-(--neutral-100) p-8">
+    <p>INKLUDERET</p>
+    <EmployeeCard
+      traener={pageData.fornavn + " " + pageData.efternavn}
+      lokation={pageData.lokation}
+      profil_img={pageData.profil_img}
+    />
+  </section>
+  <section class="bg-(--main-200) p-8">
+    <p>FORMAAL</p>
+    <Nyhedsbrev />
+  </section>
 </MainLayout>
