@@ -4,22 +4,38 @@ import Button from "../components/Buttons__&_links/Button.astro";
 import Heading from "../components/Heading.astro";
 import Link from "../components/Buttons__&_links/Link.astro";
 import Text from "../components/Text.astro";
+import KontaktInfo from "../components/KontaktInfo.astro";
+import NyhedsbrevSign from "../components/NyhedsbrevSign.astro";
 ---
 
 <MainLayout title="Kontakt">
-  <article>
+  <section class="mx-auto my-16 max-w-[55ch] place-self-center p-4">
+    <Text size="label_2" weight="semibold" stylingclasses="tracking-widest"
+      >KONTAKT</Text
+    >
     <Heading
       htmlheading="h1"
       size="h2"
       font="display"
       weight="bold"
-      stylingclasses="mb-6 !text-size-30"
+      stylingclasses="mb-6 !text-size-30 max-w-85"
     >
-      Kontakt
+      Har Du Spørgsmål?
     </Heading>
-    <Button>Klik!</Button>
-    <Text stylingclasses="mt-4 !text-size-16">
-      Link til <Link href="https://www.kea.dk">En anden side</Link>
-    </Text>
-  </article>
+    <KontaktInfo />
+  </section>
+  <section class="mx-auto my-16 max-w-[55ch] place-self-center p-4">
+    <Text size="label_2" weight="semibold" stylingclasses="tracking-widest"
+      >OFTE STILLEDE SPØRGSMÅL</Text
+    >
+    <Heading
+      htmlheading="h1"
+      size="h2"
+      font="display"
+      weight="bold"
+      stylingclasses="mb-6 !text-size-30 max-w-85"
+    >
+      Måske Kan Du Finde Svaret Her:
+    </Heading>
+  </section>
 </MainLayout>
