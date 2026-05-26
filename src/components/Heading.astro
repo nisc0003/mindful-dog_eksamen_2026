@@ -1,5 +1,5 @@
 ---
-//Definer den styling (Tailwind classes), der gør sig gældende for de forskellige størrelser.
+// Overskriftskomponenten samler alle heading-størrelser og font-variationer.
 const sizeClasses = {
   h1: "text-size-65 md:text-size-80 lg:text-size-100 xl:text-size-180",
   h2: "text-size-40 md:text-size-65 lg:text-size-80 xl:text-size-100",
@@ -9,16 +9,16 @@ const sizeClasses = {
   h6: "text-size-15 md:text-size-16 lg:text-size-17 xl:text-size-20",
 };
 
-//Definer den styling (Tailwind classes), der gør sig gældende for de forskellige skrifttyper.
 const fontClasses = {
   display: "font-display",
   sans: "font-sans",
 };
 
 const weightClasses = {
-  bold: "text-bold",
-  regular: "text-regular",
-  light: "text-light",
+  bold: "font-bold",
+  semibold: "font-semibold",
+  regular: "font-normal",
+  light: "font-light",
 };
 
 type HeadingSize = keyof typeof sizeClasses;
@@ -33,18 +33,19 @@ interface Props {
   stylingclasses?: string;
 }
 
-// Henter parametrene fra Astro.props
 const {
   htmlheading = "h2",
   size = "h2",
   font = "sans",
   weight = "regular",
   stylingclasses = "",
+  ...rest
 } = Astro.props as Props;
 const Htmlheading = htmlheading;
 ---
 
 <Htmlheading
+  {...rest}
   class:list={[
     stylingclasses,
     sizeClasses[size],

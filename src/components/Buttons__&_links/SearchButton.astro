@@ -1,0 +1,213 @@
+---
+/* =========================================================
+   SØGEKNAP
+   Små størrelser åbner et søgefelt, store størrelser vises åbent.
+   ========================================================= */
+
+type Size = "sm" | "lg";
+
+interface Props {
+  size?: Size;
+  placeholder?: string;
+  label?: string;
+  stylingclasses?: string;
+}
+
+const {
+  size = "sm",
+  placeholder = "Søg her…",
+  label = "Søg",
+  stylingclasses = "",
+} = Astro.props as Props;
+
+const isCollapsible = size === "sm";
+
+const iconSrc = "https://placehold.co/24x24";
+
+/* =========================================================
+   BASE STYLES
+   ========================================================= */
+
+const base = {
+  // Wrapper omkring hele søgekomponenten.
+  wrapper: "inline-flex",
+  // Selve søgefeltets ydre skal i åben tilstand.
+  shell:
+    "inline-flex items-stretch overflow-hidden border border-(--neutral-300) bg-(--neutral-0) shadow-xs transition-all focus-within:border-(--main-400) focus-within:ring-2 focus-within:ring-(--main-400)/20",
+  // Fælles input-styling til begge versioner.
+  input:
+    "min-w-0 flex-1 appearance-none border-0 bg-transparent font-sans outline-none shadow-none focus:ring-0",
+  // Fælles knap-styling til både lukket og åben tilstand.
+  button:
+    "shrink-0 inline-flex items-center justify-center font-sans font-semibold cursor-pointer transition-colors",
+  // Ikon som bruges i begge tilstande.
+  icon: "shrink-0",
+};
+
+/* =========================================================
+   COLORS
+   ========================================================= */
+
+const colors = {
+  // Tekstfarve i knapper og input.
+  text: "text-(--neutral-500)",
+  // Placeholder-farve i inputfeltet.
+  placeholder: "placeholder:text-(--neutral-300)",
+  // Primær baggrund og hover-farve til søgeknappen.
+  primary: "bg-(--main-400) hover:bg-(--main-500) text-white",
+  // Lukket knap bruger neutral baggrund og kant.
+  closed: "bg-(--neutral-0) text-(--neutral-500) border border-(--neutral-300)",
+};
+
+/* =========================================================
+   SIZE SYSTEM
+   ========================================================= */
+
+const sizeStyles = {
+  sm: {
+    // Ydre luft omkring søgefeltet i sm.
+    shell: " rounded-[var(--primitive-radius-lg)]",
+    // Tekststørrelse i sm.
+    text: "text-size-14",
+    // Padding i den lukkede knap i sm.
+    closedPadding: "p-[var(--primitive-space-8)]",
+    // Padding i inputfeltet i sm.
+    inputPadding:
+      "px-[var(--primitive-space-16)] py-[var(--primitive-space-8)]",
+    // Vandret padding i submit-knappen i sm.
+    buttonPadding: "px-[var(--primitive-space-12)]",
+    // Ikonstørrelse i sm.
+    icon: "size-8",
+    // Afstand mellem ikon og tekst i knappen.
+    gap: "gap-1.5",
+  },
+  lg: {
+    // Ydre luft omkring søgefeltet i lg.
+    shell: " rounded-[var(--primitive-radius-md)]",
+    // Tekststørrelse i lg.
+    text: "text-size-17",
+    // Padding i den lukkede knap i lg.
+    closedPadding: "p-[var(--primitive-space-12)]",
+    // Padding i inputfeltet i lg.
+    inputPadding:
+      "px-[var(--primitive-space-16)] py-[var(--primitive-space-12)]",
+    // Vandret padding i submit-knappen i lg.
+    buttonPadding: "px-[var(--primitive-space-16)]",
+    // Ikonstørrelse i lg.
+    icon: "size-8",
+    // Afstand mellem ikon og tekst i knappen.
+    gap: "gap-2",
+  },
+}[size];
+---
+
+{
+  isCollapsible ? (
+    <div
+      x-data="{ open: false, query: '' }"
+      x-on:keydown.escape.window="open = false"
+      x-on:click.outside="open = false"
+      class:list={[base.wrapper, stylingclasses]}
+    >
+      <button
+        x-show="!open"
+        x-on:click="open = true; $nextTick(() => $refs.input.focus())"
+        type="button"
+        aria-label="Åbn søgefelt"
+        class:list={[
+          base.button,
+          colors.closed,
+          sizeStyles.closedPadding,
+          "rounded-full",
+          sizeStyles.text,
+        ]}
+      >
+        <img
+          src={iconSrc}
+          alt="Søg"
+          class:list={[base.icon, sizeStyles.icon]}
+        />
+      </button>
+
+      <form
+        x-show="open"
+        x-transition
+        x-on:submit.prevent="$dispatch('search', { query })"
+        style="display:none;"
+        class:list={[base.shell, sizeStyles.shell, sizeStyles.text]}
+      >
+        <input
+          x-ref="input"
+          x-model="query"
+          type="search"
+          placeholder={placeholder}
+          class:list={[
+            base.input,
+            colors.text,
+            colors.placeholder,
+            sizeStyles.inputPadding,
+          ]}
+        />
+
+        <button
+          type="submit"
+          class:list={[
+            base.button,
+            colors.primary,
+            sizeStyles.buttonPadding,
+            sizeStyles.gap,
+            "self-stretch",
+          ]}
+        >
+          <img
+            src={iconSrc}
+            alt="Søg"
+            class:list={[base.icon, sizeStyles.icon]}
+          />
+          {label}
+        </button>
+      </form>
+    </div>
+  ) : (
+    <form
+      x-data="{ query: '' }"
+      x-on:submit.prevent="$dispatch('search', { query })"
+      class:list={[
+        base.shell,
+        sizeStyles.shell,
+        sizeStyles.text,
+        stylingclasses,
+      ]}
+    >
+      <input
+        x-model="query"
+        type="search"
+        placeholder={placeholder}
+        class:list={[
+          base.input,
+          colors.text,
+          colors.placeholder,
+          sizeStyles.inputPadding,
+        ]}
+      />
+
+      <button
+        type="submit"
+        class:list={[
+          base.button,
+          colors.primary,
+          sizeStyles.buttonPadding,
+          sizeStyles.gap,
+          "self-stretch",
+        ]}
+      >
+        <img
+          src={iconSrc}
+          alt="Søg"
+          class:list={[base.icon, sizeStyles.icon]}
+        />
+        {label}
+      </button>
+    </form>
+  )
+}

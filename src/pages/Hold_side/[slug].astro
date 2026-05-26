@@ -2,12 +2,16 @@
 // @ts-nocheck
 import MainLayout from "../../layouts/MainLayout.astro";
 import HoldSingle from "../../components/HoldSingle.astro";
+<<<<<<< HEAD
 import {
   getServicesSlugs,
   getServicesAndTraenerBySlug,
   getPageData,
   firstRow,
 } from "../../assets/js/supabase_v2";
+=======
+import Text from "../../components/Text.astro";
+>>>>>>> fix_buttons_links_heading_text
 
 export async function getStaticPaths() {
   const slugs = await getServicesSlugs();
@@ -36,7 +40,7 @@ const pageData = getPageData(service);
         path={pageData.slug}
       />
     ) : (
-      <p>Holdet blev ikke fundet.</p>
+      <Text>Holdet blev ikke fundet.</Text>
     )
   }
 </MainLayout>

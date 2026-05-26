@@ -1,0 +1,50 @@
+---
+/* ========================================================= 
+SOCIAL LINK (ICON-ONLY COLOR SYSTEM)
+========================================================= */
+
+type SocialLinkSize = "sm" | "md" | "lg";
+type SocialNetwork = "facebook" | "x" | "instagram";
+
+interface Props {
+  size?: SocialLinkSize;
+  network?: SocialNetwork;
+  href?: string;
+}
+
+const { size = "md", network = "facebook", href = "#" } = Astro.props as Props;
+
+const sizeClasses = {
+  sm: "w-12 h-12",
+  md: "w-16 h-16",
+  lg: "w-20 h-20",
+};
+---
+
+<a href={href} aria-label={network} target="_blank" rel="noopener noreferrer">
+  {
+    network === "facebook" && (
+      <img
+        src="https://placehold.co/64x64"
+        alt="Facebook"
+        class={sizeClasses[size]}
+      />
+    )
+  }
+
+  {
+    network === "x" && (
+      <img src="https://placehold.co/64x64" alt="X" class={sizeClasses[size]} />
+    )
+  }
+
+  {
+    network === "instagram" && (
+      <img
+        src="https://placehold.co/64x64"
+        alt="Instagram"
+        class={sizeClasses[size]}
+      />
+    )
+  }
+</a>

@@ -1,19 +1,35 @@
 ---
 //@ts-nocheck
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from "../components/Button.astro";
-import Link from "../components/Link.astro";
+import Button from "../components/Buttons__&_links/StandardButton.astro";
+import Heading from "../components/Heading.astro";
+import Link from "../components/Buttons__&_links/Link.astro";
 import ProductCard from "../components/ProductCard.astro";
+import Text from "../components/Text.astro";
 import Shop from "../components/Shop.astro";
 ---
 
 <MainLayout title="Hold oversigt">
   <article>
-    <h1>Hold oversigt</h1>
+    <Heading
+      htmlheading="h1"
+      size="h2"
+      font="display"
+      weight="bold"
+      stylingclasses="mb-6 !text-size-30"
+    >
+      Hold oversigt
+    </Heading>
     <Button>Klik!</Button>
+<<<<<<< HEAD
     <a href="/Hold_skema">
       Link til <Link href="/Hold_skema" target="_blank">En anden side</Link>
     </a>
+=======
+    <Text stylingclasses="mt-4 !text-size-16">
+      Link til <Link href="https://www.kea.dk">En anden side</Link>
+    </Text>
+>>>>>>> fix_buttons_links_heading_text
   </article>
   <Shop selectedLokation={Astro.url.searchParams.get("lokation") || "Alle"} />
 </MainLayout>
