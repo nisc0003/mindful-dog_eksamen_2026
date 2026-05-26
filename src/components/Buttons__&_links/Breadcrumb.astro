@@ -1,0 +1,47 @@
+---
+/* =========================================================
+   BRØDKRUMME
+   Viser navigation og har lokal markering af valgt trin.
+   ========================================================= */
+
+interface BreadcrumbStep {
+  label: string;
+  href?: string;
+  filter?: string;
+}
+
+interface Props {
+  trail: BreadcrumbStep[];
+}
+
+const { trail } = Astro.props as Props;
+---
+
+<nav
+  x-data="{ current: '', select(value) { this.current = value; } }"
+  aria-label="Breadcrumb"
+  class="text-size-15 font-sans text-(--neutral-400)"
+>
+  <ol class="flex flex-wrap items-center gap-2">
+    {trail.map((step, index) => (
+      <li class="flex items-center gap-2">
+        {step.filter ? (
+          <button
+            type="button"
+            @click={`select(${JSON.stringify(step.filter)})`}
+            :class={`current === ${JSON.stringify(step.filter)} && 'font-semibold text-(--link-text-hover)'`}
+            class="cursor-pointer hover:underline hover:text-(--link-text-hover)"
+          >
+            {step.label}
+          </button>
+        ) : (
+          <a href={step.href || "#"} class="hover:underline hover:text-(--link-text-hover)">
+            {step.label}
+          </a>
+        )}
+
+        {index < trail.length - 1 && <span aria-hidden="true">›</span>}
+      </li>
+    ))}
+  </ol>
+</nav>

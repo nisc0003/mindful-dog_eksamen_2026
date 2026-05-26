@@ -1,0 +1,47 @@
+---
+/* =========================================================
+   LÆS MERE (SIMPLE TEXT LINK VERSION)
+   ========================================================= */
+
+interface Props {
+  fullText: string;
+  previewLength?: number;
+  stylingclasses?: string;
+}
+
+const {
+  fullText,
+  previewLength = 140,
+  stylingclasses = "",
+} = Astro.props as Props;
+
+// Den korte tekst vises først, og knappen skifter mellem kort og fuld version.
+const previewText =
+  fullText.length > previewLength
+    ? `${fullText.slice(0, previewLength)}…`
+    : fullText;
+---
+
+<div
+  x-data={`{
+    open: false,
+    fullText: ${JSON.stringify(fullText)},
+    previewText: ${JSON.stringify(previewText)},
+    toggle() {
+      this.open = !this.open;
+    }
+  }`}
+  class={["max-w-prose", stylingclasses].filter(Boolean).join(" ")}
+>
+  <p class="text-size-15 mb-2 leading-relaxed">
+    <span x-text="open ? fullText : previewText"></span>
+  </p>
+
+  <button
+    type="button"
+    @click="toggle()"
+    class="text-size-15 cursor-pointer font-sans text-current underline transition-opacity hover:opacity-70"
+  >
+    <span x-text="open ? 'Læs mindre' : 'Læs mere'"></span>
+  </button>
+</div>
