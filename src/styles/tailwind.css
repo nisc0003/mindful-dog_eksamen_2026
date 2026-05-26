@@ -5,6 +5,32 @@
 @import "tailwindcss-intersect";
 
 /* =========================================================
+   @THEME
+   Registrerer custom utilities så Tailwind genererer
+   font-display, font-sans og text-size-* som klasser.
+   ========================================================= */
+
+@theme {
+  --font-display: "Geologica", sans-serif;
+  --font-sans: "Manrope", sans-serif;
+
+  --text-size-10: 0.625rem;
+  --text-size-12: 0.75rem;
+  --text-size-14: 0.875rem;
+  --text-size-15: 0.9375rem;
+  --text-size-16: 1rem;
+  --text-size-17: 1.0625rem;
+  --text-size-20: 1.25rem;
+  --text-size-25: 1.5625rem;
+  --text-size-30: 1.875rem;
+  --text-size-40: 2.5rem;
+  --text-size-65: 4.0625rem;
+  --text-size-80: 5rem;
+  --text-size-100: 6.25rem;
+  --text-size-180: 11.25rem;
+}
+
+/* =========================================================
    PRIMITIVE-VÆRDIER
    Rå værdier som ALT andet bygger på.
    ========================================================= */
@@ -274,7 +300,7 @@
 }
 /* ____________________Global sizing____________________ */
 
-h1 {
+/* h1 {
   font-family: var(--font-heading);
   font-size: var(--heading-1-mobile);
   font-weight: 600;
@@ -317,27 +343,25 @@ p {
 
 @media (width >= 48rem) {
   h1 {
-    font-size: var(--heading-1-size);
-    line-height: var(--heading-1-size);
+    font-size: var(--var(--heading-1-size));
   }
   h2 {
-    font-size: var(--heading-2-size);
-    line-height: var(--heading-2-size);
+    font-size: var(--var(--heading-2-size));
   }
   h3 {
-    font-size: var(--heading-3-size);
-    line-height: var(--heading-3-size);
+    font-size: var(--var(--heading-3-size));
+    line-height: 80px;
   }
   h4 {
-    font-size: var(--heading-4-size);
-    line-height: var(--heading-4-size);
+    font-size: var(--var(--heading-4-size));
+    line-height: 48px;
   }
   h5 {
-    font-size: var(--heading-5-size);
-    line-height: var(--heading-5-size);
+    font-size: var(--var(--heading-5-size));
+    line-height: 34px;
   }
   h6 {
-    font-size: var(--heading-6-size);
-    line-height: var(--heading-6-size);
+    font-size: var(--var(--heading-6-size));
+    line-height: 26px;
   }
-}
+} */

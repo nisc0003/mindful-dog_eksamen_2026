@@ -1,374 +1,464 @@
 ---
 /* =========================================================
-   Komponentbibliotek
-   Demo side til Button + Link komponenter
+   KOMPONENTBIBLIOTEK
+   Enkel oversigt over alle knap- og link-komponenter.
    ========================================================= */
 
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from "../components/Button.astro";
-import Link from "../components/Link.astro";
+import Heading from "../components/Heading.astro";
+import Text from "../components/Text.astro";
+import Link from "../components/Buttons__&_links/Link.astro";
+import SearchButton from "../components/Buttons__&_links/SearchButton.astro";
+import DropdownButton from "../components/Buttons__&_links/DropdownButton.astro";
+import LocationButton from "../components/Buttons__&_links/LocationButton.astro";
+import StandardButton from "../components/Buttons__&_links/Button.astro";
+import LinkButton from "../components/Buttons__&_links/LinkButton.astro";
+import SocialLink from "../components/Buttons__&_links/SocialLink.astro";
+import ReadMore from "../components/Buttons__&_links/ReadMore.astro";
+import Breadcrumb from "../components/Buttons__&_links/Breadcrumb.astro";
 
-/* =========================
-   Available sizes
-   ========================= */
-const sizes = ["sm", "md", "lg", "xl"] as const;
+const dropdownOptions = ["Hvalp", "Voksen", "Tricks"];
 
-/* =========================
-   Available colors
-   ========================= */
-const colors = [
-  "primary",
-  "secondary",
-  "accent",
-  "neutral",
-  "outline",
-] as const;
-
-/* =========================
-   Demo cards for filtering
-   ========================= */
-const cards = [
-  { id: 1, title: "Hvalpetræning", category: "Hvalp", location: "NYC" },
-  { id: 2, title: "Reaktiv hund", category: "Voksen", location: "LA" },
-  { id: 3, title: "Tricks & sjov", category: "Tricks", location: "Chicago" },
-  { id: 4, title: "Snor uden træk", category: "Voksen", location: "NYC" },
-  { id: 5, title: "Hvalpe-socialklub", category: "Hvalp", location: "Chicago" },
-  { id: 6, title: "Avanceret lydighed", category: "Voksen", location: "LA" },
+const breadcrumbTrail = [
+  { label: "Forside", href: "/" },
+  { label: "Hold", href: "/Hold_oversigt" },
+  { label: "Hvalp", filter: "Hvalp" },
+  { label: "Voksen", filter: "Voksen" },
+  { label: "Tricks", filter: "Tricks" },
 ];
 
-/* =========================
-   Long text for read-more demo
-   ========================= */
 const longText =
-  "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til hundetræning. Vi tror på at træning bygger broer mellem mennesker og hunde gennem nærvær, tydelig kommunikation og gensidig respekt — ikke gennem dominans eller frygt. Hver hund er unik, og vores forløb tilpasses individuelt.";
+  "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til hundetræning. Vi tror på at træning bygger broer mellem mennesker og hunde gennem nærvær, tydelig kommunikation og gensidig respekt — ikke gennem dominans eller frygt.";
+
+const videoSrc =
+  "https://cdn.coverr.co/videos/coverr-a-puppy-running-in-the-grass-4929/1080p.mp4";
+
+const headingVariants = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
+const textVariants = ["p1", "p2", "p3", "p4", "label_1", "label_1"] as const;
+const fontVariants = ["display", "sans"] as const;
+const weightVariants = ["bold", "semibold", "regular", "light"] as const;
 ---
 
-<MainLayout title="Komponentbibliotek — Button & Link">
-  {
-    /* =========================================================
-     PAGE WRAPPER
-     ========================================================= */
-  }
-  <div class="space-y-16 py-8 font-sans text-(--neutral-500)">
-    {
-      /* =========================================================
-       1. SEARCH BUTTON DEMO
-       ========================================================= */
-    }
-    <section>
-      <h2 class="font-display text-size-30 mb-4">1. Search button</h2>
+<MainLayout title="Komponentbibliotek — knapper og links">
+  <div class="m-4 space-y-24 py-8 text-(--neutral-500)">
+    <!-- =========================================================
+     0. TYPOGRAFI
+========================================================= -->
+    <section class="my-4 space-y-8 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">
+        Overskrifter
+      </Heading>
 
-      <div class="flex flex-col gap-4">
-        {
-          sizes.map((s) => (
-            <Button
-              variant="search"
-              size={s}
-              color="primary"
-              placeholder={`Søg (${s})…`}
-              label="Søg"
-            />
-          ))
-        }
+      <!-- =========================================================
+       OVERSKRIFTSSTØRRELSER
+  ========================================================= -->
+      <div class="grid gap-4">
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h1</Text>
+          <Heading htmlheading="h1" size="h1" font="display" weight="bold">
+            Mindful Dog — H1
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h2</Text>
+          <Heading htmlheading="h2" size="h2" font="display" weight="bold">
+            Mindful Dog — H2
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h3</Text>
+          <Heading htmlheading="h3" size="h3" font="display" weight="bold">
+            Mindful Dog — H3
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h4</Text>
+          <Heading htmlheading="h4" size="h4" font="display" weight="bold">
+            Mindful Dog — H4
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h5</Text>
+          <Heading htmlheading="h5" size="h5" font="display" weight="bold">
+            Mindful Dog — H5
+          </Heading>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">h6</Text>
+          <Heading htmlheading="h6" size="h6" font="display" weight="bold">
+            Mindful Dog — H6
+          </Heading>
+        </article>
       </div>
-    </section>
 
-    {
-      /* =========================================================
-       2. DROPDOWN FILTER
-       ========================================================= */
-    }
-    <section>
-      <h2 class="font-display text-size-30 mb-4">2. Dropdown button</h2>
+      <!-- =========================================================
+       HEADING FONTS
+  ========================================================= -->
+      <div class="grid gap-4 md:grid-cols-2">
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">
+            Skrifttype
+          </Text>
 
-      <p class="text-size-15 mb-3 text-(--neutral-400)">
-        Filtrerer kort-griddet nedenfor på kategori.
-      </p>
+          <div class="space-y-3">
+            <Heading htmlheading="h4" size="h4" font="display" weight="regular">
+              Geologica / font-display
+            </Heading>
 
-      <div class="flex flex-wrap items-center gap-4">
-        {
-          sizes.map((s) => (
-            <Button
-              variant="dropdown"
-              size={s}
-              color="outline"
-              label="Vælg kategori"
-              options={["Hvalp", "Voksen", "Tricks"]}
-              dropdownTarget="category"
-            />
-          ))
-        }
+            <Heading htmlheading="h4" size="h4" font="sans" weight="regular">
+              Manrope / font-sans
+            </Heading>
+          </div>
+        </article>
+
+        <!-- =========================================================
+         HEADING VÆGTE
+    ========================================================= -->
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold"> Vægt </Text>
+
+          <div class="space-y-3">
+            <Heading htmlheading="h4" size="h4" font="display" weight="bold">
+              Bold
+            </Heading>
+
+            <Heading htmlheading="h4" size="h4" font="display" weight="regular">
+              Regular
+            </Heading>
+
+            <Heading htmlheading="h4" size="h4" font="display" weight="light">
+              Light
+            </Heading>
+          </div>
+        </article>
       </div>
-    </section>
 
-    {
-      /* =========================================================
-       3. LOCATION FILTER
-       ========================================================= */
-    }
-    <section>
-      <h2 class="font-display text-size-30 mb-4">3. Location button</h2>
+      <!-- =========================================================
+       PARAGRAPH TEXT
+  ========================================================= -->
+      <div class="grid gap-4">
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <Text size="label_1" font="display" weight="semibold">
+            Paragraph text
+          </Text>
 
-      <p class="text-size-15 mb-3 text-(--neutral-400)">
-        Filtrerer kort-griddet nedenfor på lokation.
-      </p>
+          <div class="space-y-3">
+            <Text size="p1" font="sans" weight="regular">
+              p1 - Dette er en eksempeltekst, som viser størrelsen i
+              typografisystemet.
+            </Text>
 
-      <div class="space-y-3">
-        {
-          sizes.map((s) => (
-            <div class="flex flex-wrap items-center gap-3">
-              <Button
-                variant="location"
-                size={s}
-                color="primary"
-                location="NYC"
-                label="NYC"
-              />
-              <Button
-                variant="location"
-                size={s}
-                color="secondary"
-                location="LA"
-                label="LA"
-              />
-              <Button
-                variant="location"
-                size={s}
-                color="accent"
-                location="Chicago"
-                label="Chicago"
-              />
+            <Text size="p2" font="sans" weight="regular">
+              p2 - Dette er en eksempeltekst, som viser størrelsen i
+              typografisystemet.
+            </Text>
+
+            <Text size="p3" font="sans" weight="regular">
+              p3 - Dette er en eksempeltekst, som viser størrelsen i
+              typografisystemet.
+            </Text>
+
+            <Text size="p4" font="sans" weight="regular">
+              p4 - Dette er en eksempeltekst, som viser størrelsen i
+              typografisystemet.
+            </Text>
+          </div>
+        </article>
+
+        <!-- =========================================================
+         LABEL TEXT (SEPARAT SEKTION)
+    ========================================================= -->
+        <div class="grid gap-4 md:grid-cols-2">
+          <article class="rounded-lg border border-(--neutral-200) p-4">
+            <Text size="label_1" font="display" weight="semibold">
+              Labels
+            </Text>
+
+            <div class="space-y-3">
+              <Text size="label_1" font="sans" weight="regular">
+                label_1 - Dette er en eksempeltekst til labels.
+              </Text>
+
+              <Text size="label_2" font="sans" weight="regular">
+                label_1 - Dette er en eksempeltekst til labels.
+              </Text>
             </div>
-          ))
-        }
-      </div>
-    </section>
-
-    {
-      /* =========================================================
-       FILTERED CARD GRID
-       ========================================================= */
-    }
-    <section
-      x-data={`{
-        cards: ${JSON.stringify(cards)},
-        visible() {
-          const f = this.$store.filters;
-          return this.cards.filter(c =>
-            (!f.location || c.location === f.location) &&
-            (!f.category || c.category === f.category)
-          );
-        }
-      }`}
-    >
-      <div class="mb-4 flex items-center justify-between">
-        <h2 class="font-display text-size-30">Kort-grid (filtreret)</h2>
-
-        {/* Reset filters */}
-        <button
-          type="button"
-          @click="$store.filters.reset()"
-          class="underline hover:text-(--link-text-hover)"
-        >
-          Nulstil filtre
-        </button>
-      </div>
-
-      {/* Cards grid */}
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <template x-for="card in visible()" :key="card.id">
-          <article class="rounded-md border p-5">
-            <h3 class="font-display text-size-20 mb-1" x-text="card.title"></h3>
-            <p class="text-size-14 text-(--neutral-400)">
-              <span x-text="card.category"></span> ·
-              <span x-text="card.location"></span>
-            </p>
           </article>
-        </template>
-
-        {/* Empty state */}
-        <p x-show="visible().length === 0" class="col-span-full">
-          Ingen resultater for de valgte filtre.
-        </p>
-      </div>
-    </section>
-
-    {
-      /* =========================================================
-       4. STANDARD BUTTONS
-       ========================================================= */
-    }
-    <section>
-      <h2 class="font-display text-size-30 mb-4">4. Standard button</h2>
-
-      {
-        sizes.map((s) => (
-          <div class="mb-4">
-            <p class="text-size-12 mb-2 uppercase">size: {s}</p>
-
-            <div class="flex flex-wrap gap-3">
-              {colors.map((c) => (
-                <Button
-                  variant="standard"
-                  size={s}
-                  color={c}
-                  label={c.toUpperCase()}
-                />
-              ))}
-            </div>
-          </div>
-        ))
-      }
-    </section>
-
-    {
-      /* =========================================================
-       5. LINK BUTTONS
-       ========================================================= */
-    }
-    <section>
-      <h2 class="font-display text-size-30 mb-4">5. Link buttons</h2>
-
-      {
-        sizes.map((s) => (
-          <div class="mb-4">
-            <p class="text-size-12 mb-2 uppercase">size: {s}</p>
-
-            <div class="flex flex-wrap gap-3">
-              {colors.map((c) => (
-                <Link
-                  variant="standard"
-                  size={s}
-                  color={c}
-                  href="#"
-                  label={c.toUpperCase()}
-                />
-              ))}
-            </div>
-          </div>
-        ))
-      }
-    </section>
-
-    {
-      /* =========================================================
-       6. SOCIAL LINKS
-       ========================================================= */
-    }
-    <section>
-      <h2 class="font-display text-size-30 mb-4">6. Social links</h2>
-
-      {
-        sizes.map((s) => (
-          <div class="mb-4 flex items-center gap-3">
-            <span class="text-size-12 w-12 uppercase">{s}</span>
-
-            <Link
-              variant="social"
-              size={s}
-              color="neutral"
-              network="facebook"
-              href="#"
-            />
-            <Link
-              variant="social"
-              size={s}
-              color="neutral"
-              network="x"
-              href="#"
-            />
-            <Link
-              variant="social"
-              size={s}
-              color="neutral"
-              network="instagram"
-              href="#"
-            />
-          </div>
-        ))
-      }
-    </section>
-
-    {
-      /* =========================================================
-       7. BREADCRUMB DEMO
-       ========================================================= */
-    }
-    <section>
-      <h2 class="font-display text-size-30 mb-4">7. Breadcrumb</h2>
-
-      <p class="text-size-15 mb-3 text-(--neutral-400)">
-        Opdaterer filter via Alpine store.
-      </p>
-
-      <Link
-        variant="crawl"
-        trail={[
-          { label: "Home", href: "/" },
-          { label: "Hold", filter: "" },
-          { label: "Hvalp", filter: "Hvalp" },
-          { label: "Voksen", filter: "Voksen" },
-          { label: "Tricks", filter: "Tricks" },
-        ]}
-      />
-    </section>
-
-    {
-      /* =========================================================
-       8. READ MORE
-       ========================================================= */
-    }
-    <section>
-      <h2 class="font-display text-size-30 mb-4">8. Read more</h2>
-
-      <Button
-        variant="readmore"
-        size="md"
-        color="primary"
-        fullText={longText}
-        previewLength={140}
-      />
-    </section>
-
-    {
-      /* =========================================================
-       9. VIDEO CONTROLS
-       ========================================================= */
-    }
-    <section>
-      <h2 class="font-display text-size-30 mb-4">9. Video controls</h2>
-
-      <div class="max-w-xl space-y-4">
-        <video
-          id="demoVideo"
-          class="w-full rounded-md"
-          muted
-          loop
-          playsinline
-          src="https://cdn.coverr.co/videos/coverr-a-puppy-running-in-the-grass-4929/1080p.mp4"
-        ></video>
-
-        <div class="flex flex-wrap gap-3">
-          {
-            sizes.map((s) => (
-              <div class="flex gap-2">
-                <Button
-                  variant="playpause"
-                  size={s}
-                  color="primary"
-                  videoTarget="#demoVideo"
-                />
-                <Button
-                  variant="mute"
-                  size={s}
-                  color="outline"
-                  videoTarget="#demoVideo"
-                />
-              </div>
-            ))
-          }
         </div>
       </div>
+    </section>
+
+    <!-- =========================================================
+         1. SØGEKNAPPER
+    ========================================================= -->
+    <section class="my-4 space-y-6 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Søgeknapper</Heading
+      >
+
+      <div class="grid gap-6">
+        <SearchButton size="sm" />
+        <SearchButton size="lg" />
+      </div>
+    </section>
+
+    <!-- =========================================================
+         2. DROPDOWN-KNAPPER
+    ========================================================= -->
+    <section class="my-4 space-y-6 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Dropdown buttons</Heading
+      >
+
+      <div class="flex flex-wrap gap-3">
+        <DropdownButton size="sm" color="primary" options={dropdownOptions} />
+        <DropdownButton size="sm" color="secondary" options={dropdownOptions} />
+        <DropdownButton size="sm" color="accent" options={dropdownOptions} />
+        <DropdownButton size="sm" color="main" options={dropdownOptions} />
+        <DropdownButton size="sm" color="neutral" options={dropdownOptions} />
+        <DropdownButton size="sm" color="outline" options={dropdownOptions} />
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <DropdownButton size="md" color="primary" options={dropdownOptions} />
+        <DropdownButton size="md" color="secondary" options={dropdownOptions} />
+        <DropdownButton size="md" color="accent" options={dropdownOptions} />
+        <DropdownButton size="md" color="main" options={dropdownOptions} />
+        <DropdownButton size="md" color="neutral" options={dropdownOptions} />
+        <DropdownButton size="md" color="outline" options={dropdownOptions} />
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <DropdownButton size="lg" color="primary" options={dropdownOptions} />
+        <DropdownButton size="lg" color="secondary" options={dropdownOptions} />
+        <DropdownButton size="lg" color="accent" options={dropdownOptions} />
+        <DropdownButton size="lg" color="main" options={dropdownOptions} />
+        <DropdownButton size="lg" color="neutral" options={dropdownOptions} />
+        <DropdownButton size="lg" color="outline" options={dropdownOptions} />
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <DropdownButton size="xl" color="primary" options={dropdownOptions} />
+        <DropdownButton size="xl" color="secondary" options={dropdownOptions} />
+        <DropdownButton size="xl" color="accent" options={dropdownOptions} />
+        <DropdownButton size="xl" color="main" options={dropdownOptions} />
+        <DropdownButton size="xl" color="neutral" options={dropdownOptions} />
+        <DropdownButton size="xl" color="outline" options={dropdownOptions} />
+      </div>
+    </section>
+
+    <!-- =========================================================
+     3. LOKATIONS-KNAPPER
+========================================================= -->
+    <section class="my-4 space-y-6 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Lokations-knapper</Heading
+      >
+
+      <div class="grid justify-items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <LocationButton size="sm" color="main" location="Vestsjælland" />
+        <LocationButton size="sm" color="primary" location="Lokation" />
+        <LocationButton size="sm" color="secondary" location="Lokation" />
+      </div>
+
+      <div class="grid justify-items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <LocationButton size="md" color="main" location="Vestsjælland" />
+        <LocationButton size="md" color="primary" location="Vestsjælland" />
+        <LocationButton size="md" color="secondary" location="Als" />
+      </div>
+
+      <div class="grid justify-items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <LocationButton
+          size="lg"
+          color="main"
+          location="Vestsjælland"
+          address="Lillevej 2A, 7430 Ikast"
+        />
+        <LocationButton
+          size="lg"
+          color="primary"
+          location="Lokation"
+          address="Adresse, Postnr By"
+        />
+        <LocationButton
+          size="lg"
+          color="secondary"
+          location="Lokation"
+          address="Adresse, Postnr By"
+        />
+      </div>
+
+      <div class="grid justify-items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <LocationButton
+          size="xl"
+          color="main"
+          location="Vestsjælland"
+          address="Lillevej 2A, 7430 Ikast"
+        />
+        <LocationButton
+          size="xl"
+          color="primary"
+          location="Lokation"
+          address="Adresse, Postnr By"
+        />
+        <LocationButton
+          size="xl"
+          color="secondary"
+          location="Lokation"
+          address="Adresse, Postnr By"
+        />
+      </div>
+    </section>
+    <!-- =========================================================
+         4. STANDARD-KNAPPER
+    ========================================================= -->
+    <section class="my-4 space-y-6 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Standard-knapper</Heading
+      >
+
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
+        <StandardButton size="sm" color="main" label="Main" />
+        <StandardButton size="sm" color="primary" label="Primary" />
+        <StandardButton size="sm" color="secondary" label="Secondary" />
+        <StandardButton size="sm" color="accent" label="Accent" />
+        <StandardButton size="sm" color="neutral" label="Neutral" />
+        <StandardButton size="sm" color="outline" label="Outline" />
+      </div>
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
+        <StandardButton size="md" color="main" label="Main" />
+        <StandardButton size="md" color="primary" label="Primary" />
+        <StandardButton size="md" color="secondary" label="Secondary" />
+        <StandardButton size="md" color="accent" label="Accent" />
+        <StandardButton size="md" color="neutral" label="Neutral" />
+        <StandardButton size="md" color="outline" label="Outline" />
+      </div>
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
+        <StandardButton size="lg" color="main" label="Main" />
+        <StandardButton size="lg" color="primary" label="Primary" />
+        <StandardButton size="lg" color="secondary" label="Secondary" />
+        <StandardButton size="lg" color="accent" label="Accent" />
+        <StandardButton size="lg" color="neutral" label="Neutral" />
+        <StandardButton size="lg" color="outline" label="Outline" />
+      </div>
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
+        <StandardButton size="xl" color="main" label="Main" />
+        <StandardButton size="xl" color="primary" label="Primary" />
+        <StandardButton size="xl" color="secondary" label="Secondary" />
+        <StandardButton size="xl" color="accent" label="Accent" />
+        <StandardButton size="xl" color="neutral" label="Neutral" />
+        <StandardButton size="xl" color="outline" label="Outline" />
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. LINK-KNAPPER
+    ========================================================= -->
+    <section class="my-4 space-y-6 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Link-knapper</Heading
+      >
+
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
+        <LinkButton size="sm" color="main" href="#" label="Main" />
+        <LinkButton size="sm" color="primary" href="#" label="Primary" />
+        <LinkButton size="sm" color="secondary" href="#" label="Secondary" />
+        <LinkButton size="sm" color="accent" href="#" label="Accent" />
+        <LinkButton size="sm" color="neutral" href="#" label="Neutral" />
+        <LinkButton size="sm" color="outline" href="#" label="Outline" />
+
+        <LinkButton size="md" color="main" href="#" label="Main" />
+        <LinkButton size="md" color="primary" href="#" label="Primary" />
+        <LinkButton size="md" color="secondary" href="#" label="Secondary" />
+        <LinkButton size="md" color="accent" href="#" label="Accent" />
+        <LinkButton size="md" color="neutral" href="#" label="Neutral" />
+        <LinkButton size="md" color="outline" href="#" label="Outline" />
+
+        <LinkButton size="lg" color="main" href="#" label="Main" />
+        <LinkButton size="lg" color="primary" href="#" label="Primary" />
+        <LinkButton size="lg" color="secondary" href="#" label="Secondary" />
+        <LinkButton size="lg" color="accent" href="#" label="Accent" />
+        <LinkButton size="lg" color="neutral" href="#" label="Neutral" />
+        <LinkButton size="lg" color="outline" href="#" label="Outline" />
+
+        <LinkButton size="xl" color="main" href="#" label="Main" />
+        <LinkButton size="xl" color="primary" href="#" label="Primary" />
+        <LinkButton size="xl" color="secondary" href="#" label="Secondary" />
+        <LinkButton size="xl" color="accent" href="#" label="Accent" />
+        <LinkButton size="xl" color="neutral" href="#" label="Neutral" />
+        <LinkButton size="xl" color="outline" href="#" label="Outline" />
+      </div>
+    </section>
+
+    <!-- =========================================================
+         6. STANDARD-LINKS
+    ========================================================= -->
+    <section class="my-4 space-y-6 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Standard links</Heading
+      >
+
+      <div class="flex flex-wrap gap-4">
+        <Link href="#">Et almindeligt link</Link>
+        <Link href="#" stylingclasses="text-(--link-text-hover)"
+          >Link med ekstra styling</Link
+        >
+        <Link href="https://www.kea.dk" target="_blank" rel="noreferrer">
+          Eksternt link
+        </Link>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         7. SOCIALE LINKS
+    ========================================================= -->
+    <section class="my-4 space-y-6 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Sociale links</Heading
+      >
+
+      <div class="grid grid-cols-3 gap-4">
+        <SocialLink size="sm" network="facebook" href="#" />
+        <SocialLink size="sm" network="x" href="#" />
+        <SocialLink size="sm" network="instagram" href="#" />
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <SocialLink size="md" network="facebook" href="#" />
+        <SocialLink size="md" network="x" href="#" />
+        <SocialLink size="md" network="instagram" href="#" />
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <SocialLink size="lg" network="facebook" href="#" />
+        <SocialLink size="lg" network="x" href="#" />
+        <SocialLink size="lg" network="instagram" href="#" />
+      </div>
+
+      <!-- =========================================================
+         8. LÆS MERE
+    ========================================================= -->
+      <section class="my-4 space-y-6 bg-white p-6">
+        <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+          >Læs mere link</Heading
+        >
+
+        <div class="grid gap-6">
+          <ReadMore fullText={longText} />
+        </div>
+      </section>
+      <!-- =========================================================
+         9. BRØDKRUMME
+    ========================================================= -->
+      <section class="my-4 space-y-6 bg-white p-6">
+        <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+          >Brødkrumme</Heading
+        >
+
+        <Breadcrumb trail={breadcrumbTrail} />
+      </section>
     </section>
   </div>
 </MainLayout>

@@ -1,18 +1,22 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from "../components/Button.astro";
-import Link from "../components/Link.astro";
+import Button from "../components/Buttons__&_links/Button.astro";
+import Link from "../components/Buttons__&_links/Link.astro";
+import Heading from "../components/Heading.astro";
 ---
 
 <MainLayout title="Forside">
   <article>
-    <h1>Forside</h1>
+    <Heading htmlheading="h1" size="h2" font="display" weight="bold">
+      Forside
+    </Heading>
     <Button>Klik!</Button>
-    <p>
+    <Link stylingclasses="mt-4 !text-size-16">
       Link til <Link href="/komponentbibliotek">Komponentbibliotek</Link>
-    </p>
-    <p>
-      Link til <Link href="/infobox_temp">Infobox Skabeloner</Link>
-    </p>
+    </Link>
   </article>
+
+  <p>
+    Dette er en infoboks. Den kan bruges til at fremhæve vigtig information.
+  </p>
 </MainLayout>

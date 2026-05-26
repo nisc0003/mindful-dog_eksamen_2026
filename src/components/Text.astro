@@ -1,24 +1,25 @@
 ---
-//Definer den styling (Tailwind classes), der gør sig gældende for de forskellige størrelser.
+// Tekstkomponenten samler alle brødtekst- og label-varianter på ét sted.
 const sizeClasses = {
   p1: "text-size-20 md:text-size-20 lg:text-size-25 xl:text-size-30",
   p2: "text-size-16 md:text-size-17 lg:text-size-20 xl:text-size-20",
   p3: "text-size-15 md:text-size-16 lg:text-size-16 xl:text-size-17",
   p4: "text-size-10 md:text-size-12 lg:text-size-14 xl:text-size-15",
-  label_1: "text-size-14 md:text-size-15 lg:text-size-16 xl:text-size-16",
+  label_1:
+    "text-size-14 md:text-size-15 lg:text-size-16 xl:text-size-16 uppercase",
   label_2: "text-size-10 md:text-size-10 lg:text-size-12 xl:text-size-12",
 };
 
-//Definer den styling (Tailwind classes), der gør sig gældende for de forskellige skrifttyper.
 const fontClasses = {
   display: "font-display",
   sans: "font-sans",
 };
 
 const weightClasses = {
-  bold: "text-bold",
-  regular: "text-regular",
-  light: "text-light",
+  bold: "font-bold",
+  semibold: "font-semibold",
+  regular: "font-normal",
+  light: "font-light",
 };
 
 type TextSize = keyof typeof sizeClasses;
@@ -37,10 +38,12 @@ const {
   weight = "regular",
   size = "p2",
   stylingclasses = "",
+  ...rest
 } = Astro.props as Props;
 ---
 
 <p
+  {...rest}
   class:list={[
     stylingclasses,
     sizeClasses[size],

@@ -1,51 +1,15 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import InstaLogo from "../assets/icon/Instagram_Glyph_Dark.svg";
-import FBLogo from "../assets/icon/Facebook_Logo_Dark.svg";
-import LinkedInLogo from "../assets/icon/In-Bug_Dark.svg";
-import NyhedsbrevSign from "../components/NyhedsbrevSign.astro";
+import Button from "../components/Buttons__&_links/Button.astro";
+import Link from "../components/Link.astro";
 ---
 
 <MainLayout title="Nyhedsbrev">
-  <section
-    class="mx-auto my-16 flex max-w-[55ch] flex-col place-self-center p-4"
-  >
-    <p
-      class="text-(length:--text-size-10) font-semibold tracking-widest text-(--main-400)"
-    >
-      NYHEDSBREV
-    </p>
-    <h3 class="my-4">Hold Dig Opdateret</h3>
+  <article>
+    <h1>Nyhedsbrev</h1>
+    <Button>Klik!</Button>
     <p>
-      Tilmeld dig vores nyhedbrev og vær den første der hører om nye rabatter og
-      andre spændende tilbud.
+      Link til <Link href="https://www.kea.dk">En anden side</Link>
     </p>
-    <NyhedsbrevSign />
-
-    <div class="mx-auto my-16 flex flex-wrap gap-4">
-      <div class="flex gap-4">
-        <a
-          href="https://www.instagram.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <InstaLogo class="aspect-square h-auto w-[20vw] md:w-[15vw]" />
-        </a>
-        <a
-          href="https://www.facebook.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FBLogo class="aspect-square h-auto w-[20vw] md:w-[15vw]" />
-        </a>
-        <a
-          href="https://www.linkedin.com/company/mindful-dog"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <LinkedInLogo class="aspect-square h-auto w-[20vw] md:w-[15vw]" />
-        </a>
-      </div>
-    </div>
-  </section>
+  </article>
 </MainLayout>
