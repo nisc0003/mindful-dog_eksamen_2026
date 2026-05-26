@@ -6,6 +6,8 @@
 
 import MainLayout from "../layouts/MainLayout.astro";
 import Heading from "../components/Heading.astro";
+import Text from "../components/Text.astro";
+import Link from "../components/Buttons__&_links/Link.astro";
 import SearchButton from "../components/Buttons__&_links/SearchButton.astro";
 import DropdownButton from "../components/Buttons__&_links/DropdownButton.astro";
 import LocationButton from "../components/Buttons__&_links/LocationButton.astro";
@@ -30,15 +32,99 @@ const longText =
 
 const videoSrc =
   "https://cdn.coverr.co/videos/coverr-a-puppy-running-in-the-grass-4929/1080p.mp4";
+
+const headingVariants = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
+const textVariants = ["p1", "p2", "p3", "p4", "label_1", "label_2"] as const;
+const fontVariants = ["display", "sans"] as const;
+const weightVariants = ["bold", "regular", "light"] as const;
 ---
 
 <MainLayout title="Komponentbibliotek — knapper og links">
   <div class="m-4 space-y-24 py-8 text-(--neutral-500)">
     <!-- =========================================================
+         0. TYPOGRAFI
+    ========================================================= -->
+    <section class="my-4 space-y-8 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Overskrifter</Heading>
+
+      <div class="grid gap-4">
+        {headingVariants.map((variant) => (
+          <article class="rounded-lg border border-(--neutral-200) p-4">
+            <p class="mb-2 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">{variant}</p>
+            <Heading htmlheading={variant} size={variant} font="display" weight="bold">
+              Mindful Dog — {variant.toUpperCase()}
+            </Heading>
+          </article>
+        ))}
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Skrifttype</p>
+          <div class="space-y-3">
+            {fontVariants.map((font) => (
+              <Heading htmlheading="h4" size="h4" font={font} weight="regular">
+                {font === "display" ? "Geologica / font-display" : "Manrope / font-sans"}
+              </Heading>
+            ))}
+          </div>
+        </article>
+
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Vægt</p>
+          <div class="space-y-3">
+            {weightVariants.map((weight) => (
+              <Heading htmlheading="h4" size="h4" font="display" weight={weight}>
+                {weight}
+              </Heading>
+            ))}
+          </div>
+        </article>
+      </div>
+
+      <div class="grid gap-4">
+        <article class="rounded-lg border border-(--neutral-200) p-4">
+          <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Tekststørrelser</p>
+          <div class="space-y-3">
+            {textVariants.map((variant) => (
+              <Text size={variant} font="sans" weight="regular">
+                {variant} - Dette er en eksempeltekst, som viser størrelsen i typografisystemet.
+              </Text>
+            ))}
+          </div>
+        </article>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          <article class="rounded-lg border border-(--neutral-200) p-4">
+            <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Tekstfonte</p>
+            <div class="space-y-3">
+              {fontVariants.map((font) => (
+                <Text size="p2" font={font} weight="regular">
+                  {font === "display" ? "font-display bruges til markante tekster" : "font-sans bruges til brødtekst og UI"}
+                </Text>
+              ))}
+            </div>
+          </article>
+
+          <article class="rounded-lg border border-(--neutral-200) p-4">
+            <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Tekstvægte</p>
+            <div class="space-y-3">
+              {weightVariants.map((weight) => (
+                <Text size="p2" font="sans" weight={weight}>
+                  {weight} - Eksempel på vægt i tekstkomponenten.
+                </Text>
+              ))}
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
          1. SØGEKNAPPER
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading level={2}>Søgeknapper</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Søgeknapper</Heading>
 
       <div class="flex flex-wrap gap-3">
         <SearchButton size="sm" />
@@ -49,10 +135,10 @@ const videoSrc =
     </section>
 
     <!-- =========================================================
-         2. RULLELISTE-KNAPPER
+         2. DROPDOWN-KNAPPER
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading level={2}>dropdown buttons</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Dropdown buttons</Heading>
 
       <div class="flex flex-wrap gap-3">
         <DropdownButton size="sm" color="primary" options={dropdownOptions} />
@@ -92,7 +178,7 @@ const videoSrc =
      3. LOKATIONS-KNAPPER
 ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading level={2}>Lokations-knapper</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Lokations-knapper</Heading>
 
       <div class="grid justify-items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
         <LocationButton size="sm" color="main" location="Vestsjælland" />
@@ -152,7 +238,7 @@ const videoSrc =
          4. STANDARD-KNAPPER
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading level={2}>Standard-knapper</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Standard-knapper</Heading>
 
       <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
         <StandardButton size="sm" color="main" label="Main" />
@@ -192,7 +278,7 @@ const videoSrc =
          5. LINK-KNAPPER
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading level={2}>Link-knapper</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Link-knapper</Heading>
 
       <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
         <LinkButton size="sm" color="main" href="#" label="Main" />
@@ -226,10 +312,25 @@ const videoSrc =
     </section>
 
     <!-- =========================================================
-         6. SOCIALE LINKS
+         6. STANDARD-LINKS
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading level={2}>Sociale links</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Standard links</Heading>
+
+      <div class="flex flex-wrap gap-4">
+        <Link href="#">Et almindeligt link</Link>
+        <Link href="#" stylingclasses="text-(--link-text-hover)">Link med ekstra styling</Link>
+        <Link href="https://www.kea.dk" target="_blank" rel="noreferrer">
+          Eksternt link
+        </Link>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         7. SOCIALE LINKS
+    ========================================================= -->
+    <section class="my-4 space-y-6 bg-white p-6">
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Sociale links</Heading>
 
       <div class="grid grid-cols-3 gap-4">
         <SocialLink size="sm" network="facebook" href="#" />
@@ -250,20 +351,20 @@ const videoSrc =
       </div>
 
       <!-- =========================================================
-         7. LÆS MERE
+         8. LÆS MERE
     ========================================================= -->
       <section class="my-4 space-y-6 bg-white p-6">
-        <Heading level={2}>Læs mere link</Heading>
+        <Heading htmlheading="h2" size="h4" font="display" weight="bold">Læs mere link</Heading>
 
         <div class="grid gap-6">
           <ReadMore fullText={longText} />
         </div>
       </section>
       <!-- =========================================================
-         8. BRØDKRUMME
+         9. BRØDKRUMME
     ========================================================= -->
       <section class="my-4 space-y-6 bg-white p-6">
-        <Heading level={2}>Brødkrumme</Heading>
+        <Heading htmlheading="h2" size="h4" font="display" weight="bold">Brødkrumme</Heading>
 
         <Breadcrumb trail={breadcrumbTrail} />
       </section>

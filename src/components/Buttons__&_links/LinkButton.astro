@@ -1,11 +1,12 @@
 ---
 /* =========================================================
    LINK-KNAP
-   Almindeligt link der ligner en knap.
+  Almindeligt link der ligner en knap og bruger samme tokens som knapperne.
    ========================================================= */
 
 type LinkButtonSize = "sm" | "md" | "lg" | "xl";
 type LinkButtonColor =
+  | "main"
   | "primary"
   | "secondary"
   | "accent"
@@ -31,6 +32,8 @@ const {
   target,
   rel,
 } = Astro.props as Props;
+
+// Link-knappen bruger samme størrelses- og farveskala som de øvrige knapper.
 
 const sizeClasses = {
   sm: "h-[35px] px-4 text-size-14 rounded-sm gap-2",

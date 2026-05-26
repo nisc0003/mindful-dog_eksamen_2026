@@ -33,11 +33,14 @@ const {
   stylingclasses = "",
 } = Astro.props as Props;
 
+// Pil-ikonet er en pladsholder, så komponenten ikke bruger inline SVG.
+const chevronSrc = "https://placehold.co/24x24";
+
 const sizeClasses = {
-  sm: "h-[36px] px-4 text-sm rounded-md gap-2",
-  md: "h-[44px] px-5 text-base rounded-md gap-2",
-  lg: "h-[52px] px-6 text-lg rounded-lg gap-3",
-  xl: "h-[64px] px-8 text-xl rounded-lg gap-3",
+  sm: "h-[36px] px-4 text-size-14 rounded-md gap-2",
+  md: "h-[44px] px-5 text-size-15 rounded-md gap-2",
+  lg: "h-[52px] px-6 text-size-17 rounded-lg gap-3",
+  xl: "h-[64px] px-8 text-size-20 rounded-lg gap-3",
 };
 
 const fontClasses = {
@@ -75,6 +78,7 @@ const buttonClass = [
 ]
   .filter(Boolean)
   .join(" ");
+
 ---
 
 <!-- WRAPPER = controls exact width -->
@@ -91,24 +95,20 @@ const buttonClass = [
   }`}
   class="relative inline-block w-fit"
 >
-  <!-- BUTTON (defines width) -->
+  <!-- Knapdelen bestemmer bredden og viser den valgte tekst. -->
   <button type="button" @click="toggle()" class={buttonClass}>
     <span class="truncate" x-text="selected"></span>
 
-    <svg
+    <img
+      src={chevronSrc}
+      alt=""
+      aria-hidden="true"
       class="ml-3 size-4 transition-transform duration-200"
       :class="open ? 'rotate-180' : ''"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-    >
-      <path
-        fill-rule="evenodd"
-        d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
-        clip-rule="evenodd"></path>
-    </svg>
+    />
   </button>
 
-  <!-- DROPDOWN = EXACT SAME WIDTH -->
+  <!-- Dropdown-listen matcher knappens bredde og viser valgmulighederne. -->
   <div
     x-show="open"
     x-transition.opacity.scale.90

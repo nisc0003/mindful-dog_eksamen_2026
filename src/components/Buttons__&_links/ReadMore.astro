@@ -15,6 +15,8 @@ const {
   stylingclasses = "",
 } = Astro.props as Props;
 
+// Den korte tekst vises først, og knappen skifter mellem kort og fuld version.
+
 const previewText =
   fullText.length > previewLength
     ? `${fullText.slice(0, previewLength)}…`
@@ -39,7 +41,7 @@ const previewText =
   <button
     type="button"
     @click="toggle()"
-    class="text-size-15 cursor-pointer text-current underline transition-opacity hover:opacity-70"
+    class="text-size-15 cursor-pointer font-sans text-current underline transition-opacity hover:opacity-70"
   >
     <span x-text="open ? 'Læs mindre' : 'Læs mere'"></span>
   </button>

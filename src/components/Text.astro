@@ -1,5 +1,5 @@
 ---
-//Definer den styling (Tailwind classes), der gør sig gældende for de forskellige størrelser.
+// Tekstkomponenten samler alle brødtekst- og label-varianter på ét sted.
 const sizeClasses = {
   p1: "text-size-20 md:text-size-20 lg:text-size-25 xl:text-size-30",
   p2: "text-size-16 md:text-size-17 lg:text-size-20 xl:text-size-20",
@@ -9,12 +9,13 @@ const sizeClasses = {
   label_2: "text-size-10 md:text-size-10 lg:text-size-12 xl:text-size-12",
 };
 
-//Definer den styling (Tailwind classes), der gør sig gældende for de forskellige skrifttyper.
+// Font-valget kommer direkte fra de fonte, der er sat op i tailwind.css.
 const fontClasses = {
   display: "font-display",
   sans: "font-sans",
 };
 
+// Vægtklasserne bruges til at vise variationer i typografi og læsbarhed.
 const weightClasses = {
   bold: "text-bold",
   regular: "text-regular",

@@ -1,11 +1,12 @@
 ---
 /* =========================================================
    STANDARD-KNAP
-   Almindelig knap uden ekstra interaktion.
+  Almindelig knap uden ekstra interaktion, styret af temaets tokens.
    ========================================================= */
 
 type StandardButtonSize = "sm" | "md" | "lg" | "xl";
 type StandardButtonColor =
+  | "main"
   | "primary"
   | "secondary"
   | "accent"
@@ -27,6 +28,8 @@ const {
   type = "button",
   stylingclasses = "",
 } = Astro.props as Props;
+
+// Størrelserne følger den samme skala som resten af knap-systemet.
 
 const sizeClasses = {
   sm: "h-[35px] px-4 text-size-14 rounded-sm gap-2",

@@ -15,12 +15,14 @@ interface Props {
 }
 
 const { trail } = Astro.props as Props;
+
+// Brødkruen bruger temaets tekstfarver og markerer lokalt det valgte trin.
 ---
 
 <nav
   x-data="{ current: '', select(value) { this.current = value; } }"
   aria-label="Breadcrumb"
-  class="text-size-15 text-(--neutral-400)"
+  class="text-size-15 font-sans text-(--neutral-400)"
 >
   <ol class="flex flex-wrap items-center gap-2">
     {trail.map((step, index) => (

@@ -1,0 +1,34 @@
+---
+/* =========================================================
+   LINK
+   Standard tekstlink, der bruger temaets farver og fonte.
+   ========================================================= */
+
+interface Props {
+  href?: string;
+  label?: string;
+  stylingclasses?: string;
+  target?: string;
+  rel?: string;
+}
+
+const {
+  href = "#",
+  label = "Link",
+  stylingclasses = "",
+  target,
+  rel,
+} = Astro.props as Props;
+
+// Linket bruger de samme farvetokens som resten af design-systemet.
+const linkClass = [
+  "inline-flex items-center font-sans font-semibold leading-none text-(--link-text) underline-offset-4 transition-colors duration-150 hover:text-(--link-text-hover) hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-(--main-400) focus-visible:ring-offset-2",
+  stylingclasses,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<a href={href} target={target} rel={rel} class={linkClass}>
+  <slot>{label}</slot>
+</a>
