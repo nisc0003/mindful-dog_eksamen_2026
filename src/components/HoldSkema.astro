@@ -3,7 +3,7 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import Button from "../components/Button.astro";
 import Link from "../components/Link.astro";
-import ProfileCard from "../components/ProfileCard.astro";
+import HoldCard from "../components/HoldCard.astro";
 import {
   getAllData,
   lokationGroups,
@@ -54,7 +54,7 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
               const t = item.traenere;
               const i = item.ikoner;
               return (
-                <ProfileCard
+                <HoldCard
                   adresse={
                     t?.adresse_1 +
                     "," +
