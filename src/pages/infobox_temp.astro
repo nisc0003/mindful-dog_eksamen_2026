@@ -1,11 +1,12 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Infobox1 from "../components/infobox/Infobox_type1.astro";
-import Infobox2 from "../components/infobox/Infobox_type2.astro";
-import Infobox3 from "../components/infobox/Infobox_type3.astro";
-import Infobox4 from "../components/infobox/Infobox_type4.astro";
-import Infobox5 from "../components/infobox/Infobox_type5.astro";
-import Infobox6 from "../components/infobox/Infobox_type6.astro";
+import Heading from "../components/Heading.astro";
+import Infobox_1 from "../components/infobox/Infobox_type_1.astro";
+import Infobox_2 from "../components/infobox/Infobox_type_2.astro";
+import Infobox_3 from "../components/infobox/Infobox_type_3.astro";
+import Infobox_4 from "../components/infobox/Infobox_type_4.astro";
+import Infobox_5 from "../components/infobox/Infobox_type_5.astro";
+import Infobox_6 from "../components/infobox/Infobox_type_6.astro";
 import Check from "../assets/icon/check.svg";
 import CheckI from "../assets/icon/check_inverse.svg";
 import Cross from "../assets/icon/cross.svg";
@@ -20,39 +21,69 @@ import Lokation from "../assets/icon/lokation.svg";
     <h1>Infoboks sandbox</h1>
     <div class="flex flex-wrap gap-4">
       <!-- Infobox 1 -->
-      <Infobox1>
+      <Infobox_1>
         <Check slot="punkt" />
-        <h6 slot="overskrift">Overskrift</h6>
-      </Infobox1>
+        <Heading
+          slot="overskrift"
+          htmlheading="h3"
+          size="h3"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
+      </Infobox_1>
 
       <!-- Infobox 2 -->
-      <Infobox2>
+      <Infobox_2>
         <p slot="punkt">0.0</p>
-        <h6 slot="overskrift">Overskrift</h6>
-        <p slot="indhold">Tekst er her</p></Infobox2
+        <Heading
+          slot="overskrift"
+          htmlheading="h6"
+          size="h6"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
+        <p slot="indhold">Tekst er her</p></Infobox_2
       >
 
       <!-- Infobox 3 -->
-      <Infobox3>
+      <Infobox_3>
         <p slot="punkt">1.0</p>
-        <h6 slot="overskrift">Overskrift</h6>
-        <p slot="indhold">Tekst er her</p></Infobox3
+        <Heading
+          slot="overskrift"
+          htmlheading="h6"
+          size="h6"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
+        <p slot="indhold">Tekst er her</p></Infobox_3
       >
 
       <!-- Infobox 4 -->
-      <Infobox4
+      <Infobox_4
         ><p slot="punkt"></p>
         <p slot="topskrift" class="text-size-10 font-semibold tracking-widest">
           Topskrift her
         </p>
-        <h6 slot="overskrift">Overskrift</h6>
-        <p slot="indhold">Tekst er her</p></Infobox4
+        <Heading
+          slot="overskrift"
+          htmlheading="h6"
+          size="h6"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
+        <p slot="indhold">Tekst er her</p></Infobox_4
       >
 
       <!-- Infobox 5 -->
-      <Infobox5>
+      <Infobox_5>
         <Cross slot="punkt" />
-        <h6 slot="overskrift">Overskrift</h6>
+        <Heading
+          slot="overskrift"
+          htmlheading="h6"
+          size="h6"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
         <ul
           slot="liste"
           class="[&_li]:text-size-10 md:[&_li]:text-size-15 [&_li]:my-2 [&_li]:flex [&_li]:gap-4 [&_li]:font-sans"
@@ -60,11 +91,17 @@ import Lokation from "../assets/icon/lokation.svg";
           <li><CrossI class="size-6" /> Liste punkt her</li>
           <li><CrossI class="size-6" />Andet slags listepunkt her</li>
         </ul>
-      </Infobox5>
+      </Infobox_5>
 
-      <Infobox5>
+      <Infobox_5>
         <Check slot="punkt" />
-        <h6 slot="overskrift">Overskrift</h6>
+        <Heading
+          slot="overskrift"
+          htmlheading="h6"
+          size="h6"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
         <ul
           slot="liste"
           class="[&_li]:text-size-10 md:[&_li]:text-size-15 [&_li]:my-2 [&_li]:flex [&_li]:gap-4 [&_li]:font-sans"
@@ -72,44 +109,98 @@ import Lokation from "../assets/icon/lokation.svg";
           <li><CheckI class="size-6" /> Liste punkt her</li>
           <li><CheckI class="size-6" />Andet slags listepunkt her</li>
         </ul>
-      </Infobox5>
+      </Infobox_5>
 
       <!-- Infobox 6 -->
-      <Infobox6
+      <Infobox_6
         ><Medal slot="punkt" />
         <p slot="topskrift" class="text-size-10 font-semibold tracking-widest">
           Topskrift her
         </p>
-        <h5 slot="overskrift_1">Overskrift 1</h5>
+        <Heading
+          slot="overskrift_1"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
         <p slot="info_1">Info 1</p>
-        <h5 slot="overskrift_2">Overskrift 2</h5>
+        <Heading
+          slot="overskrift_2"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
         <p slot="info_2">Info 2</p>
-        <h5 slot="overskrift_3">Overskrift 3</h5>
-        <p slot="info_3">Info 3</p></Infobox6
+        <Heading
+          slot="overskrift_3"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
+        <p slot="info_3">Info 3</p></Infobox_6
       >
-      <Infobox6
+      <Infobox_6
         ><Lokation slot="punkt" />
         <p slot="topskrift" class="text-size-10 font-semibold tracking-widest">
           Topskrift her
         </p>
-        <h5 slot="overskrift_1">Overskrift 1</h5>
+        <Heading
+          slot="overskrift_1"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
         <p slot="info_1">Info 1</p>
-        <h5 slot="overskrift_2">Overskrift 2</h5>
+        <Heading
+          slot="overskrift_2"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
         <p slot="info_2">Info 2</p>
-        <h5 slot="overskrift_3">Overskrift 3</h5>
-        <p slot="info_3">Info 3</p></Infobox6
+        <Heading
+          slot="overskrift_3"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
+        <p slot="info_3">Info 3</p></Infobox_6
       >
-      <Infobox6
+      <Infobox_6
         ><Tid slot="punkt" />
         <p slot="topskrift" class="text-size-10 font-semibold tracking-widest">
           Topskrift her
         </p>
-        <h5 slot="overskrift_1">Overskrift 1</h5>
+        <Heading
+          slot="overskrift_1"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
         <p slot="info_1">Info 1</p>
-        <h5 slot="overskrift_2">Overskrift 2</h5>
+        <Heading
+          slot="overskrift_2"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
         <p slot="info_2">Info 2</p>
-        <h5 slot="overskrift_3">Overskrift 3</h5>
-        <p slot="info_3">Info 3</p></Infobox6
+        <Heading
+          slot="overskrift_3"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Overskrift</Heading
+        >
+        <p slot="info_3">Info 3</p></Infobox_6
       >
     </div>
   </section>

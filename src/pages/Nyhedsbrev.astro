@@ -1,4 +1,5 @@
 ---
+import Heading from "../components/Heading.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import InstaLogo from "../assets/icon/Instagram_Glyph_Dark.svg";
 import FBLogo from "../assets/icon/Facebook_Logo_Dark.svg";
@@ -13,7 +14,9 @@ import NyhedsbrevSign from "../components/NyhedsbrevSign.astro";
     <p class="text-size-10) font-semibold tracking-widest text-(--main-400)">
       NYHEDSBREV
     </p>
-    <h3 class="my-4">Hold Dig Opdateret</h3>
+    <Heading htmlheading="h3" size="h3" font="display" weight="semibold">
+      Hold Dig Opdateret
+    </Heading>
     <p>
       Tilmeld dig vores nyhedbrev og vær den første der hører om nye rabatter og
       andre spændende tilbud.
