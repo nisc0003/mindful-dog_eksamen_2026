@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.4 64.4">
+  <defs>
+    <style>
+      .tid_1 {
+        fill: none;
+      }
+
+      .tid_2 {
+        fill: none;
+        stroke: #ece8a4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <rect class="tid_1" width="64.4" height="64.4"/>
+  <path class="tid_2" d="M32.2,49c8.97,0,16.29-7.58,16.29-16.8s-7.32-16.8-16.29-16.8-16.29,7.58-16.29,16.8,7.32,16.8,16.29,16.8Z"/>
+  <path class="tid_2" d="M32.2,22.1v10.1l6.57,3.41"/>
+</svg>

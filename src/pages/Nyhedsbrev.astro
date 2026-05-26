@@ -1,25 +1,49 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from "../components/Buttons__&_links/Button.astro";
-import Heading from "../components/Heading.astro";
-import Link from "../components/Buttons__&_links/Link.astro";
-import Text from "../components/Text.astro";
+import InstaLogo from "../assets/icon/Instagram_Glyph_Dark.svg";
+import FBLogo from "../assets/icon/Facebook_Logo_Dark.svg";
+import LinkedInLogo from "../assets/icon/In-Bug_Dark.svg";
+import NyhedsbrevSign from "../components/NyhedsbrevSign.astro";
 ---
 
 <MainLayout title="Nyhedsbrev">
-  <article>
-    <Heading
-      htmlheading="h1"
-      size="h2"
-      font="display"
-      weight="bold"
-      stylingclasses="mb-6 !text-size-30"
-    >
-      Nyhedsbrev
-    </Heading>
-    <Button>Klik!</Button>
-    <Text stylingclasses="mt-4 !text-size-16">
-      Link til <Link href="https://www.kea.dk">En anden side</Link>
-    </Text>
-  </article>
+  <section
+    class="mx-auto my-16 flex max-w-[55ch] flex-col place-self-center p-4"
+  >
+    <p class="text-size-10) font-semibold tracking-widest text-(--main-400)">
+      NYHEDSBREV
+    </p>
+    <h3 class="my-4">Hold Dig Opdateret</h3>
+    <p>
+      Tilmeld dig vores nyhedbrev og vær den første der hører om nye rabatter og
+      andre spændende tilbud.
+    </p>
+    <NyhedsbrevSign />
+
+    <div class="mx-auto my-16 flex flex-wrap gap-4">
+      <div class="flex gap-4">
+        <a
+          href="https://www.instagram.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <InstaLogo class="aspect-square h-auto w-[20vw] md:w-[15vw]" />
+        </a>
+        <a
+          href="https://www.facebook.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FBLogo class="aspect-square h-auto w-[20vw] md:w-[15vw]" />
+        </a>
+        <a
+          href="https://www.linkedin.com/company/mindful-dog"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <LinkedInLogo class="aspect-square h-auto w-[20vw] md:w-[15vw]" />
+        </a>
+      </div>
+    </div>
+  </section>
 </MainLayout>

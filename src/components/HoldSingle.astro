@@ -1,6 +1,6 @@
 ---
 import { krTilDKK } from "../assets/js/supabase_v2";
-const { img, type, fornavn, efternavn, lokation, hold, pris, traener } =
+const { img, type, lokation, hold, pris, traener, profil_img, traener_txt } =
   Astro.props;
 
 const prisTekst = krTilDKK.format(Number(pris));
@@ -41,16 +41,4 @@ const prisTekst = krTilDKK.format(Number(pris));
       </a>
     </div>
   </div>
-</section>
-<section class="bg-(--accent-200) p-8">
-  <p>UNDERVISER</p>
-  <div class="bg-(--neutral-100) p-4">
-    <h5 class="semibold">{traener}</h5>
-  </div>
-</section>
-<section class="bg-(--neutral-100) p-8">
-  <p>INKLUDERET</p>
-</section>
-<section class="bg-(--main-200) p-8">
-  <p>FORMAAL</p>
 </section>

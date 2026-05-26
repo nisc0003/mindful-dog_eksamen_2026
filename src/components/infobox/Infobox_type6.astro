@@ -1,0 +1,28 @@
+---
+import Square from "./Green_square.astro";
+---
+
+<article
+  class="aspect-square h-75 w-75 rounded-md border border-(--main-400) bg-(--neutral-100) p-8 text-(--neutral-500) md:h-90 md:w-90"
+>
+  <div class="mb-4 flex">
+    <Square><slot name="punkt" slot="punkt">Null</slot></Square>
+    <div class="pl-4">
+      <slot name="topskrift">Topskrift her</slot>
+    </div>
+  </div>
+  <div class="flex flex-col gap-4">
+    <div>
+      <slot name="overskrift_1">Overskrift her</slot>
+      <slot name="info_1">Info her</slot>
+    </div>
+    <div>
+      <slot name="overskrift_2">Overskrift her</slot>
+      <slot name="info_2">Info her</slot>
+    </div>
+    <div>
+      <slot name="overskrift_3">Overskrift her</slot>
+      <slot name="info_3">Info her</slot>
+    </div>
+  </div>
+</article>

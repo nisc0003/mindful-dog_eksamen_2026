@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 63.21">
+  <defs>
+    <style>
+      .cross_1 {
+        fill: none;
+      }
+
+      .cross_2 {
+        fill: none;
+        stroke: #ece8a4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <rect class="cross_1" width="64" height="64"/>
+  <path class="cross_2" d="M46,18l-28,28"/>
+  <path class="cross_2" d="M18,18l28,28"/>
+</svg>

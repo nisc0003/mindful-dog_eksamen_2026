@@ -37,10 +37,10 @@
 
 :root {
   /* Skrifttype til overskrifter og display-tekst */
-  --font-display: "Geologica", sans-serif;
+  --primitive-font-display: "Geologica", sans-serif;
 
   /* Skrifttype til brødtekst og UI */
-  --font-sans: "Manrope", sans-serif;
+  --primitive-font-sans: "Manrope", sans-serif;
 
   /* Primær farveskala */
   --primitive-main-100: #f9f8db;
@@ -218,7 +218,7 @@
 
   /* ____________________Typography____________________ */
   --font-heading: var(--primitive-font-display);
-  --font-body: var(--primitive-font-body);
+  --font-body: var(--primitive-font-sans);
 
   --text-size-10: var(--primitive-font-10);
   --text-size-12: var(--primitive-font-12);
@@ -264,11 +264,11 @@
   /* ____________________Buttons and linkbuttons____________________ */
   --button-primary-bg: var(--main-400);
   --button-primary-bg-hover: var(--main-500);
-  --button-primary-text: var(--neutral-0);
+  --button-primary-text: var(--neutral-100);
 
   --button-secondary-bg: var(--accent-200);
   --button-secondary-bg-hover: var(--accent-400);
-  --button-secondary-text: var(--neutral-0);
+  --button-secondary-text: var(--neutral-100);
 
   --button-accent-bg: var(--accent-200);
   --button-accent-bg-hover: var(--accent-400);
@@ -280,7 +280,7 @@
 
   --button-neutral-bg: var(--neutral-500);
   --button-neutral-bg-hover: var(--neutral-300);
-  --button-neutral-text: var(--neutral-0);
+  --button-neutral-text: var(--neutral-100);
 
   --button-outline-bg: transparent;
   --button-outline-bg-hover: transparent;
@@ -304,37 +304,37 @@
   font-family: var(--font-heading);
   font-size: var(--heading-1-mobile);
   font-weight: 600;
-  line-height: 80px;
+  line-height: var(--heading-1-mobile);
 }
 h2 {
   font-family: var(--font-heading);
   font-size: var(--heading-2-mobile);
   font-weight: 600;
-  line-height: 80px;
+  line-height: var(--heading-2-mobile);
 }
 h3 {
   font-family: var(--font-heading);
   font-size: var(--heading-3-mobile);
   font-weight: 600;
-  line-height: 30px;
+  line-height: var(--heading-3-mobile);
 }
 h4 {
   font-family: var(--font-heading);
   font-size: var(--heading-4-mobile);
   font-weight: 600;
-  line-height: 30px;
+  line-height: var(--heading-4-mobile);
 }
 h5 {
   font-family: var(--font-heading);
   font-size: var(--heading-5-mobile);
   font-weight: 600;
-  line-height: 30px;
+  line-height: var(--heading-5-mobile);
 }
 h6 {
   font-family: var(--font-heading);
   font-size: var(--heading-6-mobile);
   font-weight: 600;
-  line-height: 26px;
+  line-height: var(--heading-6-mobile);
 }
 
 p {
@@ -343,25 +343,25 @@ p {
 
 @media (width >= 48rem) {
   h1 {
-    font-size: var(--heading-1-size);
+    font-size: var(--var(--heading-1-size));
   }
   h2 {
-    font-size: var(--heading-2-size);
+    font-size: var(--var(--heading-2-size));
   }
   h3 {
-    font-size: var(--heading-3-size);
+    font-size: var(--var(--heading-3-size));
     line-height: 80px;
   }
   h4 {
-    font-size: var(--heading-4-size);
+    font-size: var(--var(--heading-4-size));
     line-height: 48px;
   }
   h5 {
-    font-size: var(--heading-5-size);
+    font-size: var(--var(--heading-5-size));
     line-height: 34px;
   }
   h6 {
-    font-size: var(--heading-6-size);
+    font-size: var(--var(--heading-6-size));
     line-height: 26px;
   }
 } */

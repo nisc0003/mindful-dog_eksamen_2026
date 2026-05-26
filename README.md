@@ -71,7 +71,7 @@ src/
 │   ├── HeroSecond.astro
 │   ├── Map.astro
 │   ├── Infobox.astro
-│   ├── ProfileCard.astro
+│   ├── HoldCard.astro
 │   └── ProductCard.astro
 │
 ├── layouts/

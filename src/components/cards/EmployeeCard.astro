@@ -1,0 +1,28 @@
+---
+import Link from "../../components/Link.astro";
+const { traener, lokation, profil_img } = Astro.props;
+---
+
+<article
+  class="grid max-w-40 gap-2 rounded-md border border-(--main-400) md:max-w-70 md:grid-cols-2 md:gap-4"
+>
+  <img
+    src={profil_img}
+    alt={traener}
+    class="w-fill aspect-square h-auto object-cover object-[0%_20%] md:col-span-2"
+  />
+  <div class="px-2 md:pb-4 md:pl-4">
+    <h6 class="">{traener}</h6>
+    <p class="text-(length:--text-sixe-10) tracking-wider">{lokation}</p>
+  </div>
+
+  <div class="m-auto flex flex-wrap pb-2 whitespace-pre md:pr-2">
+    <Link
+      variant="standard"
+      size="sm"
+      color="primary"
+      href="#"
+      label="SE PROFIL"
+    />
+  </div>
+</article>
