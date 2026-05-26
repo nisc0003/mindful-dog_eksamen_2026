@@ -45,75 +45,131 @@ const weightVariants = ["bold", "regular", "light"] as const;
          0. TYPOGRAFI
     ========================================================= -->
     <section class="my-4 space-y-8 bg-white p-6">
-      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Overskrifter</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Overskrifter</Heading
+      >
 
       <div class="grid gap-4">
-        {headingVariants.map((variant) => (
-          <article class="rounded-lg border border-(--neutral-200) p-4">
-            <p class="mb-2 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">{variant}</p>
-            <Heading htmlheading={variant} size={variant} font="display" weight="bold">
-              Mindful Dog — {variant.toUpperCase()}
-            </Heading>
-          </article>
-        ))}
+        {
+          headingVariants.map((variant) => (
+            <article class="rounded-lg border border-(--neutral-200) p-4">
+              <p class="text-size-12 mb-2 tracking-[0.16em] text-(--neutral-300) uppercase">
+                {variant}
+              </p>
+              <Heading
+                htmlheading={variant}
+                size={variant}
+                font="display"
+                weight="bold"
+              >
+                Mindful Dog — {variant.toUpperCase()}
+              </Heading>
+            </article>
+          ))
+        }
       </div>
 
       <div class="grid gap-4 md:grid-cols-2">
         <article class="rounded-lg border border-(--neutral-200) p-4">
-          <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Skrifttype</p>
+          <p
+            class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
+          >
+            Skrifttype
+          </p>
           <div class="space-y-3">
-            {fontVariants.map((font) => (
-              <Heading htmlheading="h4" size="h4" font={font} weight="regular">
-                {font === "display" ? "Geologica / font-display" : "Manrope / font-sans"}
-              </Heading>
-            ))}
+            {
+              fontVariants.map((font) => (
+                <Heading
+                  htmlheading="h4"
+                  size="h4"
+                  font={font}
+                  weight="regular"
+                >
+                  {font === "display"
+                    ? "Geologica / font-display"
+                    : "Manrope / font-sans"}
+                </Heading>
+              ))
+            }
           </div>
         </article>
 
         <article class="rounded-lg border border-(--neutral-200) p-4">
-          <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Vægt</p>
+          <p
+            class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
+          >
+            Vægt
+          </p>
           <div class="space-y-3">
-            {weightVariants.map((weight) => (
-              <Heading htmlheading="h4" size="h4" font="display" weight={weight}>
-                {weight}
-              </Heading>
-            ))}
+            {
+              weightVariants.map((weight) => (
+                <Heading
+                  htmlheading="h4"
+                  size="h4"
+                  font="display"
+                  weight={weight}
+                >
+                  {weight}
+                </Heading>
+              ))
+            }
           </div>
         </article>
       </div>
 
       <div class="grid gap-4">
         <article class="rounded-lg border border-(--neutral-200) p-4">
-          <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Tekststørrelser</p>
+          <p
+            class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
+          >
+            Tekststørrelser
+          </p>
           <div class="space-y-3">
-            {textVariants.map((variant) => (
-              <Text size={variant} font="sans" weight="regular">
-                {variant} - Dette er en eksempeltekst, som viser størrelsen i typografisystemet.
-              </Text>
-            ))}
+            {
+              textVariants.map((variant) => (
+                <Text size={variant} font="sans" weight="regular">
+                  {variant} - Dette er en eksempeltekst, som viser størrelsen i
+                  typografisystemet.
+                </Text>
+              ))
+            }
           </div>
         </article>
 
         <div class="grid gap-4 md:grid-cols-2">
           <article class="rounded-lg border border-(--neutral-200) p-4">
-            <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Tekstfonte</p>
+            <p
+              class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
+            >
+              Tekstfonte
+            </p>
             <div class="space-y-3">
-              {fontVariants.map((font) => (
-                <Text size="p2" font={font} weight="regular">
-                  {font === "display" ? "font-display bruges til markante tekster" : "font-sans bruges til brødtekst og UI"}
-                </Text>
-              ))}
+              {
+                fontVariants.map((font) => (
+                  <Text size="p2" font={font} weight="regular">
+                    {font === "display"
+                      ? "font-display bruges til markante tekster"
+                      : "font-sans bruges til brødtekst og UI"}
+                  </Text>
+                ))
+              }
             </div>
           </article>
 
           <article class="rounded-lg border border-(--neutral-200) p-4">
-            <p class="mb-3 text-size-12 uppercase tracking-[0.16em] text-(--neutral-300)">Tekstvægte</p>
+            <p
+              class="text-size-12 mb-3 tracking-[0.16em] text-(--neutral-300) uppercase"
+            >
+              Tekstvægte
+            </p>
             <div class="space-y-3">
-              {weightVariants.map((weight) => (
-                <Text size="p2" font="sans" weight={weight}>
-                  {weight} - Eksempel på vægt i tekstkomponenten.
-                </Text>
-              ))}
+              {
+                weightVariants.map((weight) => (
+                  <Text size="p2" font="sans" weight={weight}>
+                    {weight} - Eksempel på vægt i tekstkomponenten.
+                  </Text>
+                ))
+              }
             </div>
           </article>
         </div>
@@ -124,7 +180,9 @@ const weightVariants = ["bold", "regular", "light"] as const;
          1. SØGEKNAPPER
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Søgeknapper</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Søgeknapper</Heading
+      >
 
       <div class="flex flex-wrap gap-3">
         <SearchButton size="sm" />
@@ -138,7 +196,9 @@ const weightVariants = ["bold", "regular", "light"] as const;
          2. DROPDOWN-KNAPPER
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Dropdown buttons</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Dropdown buttons</Heading
+      >
 
       <div class="flex flex-wrap gap-3">
         <DropdownButton size="sm" color="primary" options={dropdownOptions} />
@@ -178,7 +238,9 @@ const weightVariants = ["bold", "regular", "light"] as const;
      3. LOKATIONS-KNAPPER
 ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Lokations-knapper</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Lokations-knapper</Heading
+      >
 
       <div class="grid justify-items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
         <LocationButton size="sm" color="main" location="Vestsjælland" />
@@ -238,7 +300,9 @@ const weightVariants = ["bold", "regular", "light"] as const;
          4. STANDARD-KNAPPER
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Standard-knapper</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Standard-knapper</Heading
+      >
 
       <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
         <StandardButton size="sm" color="main" label="Main" />
@@ -278,7 +342,9 @@ const weightVariants = ["bold", "regular", "light"] as const;
          5. LINK-KNAPPER
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Link-knapper</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Link-knapper</Heading
+      >
 
       <div class="grid grid-cols-2 gap-4 md:grid-cols-5">
         <LinkButton size="sm" color="main" href="#" label="Main" />
@@ -315,11 +381,15 @@ const weightVariants = ["bold", "regular", "light"] as const;
          6. STANDARD-LINKS
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Standard links</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Standard links</Heading
+      >
 
       <div class="flex flex-wrap gap-4">
         <Link href="#">Et almindeligt link</Link>
-        <Link href="#" stylingclasses="text-(--link-text-hover)">Link med ekstra styling</Link>
+        <Link href="#" stylingclasses="text-(--link-text-hover)"
+          >Link med ekstra styling</Link
+        >
         <Link href="https://www.kea.dk" target="_blank" rel="noreferrer">
           Eksternt link
         </Link>
@@ -330,7 +400,9 @@ const weightVariants = ["bold", "regular", "light"] as const;
          7. SOCIALE LINKS
     ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
-      <Heading htmlheading="h2" size="h4" font="display" weight="bold">Sociale links</Heading>
+      <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+        >Sociale links</Heading
+      >
 
       <div class="grid grid-cols-3 gap-4">
         <SocialLink size="sm" network="facebook" href="#" />
@@ -354,7 +426,9 @@ const weightVariants = ["bold", "regular", "light"] as const;
          8. LÆS MERE
     ========================================================= -->
       <section class="my-4 space-y-6 bg-white p-6">
-        <Heading htmlheading="h2" size="h4" font="display" weight="bold">Læs mere link</Heading>
+        <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+          >Læs mere link</Heading
+        >
 
         <div class="grid gap-6">
           <ReadMore fullText={longText} />
@@ -364,7 +438,9 @@ const weightVariants = ["bold", "regular", "light"] as const;
          9. BRØDKRUMME
     ========================================================= -->
       <section class="my-4 space-y-6 bg-white p-6">
-        <Heading htmlheading="h2" size="h4" font="display" weight="bold">Brødkrumme</Heading>
+        <Heading htmlheading="h2" size="h4" font="display" weight="bold"
+          >Brødkrumme</Heading
+        >
 
         <Breadcrumb trail={breadcrumbTrail} />
       </section>
