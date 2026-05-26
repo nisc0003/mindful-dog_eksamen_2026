@@ -1,15 +1,11 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-<<<<<<< HEAD
-import Button from "../components/Button.astro";
-import Link from "../components/Link.astro";
-import ProfileCard from "../components/ProfileCard.astro";
-=======
-import Button from "../components/Buttons__&_links/StandardButton.astro";
+
+import ProfileCard from "../components/cards/ProfileCard.astro";
+import Button from "../components/Buttons__&_links/Button.astro";
 import Heading from "../components/Heading.astro";
 import Link from "../components/Buttons__&_links/Link.astro";
 import Text from "../components/Text.astro";
->>>>>>> fix_buttons_links_heading_text
 ---
 
 <MainLayout title="Om os">
@@ -24,17 +20,16 @@ import Text from "../components/Text.astro";
       Om os
     </Heading>
     <Button>Klik!</Button>
-<<<<<<< HEAD
+
     <p>
       Link til <Link href="https://www.kea.dk" target="_blank"
         >En anden side</Link
       >
     </p>
-=======
+
     <Text stylingclasses="mt-4 !text-size-16">
       Link til <Link href="https://www.kea.dk">En anden side</Link>
     </Text>
->>>>>>> fix_buttons_links_heading_text
   </article>
 
   <ProfileCard />
