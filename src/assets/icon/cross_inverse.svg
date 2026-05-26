@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 63.21">
+  <defs>
+    <style>
+      .crossi_1 {
+        fill: none;
+      }
+
+      .crossi_2 {
+        fill: none;
+        stroke: #79772c;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 6px;
+      }
+    </style>
+  </defs>
+  <rect class="crossi_1" width="64" height="64"/>
+  <path class="crossi_2" d="M46,18l-28,28"/>
+  <path class="crossi_2" d="M18,18l28,28"/>
+</svg>

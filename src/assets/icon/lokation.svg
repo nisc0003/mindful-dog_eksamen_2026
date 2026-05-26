@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.92 64">
+  <defs>
+    <style>
+      .lokation_1 {
+        fill: none;
+        stroke: #ece8a4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+
+      .lokation_2 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <rect class="lokation_2" width="64" height="64"/>
+  <path class="lokation_1" d="M46.8,28.15c0,9.62-10.26,19.63-13.7,22.72-.32.25-.71.39-1.11.39s-.79-.14-1.11-.39c-3.44-3.09-13.7-13.11-13.7-22.72,0-4.09,1.56-8.01,4.34-10.89,2.78-2.89,6.55-4.51,10.48-4.51s7.7,1.62,10.48,4.51c2.78,2.89,4.34,6.81,4.34,10.89Z"/>
+  <path class="lokation_1" d="M31.99,33.93c3.07,0,5.56-2.59,5.56-5.78s-2.49-5.78-5.56-5.78-5.56,2.59-5.56,5.78,2.49,5.78,5.56,5.78Z"/>
+</svg>

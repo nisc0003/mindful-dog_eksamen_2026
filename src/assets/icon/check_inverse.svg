@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .checki_1 {
+        fill: none;
+      }
+
+      .checki_2 {
+        fill: none;
+        stroke: #79772c;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 6px;
+      }
+    </style>
+  </defs>
+  <rect class="checki_1" width="64" height="64"/>
+  <path class="checki_2" d="M46,21.46l-19.28,19.28-8.72-8.72"/>
+</svg>

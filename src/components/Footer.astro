@@ -6,40 +6,40 @@ import LinkedInLogo from "../assets/icon/In-Bug_Green.svg";
 import { Image } from "astro:assets";
 ---
 
-<footer
-  class="flex flex-col gap-4 bg-(--main-400) p-6 text-(--main-200) [&_a]:text-(length:--text-size-30) [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline sm:[&_a]:text-(length:--text-size-25)"
->
-  <div class="sm:flex sm:justify-between sm:gap-8">
-    <h3 class="text-(length:--heading-3-size) font-bold">
+<footer class="flex flex-col gap-4 bg-(--main-400) p-6 text-(--main-200)">
+  <div class="lg:flex lg:justify-between lg:gap-8">
+    <span
+      class="font font-(family-name:var(--font-heading)) text-(length:--text-size-65) leading-(--text-size-65) font-bold md:text-(length:--text-size-100) md:leading-(--text-size-100)"
+    >
       Mindful<br />Dog<br />Academy
-    </h3>
+    </span>
 
-    <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:gap-16">
+    <div
+      class="mt-5 flex flex-col gap-4 lg:flex-row lg:gap-16 [&_p]:text-(length:--text-size-20)"
+    >
       <div class="flex flex-col gap-4">
-        <p
-          class="text-(length:--text-size-20) font-thin sm:text-(length:--text-size-16)"
+        <span
+          class="font-(family-name:var(--font-body)) text-(length:--text-size-10) font-semibold tracking-widest"
         >
           Kontakt
-        </p>
-        <div
-          class="[&_p]:text-(length:--text-size-30) sm:[&_p]:sm:text-(length:--text-size-25)"
-        >
-          <p class="font-semibold">Mindful-Dog Hovedkontor</p>
-          <p>Grace Hidalgo</p>
+        </span>
+        <div class="[&_p]:text-(length:--text-size-20)">
+          <h6 class="text-(length:--text-size-20) font-semibold">
+            Mindful-Dog Hovedkontor
+          </h6>
+          <p class="font-thin">Grace Hidalgo</p>
         </div>
-        <p class="text-(length:--text-size-30) sm:text-(length:--text-size-25)">
-          Tlf.: +45 29 60 55 39
-        </p>
-        <p class="text-(length:--text-size-30) sm:text-(length:--text-size-25)">
-          E-mail: grace@mindful-dog.dk
-        </p>
+        <p class="font-thin">Tlf.: +45 29 60 55 39</p>
+        <p class="font-thin">E-mail: grace@mindful-dog.dk</p>
       </div>
-      <div class="flex flex-col gap-4">
-        <p
-          class="text-(length:--text-size-20) font-thin sm:text-(length:--text-size-16)"
+      <div
+        class="font font-(family-name:var(--font-heading)) flex flex-col gap-4 [&_a]:text-(length:--text-size-20) [&_a]:font-semibold [&_a]:no-underline [&_a]:hover:underline"
+      >
+        <span
+          class="font-(family-name:var(--font-body)) text-(length:--text-size-10) font-semibold tracking-widest"
         >
           Information
-        </p>
+        </span>
         <a href="">Salgs- og Handelsbetingelser</a>
         <a href="">Læs om Mindful-Dog Metoden</a>
       </div>
@@ -61,27 +61,21 @@ import { Image } from "astro:assets";
         target="_blank"
         rel="noopener noreferrer"
       >
-        <InstaLogo
-          class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
-        />
+        <InstaLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]" />
       </a>
       <a
         href="https://www.facebook.com/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <FBLogo
-          class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
-        />
+        <FBLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]" />
       </a>
       <a
         href="https://www.linkedin.com/company/mindful-dog"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <LinkedInLogo
-          class="aspect-square h-auto w-[10vw] fill-(--main-200) sm:w-[5vw]"
-        />
+        <LinkedInLogo class="aspect-square h-auto w-[10vw] sm:w-[5vw]" />
       </a>
     </div>
     <button
