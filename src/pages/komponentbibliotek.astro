@@ -16,6 +16,8 @@ import LinkButton from "../components/Buttons__&_links/LinkButton.astro";
 import SocialLink from "../components/Buttons__&_links/SocialLink.astro";
 import ReadMore from "../components/Buttons__&_links/ReadMore.astro";
 import Breadcrumb from "../components/Buttons__&_links/Breadcrumb.astro";
+import Hero_1 from "../components/HeroMain.astro";
+import Hero_2 from "../components/HeroSecond.astro";
 
 const dropdownOptions = ["Hvalp", "Voksen", "Tricks"];
 
@@ -459,6 +461,184 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
 
         <Breadcrumb trail={breadcrumbTrail} />
       </section>
+      <!-- =========================================================
+           10. HERO-SEKTIONER
+      ========================================================= -->
+
+      <section class="my-4 space-y-12 rounded-lg bg-(--neutral-200) p-6">
+        <Heading htmlheading="h2" size="h3" font="display" weight="bold">
+          Hero Sektioner — Oversigt over alle typer
+        </Heading>
+
+        <!-- ===== HERO_1: Fullwidth with Cutout (Group start) ===== -->
+        <div class="space-y-8">
+          <Heading
+            htmlheading="h3"
+            size="h4"
+            font="sans"
+            weight="semibold"
+            stylingclasses="border-b pb-2"
+          >
+            Hero_1: Fullwidth med Cutout-grafik (3 Typer)
+          </Heading>
+        </div>
+
+        <!-- HERO_1 - Type 1: Standard Brand Hero (Grøn Accent) -->
+        <div
+          class="space-y-2 overflow-hidden rounded-md bg-white p-4 shadow-inner"
+        >
+          <Text size="label_1" weight="bold" stylingclasses="text-indigo-6xl"
+            >Hero 1 - Type 1: Standard Brand Hero (Grøn Accent)</Text
+          >
+          <Hero_1
+            titleHtml='<span class="text-(--main-400)">Mindful<br/>Dog<br/>Academy</span>'
+            subtitle="Ro, mental balance og ægte forståelse mellem dig og din firbenede ven."
+            imageSrc="https://placehold.co/600x400"
+            buttons={[
+              { label: "SE VORES HOLD", color: "secondary", href: "#" },
+            ]}
+          />
+        </div>
+
+        <!-- HERO_1 - Type 2: Med Brødkrummestile & Kontrast-titel -->
+        <div
+          class="space-y-2 overflow-hidden rounded-md bg-white p-4 shadow-inner"
+        >
+          <Text size="label_1" weight="bold" stylingclasses="text-indigo-6xl"
+            >Hero 1 - Type 2: Med Brødkrummestile & Kontrast-titel</Text
+          >
+          <Hero_1
+            breadcrumbs="FORSIDE / OM OS"
+            titleHtml='Vi træner hunden med <span class="text-(--accent-400)">Hjertet</span>'
+            subtitle="Mød teamet bag din hunds nye yndlingssted og lær mere om vores positive værdigrundlag."
+            imageSrc="https://placehold.co/600x400"
+            buttons={[
+              { label: "MØD TEAMET", color: "main", href: "#" },
+              { label: "LÆS VORES METODER", color: "outline", href: "#" },
+            ]}
+          />
+        </div>
+
+        <!-- HERO_1 - Type 3: Minimalistisk overskrift & Call to Action -->
+        <div
+          class="space-y-2 overflow-hidden rounded-md bg-white p-4 shadow-inner"
+        >
+          <Text size="label_1" weight="bold" stylingclasses="text-indigo-6xl"
+            >Hero 1 - Type 3: Minimalistisk overskrift & Kraftfuld CTA</Text
+          >
+          <Hero_1
+            titleHtml='Gør en <span class="text-(--main-400)">Forskel</span> i dag'
+            subtitle="Tilmeld dig vores nyhedsbrev og få adgang til gratis ugentlige træningstips direkte i din indbakke."
+            imageSrc="https://placehold.co/600x400"
+            buttons={[
+              { label: "TILMELD NYHEDSBREV", color: "neutral", href: "#" },
+            ]}
+          />
+        </div>
+      </section>
+      <!-- ===== HERO_1: Fullwidth with Cutout (Group end) ===== -->
+
+      <!-- ===== HERO_2: Split Layout (Group start) ===== -->
+      <div class="space-y-8">
+        <Heading
+          htmlheading="h3"
+          size="h4"
+          font="sans"
+          weight="semibold"
+          stylingclasses="border-b pb-2"
+        >
+          Hero_2: Split Layout (5 Typer)
+        </Heading>
+
+        <!-- HERO_2 - Type 1: Profil (Sabine Vejle) -->
+        <div class="space-y-2 rounded-md bg-white p-4 shadow-inner">
+          <Text size="label_1" weight="bold" stylingclasses="text-indigo-6xl"
+            >Hero 2 - Type 1: Profil (Sabine Vejle)</Text
+          >
+          <Hero_2
+            imageSrc="https://placehold.co/800x800"
+            imagePosition="left"
+            topLabel="PROFIL"
+            title="Sabine Vejle"
+            tags={[
+              "Hundeadfærd",
+              "Adfærd",
+              "Miljøtræning",
+              "Rally Lydighed",
+              "Familie Hunde Træning",
+            ]}
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Særlige kompetencer indenfor adfærdsbehandling og positiv forstærkning."
+            buttons={[
+              { label: "STAMBOG", color: "neutral", href: "#" },
+              { label: "TJEK VORES UDVALG", color: "secondary", href: "#" },
+              { label: "MERE OM", color: "outline", href: "#" },
+            ]}
+          />
+        </div>
+
+        <!-- HERO_2 - Type 2: Hold med Video Overlay -->
+        <div class="space-y-2 rounded-md bg-white p-4 shadow-inner">
+          <Text size="label_1" weight="bold" stylingclasses="text-indigo-6xl"
+            >Hero 2 - Type 2: Hold m/ Video Overlay</Text
+          >
+          <Hero_2
+            imageSrc="https://placehold.co/600x400"
+            hasVideo={true}
+            topLabel="HVALPE HOLD"
+            title="Hvalpe Hold — Start den rigtige vej"
+            description="Få den bedste start på livet med din hvalp. Gennem leg, tillidsøvelser og grundlæggende miljøtræning ruster vi din hvalp til hverdagen."
+            buttons={[
+              { label: "TJEK UDVALG", color: "main", href: "#" },
+              { label: "MERE OM OS", color: "outline", href: "#" },
+            ]}
+          />
+        </div>
+
+        <!-- HERO_2 - Type 3: Spejlet Layout (højre billede) -->
+        <div class="space-y-2 rounded-md bg-white p-4 shadow-inner">
+          <Text size="label_1" weight="bold" stylingclasses="text-indigo-6xl"
+            >Hero 2 - Type 3: Spejlet Layout (Højre-stillet billede)</Text
+          >
+          <Hero_2
+            imageSrc="https://placehold.co/600x400"
+            imagePosition="right"
+            topLabel="Uddannelse"
+            title="Bliv Professionel Instruktør"
+            description="Drømmer du om at arbejde professionelt med hunde? Vores certificerede uddannelser giver dig den nyeste videnskabelige viden pakket ind i praktisk erfaring."
+            buttons={[{ label: "ANSØG NU", color: "primary", href: "#" }]}
+          />
+        </div>
+
+        <!-- HERO_2 - Type 4: Minimalistisk (ingen description) -->
+        <div class="space-y-2 rounded-md bg-white p-4 shadow-inner">
+          <Text size="label_1" weight="bold" stylingclasses="text-indigo-6xl"
+            >Hero 2 - Type 4: Minimalistisk uden beskrivelse</Text
+          >
+          <Hero_2
+            imageSrc="https://placehold.co/600x400"
+            topLabel="KONTAKT"
+            title="Har du brug for hjælp til din hund?"
+            tags={["Akut hjælp", "Enetimer"]}
+            buttons={[{ label: "SEND EN MAIL", color: "accent", href: "#" }]}
+          />
+        </div>
+
+        <!-- HERO_2 - Type 5: Enkel Service Hero -->
+        <div class="space-y-2 rounded-md bg-white p-4 shadow-inner">
+          <Text size="label_1" weight="bold" stylingclasses="text-indigo-6xl"
+            >Hero 2 - Type 5: Enkel Service Hero</Text
+          >
+          <Hero_2
+            imageSrc="https://placehold.co/600x400"
+            title="Adfærdsrådgivning på ejerens præmisser"
+            description="Når hverdagen spænder ben, og din hund udviser uønsket adfærd, står vi klar med skræddersyede planer der virker uden brug af straf."
+            buttons={[
+              { label: "BOOK TID ONLINE", color: "secondary", href: "#" },
+            ]}
+          />
+        </div>
+      </div>
+      <!-- ===== HERO_2: Split Layout (Group end) ===== -->
     </section>
   </div>
 </MainLayout>

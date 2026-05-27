@@ -1,3 +1,97 @@
 ---
+import Heading from "./Heading.astro";
+import Text from "./Text.astro";
+import LinkButton from "./Buttons__&_links/LinkButton.astro";
 
+interface ButtonConfig {
+  label: string;
+  color: "main" | "primary" | "secondary" | "accent" | "neutral" | "outline";
+  href: string;
+}
+
+interface Props {
+  breadcrumbs?: string;
+  titleHtml: string; // Supports HTML for text color variations and breaks (e.g. <span class="text-(--main-400)">...)
+  subtitle?: string;
+  imageSrc: string;
+  imageAlt?: string;
+  buttons?: ButtonConfig[];
+}
+
+const {
+  breadcrumbs,
+  titleHtml,
+  subtitle,
+  imageSrc,
+  imageAlt = "Hero transparent billede",
+  buttons = [],
+} = Astro.props as Props;
 ---
+
+<section
+  class="relative w-full overflow-hidden bg-(--neutral-100) px-[var(--page-space-inline)] pt-[var(--section-space-y)]"
+>
+  <div
+    class="relative z-10 mx-auto flex min-h-[500px] max-w-[1440px] flex-col md:min-h-[600px] md:flex-row"
+  >
+    {/* Content Side */}
+    <div
+      class="z-20 flex w-full flex-col pb-[250px] sm:pb-[300px] md:w-3/5 md:pb-[var(--section-space-y)]"
+    >
+      {
+        breadcrumbs && (
+          <Text
+            size="label_2"
+            weight="semibold"
+            stylingclasses="text-(--neutral-400) tracking-widest mb-6 uppercase"
+          >
+            {breadcrumbs}
+          </Text>
+        )
+      }
+
+      <Heading
+        htmlheading="h1"
+        size="h1"
+        font="display"
+        weight="bold"
+        stylingclasses="leading-[0.9] text-(--neutral-500) mb-6"
+      >
+        <span set:html={titleHtml} />
+      </Heading>
+
+      {
+        subtitle && (
+          <Text
+            size="p1"
+            weight="regular"
+            stylingclasses="text-(--neutral-500) mb-8 max-w-md"
+          >
+            {subtitle}
+          </Text>
+        )
+      }
+
+      {
+        buttons.length > 0 && (
+          <div class="mt-auto flex flex-wrap gap-3 md:gap-4">
+            {buttons.map((btn) => (
+              <LinkButton href={btn.href} color={btn.color} label={btn.label} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+
+    {/* Cutout Image Side (Positioned Bottom Right) */}
+    <div
+      class="pointer-events-none absolute right-[-10%] bottom-0 z-10 flex h-full w-[85%] items-end justify-end sm:w-[60%] md:right-0 md:w-[50%] lg:w-[45%]"
+    >
+      <img
+        src={imageSrc}
+        alt={imageAlt}
+        class="h-auto max-h-[110%] w-full translate-y-4 object-contain object-right-bottom md:translate-y-8 lg:translate-x-12"
+      />
+    </div>
+  </div>
+</section>
