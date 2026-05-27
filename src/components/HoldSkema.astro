@@ -3,6 +3,7 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import Heading from "./Heading.astro";
 import Button from "../components/Buttons__&_links/Button.astro";
+import LinkButton from "./Buttons__&_links/LinkButton.astro";
 import Link from "../components/Buttons__&_links/Link.astro";
 import HoldCard from "../components/cards/HoldCard.astro";
 import {
@@ -27,13 +28,13 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
 ---
 
 <div
-  class="m-6 grid grid-cols-3 gap-4 [&_a]:bg-(--main-300) [&_a]:hover:bg-(--main-500)"
+  class="m-6 grid grid-cols-3 gap-4"
 >
-  <a href="?lokation=Alle">Alle</a>
+<LinkButton size="sm" color="accent" href="?lokation=Alle" label="Alle" />
   {
     displayedGroups.map((filter) => {
       const groupClass = getLokationGroup(filter);
-      return <a href={`?lokation=${encodeURIComponent(filter)}`}>{filter}</a>;
+      return <LinkButton size="sm" color="primary" href={`?lokation=${encodeURIComponent(filter)}`}>{filter}</LinkButton>;
     })
   }
 </div>

@@ -1,5 +1,6 @@
 ---
 import Heading from "../Heading.astro";
+import Text from "../Text.astro";
 const { hold, pris, adresse, status_ikon, status_txt } = Astro.props;
 ---
 
@@ -13,19 +14,19 @@ const { hold, pris, adresse, status_ikon, status_txt } = Astro.props;
         <Heading htmlheading="h6" size="h6" font="display" weight="semibold">
           {hold}
         </Heading>
-        <p>{status_txt}</p>
+        <Text>{status_txt}</Text>
       </div>
     </div>
 
     <div class="flex grid-cols-4 justify-between md:col-span-4 md:grid">
       <div class="flex gap-6 md:col-span-3">
         <div class="hidden md:inline-block">
-          <p class="font-bold">LOKATION</p>
-          <p>{adresse}</p>
+          <Text weight="bold">LOKATION</Text>
+          <Text>{adresse}</Text>
         </div>
         <div>
-          <p class="font-bold">PRIS</p>
-          <p>{pris}</p>
+          <Text weight="bold">PRIS</Text>
+          <Text>{pris}</Text>
         </div>
       </div>
       <span class="my-auto">

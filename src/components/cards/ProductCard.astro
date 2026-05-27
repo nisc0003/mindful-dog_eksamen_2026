@@ -1,44 +1,46 @@
 ---
 import Heading from "../Heading.astro";
+import Text from "../Text.astro";
+import LinkButton from "../Buttons__&_links/LinkButton.astro";
 const { img, type, traener, path, lokation, hold, pris } = Astro.props;
 ---
 
-<li class="mx-auto overflow-hidden rounded-md bg-(--neutral-100)">
+<li class="grid grid-rows-subgrid row-span-3 mx-auto">
   <a href={"/Hold_side/" + path}>
-    <article class="row-span-2 grid grid-rows-subgrid">
+    <article class="row-span-2 grid grid-rows-subgrid rounded-md bg-(--neutral-100) xl:max-w-[400px] overflow-hidden">
       <img
         src={img}
         alt={type}
         class="aspect-3/2 h-auto w-[100cqw] object-cover object-[0%_20%]"
       />
-      <div class="p-[2cqw]">
+      <div class="p-[2cqw] pt-2 flex flex-col">
         <div
-          class="[&_p]:text-size-10) flex gap-2 [&_p]:my-3 [&_p]:rounded-md [&_p]:px-3 [&_p]:py-1 [&_p]:text-center [&_p]:font-semibold"
-        >
-          <p class="bg-(--neutral-500) text-(--text-inverse)">
+          class="flex gap-2 [&_span]:my-2 [&_span]:rounded-md [&_span]:py-1 [&_span]:px-2 [&_p]:text-center min-h-8"
+        ><span class="bg-(--neutral-500) w-fit content-center">
+          <Text size="label_2" weight="semibold" stylingclasses="text-(--text-inverse)">
             {lokation}
-          </p>
-          <p class="bg-(--neutral-200) text-(--text-primary)">
+          </Text>
+        </span>
+        <span class="bg-(--neutral-200) w-fit content-center">
+          <Text size="label_2" weight="semibold">
             {type}
-          </p>
-          <p class="bg-(--neutral-200) text-(--text-primary)">{traener}</p>
+          </Text>
+        </span>
+        <span class="bg-(--neutral-200) w-fit content-center">
+          <Text size="label_2" weight="semibold">{traener}</Text>
         </div>
-        <div>
+        </span>
+        <div class="mb-4">
           <Heading htmlheading="h6" size="h6" font="display" weight="bold">
             {hold}
           </Heading>
-          <p class="text-size-16">
+          <Text>
             Her skal der være en beskrivelse af holdet.
-          </p>
+          </Text>
         </div>
-        <div class="my-4 flex items-center justify-between">
-          <p class="text-size-20 font-bold">{pris}</p>
-          <a
-            href="/Hold_oversigt"
-            class="text-size-20 rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
-          >
-            SE HOLD
-          </a>
+        <div class="mb-4 mt-auto flex items-center justify-between ">
+          <Text weight="bold">{pris}</Text>
+          <LinkButton size="md" color="outline" href="/Hold_oversig" label="SE HOLD" />
         </div>
       </div>
     </article>

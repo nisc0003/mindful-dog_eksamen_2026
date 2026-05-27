@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 import Heading from "./Heading.astro";
 import Button from "../components/Button.astro";
 import Link from "../components/Link.astro";
+import LinkButton from "./Buttons__&_links/LinkButton.astro";
 import ProductCard from "../components/cards/ProductCard.astro";
 
 import {
@@ -30,13 +31,13 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
 ---
 
 <div
-  class="m-6 grid grid-cols-3 gap-4 [&_a]:bg-(--main-300) [&_a]:hover:bg-(--main-500)"
+  class="m-6 flex flex-wrap gap-4"
 >
-  <a href="?lokation=Alle">Alle</a>
+  <LinkButton size="sm" color="accent" href="?lokation=Alle" label="Alle" />
   {
     displayedGroups.map((filter) => {
       const groupClass = getLokationGroup(filter);
-      return <a href={`?lokation=${encodeURIComponent(filter)}`}>{filter}</a>;
+      return <LinkButton size="sm" color="outline" href={`?lokation=${encodeURIComponent(filter)}`}>{filter}</LinkButton>;
     })
   }
 </div>
@@ -61,7 +62,7 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
             {group}
           </Heading>
 
-          <ul class="grid auto-rows-auto gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <ul class="grid auto-rows-auto gap-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {groupedByLokation[group].map((item, index) => {
               const prisTekst = krTilDKK.format(Number(item.pris));
               const t = item.traenere;

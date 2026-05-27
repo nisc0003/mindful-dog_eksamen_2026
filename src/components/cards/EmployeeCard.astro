@@ -1,6 +1,7 @@
 ---
 import Heading from "../Heading.astro";
 import Link from "../../components/Buttons__&_links/Link.astro";
+import Text from "../Text.astro";
 const { traener, lokation, profil_img } = Astro.props;
 ---
 
@@ -16,7 +17,7 @@ const { traener, lokation, profil_img } = Astro.props;
     <Heading htmlheading="h6" size="h6" font="display" weight="semibold">
       {traener}
     </Heading>
-    <p class="text-sixe-10 tracking-wider">{lokation}</p>
+    <Text size="label_2" stylingclasses="tracking-wider">{lokation}</Text>
   </div>
 
   <div class="m-auto flex flex-wrap pb-2 whitespace-pre md:pr-2">
