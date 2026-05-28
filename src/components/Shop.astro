@@ -30,14 +30,20 @@ const groupedByLokation = getGroupedByLokation(filterLokation);
 const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
 ---
 
-<div
-  class="m-6 flex flex-wrap gap-4"
->
+<div class="m-6 flex flex-wrap gap-4">
   <LinkButton size="sm" color="accent" href="?lokation=Alle" label="Alle" />
   {
     displayedGroups.map((filter) => {
       const groupClass = getLokationGroup(filter);
-      return <LinkButton size="sm" color="outline" href={`?lokation=${encodeURIComponent(filter)}`}>{filter}</LinkButton>;
+      return (
+        <LinkButton
+          size="sm"
+          color="outline"
+          href={`?lokation=${encodeURIComponent(filter)}`}
+        >
+          {filter}
+        </LinkButton>
+      );
     })
   }
 </div>
@@ -50,7 +56,7 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
       return (
         <article
           data-group={group}
-          class={`mb-8 border p-6 ${groupStyles[group] || "border-(--neutral-500) bg-(--neutral-100)"}`}
+          class={`p-8 md:p-16 ${groupStyles[group] || "w-[100vw]"}`}
         >
           <Heading
             stylingclassesclass="mb-4"

@@ -6,19 +6,30 @@ import Heading from "../components/Heading.astro";
 import Link from "../components/Buttons__&_links/Link.astro";
 import Text from "../components/Text.astro";
 import Shop from "../components/Shop.astro";
+import { Image } from "astro:assets";
+import SpringHund from "../assets/img/hold_img.webp";
 ---
 
 <MainLayout title="Hold oversigt">
   <article>
-    <Heading
-      htmlheading="h1"
-      size="h2"
-      font="display"
-      weight="bold"
-      stylingclasses="mb-6 !text-size-30"
-    >
-      Hold oversigt
-    </Heading>
+    <div class="mx-auto grid max-w-[68vw] grid-cols-3 content-center">
+      <Heading
+        htmlheading="h1"
+        size="h1"
+        font="display"
+        weight="bold"
+        stylingclasses="mb-6 col-span-2"
+      >
+        Find dit hold
+      </Heading>
+      <Image
+        src={SpringHund}
+        alt="Billede af Bichon Havanais der springer, uden baggrund"
+        class="m-auto h-auto w-full"
+      />
+    </div>
   </article>
-  <Shop selectedLokation={Astro.url.searchParams.get("lokation") || "Alle"} />
+  <section>
+    <Shop selectedLokation={Astro.url.searchParams.get("lokation") || "Alle"} />
+  </section>
 </MainLayout>

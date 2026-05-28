@@ -1,6 +1,6 @@
 ---
 import Heading from "../Heading.astro";
-import Link from "../../components/Buttons__&_links/Link.astro";
+import LinkButton from "../../components/Buttons__&_links/LinkButton.astro";
 import Text from "../Text.astro";
 const { traener, lokation, profil_img } = Astro.props;
 ---
@@ -21,6 +21,6 @@ const { traener, lokation, profil_img } = Astro.props;
   </div>
 
   <div class="m-auto flex flex-wrap pb-2 whitespace-pre md:pr-2">
-    <Link href="#" label="SE PROFIL" />
+    <LinkButton color="outline" href="#" label="SE PROFIL" />
   </div>
 </article>

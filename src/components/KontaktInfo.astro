@@ -1,7 +1,7 @@
 ---
 import Text from "./Text.astro";
-import Button from "./Buttons__&_links/Button.astro";
 import Brev from "../assets/icon/brev.svg";
+import LinkButton from "./Buttons__&_links/LinkButton.astro";
 ---
 
 <article class="mx-auto">
@@ -16,7 +16,7 @@ import Brev from "../assets/icon/brev.svg";
         >grace@mindful-dog.dk</Text
       >
     </div>
-    <Button label="KONTAKT MAIL" stylingclasses="w-[10em]" />
+    <LinkButton label="KONTAKT MAIL" stylingclasses="w-[10em]" href="mailto:grace@mindful-dog.dk"/>
   </div>
   <div class="my-4 flex gap-2">
     <div
@@ -29,6 +29,6 @@ import Brev from "../assets/icon/brev.svg";
         >+45 29 60 55 39</Text
       >
     </div>
-    <Button label="KONTAKT TLF." stylingclasses="w-[10em]" />
+    <LinkButton label="KONTAKT TLF." stylingclasses="w-[10em]" href="tel:+4529605539" />
   </div>
 </article>

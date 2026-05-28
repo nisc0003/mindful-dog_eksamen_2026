@@ -105,12 +105,12 @@ export const lokationGroups = {
 };
 
 export const groupStyles = {
-  Sydfyn: "border-(--accent-200)",
-  Vestsjælland: "bg-emerald-50 border-emerald-300",
-  Midtjylland: "bg-yellow-50 border-yellow-300",
-  Sydjylland: "bg-pink-50 border-pink-300",
-  Sønderjylland: "bg-purple-50 border-purple-300",
-  Als: "bg-lime-50 border-lime-300",
+  Sydfyn: "bg-(--main-200) !w-[100vw]",
+  Vestsjælland: "bg-(--accent-200) !w-[100vw]",
+  Midtjylland: "bg-(--main-200) !w-[100vw]",
+  Sydjylland: "bg-(--accent-200) !w-[100vw]",
+  Sønderjylland: "bg-(--main-200) !w-[100vw]",
+  Als: "bg-(--accent-200) !w-[100vw]",
 };
 
 // Tjekker gruppen for en kategori, og returnerer gruppenavnet hvis det findes, ellers null
