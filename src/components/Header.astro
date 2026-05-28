@@ -16,96 +16,106 @@ const navItems = [
 
 <header class="bg-(--neutral-100)">
   <nav
-  data-site-nav
-  class="relative mx-auto flex h-[148px] w-full max-w-[1211px] items-center justify-between px-4 sm:px-6 lg:px-0"
+    data-site-nav
+    class="relative mx-auto flex h-[148px] w-full max-w-[1211px] items-center justify-between px-4 sm:px-6 lg:px-0"
   >
-  <a href="/" class="shrink-0" aria-label="Mindful Dog Academy forside">
-    <Logo class="h-[74px] w-[74px]" />
-  </a>
+    <a href="/" class="shrink-0" aria-label="Mindful Dog Academy forside">
+      <Logo class="h-[74px] w-[74px]" />
+    </a>
 
-  <div class="hidden flex-1 items-center justify-end gap-36 lg:flex">
-    <ul class="flex items-center gap-16">
-      {navItems.map((item) => (
-        <li>
-          <a
-            href={item.href}
-            class:list={[
-              "font-['Manrope'] text-[15px] font-semibold leading-[26px] transition-colors",
-              item.active
-                ? "text-(--accent-200)"
-                : "text-(--neutral-500) hover:text-(--accent-200)",
-            ]}
+    <div class="hidden flex-1 items-center justify-end gap-36 lg:flex">
+      <ul class="flex items-center gap-16">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  "font-['Manrope'] text-[15px] leading-[26px] font-semibold transition-colors",
+                  item.active
+                    ? "text-(--accent-200)"
+                    : "text-(--neutral-500) hover:text-(--accent-200)",
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="flex items-center gap-7">
+        <a
+          href="/Bliv_instruktoer"
+          class="inline-flex items-center justify-center rounded-sm bg-(--neutral-500) px-5 py-1.5 font-['Manrope'] text-[15px] leading-[16.5px] font-semibold tracking-[2px] text-(--neutral-100) uppercase transition-colors hover:bg-(--accent-200)"
+        >
+          BLIV INSTRUKTØR
+        </a>
+
+        <button
+          type="button"
+          aria-label="Søg"
+          class="flex h-5 w-5 items-center justify-center text-(--neutral-500) transition-colors hover:text-(--accent-200)"
+        >
+          <svg
+            viewBox="0 0 20 20"
+            aria-hidden="true"
+            class="h-5 w-5 fill-none stroke-current stroke-[1.8]"
           >
-            {item.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-
-    <div class="flex items-center gap-7">
-      <a
-        href="/Bliv_instruktoer"
-        class="inline-flex items-center justify-center rounded-sm bg-(--neutral-500) px-5 py-1.5 font-['Manrope'] text-[15px] font-semibold uppercase leading-[16.5px] tracking-[2px] text-(--neutral-100) transition-colors hover:bg-(--accent-200)"
-      >
-        BLIV INSTRUKTØR
-      </a>
-
-      <button
-        type="button"
-        aria-label="Søg"
-        class="flex h-5 w-5 items-center justify-center text-(--neutral-500) transition-colors hover:text-(--accent-200)"
-      >
-        <svg viewBox="0 0 20 20" aria-hidden="true" class="h-5 w-5 fill-none stroke-current stroke-[1.8]">
-          <circle cx="8.5" cy="8.5" r="5.5"></circle>
-          <path d="M12.5 12.5L17 17"></path>
-        </svg>
-      </button>
+            <circle cx="8.5" cy="8.5" r="5.5"></circle>
+            <path d="M12.5 12.5L17 17"></path>
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <button
-    id="burger"
-    data-burger
-    type="button"
-    aria-label="Åbn menu"
-    aria-expanded="false"
-    class="inline-flex h-10 w-10 items-center justify-center rounded-sm lg:hidden [&_span]:block [&_span]:h-0.5 [&_span]:w-6 [&_span]:rounded-sm [&_span]:bg-(--neutral-500) [&_span]:transition-all [&_span]:duration-500"
-  >
-    <span></span>
-    <span class="my-1.5"></span>
-    <span></span>
-  </button>
+    <button
+      id="burger"
+      data-burger
+      type="button"
+      aria-label="Åbn menu"
+      aria-expanded="false"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-sm lg:hidden [&_span]:block [&_span]:h-0.5 [&_span]:w-6 [&_span]:rounded-sm [&_span]:bg-(--neutral-500) [&_span]:transition-all [&_span]:duration-500"
+    >
+      <span></span>
+      <span class="my-1.5"></span>
+      <span></span>
+    </button>
 
-  <div class="mobile-menu absolute inset-x-0 top-full z-20 hidden flex-col gap-6 border-t border-(--accent-300) bg-(--neutral-100) px-4 py-6 lg:hidden">
-    <ul class="flex flex-col gap-4">
-      {navItems.map((item) => (
-        <li>
-          <a
-            href={item.href}
-            data-menu-close
-            class:list={[
-              "block font-['Manrope'] text-[15px] font-semibold leading-[26px] transition-colors",
-              item.active
-                ? "text-(--accent-200)"
-                : "text-(--neutral-500) hover:text-(--accent-200)",
-            ]}
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div
+      class="mobile-menu absolute inset-x-0 top-full z-20 hidden flex-col gap-6 border-t border-(--accent-300) bg-(--neutral-100) px-4 py-6 lg:hidden"
+    >
+      <ul class="flex flex-col gap-4">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                data-menu-close
+                class:list={[
+                  "block font-['Manrope'] text-[15px] leading-[26px] font-semibold transition-colors",
+                  item.active
+                    ? "text-(--accent-200)"
+                    : "text-(--neutral-500) hover:text-(--accent-200)",
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
 
-    <div class="flex items-center gap-4">
-      <a
-        href="/Bliv_instruktoer"
-        data-menu-close
-        class="inline-flex items-center justify-center rounded-sm bg-(--neutral-500) px-5 py-1.5 font-['Manrope'] text-[15px] font-semibold uppercase leading-[16.5px] tracking-[2px] text-(--neutral-100)"
-      >
-        BLIV INSTRUKTØR
-      </a>
+      <div class="flex items-center gap-4">
+        <a
+          href="/Bliv_instruktoer"
+          data-menu-close
+          class="inline-flex items-center justify-center rounded-sm bg-(--neutral-500) px-5 py-1.5 font-['Manrope'] text-[15px] leading-[16.5px] font-semibold tracking-[2px] text-(--neutral-100) uppercase"
+        >
+          BLIV INSTRUKTØR
+        </a>
+      </div>
     </div>
-  </div>
   </nav>
 </header>
 
