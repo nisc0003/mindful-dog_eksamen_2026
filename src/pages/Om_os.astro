@@ -1,29 +1,341 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import Heading from "../components/Heading.astro";
+import Text from "../components/Text.astro";
 import Button from "../components/Buttons__&_links/Button.astro";
-import Link from "../components/Buttons__&_links/Link.astro";
-import HoldCard from "../components/cards/HoldCard.astro";
+import HeroMain from "../components/HeroMain.astro";
+import HeroSecond from "../components/HeroSecond.astro";
+import HeroMainImage from "../assets/testimages/om_os_hero.png";
+import HeroSecondImage from "../assets/testimages/box.png";
+import alexandra from "../assets/testimages/alexandra.png";
+import eva from "../assets/testimages/eva.png";
+import freja from "../assets/testimages/freja.png";
+import grace from "../assets/testimages/grace.png";
+import pia from "../assets/testimages/pia.png";
+import sabine from "../assets/testimages/sabine.png";
+import isabell from "../assets/testimages/isabell.png";
 ---
 
-<MainLayout title="Om os">
-  <article>
-    <Heading
-      htmlheading="h1"
-      size="h2"
-      font="display"
-      weight="bold"
-      stylingclasses="mb-6 !text-size-30"
-    >
-      Om os
-    </Heading>
-    <Button>Klik!</Button>
-    <p>
-      Link til <Link href="https://www.kea.dk" target="_blank"
-        >En anden side</Link
-      >
-    </p>
-  </article>
+<MainLayout title="Mindful Dog Academy - Om Os">
+  <!-- =========================================================
+       HERO SEKTION
+  ========================================================= -->
+  <section class="pb-(--section-space-y) pl-(--page-space-inline)">
+    <HeroMain
+      breadcrumbs="OM OS"
+      titleHtml='Mindful Dog <br/><span class="text-(--accent-400)">Academy</span>'
+      subtitle="Mød teamet bag din hunds nye yndlingssted og lær mere om vores positive værdigrundlag."
+      imageSrc={HeroMainImage}
+      buttons={[{ label: "LÆS MERE", color: "secondary", href: "#teamet" }]}
+    />
+  </section>
 
-  <HoldCard />
+  <!-- =========================================================
+      FILOSOFI SEKTION
+  ========================================================= -->
+  <section
+    class="bg-(--main-100) px-(--page-space-inline) py-(--section-space-y)"
+  >
+    <div class="max-w-3xl">
+      <Text size="label_1" font="display" weight="semibold">FILOSOFI</Text>
+      <Heading
+        htmlheading="h2"
+        size="h3"
+        weight="bold"
+        stylingclasses="mb-6 md:mb-8">Mindful-Dog Academy's Filosofi</Heading
+      >
+      <div class="space-y-4">
+        <Text size="p1" font="sans" weight="regular"
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+          odio.</Text
+        >
+        <Text size="p2" font="sans" weight="regular"
+          >Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis
+          sem at nibh.</Text
+        >
+      </div>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+      <article
+        class="flex flex-col gap-4 rounded-md bg-(--main-200) p-6 shadow-sm"
+      >
+        <div class="h-10 w-10 rounded-sm bg-(--main-400)"></div>
+        <Heading htmlheading="h3" size="h5">Faglighed</Heading>
+        <Text size="p3" font="sans" weight="regular"
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
+        >
+      </article>
+
+      <article
+        class="flex flex-col gap-4 rounded-md bg-(--main-200) p-6 shadow-sm"
+      >
+        <div class="h-10 w-10 rounded-sm bg-(--main-400)"></div>
+        <Heading htmlheading="h3" size="h5">Velfærd og tillid</Heading>
+        <Text size="p3" font="sans" weight="regular"
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
+        >
+      </article>
+    </div>
+  </section>
+
+  <!-- =========================================================
+      MINDFUL-DOG METODEN SEKTION
+  ========================================================= -->
+  <section id="metoden" class="px-(--page-space-inline) py-(--section-space-y)">
+    <Text size="label_1" font="display" weight="semibold">METODEN I FOKUS</Text>
+    <Heading
+      htmlheading="h2"
+      size="h3"
+      weight="bold"
+      stylingclasses="mb-6 md:mb-8">Mindful-Dog Metoden</Heading
+    >
+    <Text size="p2" font="sans" weight="regular" stylingclasses="max-w-3xl"
+      >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.</Text
+    >
+
+    <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+      <article class="rounded-md bg-(--neutral-100) p-6 shadow-sm">
+        <div class="mb-4 flex items-center gap-4">
+          <div
+            class="text-size-20 flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-(--main-400) font-bold text-(--neutral-100)"
+          >
+            1
+          </div>
+          <Heading htmlheading="h3" size="h5" font="sans">Rolige Hunde</Heading>
+        </div>
+        <Text size="p3" font="sans" weight="regular"
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
+        >
+      </article>
+
+      <article class="rounded-md bg-(--neutral-100) p-6 shadow-sm">
+        <div class="mb-4 flex items-center gap-4">
+          <div
+            class="text-size-20 flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-(--main-400) font-bold text-(--neutral-100)"
+          >
+            2
+          </div>
+          <Heading htmlheading="h3" size="h5" font="sans"
+            >Tryghed og kropssprog</Heading
+          >
+        </div>
+        <Text size="p3" font="sans" weight="regular"
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
+        >
+      </article>
+    </div>
+  </section>
+
+  <!-- =========================================================
+      TEAM SEKTION
+  ========================================================= -->
+  <section id="teamet" class="px-(--page-space-inline)">
+    <Text size="label_1" font="display" weight="semibold">TEAMET</Text>
+    <Heading
+      htmlheading="h2"
+      size="h3"
+      weight="bold"
+      stylingclasses="mb-6 md:mb-8">Alle Vores Instruktører</Heading
+    >
+    <Text
+      size="p2"
+      font="sans"
+      weight="regular"
+      stylingclasses="mb-12 max-w-3xl"
+      >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia
+      odio vitae vestibulum vestibulum.</Text
+    >
+
+    <div class="grid grid-cols-2 gap-8 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
+      <div class="flex flex-col items-center gap-4 text-center">
+        <img
+          src={alexandra.src}
+          alt="Alexandra"
+          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
+        />
+        <Heading
+          htmlheading="h4"
+          size="h6"
+          font="sans"
+          stylingclasses="text-(--neutral-500)"
+        >
+          Alexandra<br /><span
+            class="text-size-14 font-normal text-(--neutral-400)"
+            >Hundetræner</span
+          >
+        </Heading>
+        <Button
+          size="sm"
+          color="main"
+          label="SE PROFIL"
+          stylingclasses="w-full max-w-[120px]"
+        />
+      </div>
+
+      <div class="flex flex-col items-center gap-4 text-center">
+        <img
+          src={eva.src}
+          alt="Eva"
+          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
+        />
+        <Heading
+          htmlheading="h4"
+          size="h6"
+          font="sans"
+          stylingclasses="text-(--neutral-500)"
+        >
+          Eva<br /><span class="text-size-14 font-normal text-(--neutral-400)"
+            >Hundetræner</span
+          >
+        </Heading>
+        <Button
+          size="sm"
+          color="main"
+          label="SE PROFIL"
+          stylingclasses="w-full max-w-[120px]"
+        />
+      </div>
+
+      <div class="flex flex-col items-center gap-4 text-center">
+        <img
+          src={freja.src}
+          alt="Freja"
+          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
+        />
+        <Heading
+          htmlheading="h4"
+          size="h6"
+          font="sans"
+          stylingclasses="text-(--neutral-500)"
+        >
+          Freja<br /><span class="text-size-14 font-normal text-(--neutral-400)"
+            >Adfærdsrådgiver</span
+          >
+        </Heading>
+        <Button
+          size="sm"
+          color="main"
+          label="SE PROFIL"
+          stylingclasses="w-full max-w-[120px]"
+        />
+      </div>
+
+      <div class="flex flex-col items-center gap-4 text-center">
+        <img
+          src={grace.src}
+          alt="Grace"
+          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
+        />
+        <Heading
+          htmlheading="h4"
+          size="h6"
+          font="sans"
+          stylingclasses="text-(--neutral-500)"
+        >
+          Grace<br /><span class="text-size-14 font-normal text-(--neutral-400)"
+            >Stifter & Ejer</span
+          >
+        </Heading>
+        <Button
+          size="sm"
+          color="main"
+          label="SE PROFIL"
+          stylingclasses="w-full max-w-[120px]"
+        />
+      </div>
+
+      <div class="flex flex-col items-center gap-4 text-center">
+        <img
+          src={pia.src}
+          alt="Pia"
+          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
+        />
+        <Heading
+          htmlheading="h4"
+          size="h6"
+          font="sans"
+          stylingclasses="text-(--neutral-500)"
+        >
+          Pia<br /><span class="text-size-14 font-normal text-(--neutral-400)"
+            >Hundetræner</span
+          >
+        </Heading>
+        <Button
+          size="sm"
+          color="main"
+          label="SE PROFIL"
+          stylingclasses="w-full max-w-[120px]"
+        />
+      </div>
+
+      <div class="flex flex-col items-center gap-4 text-center">
+        <img
+          src={sabine.src}
+          alt="Sabine"
+          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
+        />
+        <Heading
+          htmlheading="h4"
+          size="h6"
+          font="sans"
+          stylingclasses="text-(--neutral-500)"
+        >
+          Sabine<br /><span
+            class="text-size-14 font-normal text-(--neutral-400)"
+            >Hundetræner</span
+          >
+        </Heading>
+        <Button
+          size="sm"
+          color="main"
+          label="SE PROFIL"
+          stylingclasses="w-full max-w-[120px]"
+        />
+      </div>
+
+      <div class="flex flex-col items-center gap-4 text-center">
+        <img
+          src={isabell.src}
+          alt="Isabell"
+          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
+        />
+        <Heading
+          htmlheading="h4"
+          size="h6"
+          font="sans"
+          stylingclasses="text-(--neutral-500)"
+        >
+          Isabell<br /><span
+            class="text-size-14 font-normal text-(--neutral-400)"
+            >Hundetræner</span
+          >
+        </Heading>
+        <Button
+          size="sm"
+          color="main"
+          label="SE PROFIL"
+          stylingclasses="w-full max-w-[120px]"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+      GRACE HIDALGO SEKTION
+  ========================================================= -->
+  <section class="px-(--page-space-inline) py-(--section-space-y)">
+    <HeroSecond
+      imageSrc={HeroSecondImage}
+      imagePosition="left"
+      topLabel="STIFTER & EJER"
+      title="Grace Hidalgo"
+      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      buttons={[
+        { label: "LÆS MERE", color: "secondary", href: "/grace" },
+        { label: "KONTAKT", color: "outline", href: "/kontakt" },
+      ]}
+    />
+  </section>
 </MainLayout>
