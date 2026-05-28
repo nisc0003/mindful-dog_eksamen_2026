@@ -9,6 +9,12 @@
    ========================================================= */
 
 @theme {
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+
   --font-display: "Geologica", sans-serif;
   --font-sans: "Manrope", sans-serif;
 
@@ -164,7 +170,33 @@
   );
   */
 
-  --page-space-inline: max(var(--primitive-space-32), 12vw);
+  --page-space-inline-standard: max(var(--primitive-space-32), 12vw);
+  --page-space-inline-sm: clamp(
+    var(--primitive-space-20),
+    4vw,
+    var(--primitive-space-32)
+  );
+  --page-space-inline-md: clamp(
+    var(--primitive-space-24),
+    4.5vw,
+    var(--primitive-space-40)
+  );
+  --page-space-inline-lg: clamp(
+    var(--primitive-space-32),
+    5vw,
+    var(--primitive-space-56)
+  );
+  --page-space-inline-xl: clamp(
+    var(--primitive-space-40),
+    6vw,
+    var(--primitive-space-72)
+  );
+  --page-space-inline-2xl: clamp(
+    var(--primitive-space-48),
+    7vw,
+    var(--primitive-space-96)
+  );
+  --page-space-inline: var(--page-space-inline-standard);
 
   /*
   ORIGINAL (kept)
@@ -175,7 +207,36 @@
   );
   */
 
-  --section-space-y: max(var(--primitive-space-48), 8vh);
+  --section-space-y-standard: max(
+    var(--primitive-space-48),
+    clamp(10vh, 6vw, 128px)
+  );
+  --section-space-y-sm: clamp(
+    var(--primitive-space-24),
+    6vw,
+    var(--primitive-space-48)
+  );
+  --section-space-y-md: clamp(
+    var(--primitive-space-32),
+    6vw,
+    var(--primitive-space-64)
+  );
+  --section-space-y-lg: clamp(
+    var(--primitive-space-40),
+    6.5vw,
+    var(--primitive-space-80)
+  );
+  --section-space-y-xl: clamp(
+    var(--primitive-space-48),
+    7vw,
+    var(--primitive-space-96)
+  );
+  --section-space-y-2xl: clamp(
+    var(--primitive-space-56),
+    8vw,
+    var(--primitive-space-128)
+  );
+  --section-space-y: var(--section-space-y-standard);
 
   /* everything below untouched */
 

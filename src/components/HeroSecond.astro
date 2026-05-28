@@ -26,7 +26,6 @@ interface Props {
   imageAlt?: string;
   // På mobil ligger billedet altid øverst. På større skærme kan billedet skiftes til højre.
   imagePosition?: "left" | "right";
-  hasVideo?: boolean;
   topLabel?: string;
   title: string;
   tags?: string[];
@@ -38,7 +37,6 @@ const {
   imageSrc,
   imageAlt = "Hero billede",
   imagePosition = "left",
-  hasVideo = false,
   topLabel,
   title,
   tags = [],
@@ -66,29 +64,6 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
         alt={imageAlt}
         class="aspect-4/3 h-auto w-full rounded-md object-cover shadow-sm sm:aspect-5/4 md:aspect-square lg:aspect-5/4"
       />
-      {
-        hasVideo && (
-          <button
-            aria-label="Afspil video"
-            class="inset-0 m-auto flex h-[clamp(3.5rem,6vw,5rem)] w-[clamp(3.5rem,6vw,5rem)] cursor-pointer items-center justify-center rounded-full bg-(--main-400)/90 text-(--neutral-100) transition-transform hover:scale-105 hover:bg-(--main-500)"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="ml-1 h-[clamp(1.5rem,2.5vw,2.5rem)] w-[clamp(1.5rem,2.5vw,2.5rem)]"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
-              />
-            </svg>
-          </button>
-        )
-      }
     </div>
 
     {
@@ -101,8 +76,9 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
         topLabel && (
           <Text
             size="label_1"
-            weight="semibold"
-            stylingclasses="text-(--neutral-400) tracking-wider"
+            font="sans"
+            weight="regular"
+            stylingclasses="text-(--neutral-400) tracking-widest uppercase"
           >
             {topLabel}
           </Text>
