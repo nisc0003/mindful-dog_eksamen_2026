@@ -12,9 +12,13 @@ type SocialIcon = {
 type SocialLinkSize = "sm" | "md" | "lg" | "xl";
 
 interface Props {
+  // Supported icon container sizes.
   size?: SocialLinkSize;
+  // Destination URL for the social profile.
   href?: string;
+  // Supports either an Astro image object or a plain string URL.
   iconSrc: SocialIcon | string;
+  // Accessible label and alt text.
   iconAlt?: string;
 }
 

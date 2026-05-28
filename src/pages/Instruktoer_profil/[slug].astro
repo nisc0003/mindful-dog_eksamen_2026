@@ -1,0 +1,60 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Heading from "../../components/Heading.astro";
+import Text from "../../components/Text.astro";
+import ProfileCard from "../../components/cards/ProfileCard.astro";
+import LinkButton from "../../components/Buttons__&_links/LinkButton.astro";
+import { instructorProfiles } from "../../assets/js/instructorProfiles";
+
+export function getStaticPaths() {
+	return instructorProfiles.map((member) => ({
+		params: { slug: member.slug },
+	}));
+}
+
+const slug = Astro.params.slug?.trim();
+const member = instructorProfiles.find((entry) => entry.slug === slug);
+---
+
+<MainLayout title={member ? `${member.name} - Instruktør` : "Instruktør profil"}>
+	<section class="px-(--page-space-inline) py-(--section-space-y)">
+		{
+			member ? (
+				<div class="grid gap-8 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-start">
+					<ProfileCard
+						traener={member.name}
+						traener_info={`${member.name} arbejder fra ${member.location}.`}
+						profil_img={member.image}
+					/>
+
+					<div class="space-y-6">
+						<Text
+							size="label_1"
+							font="sans"
+							weight="regular"
+							stylingclasses="text-(--text-label) tracking-widest uppercase"
+						>
+							INSTRUKTØR PROFIL
+						</Text>
+						<Heading htmlheading="h1" size="h3" weight="bold">
+							{member.name}
+						</Heading>
+						<Text size="p2" font="sans" weight="regular" stylingclasses="max-w-2xl">
+							{member.name} er en del af Mindful-Dog teamet og hjælper med at
+							gøre træningen tryg, positiv og tydelig.
+						</Text>
+
+						<div class="flex flex-wrap gap-4">
+							<LinkButton href="/Kontakt" label="KONTAKT" color="main" />
+							<LinkButton href="/Om_os" label="TILBAGE TIL TEAMET" color="secondary" />
+						</div>
+					</div>
+				</div>
+			) : (
+				<Heading htmlheading="h2" size="h3" weight="bold">
+					Instruktøren blev ikke fundet.
+				</Heading>
+			)
+		}
+	</section>
+</MainLayout>

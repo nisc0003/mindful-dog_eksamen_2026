@@ -10,11 +10,21 @@ type HeroImage = {
 };
 
 type LinkButtonSize = "sm" | "md" | "lg" | "xl";
+type LinkButtonColor =
+  | "main"
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "neutral"
+  | "outline";
 
 interface ButtonConfig {
+  // Available LinkButton props that can be mapped into HeroSecond buttons.
   label: string;
-  color: "main" | "primary" | "secondary" | "accent" | "neutral" | "outline";
+  color: LinkButtonColor;
   href: string;
+  // Size variants from LinkButton. Use these when the mapped button should
+  // differ from the default medium size.
   size?: LinkButtonSize;
   stylingclasses?: string;
   target?: string;
@@ -22,14 +32,21 @@ interface ButtonConfig {
 }
 
 interface Props {
+  // Accepts either an Astro image object or a plain string URL.
   imageSrc: HeroImage | string;
   imageAlt?: string;
   // På mobil ligger billedet altid øverst. På større skærme kan billedet skiftes til højre.
   imagePosition?: "left" | "right";
+  // Small label above the main title.
   topLabel?: string;
+  // Main hero title.
   title: string;
+  // Optional chip labels rendered as mapped spans.
   tags?: string[];
+  // Supporting description under the title and tags.
   description?: string;
+  // Mapped call-to-action buttons. Each button supports LinkButton size,
+  // color, href, target, rel, and extra styling classes.
   buttons?: ButtonConfig[];
 }
 
@@ -47,7 +64,7 @@ const {
 const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
 ---
 
-<section class="w-full py-(--section-space-y)">
+<section class="w-full">
   <div
     class={`flex w-full flex-col items-start gap-[clamp(2rem,4vw,5rem)] md:flex-row md:items-center ${
       imagePosition === "right" ? "md:flex-row-reverse" : ""
@@ -62,7 +79,7 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
       <img
         src={imgSrc}
         alt={imageAlt}
-        class="aspect-4/3 h-auto w-full rounded-md object-cover shadow-sm sm:aspect-5/4 md:aspect-square lg:aspect-5/4"
+        class="h-auto w-full rounded-md object-cover"
       />
     </div>
 

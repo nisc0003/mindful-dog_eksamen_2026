@@ -10,11 +10,21 @@ type HeroImage = {
 };
 
 type LinkButtonSize = "sm" | "md" | "lg" | "xl";
+type LinkButtonColor =
+  | "main"
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "neutral"
+  | "outline";
 
 interface ButtonConfig {
+  // Available LinkButton props that can be mapped into HeroMain buttons.
   label: string;
-  color: "main" | "primary" | "secondary" | "accent" | "neutral" | "outline";
+  color: LinkButtonColor;
   href: string;
+  // Size variants from LinkButton. Use these when the mapped button should
+  // differ from the default medium size.
   size?: LinkButtonSize;
   stylingclasses?: string;
   target?: string;
@@ -22,9 +32,13 @@ interface ButtonConfig {
 }
 
 interface Props {
+  // Optional breadcrumb line above the hero title.
   breadcrumbs?: string;
+  // Hero title as HTML so line breaks and spans can be mapped in data.
   titleHtml: string;
+  // Optional supporting text below the title.
   subtitle?: string;
+  // Accepts either an Astro image object or a plain string URL.
   imageSrc: HeroImage | string;
   imageAlt?: string;
   buttons?: ButtonConfig[];

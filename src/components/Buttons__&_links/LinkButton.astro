@@ -14,12 +14,19 @@ type LinkButtonColor =
   | "outline";
 
 interface Props {
+  // Supported size variants.
   size?: LinkButtonSize;
+  // Supported color variants.
   color?: LinkButtonColor;
+  // Optional link destination.
   href?: string;
+  // Default label when no slot content is provided.
   label?: string;
+  // Extra utility classes to append.
   stylingclasses?: string;
+  // Passed through to the anchor tag when needed.
   target?: string;
+  // Passed through to the anchor tag when needed.
   rel?: string;
 }
 
