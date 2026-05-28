@@ -232,17 +232,45 @@ const teamMembers = [
       htmlheading="h2"
       size="h3"
       weight="bold"
-      stylingclasses="mb-6 !text-size-30"
+      stylingclasses="mb-6 md:mb-8">Alle Vores Instruktører</Heading
     >
-      Om os
-    </Heading>
-    <Button>Klik!</Button>
-    <p>
-      Link til <Link href="https://www.kea.dk" target="_blank"
-        >En anden side</Link
-      >
-    </p>
+    <Text
+      size="p2"
+      font="sans"
+      weight="regular"
+      stylingclasses="mb-12 max-w-3xl"
+      >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia
+      odio vitae vestibulum vestibulum.</Text
+    >
+
+    <div class="grid grid-cols-2 gap-8 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
+      {
+        teamMembers.map((member) => (
+          <TeamMemberCard
+            name={member.name}
+            location={member.location}
+            image={member.image}
+            href={`/Instruktoer_profil/${member.slug}`}
+          />
+        ))
+      }
+    </div>
   </section>
 
-  <HoldCard />
+  <!-- =========================================================
+      GRACE HIDALGO SEKTION
+  ========================================================= -->
+  <section class="px-(--page-space-inline) py-(--section-space-y)">
+    <HeroSecond
+      imageSrc={HeroSecondImage}
+      imagePosition="left"
+      topLabel="STIFTER & EJER"
+      title="Grace Hidalgo"
+      description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      buttons={[
+        { label: "LÆS MERE", color: "secondary", href: "/grace" },
+        { label: "KONTAKT", color: "outline", href: "/kontakt" },
+      ]}
+    />
+  </section>
 </MainLayout>
