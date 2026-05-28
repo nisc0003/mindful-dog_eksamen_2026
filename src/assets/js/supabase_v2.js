@@ -102,6 +102,7 @@ export const lokationGroups = {
   Sydjylland: ["Vejen", "Sydjylland"],
   Sønderjylland: ["Sønderjylland", "Skærbæk"],
   Als: ["Als"],
+  Online: ["Pr. aftale"],
 };
 
 export const groupStyles = {
@@ -111,6 +112,7 @@ export const groupStyles = {
   Sydjylland: "bg-(--accent-200) !w-[100vw]",
   Sønderjylland: "bg-(--main-200) !w-[100vw]",
   Als: "bg-(--accent-200) !w-[100vw]",
+  Online: "bg-(--main-200) !w-[100vw]",
 };
 
 // Tjekker gruppen for en kategori, og returnerer gruppenavnet hvis det findes, ellers null
@@ -202,6 +204,8 @@ export function getPageData(service) {
     testimonial_1: t?.testimonial_1,
     testimonial_2: t?.testimonial_2,
     testimonial_3: t?.testimonial_3,
+    fornavn_2: t?.fornavn_2,
+    efternavn_2: t?.efternavn_2,
     // ikoner
     status_txt: i?.status_txt,
     status_ikon: i?.ikon_url,

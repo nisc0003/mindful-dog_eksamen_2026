@@ -2,33 +2,28 @@
 import Heading from "../Heading.astro";
 import Text from "../Text.astro";
 import LinkButton from "../Buttons__&_links/LinkButton.astro";
-const { traener, traener_info, profil_img } = Astro.props;
+const { traener, xtraener, traener_info, profil_img } = Astro.props;
+const beggeTraener = xtraener ? `${traener} & ${traener}` : traener;
 ---
 
 <article class="grid grid-cols-2 gap-4 bg-(--neutral-100) p-8 md:grid-cols-5">
   <img
     src={profil_img}
-    alt={traener}
-    class="w-fill aspect-square h-auto object-cover object-[0%_20%]"
+    alt={beggeTraener}
+    class="w-fill aspect-square h-auto rounded-md object-cover object-[0%_20%] md:row-span-2"
   />
   <Heading
-    htmlheading="h5"
-    size="h5"
+    htmlheading="h3"
+    size="h3"
     font="display"
     weight="semibold"
-    stylingclasses="md:col-start-2 md:col-end-5 md:row-end-1"
+    stylingclasses="md:col-span-3 !text-size-30"
   >
     {traener}
+    {xtraener && ` & ${xtraener}`}
   </Heading>
-  <Text
-    stylingclasses="col-span-2 md:col-start-2 md:col-end-5 md:row-end-1 md:mt-10"
-  >
+  <Text stylingclasses="col-span-2 md:col-span-3">
     {traener_info}
   </Text>
-
-  <LinkButton
-    href="#"
-    label="SE PROFIL"
-    stylingclasses="my-auto flex flex-wrap md:place-self-end"
-  />
+  <LinkButton href="#" label="SE PROFIL" stylingclasses="md:row-span-2" />
 </article>

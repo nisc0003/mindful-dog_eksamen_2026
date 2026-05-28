@@ -2,7 +2,8 @@
 import Heading from "../Heading.astro";
 import Text from "../Text.astro";
 import LinkButton from "../Buttons__&_links/LinkButton.astro";
-const { img, type, traener, path, lokation, hold, pris } = Astro.props;
+const { img, type, traener, xtraener, path, lokation, hold, pris } =
+  Astro.props;
 ---
 
 <li class="row-span-3 mx-auto grid grid-rows-subgrid">
@@ -17,24 +18,33 @@ const { img, type, traener, path, lokation, hold, pris } = Astro.props;
       />
       <div class="flex flex-col p-[2cqw] pt-2">
         <div
-          class="flex min-h-8 gap-2 [&_p]:text-center [&_span]:my-2 [&_span]:rounded-md [&_span]:px-2 [&_span]:py-1"
+          class="flex min-h-8 gap-2 [&_p]:rounded-md [&_p]:px-2 [&_p]:text-center [&_span]:my-2 [&_span]:content-center [&_span]:py-1"
         >
-          <span class="w-fit content-center bg-(--neutral-500)">
+          <span>
             <Text
               size="label_2"
               weight="semibold"
-              stylingclasses="text-(--text-inverse)"
+              stylingclasses="text-(--text-inverse) bg-(--neutral-500) empty:hidden"
             >
               {lokation}
             </Text>
           </span>
-          <span class="w-fit content-center bg-(--neutral-200)">
-            <Text size="label_2" weight="semibold">
+          <span>
+            <Text
+              size="label_2"
+              weight="semibold"
+              stylingclasses="bg-(--neutral-200)"
+            >
               {type}
             </Text>
           </span>
-          <span class="w-fit content-center bg-(--neutral-200)">
-            <Text size="label_2" weight="semibold">{traener}</Text>
+          <span class="w-fit content-center">
+            <Text
+              size="label_2"
+              weight="semibold"
+              stylingclasses="bg-(--neutral-200) empty:hidden"
+              >{traener}{xtraener && ` & ${xtraener}`}</Text
+            >
           </span>
         </div>
         <div class="mb-4">
@@ -49,7 +59,7 @@ const { img, type, traener, path, lokation, hold, pris } = Astro.props;
             size="md"
             color="outline"
             href={"/Hold_side/" + path}
-            label="SE HOLD"
+            label="SE MERE"
           />
         </div>
       </div>

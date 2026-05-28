@@ -2,9 +2,16 @@
 // @ts-nocheck
 import MainLayout from "../../layouts/MainLayout.astro";
 import Heading from "../../components/Heading.astro";
+import Text from "../../components/Text.astro";
 import EmployeeCard from "../../components/cards/EmployeeCard.astro";
 import HoldSingle from "../../components/HoldSingle.astro";
 import ProfileCard from "../../components/cards/ProfileCard.astro";
+import InfoboxType1 from "../../components/infobox/Infobox_type_1.astro";
+import InfoboxType5 from "../../components/infobox/Infobox_type_5.astro";
+import Check from "../../assets/icon/check.svg";
+import CheckI from "../../assets/icon/check_inverse.svg";
+import Cross from "../../assets/icon/cross.svg";
+import CrossI from "../../assets/icon/cross_inverse.svg";
 import {
   getServicesSlugs,
   getServicesAndTraenerBySlug,
@@ -25,49 +32,227 @@ const slug = Astro.params.slug?.trim();
 const rows = await getServicesAndTraenerBySlug(slug);
 const service = firstRow(rows);
 const pageData = getPageData(service);
+
+const traener = `${pageData.fornavn} ${pageData.efternavn}`;
+const xtraener =
+  pageData.fornavn_2 || pageData.efternavn_2
+    ? `${pageData.fornavn_2 ?? ""} ${pageData.efternavn_2 ?? ""}`.trim()
+    : null;
 ---
 
 <MainLayout>
-  {
-    pageData ? (
-      <HoldSingle
-        hold={pageData.hold}
-        type={pageData.type}
-        traener={pageData.fornavn + " " + pageData.efternavn}
-        pris={pageData.pris}
-        img={pageData.img}
-        lokation={pageData.lokation}
-        path={pageData.slug}
+  <section class="px-8 py-16 md:py-24">
+    {
+      pageData ? (
+        <HoldSingle
+          hold={pageData.hold}
+          type={pageData.type}
+          traener={traener}
+          xtraener={xtraener}
+          pris={pageData.pris}
+          img={pageData.img}
+          lokation={pageData.lokation}
+          path={pageData.slug}
+        />
+      ) : (
+        <Heading htmlheading="h2" size="h2" font="display" weight="semibold">
+          Holdet blev ikke fundet.
+        </Heading>
+      )
+    }
+  </section>
+
+  <section class="bg-(--accent-200) px-8 py-16 md:py-24">
+    <Text
+      size="label_1"
+      weight="semibold"
+      stylingclasses="text-(--neutral-400) tracking-widest">INSTRUKTØR</Text
+    >
+    <Heading htmlheading="h4" size="h4" font="display" weight="semibold"
+      >Underviser på dette hold</Heading
+    ><span class="px-8 py-16 md:py-24">
+      <ProfileCard
+        traener={traener}
+        xtraener={xtraener}
+        profil_img={pageData.profil_img}
+        traener_info={pageData.traener_info}
       />
-    ) : (
-      <Heading htmlheading="h2" size="h2" font="display" weight="semibold">
-        Holdet blev ikke fundet.
-      </Heading>
-    )
-  }
-  <section class="bg-(--accent-200) p-8">
-    <Heading htmlheading="h2" size="h2" font="display" weight="semibold"
-      >UNDERVISER</Heading
-    >
-    <ProfileCard
-      traener={pageData.fornavn + " " + pageData.efternavn}
-      profil_img={pageData.profil_img}
-      traener_info={pageData.traener_info}
-    />
+    </span>
   </section>
-  <section class="bg-(--neutral-100) p-8">
-    <Heading htmlheading="h2" size="h2" font="display" weight="semibold"
-      >INKLUDERET</Heading
+
+  <section class="px-8 py-16 md:py-24">
+    <Text size="label_1" weight="semibold" stylingclasses="tracking-widest"
+      >INKLUDERET</Text
     >
-    <EmployeeCard
-      traener={pageData.fornavn + " " + pageData.efternavn}
-      lokation={pageData.lokation}
-      profil_img={pageData.profil_img}
-    />
+    <Heading htmlheading="h4" size="h4" font="display" weight="semibold"
+      >Sådan træner vi</Heading
+    >
+    <Text stylingclasses="mb-4 mt-8 max-w-[70ch]"
+      >Hos Mindful-Dog Academy tager vi udgangspunkt i både dig og din hund.
+      Træningen handler ikke kun om øvelser, men om at skabe ro, forståelse og
+      tillid – så din hund lærer at samarbejde, selv når der er forstyrrelser.
+      Alle hunde og ejere lærer forskelligt, og derfor får du altid individuel
+      vejledning, selvom du går på hold. Vi arbejder med positive metoder og et
+      solidt fundament. Holdet inkludere:</Text
+    >
+    <div class="mx-auto grid w-[80] grid-cols-2 gap-8 py-4">
+      <InfoboxType1
+        ><Check slot="punkt" />
+        <Heading
+          slot="overskrift"
+          htmlheading="h3"
+          size="h3"
+          font="display"
+          weight="semibold"
+          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          >Kontakt og fokus i hverdagen</Heading
+        ></InfoboxType1
+      >
+      <InfoboxType1
+        ><Check slot="punkt" />
+        <Heading
+          slot="overskrift"
+          htmlheading="h3"
+          size="h3"
+          font="display"
+          weight="semibold"
+          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          >Introduktion til at gå pænt i snor og indkald</Heading
+        ></InfoboxType1
+      >
+      <InfoboxType1
+        ><Check slot="punkt" />
+        <Heading
+          slot="overskrift"
+          htmlheading="h3"
+          size="h3"
+          font="display"
+          weight="semibold"
+          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          >Forstå din hund - kropssprog og signaler</Heading
+        ></InfoboxType1
+      >
+      <InfoboxType1
+        ><Check slot="punkt" />
+        <Heading
+          slot="overskrift"
+          htmlheading="h3"
+          size="h3"
+          font="display"
+          weight="semibold"
+          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          >Ro-træning ude og inde</Heading
+        ></InfoboxType1
+      >
+      <InfoboxType1
+        ><Check slot="punkt" />
+        <Heading
+          slot="overskrift"
+          htmlheading="h3"
+          size="h3"
+          font="display"
+          weight="semibold"
+          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          >Basale: nej, kom, hilse pænt oh øjenkontakt
+        </Heading></InfoboxType1
+      >
+      <InfoboxType1
+        ><Check slot="punkt" />
+        <Heading
+          slot="overskrift"
+          htmlheading="h3"
+          size="h3"
+          font="display"
+          weight="semibold"
+          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          >Video af øvelser efter hver træning</Heading
+        ></InfoboxType1
+      >
+    </div>
+    <Text stylingclasses="my-4 max-w-[70ch]"
+      >Øvelserne tilpasses din hunds alder og udvikling, og du får teknikker, du
+      kan bruge direkte derhjemme.Når fundamentet er på plads, bygger vi videre
+      på de første trin af lydighedsøvelser.</Text
+    >
   </section>
-  <section class="bg-(--main-200) p-8">
-    <Heading htmlheading="h2" size="h2" font="display" weight="semibold"
-      >FORMÅL</Heading
+
+  <section class="bg-(--main-200) px-8 py-16 md:py-24">
+    <Text
+      size="label_1"
+      weight="semibold"
+      stylingclasses="tracking-widest text-(--main-400)">FORMÅL</Text
+    ><Heading htmlheading="h4" size="h4" font="display" weight="semibold"
+      >Hvad får du ud af forløbet?</Heading
     >
+    <Text class="my-8"
+      >Holdet giver dig et stabilt udgangspunkt, men du skal ikke forvente, at
+      din hund kan alt efter kurset. Hvalpe bliver først sikre og stabile
+      omkring 2-årsalderen. Vi anbefaler derfor at fortsætte på næste niveau
+      efterfølgende.</Text
+    >
+    <div class="grid gap-8 md:grid-cols-2">
+      <InfoboxType5>
+        <Check slot="punkt" />
+        <Heading
+          slot="overskrift"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Formål med hvalpehold</Heading
+        >
+        <ul
+          slot="liste"
+          class="[&_li]:my-2 [&_li]:flex [&_li]:gap-4 [&_li]:py-2"
+        >
+          <li>
+            <CheckI class="size-6" />
+            <Text size="label_1">
+              En hund der bedere forstår hvad du forventer</Text
+            >
+          </li>
+          <li>
+            <CheckI class="size-6" /><Text size="label_1">
+              Mere opmærksomhed og samarbejde
+            </Text>
+          </li><li>
+            <CheckI class="size-6" /><Text size="label_1">
+              En stærkere relation og mere ro i hverdagen
+            </Text>
+          </li><li>
+            <CheckI class="size-6" /><Text size="label_1">
+              Tryg guidet undervisning i små hold
+            </Text>
+          </li>
+        </ul>
+      </InfoboxType5>
+
+      <InfoboxType5>
+        <Cross slot="punkt" />
+        <Heading
+          slot="overskrift"
+          htmlheading="h5"
+          size="h5"
+          font="display"
+          weight="semibold">Hvad forventes ikke på hvalpe hold</Heading
+        >
+        <ul slot="liste" class="[&_li]:my-2 [&_li]:flex [&_li]:gap-4">
+          <li>
+            <CrossI class="size-6" /><Text size="label_1">
+              Tvungen interaktion med andre hunde</Text
+            >
+          </li>
+          <li>
+            <CrossI class="size-6" /><Text size="label_1">
+              Træning uden snor (alle hunde er i snor på hvalpe hold)</Text
+            >
+          </li>
+          <li>
+            <CrossI class="size-6" /><Text size="label_1">
+              Højt tempo mellem øvelser (vi sætter tempo efter dig og din hund)</Text
+            >
+          </li>
+        </ul>
+      </InfoboxType5>
+    </div>
   </section>
 </MainLayout>
