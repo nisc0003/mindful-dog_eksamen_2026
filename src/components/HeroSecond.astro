@@ -3,18 +3,29 @@ import Heading from "./Heading.astro";
 import Text from "./Text.astro";
 import LinkButton from "./Buttons__&_links/LinkButton.astro";
 
+type HeroImage = {
+  src: string;
+  width: number;
+  height: number;
+};
+
+type LinkButtonSize = "sm" | "md" | "lg" | "xl";
+
 interface ButtonConfig {
   label: string;
   color: "main" | "primary" | "secondary" | "accent" | "neutral" | "outline";
   href: string;
+  size?: LinkButtonSize;
+  stylingclasses?: string;
+  target?: string;
+  rel?: string;
 }
 
 interface Props {
-  imageSrc: string;
+  imageSrc: HeroImage | string;
   imageAlt?: string;
   // På mobil ligger billedet altid øverst. På større skærme kan billedet skiftes til højre.
   imagePosition?: "left" | "right";
-  hasVideo?: boolean;
   topLabel?: string;
   title: string;
   tags?: string[];
@@ -26,13 +37,14 @@ const {
   imageSrc,
   imageAlt = "Hero billede",
   imagePosition = "left",
-  hasVideo = false,
   topLabel,
   title,
   tags = [],
   description,
   buttons = [],
 } = Astro.props as Props;
+
+const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
 ---
 
 <section class="w-full py-(--section-space-y)">
@@ -48,33 +60,10 @@ const {
       class="relative w-full min-w-0 overflow-hidden rounded-md md:w-1/2 md:shrink-0"
     >
       <img
-        src={imageSrc}
+        src={imgSrc}
         alt={imageAlt}
         class="aspect-4/3 h-auto w-full rounded-md object-cover shadow-sm sm:aspect-5/4 md:aspect-square lg:aspect-5/4"
       />
-      {
-        hasVideo && (
-          <button
-            aria-label="Afspil video"
-            class="absolute inset-0 m-auto flex h-[clamp(3.5rem,6vw,5rem)] w-[clamp(3.5rem,6vw,5rem)] cursor-pointer items-center justify-center rounded-full bg-(--main-400)/90 text-(--neutral-100) transition-transform hover:scale-105 hover:bg-(--main-500)"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="ml-1 h-[clamp(1.5rem,2.5vw,2.5rem)] w-[clamp(1.5rem,2.5vw,2.5rem)]"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
-              />
-            </svg>
-          </button>
-        )
-      }
     </div>
 
     {
@@ -87,8 +76,9 @@ const {
         topLabel && (
           <Text
             size="label_1"
-            weight="semibold"
-            stylingclasses="text-(--neutral-400) tracking-wider"
+            font="sans"
+            weight="regular"
+            stylingclasses="text-(--neutral-400) tracking-widest uppercase"
           >
             {topLabel}
           </Text>
@@ -129,7 +119,15 @@ const {
         buttons.length > 0 && (
           <div class="flex flex-wrap gap-3 pt-2 md:gap-4">
             {buttons.map((btn) => (
-              <LinkButton href={btn.href} color={btn.color} label={btn.label} />
+              <LinkButton
+                href={btn.href}
+                color={btn.color}
+                label={btn.label}
+                size={btn.size}
+                stylingclasses={btn.stylingclasses}
+                target={btn.target}
+                rel={btn.rel}
+              />
             ))}
           </div>
         )

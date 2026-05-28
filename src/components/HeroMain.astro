@@ -3,18 +3,29 @@ import Heading from "./Heading.astro";
 import Text from "./Text.astro";
 import LinkButton from "./Buttons__&_links/LinkButton.astro";
 
+type HeroImage = {
+  src: string;
+  width: number;
+  height: number;
+};
+
+type LinkButtonSize = "sm" | "md" | "lg" | "xl";
+
 interface ButtonConfig {
   label: string;
   color: "main" | "primary" | "secondary" | "accent" | "neutral" | "outline";
   href: string;
+  size?: LinkButtonSize;
+  stylingclasses?: string;
+  target?: string;
+  rel?: string;
 }
 
 interface Props {
   breadcrumbs?: string;
-  // Titel må gerne indeholde HTML til linjeskift og farvede ord.
   titleHtml: string;
   subtitle?: string;
-  imageSrc: string;
+  imageSrc: HeroImage | string;
   imageAlt?: string;
   buttons?: ButtonConfig[];
 }
@@ -27,76 +38,72 @@ const {
   imageAlt = "Hero transparent billede",
   buttons = [],
 } = Astro.props as Props;
+
+const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
 ---
 
-<section
-  class="relative w-full overflow-hidden bg-(--neutral-100) py-(--section-space-y)"
+<!-- No section/padding here — the page owns spacing via px-(--page-space-inline) py-(--section-space-y) -->
+<div
+  class="grid w-full grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-20"
 >
-  <div
-    class="relative z-10 flex w-full flex-col md:min-h-[clamp(31rem,70vw,42rem)] md:flex-row"
-  >
+  <!-- Text column -->
+  <div class="flex flex-col gap-4 md:gap-6">
     {
-      /* Mobil først: tekst og billede ligger i normal flow, så intet bliver skåret af. */
+      breadcrumbs && (
+        <Text
+          size="label_2"
+          weight="semibold"
+          stylingclasses="text-(--neutral-400) tracking-widest uppercase"
+        >
+          {breadcrumbs}
+        </Text>
+      )
     }
-    <div
-      class="z-20 flex w-full min-w-0 flex-col gap-[clamp(0.875rem,2vw,1.5rem)] px-[clamp(1rem,4vw,4rem)] pt-[clamp(1rem,2vw,2rem)] pb-[clamp(1rem,4vw,2.5rem)] md:w-[58%] md:px-[clamp(1.5rem,4vw,5rem)] md:pt-[clamp(2rem,4vw,4rem)] md:pb-(--section-space-y)"
+
+    <Heading
+      htmlheading="h1"
+      size="h1"
+      font="display"
+      weight="bold"
+      stylingclasses="text-[clamp(var(--heading-1-mobile),8vw,var(--heading-1-size))] leading-[1.05] text-(--neutral-500) [text-wrap:balance]"
     >
-      {
-        breadcrumbs && (
-          <Text
-            size="label_2"
-            weight="semibold"
-            stylingclasses="text-(--neutral-400) tracking-widest uppercase"
-          >
-            {breadcrumbs}
-          </Text>
-        )
-      }
-
-      <Heading
-        htmlheading="h1"
-        size="h1"
-        font="display"
-        weight="bold"
-        stylingclasses="max-w-none break-words leading-[0.9] text-(--neutral-500)"
-      >
-        <span set:html={titleHtml} />
-      </Heading>
-
-      {
-        subtitle && (
-          <Text
-            size="p1"
-            weight="regular"
-            stylingclasses="text-(--neutral-500)"
-          >
-            {subtitle}
-          </Text>
-        )
-      }
-
-      {
-        buttons.length > 0 && (
-          <div class="flex flex-wrap gap-3 pt-2 md:gap-4">
-            {buttons.map((btn) => (
-              <LinkButton href={btn.href} color={btn.color} label={btn.label} />
-            ))}
-          </div>
-        )
-      }
-    </div>
+      <span class="block w-full" set:html={titleHtml} />
+    </Heading>
 
     {
-      /* Billedet ligger i flow på mobil og bliver først fastholdt i hjørnet fra md og op. */
+      subtitle && (
+        <Text size="p1" stylingclasses="text-(--neutral-500)">
+          {subtitle}
+        </Text>
+      )
     }
-    <div
-      class="pointer-events-none relative z-10 mt-[clamp(1rem,4vw,2rem)] flex w-full justify-end overflow-hidden px-[clamp(1rem,4vw,4rem)] md:absolute md:right-0 md:bottom-0 md:mt-0 md:h-full md:w-[42%] md:px-0 lg:w-[38%]"
-    >
-      <img
-        src={imageSrc}
-        alt={imageAlt}
-        class="h-auto max-h-[clamp(20rem,70vw,32rem)] w-full max-w-[32rem] object-contain object-bottom-right md:max-h-[clamp(28rem,36vw,40rem)] md:max-w-none md:translate-y-[clamp(1rem,2vw,2rem)] lg:translate-x-[clamp(1rem,3vw,3rem)]"
-      />
-    </div>
+
+    {
+      buttons.length > 0 && (
+        <div class="mt-2 flex flex-wrap gap-3 md:mt-4 md:gap-4">
+          {buttons.map((btn) => (
+            <LinkButton
+              href={btn.href}
+              color={btn.color}
+              label={btn.label}
+              size={btn.size}
+              stylingclasses={btn.stylingclasses}
+              target={btn.target}
+              rel={btn.rel}
+            />
+          ))}
+        </div>
+      )
+    }
   </div>
-</section>
+
+  <!-- Image column — sits at bottom so figure "stands" on the section edge -->
+  <div class="flex items-end justify-center md:justify-end">
+    <img
+      src={imgSrc}
+      alt={imageAlt}
+      loading="eager"
+      class="h-auto w-full object-contain object-bottom"
+    />
+  </div>
+</div>

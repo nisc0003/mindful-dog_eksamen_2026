@@ -1,22 +1,401 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import Heading from "../components/Heading.astro";
+import Text from "../components/Text.astro";
 import Button from "../components/Buttons__&_links/Button.astro";
 import Link from "../components/Buttons__&_links/Link.astro";
-import Heading from "../components/Heading.astro";
+import SocialLink from "../components/Buttons__&_links/SocialLink.astro";
+import HeroMain from "../components/HeroMain.astro";
+import Infobox_4 from "../components/infobox/Infobox_type_4.astro";
+import HeroMainImage from "../assets/testimages/forside_hero.png";
+import FacebookIcon from "../assets/icon/Facebook_Logo_Dark.svg";
+import InstagramIcon from "../assets/icon/Instagram_Glyph_Dark.svg";
+import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
+import map from "../components/Map.astro";
+
+// Her kan du fetche data fra Supabase, f.eks.:
+// const { data: noegler } = await supabase.from('noegler').select('*');
+
+const keys = [
+  {
+    punkt: "1",
+    eyebrow: "Nøgle #1",
+    title: "Overskrift",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    href: "/noegle-1",
+  },
+  {
+    punkt: "2",
+    eyebrow: "Nøgle #2",
+    title: "Overskrift",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    href: "/noegle-2",
+  },
+  {
+    punkt: "3",
+    eyebrow: "Nøgle #3",
+    title: "Overskrift",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    href: "/noegle-3",
+  },
+  {
+    punkt: "4",
+    eyebrow: "Nøgle #4",
+    title: "Overskrift",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    href: "/noegle-4",
+  },
+];
+
+type ButtonColor =
+  | "main"
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "neutral"
+  | "outline";
+
+const heroButtons = [
+  { label: "SE VORES HOLD", color: "primary", href: "#teamet" },
+] satisfies { label: string; color: ButtonColor; href: string }[];
+
+const locationFilters = [
+  { label: "Nordsjælland", color: "main" },
+  { label: "Midtsjælland", color: "outline" },
+  { label: "Syd/Vestjælland", color: "outline" },
+  { label: "Fyn / Syddanmark", color: "outline" },
+] satisfies { label: string; color: ButtonColor }[];
+
+const locations = [
+  {
+    title: "Nordsjælland",
+    description: "Lorem ipsum dolor sit amet.",
+    featured: true,
+  },
+  {
+    title: "Allerød",
+    description: "Lorem ipsum dolor sit amet.",
+    featured: false,
+  },
+  {
+    title: "Farum",
+    description: "Lorem ipsum dolor sit amet.",
+    featured: false,
+  },
+];
+
+const socialLinks = [
+  {
+    href: "https://www.instagram.com/",
+    iconSrc: InstagramIcon,
+    iconAlt: "Instagram",
+  },
+  {
+    href: "https://www.facebook.com/",
+    iconSrc: FacebookIcon,
+    iconAlt: "Facebook",
+  },
+  {
+    href: "https://www.linkedin.com/company/mindful-dog",
+    iconSrc: LinkedInIcon,
+    iconAlt: "LinkedIn",
+  },
+];
+
+type PuppyButton = {
+  size: "md";
+  color: ButtonColor;
+  label: string;
+  stylingclasses?: string;
+};
+
+const puppyButtons: PuppyButton[] = [
+  {
+    size: "md",
+    color: "neutral",
+    label: "LÆS MERE HER",
+  },
+  {
+    size: "md",
+    color: "outline",
+    label: "SE HOLDOVERSIGT FOR HVALPE",
+    stylingclasses: "border-(--neutral-500) text-(--neutral-500)",
+  },
+] as const;
 ---
 
-<MainLayout title="Forside">
-  <article>
-    <Heading htmlheading="h1" size="h2" font="display" weight="bold">
-      Forside
-    </Heading>
-    <Button>Klik!</Button>
-    <Link stylingclasses="mt-4 !text-size-16">
-      Link til <Link href="/komponentbibliotek">Komponentbibliotek</Link>
-    </Link>
-  </article>
+<MainLayout title="Mindful Dog Academy - Forside">
+  <!-- =========================================================
+       HERO SEKTION
+  ========================================================= -->
+  <section class="pb-(--section-space-y) pl-(--page-space-inline)">
+    <HeroMain
+      titleHtml='<span class="text-(--main-400)">Mindful Dog <br/>Academy</span>'
+      subtitle="Ro og forståelse mellem dig og din hund."
+      imageSrc={HeroMainImage}
+      buttons={heroButtons}
+    />
+  </section>
 
-  <p>
-    Dette er en infoboks. Den kan bruges til at fremhæve vigtig information.
-  </p>
+  <!-- =========================================================
+      DE FIRE NØGLER SEKTION
+  ========================================================= -->
+  <section
+    class="bg-(--main-100) px-(--page-space-inline) py-(--section-space-y)"
+  >
+    <Text
+      size="label_1"
+      font="sans"
+      weight="regular"
+      stylingclasses="text-(--text-label) tracking-widest uppercase"
+    >
+      INDHOLD
+    </Text>
+
+    <Heading
+      htmlheading="h2"
+      size="h3"
+      font="display"
+      weight="bold"
+      stylingclasses="mb-8 md:mb-12"
+    >
+      Mindful-Dog Metoden - De Fire Nøgler
+    </Heading>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {
+        keys.map((k) => (
+          <div>
+            <Infobox_4
+              punkt ={ k.punkt},
+              topskrift={k.eyebrow}
+              title={k.title}
+              description={k.description}
+              containerClass="rounded-md bg-(--neutral-0) p-6"
+              titleClass="text-(--neutral-500)"
+              topskriftClass="text-(--neutral-500)"
+              descriptionClass="text-(--neutral-500)"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- =========================================================
+      LOKATIONER SEKTION
+  ========================================================= -->
+  <section class="px-(--page-space-inline) py-(--section-space-y)">
+    <Text
+      size="label_1"
+      font="sans"
+      weight="regular"
+      stylingclasses="mb-2 text-(--text-label) tracking-widest uppercase"
+    >
+      LOKATIONER
+    </Text>
+    <Heading
+      htmlheading="h2"
+      size="h3"
+      font="display"
+      weight="bold"
+      stylingclasses="mb-8">Find En Træner Nær Dig</Heading
+    >
+
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+      <div class="flex flex-col gap-6">
+        <div
+          class="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-md bg-(--neutral-200)"
+        >
+          <span class="text-(--neutral-400)"
+            >[ Interaktivt Kort Placeholder ]</span
+          >
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          {
+            locationFilters.map((filter) => (
+              <Button size="sm" color={filter.color} label={filter.label} />
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <Text
+          size="label_1"
+          font="sans"
+          weight="regular"
+          stylingclasses="mb-2 lg:hidden text-(--text-label) tracking-widest uppercase"
+        >
+          LOKATIONER
+        </Text>
+
+        {
+          locations.map((location) =>
+            location.featured ? (
+              <div class="rounded-md bg-(--main-400) p-4 text-(--neutral-100)">
+                <Heading
+                  htmlheading="h4"
+                  size="h6"
+                  font="display"
+                  weight="bold"
+                  stylingclasses="mb-1"
+                >
+                  {location.title}
+                </Heading>
+                <Text size="p4" font="sans" weight="regular">
+                  {location.description}
+                </Text>
+              </div>
+            ) : (
+              <div class="flex items-center justify-between rounded-md bg-(--main-100) p-4">
+                <div>
+                  <Heading
+                    htmlheading="h4"
+                    size="h6"
+                    font="display"
+                    weight="bold"
+                    stylingclasses="mb-1"
+                  >
+                    {location.title}
+                  </Heading>
+                  <Text
+                    size="p4"
+                    font="sans"
+                    weight="regular"
+                    stylingclasses="text-(--text-secondary)"
+                  >
+                    {location.description}
+                  </Text>
+                </div>
+              </div>
+            ),
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+      HVALPE TRÆNING SEKTION
+  ========================================================= -->
+  <section
+    class="bg-(--accent-200) px-(--page-space-inline) py-(--section-space-y)"
+  >
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
+      <div
+        class="relative aspect-video w-full overflow-hidden rounded-md bg-(--neutral-300)"
+      >
+        <img
+          src={HeroMainImage.src}
+          alt="Hundetræning video"
+          class="h-fill w-full object-cover opacity-60"
+        />
+        <div class="absolute inset-0 flex items-center justify-center"></div>
+      </div>
+
+      <div class="flex flex-col items-start gap-6">
+        <div>
+          <Text
+            size="label_1"
+            font="sans"
+            weight="regular"
+            stylingclasses="mb-2 text-(--neutral-400) tracking-widest uppercase"
+          >
+            hold typer
+          </Text>
+          <Heading
+            htmlheading="h2"
+            size="h3"
+            font="display"
+            weight="bold"
+            stylingclasses="mb-4">Hvalpe Træning</Heading
+          >
+          <Text size="p2" font="sans" weight="regular" stylingclasses="mb-2"
+            >Hos Mindful-Dog Academy tager vi udgangspunkt i både dig og din
+            hund. Øvelserne tilpasses din hunds alder og udvikling, og du får
+            teknikker, du kan bruge direkte derhjemme.Når fundamentet er på
+            plads, bygger vi videre på de første trin af lydighedsøvelser.</Text
+          >
+          <Text
+            size="p3"
+            font="sans"
+            weight="regular"
+            stylingclasses="opacity-80"
+            >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
+          >
+        </div>
+
+        <div class="mt-2 flex flex-wrap items-center gap-4">
+          {
+            puppyButtons.map((button) => (
+              <Button
+                size={button.size}
+                color={button.color}
+                label={button.label}
+                stylingclasses={button.stylingclasses}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+      NYHEDSBREV SEKTION
+  ========================================================= -->
+  <section class="px-(--page-space-inline) py-(--section-space-y)">
+    <div
+      class="grid grid-cols-1 items-center gap-8 border-t border-(--neutral-200) pt-12 md:gap-0 lg:grid-cols-2 lg:gap-26 lg:pt-16"
+    >
+      <div class="flex flex-col gap-4">
+        <Text
+          size="label_1"
+          font="sans"
+          weight="regular"
+          stylingclasses="text-(--text-label) tracking-widest uppercase"
+        >
+          NYHEDSBREV
+        </Text>
+        <Heading htmlheading="h3" size="h4" font="display" weight="bold"
+          >Hold Dig Opdateret</Heading
+        >
+        <Text size="p3" stylingclasses="text-(--text-secondary)">
+          Tilmeld dig vores nyhedsbrev og få tips og tricks til hundetræning og
+          nye hold i dit lokalområde.
+        </Text>
+
+        <form class="mt-2 flex w-full gap-2">
+          <input
+            type="email"
+            placeholder="Din emailadresse"
+            class="flex-1 rounded-md border border-(--neutral-300) px-4 py-2 focus:ring-2 focus:ring-(--main-400) focus:outline-none"
+            required
+          />
+          <Button
+            type="submit"
+            size="md"
+            color="main"
+            label="TILMELD"
+            stylingclasses="px-6"
+          />
+        </form>
+      </div>
+
+      <div class="p grid grid-cols-3 items-center gap-6 md:justify-end">
+        {
+          socialLinks.map((link) => (
+            <SocialLink
+              href={link.href}
+              size="xl"
+              iconSrc={link.iconSrc}
+              iconAlt={link.iconAlt}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
 </MainLayout>
