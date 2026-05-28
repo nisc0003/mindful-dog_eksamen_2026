@@ -1,3 +1,139 @@
 ---
+import Heading from "./Heading.astro";
+import Text from "./Text.astro";
+import LinkButton from "./Buttons__&_links/LinkButton.astro";
 
+interface ButtonConfig {
+  label: string;
+  color: "main" | "primary" | "secondary" | "accent" | "neutral" | "outline";
+  href: string;
+}
+
+interface Props {
+  imageSrc: string;
+  imageAlt?: string;
+  // På mobil ligger billedet altid øverst. På større skærme kan billedet skiftes til højre.
+  imagePosition?: "left" | "right";
+  hasVideo?: boolean;
+  topLabel?: string;
+  title: string;
+  tags?: string[];
+  description?: string;
+  buttons?: ButtonConfig[];
+}
+
+const {
+  imageSrc,
+  imageAlt = "Hero billede",
+  imagePosition = "left",
+  hasVideo = false,
+  topLabel,
+  title,
+  tags = [],
+  description,
+  buttons = [],
+} = Astro.props as Props;
 ---
+
+<section class="w-full py-(--section-space-y)">
+  <div
+    class={`flex w-full flex-col items-start gap-[clamp(2rem,4vw,5rem)] md:flex-row md:items-center ${
+      imagePosition === "right" ? "md:flex-row-reverse" : ""
+    }`}
+  >
+    {
+      /* Billedet får en responsiv bredde, så det ikke hopper hårdt mellem mobile og desktop. */
+    }
+    <div
+      class="relative w-full min-w-0 overflow-hidden rounded-md md:w-1/2 md:shrink-0"
+    >
+      <img
+        src={imageSrc}
+        alt={imageAlt}
+        class="aspect-4/3 h-auto w-full rounded-md object-cover shadow-sm sm:aspect-5/4 md:aspect-square lg:aspect-5/4"
+      />
+      {
+        hasVideo && (
+          <button
+            aria-label="Afspil video"
+            class="absolute inset-0 m-auto flex h-[clamp(3.5rem,6vw,5rem)] w-[clamp(3.5rem,6vw,5rem)] cursor-pointer items-center justify-center rounded-full bg-(--main-400)/90 text-(--neutral-100) transition-transform hover:scale-105 hover:bg-(--main-500)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="ml-1 h-[clamp(1.5rem,2.5vw,2.5rem)] w-[clamp(1.5rem,2.5vw,2.5rem)]"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+              />
+            </svg>
+          </button>
+        )
+      }
+    </div>
+
+    {
+      /* Indholdet får lov at vokse frit, så layoutet holder sig roligt ved alle mellemstørrelser. */
+    }
+    <div
+      class="flex w-full min-w-0 flex-col items-start gap-[clamp(0.875rem,1.8vw,1.25rem)] px-[clamp(1rem,4vw,4rem)] pt-[clamp(1rem,2vw,2rem)] md:w-1/2 md:px-[clamp(1.5rem,4vw,5rem)] md:pt-[clamp(2rem,4vw,4rem)]"
+    >
+      {
+        topLabel && (
+          <Text
+            size="label_1"
+            weight="semibold"
+            stylingclasses="text-(--neutral-400) tracking-wider"
+          >
+            {topLabel}
+          </Text>
+        )
+      }
+
+      <Heading
+        htmlheading="h2"
+        size="h2"
+        font="display"
+        weight="bold"
+        stylingclasses="max-w-none break-words text-(--neutral-500)"
+      >
+        {title}
+      </Heading>
+
+      {
+        tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 sm:gap-3">
+            {tags.map((tag) => (
+              <span class="text-size-10 sm:text-size-12 md:text-size-14 rounded-sm bg-(--main-400) px-3 py-1 font-semibold tracking-wider text-(--neutral-100) uppercase">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        description && (
+          <Text size="p2" stylingclasses="text-(--neutral-500)">
+            {description}
+          </Text>
+        )
+      }
+
+      {
+        buttons.length > 0 && (
+          <div class="flex flex-wrap gap-3 pt-2 md:gap-4">
+            {buttons.map((btn) => (
+              <LinkButton href={btn.href} color={btn.color} label={btn.label} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>
