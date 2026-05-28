@@ -6,6 +6,7 @@ import Button from "../components/Buttons__&_links/Button.astro";
 import Link from "../components/Buttons__&_links/Link.astro";
 import SocialLink from "../components/Buttons__&_links/SocialLink.astro";
 import HeroMain from "../components/HeroMain.astro";
+import Infobox_4 from "../components/infobox/Infobox_type_4.astro";
 import HeroMainImage from "../assets/testimages/forside_hero.png";
 import FacebookIcon from "../assets/icon/Facebook_Logo_Dark.svg";
 import InstagramIcon from "../assets/icon/Instagram_Glyph_Dark.svg";
@@ -13,6 +14,109 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
 
 // Her kan du fetche data fra Supabase, f.eks.:
 // const { data: noegler } = await supabase.from('noegler').select('*');
+
+const keys = [
+  {
+    eyebrow: "Nøgle #1",
+    title: "Nøgle #1 - Overskrift",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    href: "/noegle-1",
+  },
+  {
+    eyebrow: "Nøgle #2",
+    title: "Nøgle #2 - Overskrift",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    href: "/noegle-2",
+  },
+  {
+    eyebrow: "Nøgle #3",
+    title: "Nøgle #3 - Overskrift",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    href: "/noegle-3",
+  },
+  {
+    eyebrow: "Nøgle #4",
+    title: "Nøgle #4 - Overskrift",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    href: "/noegle-4",
+  },
+];
+
+type ButtonColor =
+  | "main"
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "neutral"
+  | "outline";
+
+const heroButtons = [
+  { label: "SE VORES HOLD", color: "primary", href: "#teamet" },
+] satisfies { label: string; color: ButtonColor; href: string }[];
+
+const locationFilters = [
+  { label: "Nordsjælland", color: "main" },
+  { label: "Midtsjælland", color: "outline" },
+  { label: "Syd/Vestjælland", color: "outline" },
+  { label: "Fyn / Syddanmark", color: "outline" },
+] satisfies { label: string; color: ButtonColor }[];
+
+const locations = [
+  {
+    title: "Nordsjælland",
+    description: "Lorem ipsum dolor sit amet.",
+    featured: true,
+  },
+  {
+    title: "Allerød",
+    description: "Lorem ipsum dolor sit amet.",
+    featured: false,
+  },
+  {
+    title: "Farum",
+    description: "Lorem ipsum dolor sit amet.",
+    featured: false,
+  },
+];
+
+const socialLinks = [
+  {
+    href: "https://www.instagram.com/",
+    iconSrc: InstagramIcon,
+    iconAlt: "Instagram",
+  },
+  {
+    href: "https://www.facebook.com/",
+    iconSrc: FacebookIcon,
+    iconAlt: "Facebook",
+  },
+  {
+    href: "https://www.linkedin.com/company/mindful-dog",
+    iconSrc: LinkedInIcon,
+    iconAlt: "LinkedIn",
+  },
+];
+
+type PuppyButton = {
+  size: "md";
+  color: ButtonColor;
+  label: string;
+  stylingclasses?: string;
+};
+
+const puppyButtons: PuppyButton[] = [
+  {
+    size: "md",
+    color: "neutral",
+    label: "LÆS MERE HER",
+  },
+  {
+    size: "md",
+    color: "outline",
+    label: "SE HOLDOVERSIGT FOR HVALPE",
+    stylingclasses: "border-(--neutral-500) text-(--neutral-500)",
+  },
+] as const;
 ---
 
 <MainLayout title="Mindful Dog Academy - Forside">
@@ -21,11 +125,10 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
   ========================================================= -->
   <section class="pb-(--section-space-y) pl-(--page-space-inline)">
     <HeroMain
-      breadcrumbs="FORSIDE"
       titleHtml='<span class="text-(--main-400)">Mindful Dog <br/>Academy</span>'
-      subtitle="Ro, mental balance og ægte forståelse mellem dig og din firbenede ven."
+      subtitle="Ro og forståelse mellem dig og din hund."
       imageSrc={HeroMainImage}
-      buttons={[{ label: "SE VORES HOLD", color: "primary", href: "#teamet" }]}
+      buttons={heroButtons}
     />
   </section>
 
@@ -37,86 +140,38 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
   >
     <Text size="label_1" font="display" weight="semibold">INDHOLD</Text>
 
-    <Heading htmlheading="h2" size="h3" stylingclasses="mb-8 md:mb-12">
+    <Heading
+      htmlheading="h2"
+      size="h3"
+      font="display"
+      weight="bold"
+      stylingclasses="mb-8 md:mb-12"
+    >
       Mindful-Dog Metoden - De Fire Nøgler
     </Heading>
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-      <article
-        class="flex flex-col gap-4 rounded-md bg-(--neutral-0) p-6 shadow-sm"
-      >
-        <div class="flex items-center gap-4">
-          <div class="h-12 w-12 shrink-0 rounded-sm bg-(--main-300)"></div>
-          <Heading htmlheading="h3" size="h6" weight="semibold"
-            >Nøgle #1 - Overskrift</Heading
-          >
-        </div>
-        <Text size="p3" font="sans" weight="regular"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
-        >
-        <Link
-          href="/noegle-1"
-          label="LÆS MERE"
-          stylingclasses="mt-auto text-size-12 uppercase"
-        />
-      </article>
+      {
+        keys.map((k) => (
+          <div>
+            <Infobox_4
+              topskrift={k.eyebrow}
+              title={k.title}
+              description={k.description}
+              containerClass="rounded-md bg-(--neutral-0) p-6"
+              titleClass="text-(--neutral-500)"
+              topskriftClass="text-(--neutral-500)"
+              descriptionClass="text-(--neutral-500)"
+            />
 
-      <article
-        class="flex flex-col gap-4 rounded-md bg-(--neutral-0) p-6 shadow-sm"
-      >
-        <div class="flex items-center gap-4">
-          <div class="h-12 w-12 shrink-0 rounded-sm bg-(--main-300)"></div>
-          <Heading htmlheading="h3" size="h6" weight="semibold"
-            >Nøgle #2 - Overskrift</Heading
-          >
-        </div>
-        <Text size="p3" font="sans" weight="regular"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
-        >
-        <Link
-          href="/noegle-2"
-          label="LÆS MERE"
-          stylingclasses="mt-auto text-size-12 uppercase"
-        />
-      </article>
-
-      <article
-        class="flex flex-col gap-4 rounded-md bg-(--neutral-0) p-6 shadow-sm"
-      >
-        <div class="flex items-center gap-4">
-          <div class="h-12 w-12 shrink-0 rounded-sm bg-(--main-300)"></div>
-          <Heading htmlheading="h3" size="h6" weight="semibold"
-            >Nøgle #3 - Overskrift</Heading
-          >
-        </div>
-        <Text size="p3" font="sans" weight="regular"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
-        >
-        <Link
-          href="/noegle-3"
-          label="LÆS MERE"
-          stylingclasses="mt-auto text-size-12 uppercase"
-        />
-      </article>
-
-      <article
-        class="flex flex-col gap-4 rounded-md bg-(--neutral-0) p-6 shadow-sm"
-      >
-        <div class="flex items-center gap-4">
-          <div class="h-12 w-12 shrink-0 rounded-sm bg-(--main-300)"></div>
-          <Heading htmlheading="h3" size="h6" weight="semibold"
-            >Nøgle #4 - Overskrift</Heading
-          >
-        </div>
-        <Text size="p3" font="sans" weight="regular"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
-        >
-        <Link
-          href="/noegle-4"
-          label="LÆS MERE"
-          stylingclasses="mt-auto text-size-12 uppercase"
-        />
-      </article>
+            <Link
+              href={k.href}
+              label="LÆS MERE"
+              stylingclasses="mt-3 text-size-12 uppercase"
+            />
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -127,8 +182,12 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
     <Text size="label_1" stylingclasses="mb-2 text-(--text-label)"
       >LOKATIONER</Text
     >
-    <Heading htmlheading="h2" size="h3" stylingclasses="mb-8"
-      >Find En Træner Nær Dig</Heading
+    <Heading
+      htmlheading="h2"
+      size="h3"
+      font="display"
+      weight="bold"
+      stylingclasses="mb-8">Find En Træner Nær Dig</Heading
     >
 
     <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
@@ -142,10 +201,11 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
         </div>
 
         <div class="flex flex-wrap gap-2">
-          <Button size="sm" color="main" label="Nordsjælland" />
-          <Button size="sm" color="outline" label="Midtsjælland" />
-          <Button size="sm" color="outline" label="Syd/Vestjælland" />
-          <Button size="sm" color="outline" label="Fyn / Syddanmark" />
+          {
+            locationFilters.map((filter) => (
+              <Button size="sm" color={filter.color} label={filter.label} />
+            ))
+          }
         </div>
       </div>
 
@@ -157,48 +217,48 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
           stylingclasses="mb-2 lg:hidden">LOKATIONER</Text
         >
 
-        <div class="rounded-md bg-(--main-400) p-4 text-(--neutral-100)">
-          <Heading htmlheading="h4" size="h6" stylingclasses="mb-1"
-            >Nordsjælland</Heading
-          >
-          <Text size="p4" font="sans" weight="regular"
-            >Lorem ipsum dolor sit amet.</Text
-          >
-        </div>
-
-        <div
-          class="flex items-center justify-between rounded-md bg-(--main-100) p-4"
-        >
-          <div>
-            <Heading htmlheading="h4" size="h6" stylingclasses="mb-1"
-              >Allerød</Heading
-            >
-            <Text
-              size="p4"
-              font="sans"
-              weight="regular"
-              stylingclasses="text-(--text-secondary)"
-              >Lorem ipsum dolor sit amet.</Text
-            >
-          </div>
-        </div>
-
-        <div
-          class="flex items-center justify-between rounded-md bg-(--main-100) p-4"
-        >
-          <div>
-            <Heading htmlheading="h4" size="h6" stylingclasses="mb-1"
-              >Farum</Heading
-            >
-            <Text
-              size="p4"
-              font="sans"
-              weight="regular"
-              stylingclasses="text-(--text-secondary)"
-              >Lorem ipsum dolor sit amet.</Text
-            >
-          </div>
-        </div>
+        {
+          locations.map((location) =>
+            location.featured ? (
+              <div class="rounded-md bg-(--main-400) p-4 text-(--neutral-100)">
+                <Heading
+                  htmlheading="h4"
+                  size="h6"
+                  font="display"
+                  weight="bold"
+                  stylingclasses="mb-1"
+                >
+                  {location.title}
+                </Heading>
+                <Text size="p4" font="sans" weight="regular">
+                  {location.description}
+                </Text>
+              </div>
+            ) : (
+              <div class="flex items-center justify-between rounded-md bg-(--main-100) p-4">
+                <div>
+                  <Heading
+                    htmlheading="h4"
+                    size="h6"
+                    font="display"
+                    weight="bold"
+                    stylingclasses="mb-1"
+                  >
+                    {location.title}
+                  </Heading>
+                  <Text
+                    size="p4"
+                    font="sans"
+                    weight="regular"
+                    stylingclasses="text-(--text-secondary)"
+                  >
+                    {location.description}
+                  </Text>
+                </div>
+              </div>
+            ),
+          )
+        }
       </div>
     </div>
   </section>
@@ -216,30 +276,37 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
         <img
           src={HeroMainImage.src}
           alt="Hundetræning video"
-          class="h-full w-full object-cover opacity-60"
+          class="h-fill w-full object-cover opacity-60"
         />
         <div class="absolute inset-0 flex items-center justify-center">
           <button
-            class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-(--neutral-0) text-(--accent-400) shadow-lg transition-transform hover:scale-105"
+            class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-(--neutral-0) text-(--accent-400) transition-transform hover:scale-105"
           >
             ▶
           </button>
         </div>
       </div>
 
-      <div class="flex flex-col items-start gap-6 text-(--neutral-500)">
+      <div class="flex flex-col items-start gap-6">
         <div>
           <Text
             size="label_1"
             font="display"
-            weight="semibold"
-            stylingclasses="mb-2">TRÆNING TIL HVALPE</Text
+            weight="regular"
+            stylingclasses="mb-2 text-(--neutral-400)">hold typer</Text
           >
-          <Heading htmlheading="h2" size="h3" stylingclasses="mb-4"
-            >Hvalpe Træning</Heading
+          <Heading
+            htmlheading="h2"
+            size="h3"
+            font="display"
+            weight="bold"
+            stylingclasses="mb-4">Hvalpe Træning</Heading
           >
           <Text size="p2" font="sans" weight="regular" stylingclasses="mb-2"
-            >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
+            >Hos Mindful-Dog Academy tager vi udgangspunkt i både dig og din
+            hund. Øvelserne tilpasses din hunds alder og udvikling, og du får
+            teknikker, du kan bruge direkte derhjemme.Når fundamentet er på
+            plads, bygger vi videre på de første trin af lydighedsøvelser.</Text
           >
           <Text
             size="p3"
@@ -251,13 +318,16 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
         </div>
 
         <div class="mt-2 flex flex-wrap items-center gap-4">
-          <Button size="md" color="neutral" label="LÆS MERE HER" />
-          <Button
-            size="md"
-            color="outline"
-            stylingclasses="border-(--neutral-500) text-(--neutral-500)"
-            label="SE HOLDOVERSIGT FOR HVALPE"
-          />
+          {
+            puppyButtons.map((button) => (
+              <Button
+                size={button.size}
+                color={button.color}
+                label={button.label}
+                stylingclasses={button.stylingclasses}
+              />
+            ))
+          }
         </div>
       </div>
     </div>
@@ -268,13 +338,15 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
   ========================================================= -->
   <section class="px-(--page-space-inline) py-(--section-space-y)">
     <div
-      class="grid grid-cols-1 gap-8 border-t border-(--neutral-200) pt-12 md:grid-cols-2 md:items-center md:pt-16"
+      class="grid grid-cols-1 items-center gap-8 border-t border-(--neutral-200) pt-12 md:gap-0 lg:grid-cols-2 lg:gap-26 lg:pt-16"
     >
       <div class="flex flex-col gap-4">
         <Text size="label_1" stylingclasses="text-(--text-label)"
           >NYHEDSBREV</Text
         >
-        <Heading htmlheading="h3" size="h4">Hold Dig Opdateret</Heading>
+        <Heading htmlheading="h3" size="h4" font="display" weight="bold"
+          >Hold Dig Opdateret</Heading
+        >
         <Text size="p3" stylingclasses="text-(--text-secondary)">
           Tilmeld dig vores nyhedsbrev og få tips og tricks til hundetræning og
           nye hold i dit lokalområde.
@@ -297,25 +369,17 @@ import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
         </form>
       </div>
 
-      <div class="flex items-center gap-6 md:justify-end">
-        <SocialLink
-          href="https://www.instagram.com/"
-          size="sm"
-          iconSrc={InstagramIcon}
-          iconAlt="Instagram"
-        />
-        <SocialLink
-          href="https://www.facebook.com/"
-          size="sm"
-          iconSrc={FacebookIcon}
-          iconAlt="Facebook"
-        />
-        <SocialLink
-          href="https://www.linkedin.com/company/mindful-dog"
-          size="sm"
-          iconSrc={LinkedInIcon}
-          iconAlt="LinkedIn"
-        />
+      <div class="p grid grid-cols-3 items-center gap-6 md:justify-end">
+        {
+          socialLinks.map((link) => (
+            <SocialLink
+              href={link.href}
+              size="xl"
+              iconSrc={link.iconSrc}
+              iconAlt={link.iconAlt}
+            />
+          ))
+        }
       </div>
     </div>
   </section>

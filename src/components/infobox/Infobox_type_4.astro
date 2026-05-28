@@ -1,17 +1,68 @@
 ---
 import Square from "./Green_square.astro";
+import Heading from "../Heading.astro";
+import Text from "../Text.astro";
+
+interface Props {
+  punkt?: string;
+  topskrift?: string;
+  title?: string;
+  description?: string;
+  containerClass?: string;
+  headerClass?: string;
+  titleClass?: string;
+  topskriftClass?: string;
+  descriptionClass?: string;
+}
+
+const {
+  punkt = "",
+  topskrift = "Topskrift her",
+  title = "Overskrift her",
+  description = "Tekst her",
+  containerClass = "",
+  headerClass = "",
+  titleClass = "",
+  topskriftClass = "",
+  descriptionClass = "",
+} = Astro.props as Props;
 ---
 
 <article
-  class="rounded-md border border-(--main-400) bg-(--main-200) p-8 text-(--neutral-500)"
+  class:list={[
+    "rounded-md bg-(--main-200) p-8 text-(--neutral-500)",
+    containerClass,
+  ]}
 >
-  <div class="mb-4 flex">
-    <Square><slot name="punkt" slot="punkt">Null</slot></Square>
+  <div class:list={["mb-4 flex", headerClass]}>
+    <Square punkt={punkt} />
     <div class="flex flex-col gap-1 pl-4">
-      <slot name="topskrift">Topskrift her</slot>
-      <slot name="overskrift">Overskrift her</slot>
+      <Text
+        size="label_2"
+        font="display"
+        weight="bold"
+        stylingclasses={topskriftClass}
+      >
+        {topskrift}
+      </Text>
+      <Heading
+        htmlheading="h6"
+        size="h6"
+        font="display"
+        weight="semibold"
+        stylingclasses={titleClass}
+      >
+        {title}
+      </Heading>
     </div>
   </div>
 
-  <slot name="indhold"> Tekst her</slot>
+  <Text
+    size="p2"
+    font="sans"
+    weight="regular"
+    stylingclasses={descriptionClass}
+  >
+    {description}
+  </Text>
 </article>

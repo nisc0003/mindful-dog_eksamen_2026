@@ -1,0 +1,47 @@
+---
+import LinkButton from "../Buttons__&_links/LinkButton.astro";
+import Heading from "../Heading.astro";
+
+interface Props {
+  name: string;
+  location: string;
+  image: { src: string };
+  href: string;
+  buttonLabel?: string;
+}
+
+const {
+  name,
+  location,
+  image,
+  href,
+  buttonLabel = "SE PROFIL",
+} = Astro.props as Props;
+---
+
+<div class="flex flex-col items-center gap-4 text-center">
+  <img
+    src={image.src}
+    alt={name}
+    class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
+  />
+
+  <Heading
+    htmlheading="h4"
+    size="h6"
+    font="sans"
+    stylingclasses="text-(--neutral-500)"
+  >
+    {name}<br /><span class="text-size-14 font-normal text-(--neutral-400)"
+      >{location}</span
+    >
+  </Heading>
+
+  <LinkButton
+    href={href}
+    size="sm"
+    color="main"
+    label={buttonLabel}
+    stylingclasses="w-full max-w-[120px]"
+  />
+</div>

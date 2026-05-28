@@ -9,10 +9,16 @@ type HeroImage = {
   height: number;
 };
 
+type LinkButtonSize = "sm" | "md" | "lg" | "xl";
+
 interface ButtonConfig {
   label: string;
   color: "main" | "primary" | "secondary" | "accent" | "neutral" | "outline";
   href: string;
+  size?: LinkButtonSize;
+  stylingclasses?: string;
+  target?: string;
+  rel?: string;
 }
 
 interface Props {
@@ -76,7 +82,15 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
       buttons.length > 0 && (
         <div class="mt-2 flex flex-wrap gap-3 md:mt-4 md:gap-4">
           {buttons.map((btn) => (
-            <LinkButton href={btn.href} color={btn.color} label={btn.label} />
+            <LinkButton
+              href={btn.href}
+              color={btn.color}
+              label={btn.label}
+              size={btn.size}
+              stylingclasses={btn.stylingclasses}
+              target={btn.target}
+              rel={btn.rel}
+            />
           ))}
         </div>
       )

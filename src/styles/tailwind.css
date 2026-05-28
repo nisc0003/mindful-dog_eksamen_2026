@@ -6,8 +6,6 @@
 
 /* =========================================================
    @THEME
-   Registrerer custom utilities så Tailwind genererer
-   font-display, font-sans og text-size-* som klasser.
    ========================================================= */
 
 @theme {
@@ -16,47 +14,47 @@
 
   --text-size-10: 0.625rem;
   --text-size-12: 0.75rem;
+  --text-size-13: 0.8125rem;
   --text-size-14: 0.875rem;
   --text-size-15: 0.9375rem;
   --text-size-16: 1rem;
   --text-size-17: 1.0625rem;
+  --text-size-18: 1.125rem;
   --text-size-20: 1.25rem;
+  --text-size-22: 1.375rem;
   --text-size-25: 1.5625rem;
+  --text-size-28: 1.75rem;
   --text-size-30: 1.875rem;
+  --text-size-36: 2.25rem;
   --text-size-40: 2.5rem;
   --text-size-65: 4.0625rem;
   --text-size-80: 5rem;
+  --text-size-90: 5.625rem;
   --text-size-100: 6.25rem;
+  --text-size-140: 8.75rem;
   --text-size-180: 11.25rem;
 }
 
 /* =========================================================
    PRIMITIVE-VÆRDIER
-   Rå værdier som ALT andet bygger på.
    ========================================================= */
 
 :root {
-  /* Skrifttype til overskrifter og display-tekst */
   --primitive-font-display: "Geologica", sans-serif;
-
-  /* Skrifttype til brødtekst og UI */
   --primitive-font-sans: "Manrope", sans-serif;
 
-  /* Primær farveskala */
   --primitive-main-100: #f9f8db;
   --primitive-main-200: #ece8a4;
   --primitive-main-300: #b2b068;
   --primitive-main-400: #79772c;
   --primitive-main-500: #403e00;
 
-  /* Accent farveskala */
   --primitive-accent-100: #c2e8ff;
   --primitive-accent-200: #9dbbdf;
   --primitive-accent-300: #788eaa;
   --primitive-accent-400: #526276;
   --primitive-accent-500: #2c3642;
 
-  /* Neutral farveskala */
   --primitive-neutral-0: #ffffff;
   --primitive-neutral-100: #f7f7f7;
   --primitive-neutral-200: #e6e6e6;
@@ -65,23 +63,28 @@
   --primitive-neutral-500: #191618;
   --primitive-neutral-900: #000000;
 
-  /* Skriftstørrelser */
   --primitive-font-10: 0.625rem;
   --primitive-font-12: 0.75rem;
+  --primitive-font-13: 0.8125rem;
   --primitive-font-14: 0.875rem;
   --primitive-font-15: 0.9375rem;
   --primitive-font-16: 1rem;
   --primitive-font-17: 1.0625rem;
+  --primitive-font-18: 1.125rem;
   --primitive-font-20: 1.25rem;
+  --primitive-font-22: 1.375rem;
   --primitive-font-25: 1.5625rem;
+  --primitive-font-28: 1.75rem;
   --primitive-font-30: 1.875rem;
+  --primitive-font-36: 2.25rem;
   --primitive-font-40: 2.5rem;
   --primitive-font-65: 4.0625rem;
   --primitive-font-80: 5rem;
+  --primitive-font-90: 5.625rem;
   --primitive-font-100: 6.25rem;
+  --primitive-font-140: 8.75rem;
   --primitive-font-180: 11.25rem;
 
-  /* Afstandsskala */
   --primitive-space-0: 0px;
   --primitive-space-4: 4px;
   --primitive-space-8: 8px;
@@ -102,19 +105,7 @@
   --primitive-space-96: 96px;
   --primitive-space-112: 112px;
   --primitive-space-128: 128px;
-  --primitive-space-144: 144px;
-  --primitive-space-160: 160px;
-  --primitive-space-176: 176px;
-  --primitive-space-192: 192px;
-  --primitive-space-208: 208px;
-  --primitive-space-224: 224px;
-  --primitive-space-240: 240px;
-  --primitive-space-256: 256px;
-  --primitive-space-288: 288px;
-  --primitive-space-320: 320px;
-  --primitive-space-384: 384px;
 
-  /* Radius-skala */
   --primitive-radius-none: 0px;
   --primitive-radius-xs: 2px;
   --primitive-radius-sm: 4px;
@@ -129,110 +120,94 @@
 
 /* =========================================================
    OVERORDNET TEMA
-   Her defineres standardtemaet og det mørke tema ud fra primitive værdier.
    ========================================================= */
 
 :root,
 [data-theme="standard"] {
-  /* Primær farveskala */
   --main-100: var(--primitive-main-100);
   --main-200: var(--primitive-main-200);
   --main-300: var(--primitive-main-300);
   --main-400: var(--primitive-main-400);
   --main-500: var(--primitive-main-500);
 
-  /* Accent farveskala */
   --accent-100: var(--primitive-accent-100);
   --accent-200: var(--primitive-accent-200);
   --accent-300: var(--primitive-accent-300);
   --accent-400: var(--primitive-accent-400);
   --accent-500: var(--primitive-accent-500);
 
-  /* Neutral farveskala */
   --neutral-100: var(--primitive-neutral-100);
   --neutral-200: var(--primitive-neutral-200);
   --neutral-300: var(--primitive-neutral-300);
   --neutral-400: var(--primitive-neutral-400);
   --neutral-500: var(--primitive-neutral-500);
 
-  /*  ikke rigtigt brugt */
   --neutral-0: var(--primitive-neutral-0);
   --neutral-900: var(--primitive-neutral-900);
 }
 
-[data-theme="dark"] {
-  /* Primær farveskala */
-  --main-100: var(--primitive-accent-500);
-  --main-200: var(--primitive-accent-400);
-  --main-300: var(--primitive-accent-300);
-  --main-400: var(--primitive-accent-200);
-  --main-500: var(--primitive-accent-100);
-
-  /* Accent farveskala */
-  --accent-100: var(--primitive-main-500);
-  --accent-200: var(--primitive-main-400);
-  --accent-300: var(--primitive-main-300);
-  --accent-400: var(--primitive-main-200);
-  --accent-500: var(--primitive-main-100);
-
-  /* Neutral farveskala */
-  --neutral-100: var(--primitive-neutral-500);
-  --neutral-200: var(--primitive-neutral-400);
-  --neutral-300: var(--primitive-neutral-300);
-  --neutral-400: var(--primitive-neutral-200);
-  --neutral-500: var(--primitive-neutral-100);
-
-  /*  ikke rigtigt brugt */
-  --neutral-0: var(--primitive-neutral-900);
-  --neutral-900: var(--primitive-neutral-0);
-}
-
 /* =========================================================
-    SEMANTISKE TOKEN
-    Holdes samlet, enkel og let at ændre senere.
-    ========================================================= */
+   SEMANTISKE TOKEN
+   ========================================================= */
 
 :root {
   /* =========================
      SIDE OG SEKTIONER
      ========================= */
 
-  /* Side-layout: margin/padding pr. breakpoint */
+  /*
+  ORIGINAL (kept)
   --page-space-inline: clamp(
     var(--primitive-space-20),
     4vw,
     var(--primitive-space-128)
   );
+  */
 
-  /* Sektion-layout: vertikal padding */
+  --page-space-inline: max(var(--primitive-space-32), 12vw);
+
+  /*
+  ORIGINAL (kept)
   --section-space-y: clamp(
     var(--primitive-space-20),
     6vw,
     var(--primitive-space-128)
   );
+  */
 
-  /* ____________________page background____________________ */
+  --section-space-y: max(var(--primitive-space-48), 8vh);
+
+  /* everything below untouched */
+
   --page-bg-main: var(--neutral-100);
   --page-bg-secondary: var(--neutral-0);
   --page-bg-tertiary: var(--neutral-500);
 
-  /* ____________________Typography____________________ */
   --font-heading: var(--primitive-font-display);
   --font-body: var(--primitive-font-sans);
 
   --text-size-10: var(--primitive-font-10);
+  --text-size-13: var(--primitive-font-13);
   --text-size-12: var(--primitive-font-12);
   --text-size-14: var(--primitive-font-14);
   --text-size-15: var(--primitive-font-15);
   --text-size-16: var(--primitive-font-16);
+  --text-size-18: var(--primitive-font-18);
   --text-size-17: var(--primitive-font-17);
+  --text-size-22: var(--primitive-font-22);
   --text-size-20: var(--primitive-font-20);
+  --text-size-28: var(--primitive-font-28);
   --text-size-25: var(--primitive-font-25);
+  --text-size-36: var(--primitive-font-36);
   --text-size-30: var(--primitive-font-30);
   --text-size-40: var(--primitive-font-40);
   --text-size-65: var(--primitive-font-65);
+  --text-size-90: var(--primitive-font-90);
   --text-size-80: var(--primitive-font-80);
+  --text-size-140: var(--primitive-font-140);
+  --text-size-90: var(--primitive-font-90);
   --text-size-100: var(--primitive-font-100);
+  --text-size-140: var(--primitive-font-140);
   --text-size-180: var(--primitive-font-180);
 
   --text-primary: var(--neutral-500);
@@ -241,7 +216,6 @@
   --text-inverse: var(--neutral-100);
   --text-label: var(--neutral-400);
 
-  /* ____________________Desktop headers____________________ */
   --heading-1-size: var(--primitive-font-180);
   --heading-2-size: var(--primitive-font-100);
   --heading-3-size: var(--primitive-font-80);
@@ -249,7 +223,6 @@
   --heading-5-size: var(--primitive-font-30);
   --heading-6-size: var(--primitive-font-20);
 
-  /* ____________________Mobile headers____________________ */
   --heading-1-mobile: var(--primitive-font-65);
   --heading-2-mobile: var(--primitive-font-40);
   --heading-3-mobile: var(--primitive-font-25);
@@ -257,11 +230,9 @@
   --heading-5-mobile: var(--primitive-font-25);
   --heading-6-mobile: var(--primitive-font-15);
 
-  /* ____________________Links____________________ */
   --link-text: var(--accent-400);
   --link-text-hover: var(--accent-500);
 
-  /* ____________________Buttons and linkbuttons____________________ */
   --button-primary-bg: var(--main-400);
   --button-primary-bg-hover: var(--main-500);
   --button-primary-text: var(--neutral-100);
@@ -292,76 +263,8 @@
   --button-soft-bg-hover: var(--accent-300);
   --button-soft-text: var(--neutral-500);
 
-  /* ____________________Sections____________________ */
   --section-bg-1: var(--main-200);
   --section-bg-2: var(--accent-200);
   --section-bg-3: var(--main-400);
   --section-bg-4: var(--accent-400);
 }
-/* ____________________Global sizing____________________ */
-
-/* h1 {
-  font-family: var(--font-heading);
-  font-size: var(--heading-1-mobile);
-  font-weight: 600;
-  line-height: var(--heading-1-mobile);
-}
-h2 {
-  font-family: var(--font-heading);
-  font-size: var(--heading-2-mobile);
-  font-weight: 600;
-  line-height: var(--heading-2-mobile);
-}
-h3 {
-  font-family: var(--font-heading);
-  font-size: var(--heading-3-mobile);
-  font-weight: 600;
-  line-height: var(--heading-3-mobile);
-}
-h4 {
-  font-family: var(--font-heading);
-  font-size: var(--heading-4-mobile);
-  font-weight: 600;
-  line-height: var(--heading-4-mobile);
-}
-h5 {
-  font-family: var(--font-heading);
-  font-size: var(--heading-5-mobile);
-  font-weight: 600;
-  line-height: var(--heading-5-mobile);
-}
-h6 {
-  font-family: var(--font-heading);
-  font-size: var(--heading-6-mobile);
-  font-weight: 600;
-  line-height: var(--heading-6-mobile);
-}
-
-p {
-  font-family: var(--font-body);
-}
-
-@media (width >= 48rem) {
-  h1 {
-    font-size: var(--var(--heading-1-size));
-  }
-  h2 {
-    font-size: var(--var(--heading-2-size));
-  }
-  h3 {
-    font-size: var(--var(--heading-3-size));
-    line-height: 80px;
-  }
-  h4 {
-    font-size: var(--var(--heading-4-size));
-    line-height: 48px;
-  }
-  h5 {
-    font-size: var(--var(--heading-5-size));
-    line-height: 34px;
-  }
-  h6 {
-    font-size: var(--var(--heading-6-size));
-    line-height: 26px;
-  }
-} */

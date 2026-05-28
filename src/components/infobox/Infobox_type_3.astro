@@ -1,16 +1,100 @@
 ---
 import Square from "./Green_square.astro";
+import Heading from "../Heading.astro";
+import Text from "../Text.astro";
+
+type PointItem = {
+  label: string;
+  text: string;
+};
+
+interface Props {
+  punkt?: string;
+  title?: string;
+  description?: string;
+  points?: PointItem[];
+  containerClass?: string;
+  headerClass?: string;
+  bodyClass?: string;
+  titleClass?: string;
+  descriptionClass?: string;
+  pointItemClass?: string;
+  pointLabelClass?: string;
+  pointTextClass?: string;
+}
+
+const {
+  punkt = "Punkt nummer her",
+  title = "Overskrift her",
+  description = "Tekst her",
+  points = [],
+  containerClass = "",
+  headerClass = "",
+  bodyClass = "",
+  titleClass = "",
+  descriptionClass = "",
+  pointItemClass = "",
+  pointLabelClass = "",
+  pointTextClass = "",
+} = Astro.props as Props;
 ---
 
 <article
-  class="rounded-md border border-(--main-400) bg-(--neutral-100) p-8 text-(--neutral-500)"
+  class:list={[
+    "rounded-md border border-(--neutral-200) bg-(--neutral-100) p-8 text-(--neutral-500)",
+    containerClass,
+  ]}
 >
-  <div class="mb-4 flex">
-    <Square><slot name="punkt" slot="punkt">Punkt nummer her</slot></Square>
+  <div class:list={["mb-4 flex", headerClass]}>
+    <Square punkt={punkt} />
     <div class="pl-4">
-      <slot name="overskrift">Overskrift her</slot>
+      <Heading
+        htmlheading="h5"
+        size="h5"
+        font="display"
+        weight="semibold"
+        stylingclasses={titleClass}
+      >
+        {title}
+      </Heading>
     </div>
   </div>
 
-  <slot name="indhold"> Tekst her</slot>
+  <div class:list={["flex flex-col gap-4", bodyClass]}>
+    <Text
+      size="p2"
+      font="sans"
+      weight="regular"
+      stylingclasses={descriptionClass}
+    >
+      {description}
+    </Text>
+
+    {
+      points.length > 0 && (
+        <div class="flex flex-col gap-4">
+          {points.map((point) => (
+            <div class:list={[pointItemClass]}>
+              <Text
+                size="label_1"
+                font="display"
+                weight="bold"
+                stylingclasses={pointLabelClass}
+              >
+                {point.label}
+              </Text>
+              <Text
+                size="p2"
+                font="sans"
+                weight="regular"
+                stylingclasses={pointTextClass}
+              >
+                {point.text}
+              </Text>
+            </div>
+          ))}
+        </div>
+      )
+    }
+  </div>
 </article>

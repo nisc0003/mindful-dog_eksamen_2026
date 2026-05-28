@@ -2,9 +2,11 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import Heading from "../components/Heading.astro";
 import Text from "../components/Text.astro";
-import Button from "../components/Buttons__&_links/Button.astro";
 import HeroMain from "../components/HeroMain.astro";
 import HeroSecond from "../components/HeroSecond.astro";
+import Infobox_3 from "../components/infobox/Infobox_type_3.astro";
+import Infobox_4 from "../components/infobox/Infobox_type_4.astro";
+import TeamMemberCard from "../components/cards/TeamMemberCard.astro";
 import HeroMainImage from "../assets/testimages/om_os_hero.png";
 import HeroSecondImage from "../assets/testimages/box.png";
 import alexandra from "../assets/testimages/alexandra.png";
@@ -14,6 +16,117 @@ import grace from "../assets/testimages/grace.png";
 import pia from "../assets/testimages/pia.png";
 import sabine from "../assets/testimages/sabine.png";
 import isabell from "../assets/testimages/isabell.png";
+
+const philosophyCards = [
+  {
+    square: "1",
+    eyebrow: "NØGLE #1",
+    title: "Overskrift",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.",
+  },
+  {
+    square: "2",
+    eyebrow: "NØGLE #2",
+    title: "Overskrift",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.",
+  },
+  {
+    square: "3",
+    eyebrow: "NØGLE #3",
+    title: "Overskrift",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.",
+  },
+  {
+    square: "4",
+    eyebrow: "NØGLE #4",
+    title: "Overskrift",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.",
+  },
+];
+
+const methodCards = [
+  {
+    square: "1.0",
+    title: "Hvem Har Glæde Af Vores Metode?",
+    description:
+      "Vi møder både dem der har prøvet alt - søgt på nettet, gået på hold, læst bøger - og dem der bare gerne vil gøre det rigtigt fra starten. Fælles for dem er en ting: De ved, at relationen med deres hund betyder noget. Mindful-Dog metoden er altså for dig der:",
+    points: [
+      {
+        label: "1.1",
+        text: "Er interesseret i en positiv tilgang til hundetræning, med hjælp og guidance fra vores Mindful-Dog træner.",
+      },
+      {
+        label: "1.2",
+        text: "Leder efter holdtræning, workshops eller ene undervisning med din hund. Vi tilbyder endda hjemmevurdering af hundens adfærd.",
+      },
+    ],
+  },
+  {
+    square: "2.0",
+    title: "Hvad Er Grundlaget For Mindful-Dog Metoden?",
+    description:
+      "Metoden er udviklet af vores stifter Grace Hidalgo, der har uddannelserne pædagog, terapeut, coach og hundeadfærdsinstruktør. Derfor bygger metoden på Grace Hidalgo’s egne erfaringer med både hunde og mennesker i træningsmomenter. Hun mente at der manglede en dimension i den hundetræning hun var uddannet i, og udviklede derfor Mindful-Dog metoden ud fra observationer som disse:",
+    points: [
+      {
+        label: "2.1",
+        text: "Hundens adfærd spejler i høj grad ejerens energi og tilstand. Ejerens indre verden påvirker hundens adfærd.",
+      },
+      {
+        label: "2.2",
+        text: "Positive indlæringsmetoder er med til at skabe en stressfri træning, og fremmer harmoni og en dyb relation mellem hund og ejer.",
+      },
+    ],
+  },
+  {
+    square: "3.0",
+    title: "Hvad Får Du Ud Af Mindful-Dog Metoden?",
+    description:
+      "Metoden er udviklet af vores stifter Grace Hidalgo, der har uddannelserne pædagog, terapeut, coach og hundeadfærdsinstruktør. Derfor bygger metoden på Grace Hidalgo’s egne erfaringer med både hunde og mennesker i træningsmomenter. Hun mente at der manglede en dimension i den hundetræning hun var uddannet i, og udviklede derfor Mindful-Dog metoden ud fra observationer som disse:",
+    points: [
+      {
+        label: "3.1",
+        text: "Hundens adfærd spejler i høj grad ejerens energi og tilstand. Ejerens indre verden påvirker hundens adfærd.",
+      },
+      {
+        label: "3.2",
+        text: "Positive indlæringsmetoder er med til at skabe en stressfri træning, og fremmer harmoni og en dyb relation mellem hund og ejer.",
+      },
+      {
+        label: "3.3",
+        text: "Med Mindful-Dog metoden får du en ægte forståelse og gensidig respekt med din hund, hvor du kan lære at træne helt uden ord.",
+      },
+    ],
+  },
+];
+
+const teamMembers = [
+  {
+    name: "Alexandra",
+    location: "Nordsjælland",
+    slug: "alexandra",
+    image: alexandra,
+  },
+  { name: "Eva", location: "København", slug: "eva", image: eva },
+  {
+    name: "Freja",
+    location: "Midtsjælland",
+    slug: "freja",
+    image: freja,
+  },
+  {
+    name: "Grace",
+    location: "Hovedkontor",
+    slug: "grace-hidalgo",
+    image: grace,
+  },
+  { name: "Pia", location: "Fyn", slug: "pia", image: pia },
+  { name: "Sabine", location: "Sydsjælland", slug: "sabine", image: sabine },
+  { name: "Isabell", location: "Vestjylland", slug: "isabell", image: isabell },
+];
 ---
 
 <MainLayout title="Mindful Dog Academy - Om Os">
@@ -22,7 +135,6 @@ import isabell from "../assets/testimages/isabell.png";
   ========================================================= -->
   <section class="pb-(--section-space-y) pl-(--page-space-inline)">
     <HeroMain
-      breadcrumbs="OM OS"
       titleHtml='Mindful Dog <br/><span class="text-(--accent-400)">Academy</span>'
       subtitle="Mød teamet bag din hunds nye yndlingssted og lær mere om vores positive værdigrundlag."
       imageSrc={HeroMainImage}
@@ -33,9 +145,7 @@ import isabell from "../assets/testimages/isabell.png";
   <!-- =========================================================
       FILOSOFI SEKTION
   ========================================================= -->
-  <section
-    class="bg-(--main-100) px-(--page-space-inline) py-(--section-space-y)"
-  >
+  <section class="px-(--page-space-inline) py-(--section-space-y)">
     <div class="max-w-3xl">
       <Text size="label_1" font="display" weight="semibold">FILOSOFI</Text>
       <Heading
@@ -45,44 +155,40 @@ import isabell from "../assets/testimages/isabell.png";
         stylingclasses="mb-6 md:mb-8">Mindful-Dog Academy's Filosofi</Heading
       >
       <div class="space-y-4">
-        <Text size="p1" font="sans" weight="regular"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-          odio.</Text
-        >
         <Text size="p2" font="sans" weight="regular"
-          >Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis
-          sem at nibh.</Text
+          >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo.</Text
         >
       </div>
     </div>
 
     <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-      <article
-        class="flex flex-col gap-4 rounded-md bg-(--main-200) p-6 shadow-sm"
-      >
-        <div class="h-10 w-10 rounded-sm bg-(--main-400)"></div>
-        <Heading htmlheading="h3" size="h5">Faglighed</Heading>
-        <Text size="p3" font="sans" weight="regular"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
-        >
-      </article>
-
-      <article
-        class="flex flex-col gap-4 rounded-md bg-(--main-200) p-6 shadow-sm"
-      >
-        <div class="h-10 w-10 rounded-sm bg-(--main-400)"></div>
-        <Heading htmlheading="h3" size="h5">Velfærd og tillid</Heading>
-        <Text size="p3" font="sans" weight="regular"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
-        >
-      </article>
+      {
+        philosophyCards.map((card) => (
+          <Infobox_4
+            punkt={card.square}
+            topskrift={card.eyebrow}
+            title={card.title}
+            description={card.description}
+            containerClass="shadow-sm"
+            titleClass="text-(--neutral-500)"
+            topskriftClass="text-(--neutral-500)"
+            descriptionClass="text-(--neutral-500)"
+          />
+        ))
+      }
     </div>
   </section>
 
   <!-- =========================================================
       MINDFUL-DOG METODEN SEKTION
   ========================================================= -->
-  <section id="metoden" class="px-(--page-space-inline) py-(--section-space-y)">
+  <section
+    id="metoden"
+    class="bg-(--main-100) px-(--page-space-inline) py-(--section-space-y)"
+  >
     <Text size="label_1" font="display" weight="semibold">METODEN I FOKUS</Text>
     <Heading
       htmlheading="h2"
@@ -95,43 +201,32 @@ import isabell from "../assets/testimages/isabell.png";
       tempor incididunt ut labore et dolore magna aliqua.</Text
     >
 
-    <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-      <article class="rounded-md bg-(--neutral-100) p-6 shadow-sm">
-        <div class="mb-4 flex items-center gap-4">
-          <div
-            class="text-size-20 flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-(--main-400) font-bold text-(--neutral-100)"
-          >
-            1
-          </div>
-          <Heading htmlheading="h3" size="h5" font="sans">Rolige Hunde</Heading>
-        </div>
-        <Text size="p3" font="sans" weight="regular"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
-        >
-      </article>
-
-      <article class="rounded-md bg-(--neutral-100) p-6 shadow-sm">
-        <div class="mb-4 flex items-center gap-4">
-          <div
-            class="text-size-20 flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-(--main-400) font-bold text-(--neutral-100)"
-          >
-            2
-          </div>
-          <Heading htmlheading="h3" size="h5" font="sans"
-            >Tryghed og kropssprog</Heading
-          >
-        </div>
-        <Text size="p3" font="sans" weight="regular"
-          >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
-        >
-      </article>
+    <div class="mt-10 grid gap-6">
+      {
+        methodCards.map((card) => (
+          <Infobox_3
+            punkt={card.square}
+            title={card.title}
+            description={card.description}
+            points={card.points}
+            containerClass="gap-6 lg:p-12"
+            headerClass="mb-2"
+            bodyClass="gap-6"
+            titleClass="text-(--neutral-500)"
+            descriptionClass="text-(--neutral-500)"
+            pointItemClass="flex flex-col gap-1"
+            pointLabelClass="text-(--neutral-500)"
+            pointTextClass="text-(--neutral-500)"
+          />
+        ))
+      }
     </div>
   </section>
 
   <!-- =========================================================
       TEAM SEKTION
   ========================================================= -->
-  <section id="teamet" class="px-(--page-space-inline)">
+  <section id="teamet" class="px-(--page-space-inline) py-(--section-space-y)">
     <Text size="label_1" font="display" weight="semibold">TEAMET</Text>
     <Heading
       htmlheading="h2"
@@ -149,176 +244,16 @@ import isabell from "../assets/testimages/isabell.png";
     >
 
     <div class="grid grid-cols-2 gap-8 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
-      <div class="flex flex-col items-center gap-4 text-center">
-        <img
-          src={alexandra.src}
-          alt="Alexandra"
-          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
-        />
-        <Heading
-          htmlheading="h4"
-          size="h6"
-          font="sans"
-          stylingclasses="text-(--neutral-500)"
-        >
-          Alexandra<br /><span
-            class="text-size-14 font-normal text-(--neutral-400)"
-            >Hundetræner</span
-          >
-        </Heading>
-        <Button
-          size="sm"
-          color="main"
-          label="SE PROFIL"
-          stylingclasses="w-full max-w-[120px]"
-        />
-      </div>
-
-      <div class="flex flex-col items-center gap-4 text-center">
-        <img
-          src={eva.src}
-          alt="Eva"
-          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
-        />
-        <Heading
-          htmlheading="h4"
-          size="h6"
-          font="sans"
-          stylingclasses="text-(--neutral-500)"
-        >
-          Eva<br /><span class="text-size-14 font-normal text-(--neutral-400)"
-            >Hundetræner</span
-          >
-        </Heading>
-        <Button
-          size="sm"
-          color="main"
-          label="SE PROFIL"
-          stylingclasses="w-full max-w-[120px]"
-        />
-      </div>
-
-      <div class="flex flex-col items-center gap-4 text-center">
-        <img
-          src={freja.src}
-          alt="Freja"
-          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
-        />
-        <Heading
-          htmlheading="h4"
-          size="h6"
-          font="sans"
-          stylingclasses="text-(--neutral-500)"
-        >
-          Freja<br /><span class="text-size-14 font-normal text-(--neutral-400)"
-            >Adfærdsrådgiver</span
-          >
-        </Heading>
-        <Button
-          size="sm"
-          color="main"
-          label="SE PROFIL"
-          stylingclasses="w-full max-w-[120px]"
-        />
-      </div>
-
-      <div class="flex flex-col items-center gap-4 text-center">
-        <img
-          src={grace.src}
-          alt="Grace"
-          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
-        />
-        <Heading
-          htmlheading="h4"
-          size="h6"
-          font="sans"
-          stylingclasses="text-(--neutral-500)"
-        >
-          Grace<br /><span class="text-size-14 font-normal text-(--neutral-400)"
-            >Stifter & Ejer</span
-          >
-        </Heading>
-        <Button
-          size="sm"
-          color="main"
-          label="SE PROFIL"
-          stylingclasses="w-full max-w-[120px]"
-        />
-      </div>
-
-      <div class="flex flex-col items-center gap-4 text-center">
-        <img
-          src={pia.src}
-          alt="Pia"
-          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
-        />
-        <Heading
-          htmlheading="h4"
-          size="h6"
-          font="sans"
-          stylingclasses="text-(--neutral-500)"
-        >
-          Pia<br /><span class="text-size-14 font-normal text-(--neutral-400)"
-            >Hundetræner</span
-          >
-        </Heading>
-        <Button
-          size="sm"
-          color="main"
-          label="SE PROFIL"
-          stylingclasses="w-full max-w-[120px]"
-        />
-      </div>
-
-      <div class="flex flex-col items-center gap-4 text-center">
-        <img
-          src={sabine.src}
-          alt="Sabine"
-          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
-        />
-        <Heading
-          htmlheading="h4"
-          size="h6"
-          font="sans"
-          stylingclasses="text-(--neutral-500)"
-        >
-          Sabine<br /><span
-            class="text-size-14 font-normal text-(--neutral-400)"
-            >Hundetræner</span
-          >
-        </Heading>
-        <Button
-          size="sm"
-          color="main"
-          label="SE PROFIL"
-          stylingclasses="w-full max-w-[120px]"
-        />
-      </div>
-
-      <div class="flex flex-col items-center gap-4 text-center">
-        <img
-          src={isabell.src}
-          alt="Isabell"
-          class="h-32 w-32 rounded-full bg-(--neutral-200) object-cover md:h-60 md:w-60"
-        />
-        <Heading
-          htmlheading="h4"
-          size="h6"
-          font="sans"
-          stylingclasses="text-(--neutral-500)"
-        >
-          Isabell<br /><span
-            class="text-size-14 font-normal text-(--neutral-400)"
-            >Hundetræner</span
-          >
-        </Heading>
-        <Button
-          size="sm"
-          color="main"
-          label="SE PROFIL"
-          stylingclasses="w-full max-w-[120px]"
-        />
-      </div>
+      {
+        teamMembers.map((member) => (
+          <TeamMemberCard
+            name={member.name}
+            location={member.location}
+            image={member.image}
+            href={`/Instruktoer_profil/${member.slug}`}
+          />
+        ))
+      }
     </div>
   </section>
 

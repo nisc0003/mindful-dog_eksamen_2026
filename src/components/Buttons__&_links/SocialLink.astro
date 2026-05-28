@@ -9,7 +9,7 @@ type SocialIcon = {
   height: number;
 };
 
-type SocialLinkSize = "sm" | "md" | "lg";
+type SocialLinkSize = "sm" | "md" | "lg" | "xl";
 
 interface Props {
   size?: SocialLinkSize;
@@ -29,6 +29,7 @@ const sizeClasses = {
   sm: "w-12 h-12",
   md: "w-16 h-16",
   lg: "w-20 h-20",
+  xl: "w-auto h-fill",
 };
 
 const imgSrc = typeof iconSrc === "string" ? iconSrc : iconSrc.src;
