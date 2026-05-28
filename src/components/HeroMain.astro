@@ -11,7 +11,8 @@ interface ButtonConfig {
 
 interface Props {
   breadcrumbs?: string;
-  titleHtml: string; // Supports HTML for text color variations and breaks (e.g. <span class="text-(--main-400)">...)
+  // Titel må gerne indeholde HTML til linjeskift og farvede ord.
+  titleHtml: string;
   subtitle?: string;
   imageSrc: string;
   imageAlt?: string;
@@ -29,21 +30,23 @@ const {
 ---
 
 <section
-  class="relative w-full overflow-hidden bg-(--neutral-100) px-[var(--page-space-inline)] pt-[var(--section-space-y)]"
+  class="relative w-full overflow-hidden bg-(--neutral-100) py-(--section-space-y)"
 >
   <div
-    class="relative z-10 mx-auto flex min-h-[500px] max-w-[1440px] flex-col md:min-h-[600px] md:flex-row"
+    class="relative z-10 flex w-full flex-col md:min-h-[clamp(31rem,70vw,42rem)] md:flex-row"
   >
-    {/* Content Side */}
+    {
+      /* Mobil først: tekst og billede ligger i normal flow, så intet bliver skåret af. */
+    }
     <div
-      class="z-20 flex w-full flex-col pb-[250px] sm:pb-[300px] md:w-3/5 md:pb-[var(--section-space-y)]"
+      class="z-20 flex w-full min-w-0 flex-col gap-[clamp(0.875rem,2vw,1.5rem)] px-[clamp(1rem,4vw,4rem)] pt-[clamp(1rem,2vw,2rem)] pb-[clamp(1rem,4vw,2.5rem)] md:w-[58%] md:px-[clamp(1.5rem,4vw,5rem)] md:pt-[clamp(2rem,4vw,4rem)] md:pb-(--section-space-y)"
     >
       {
         breadcrumbs && (
           <Text
             size="label_2"
             weight="semibold"
-            stylingclasses="text-(--neutral-400) tracking-widest mb-6 uppercase"
+            stylingclasses="text-(--neutral-400) tracking-widest uppercase"
           >
             {breadcrumbs}
           </Text>
@@ -55,7 +58,7 @@ const {
         size="h1"
         font="display"
         weight="bold"
-        stylingclasses="leading-[0.9] text-(--neutral-500) mb-6"
+        stylingclasses="max-w-none break-words leading-[0.9] text-(--neutral-500)"
       >
         <span set:html={titleHtml} />
       </Heading>
@@ -65,7 +68,7 @@ const {
           <Text
             size="p1"
             weight="regular"
-            stylingclasses="text-(--neutral-500) mb-8 max-w-md"
+            stylingclasses="text-(--neutral-500)"
           >
             {subtitle}
           </Text>
@@ -74,7 +77,7 @@ const {
 
       {
         buttons.length > 0 && (
-          <div class="mt-auto flex flex-wrap gap-3 md:gap-4">
+          <div class="flex flex-wrap gap-3 pt-2 md:gap-4">
             {buttons.map((btn) => (
               <LinkButton href={btn.href} color={btn.color} label={btn.label} />
             ))}
@@ -83,14 +86,16 @@ const {
       }
     </div>
 
-    {/* Cutout Image Side (Positioned Bottom Right) */}
+    {
+      /* Billedet ligger i flow på mobil og bliver først fastholdt i hjørnet fra md og op. */
+    }
     <div
-      class="pointer-events-none absolute right-[-10%] bottom-0 z-10 flex h-full w-[85%] items-end justify-end sm:w-[60%] md:right-0 md:w-[50%] lg:w-[45%]"
+      class="pointer-events-none relative z-10 mt-[clamp(1rem,4vw,2rem)] flex w-full justify-end overflow-hidden px-[clamp(1rem,4vw,4rem)] md:absolute md:right-0 md:bottom-0 md:mt-0 md:h-full md:w-[42%] md:px-0 lg:w-[38%]"
     >
       <img
         src={imageSrc}
         alt={imageAlt}
-        class="h-auto max-h-[110%] w-full translate-y-4 object-contain object-right-bottom md:translate-y-8 lg:translate-x-12"
+        class="h-auto max-h-[clamp(20rem,70vw,32rem)] w-full max-w-[32rem] object-contain object-bottom-right md:max-h-[clamp(28rem,36vw,40rem)] md:max-w-none md:translate-y-[clamp(1rem,2vw,2rem)] lg:translate-x-[clamp(1rem,3vw,3rem)]"
       />
     </div>
   </div>

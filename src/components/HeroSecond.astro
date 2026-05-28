@@ -12,7 +12,8 @@ interface ButtonConfig {
 interface Props {
   imageSrc: string;
   imageAlt?: string;
-  imagePosition?: "left" | "right"; // Defaults to left on desktop. Mobile is always image-top.
+  // På mobil ligger billedet altid øverst. På større skærme kan billedet skiftes til højre.
+  imagePosition?: "left" | "right";
   hasVideo?: boolean;
   topLabel?: string;
   title: string;
@@ -34,26 +35,28 @@ const {
 } = Astro.props as Props;
 ---
 
-<section
-  class="w-full px-[var(--page-space-inline)] py-[var(--section-space-y)]"
->
+<section class="w-full py-(--section-space-y)">
   <div
-    class={`max-w-[1440px] mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-16 lg:gap-24 ${
+    class={`flex w-full flex-col items-start gap-[clamp(2rem,4vw,5rem)] md:flex-row md:items-center ${
       imagePosition === "right" ? "md:flex-row-reverse" : ""
     }`}
   >
-    {/* Image / Video Container */}
-    <div class="relative w-full md:w-1/2">
+    {
+      /* Billedet får en responsiv bredde, så det ikke hopper hårdt mellem mobile og desktop. */
+    }
+    <div
+      class="relative w-full min-w-0 overflow-hidden rounded-md md:w-1/2 md:shrink-0"
+    >
       <img
         src={imageSrc}
         alt={imageAlt}
-        class="aspect-[4/3] h-auto w-full rounded-md object-cover shadow-sm md:aspect-square lg:aspect-[4/3]"
+        class="aspect-4/3 h-auto w-full rounded-md object-cover shadow-sm sm:aspect-5/4 md:aspect-square lg:aspect-5/4"
       />
       {
         hasVideo && (
           <button
             aria-label="Afspil video"
-            class="absolute inset-0 m-auto flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-(--main-400)/90 text-(--neutral-100) transition-transform hover:scale-105 hover:bg-(--main-500) md:h-20 md:w-20"
+            class="absolute inset-0 m-auto flex h-[clamp(3.5rem,6vw,5rem)] w-[clamp(3.5rem,6vw,5rem)] cursor-pointer items-center justify-center rounded-full bg-(--main-400)/90 text-(--neutral-100) transition-transform hover:scale-105 hover:bg-(--main-500)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +64,7 @@ const {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="ml-1 h-8 w-8 md:h-10 md:w-10"
+              class="ml-1 h-[clamp(1.5rem,2.5vw,2.5rem)] w-[clamp(1.5rem,2.5vw,2.5rem)]"
             >
               <path
                 stroke-linecap="round"
@@ -74,14 +77,18 @@ const {
       }
     </div>
 
-    {/* Content Container */}
-    <div class="flex w-full flex-col items-start md:w-1/2">
+    {
+      /* Indholdet får lov at vokse frit, så layoutet holder sig roligt ved alle mellemstørrelser. */
+    }
+    <div
+      class="flex w-full min-w-0 flex-col items-start gap-[clamp(0.875rem,1.8vw,1.25rem)] px-[clamp(1rem,4vw,4rem)] pt-[clamp(1rem,2vw,2rem)] md:w-1/2 md:px-[clamp(1.5rem,4vw,5rem)] md:pt-[clamp(2rem,4vw,4rem)]"
+    >
       {
         topLabel && (
           <Text
             size="label_1"
             weight="semibold"
-            stylingclasses="text-(--neutral-400) mb-2"
+            stylingclasses="text-(--neutral-400) tracking-wider"
           >
             {topLabel}
           </Text>
@@ -93,16 +100,16 @@ const {
         size="h2"
         font="display"
         weight="bold"
-        stylingclasses="text-(--neutral-500) mb-4"
+        stylingclasses="max-w-none break-words text-(--neutral-500)"
       >
         {title}
       </Heading>
 
       {
         tags.length > 0 && (
-          <div class="mb-6 flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-2 sm:gap-3">
             {tags.map((tag) => (
-              <span class="text-size-12 rounded-sm bg-(--main-400) px-3 py-1 font-semibold tracking-wider text-(--neutral-100) uppercase">
+              <span class="text-size-10 sm:text-size-12 md:text-size-14 rounded-sm bg-(--main-400) px-3 py-1 font-semibold tracking-wider text-(--neutral-100) uppercase">
                 {tag}
               </span>
             ))}
@@ -112,10 +119,7 @@ const {
 
       {
         description && (
-          <Text
-            size="p2"
-            stylingclasses="text-(--neutral-500) mb-8 max-w-[600px]"
-          >
+          <Text size="p2" stylingclasses="text-(--neutral-500)">
             {description}
           </Text>
         )
@@ -123,7 +127,7 @@ const {
 
       {
         buttons.length > 0 && (
-          <div class="mt-auto flex flex-wrap gap-3 md:gap-4">
+          <div class="flex flex-wrap gap-3 pt-2 md:gap-4">
             {buttons.map((btn) => (
               <LinkButton href={btn.href} color={btn.color} label={btn.label} />
             ))}
