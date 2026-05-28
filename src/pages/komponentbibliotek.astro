@@ -18,6 +18,12 @@ import ReadMore from "../components/Buttons__&_links/ReadMore.astro";
 import Breadcrumb from "../components/Buttons__&_links/Breadcrumb.astro";
 import Hero_1 from "../components/HeroMain.astro";
 import Hero_2 from "../components/HeroSecond.astro";
+import HeroImageA from "../assets/img/EKSAMEN_EDIT-1270228.webp";
+import HeroImageB from "../assets/img/EKSAMEN_EDIT-1280216.webp";
+import HeroImageC from "../assets/img/EKSAMEN_EDIT-1280172.webp";
+import FacebookIcon from "../assets/icon/Facebook_Logo_Dark.svg";
+import InstagramIcon from "../assets/icon/Instagram_Glyph_Dark.svg";
+import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
 
 const dropdownOptions = ["Hvalp", "Voksen", "Tricks"];
 
@@ -44,16 +50,16 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
 <MainLayout title="Komponentbibliotek — knapper og links">
   <div class="m-4 space-y-24 py-8 text-(--neutral-500)">
     <!-- =========================================================
-     0. TYPOGRAFI
-========================================================= -->
+         0. TYPOGRAFI
+    ========================================================= -->
     <section class="my-4 space-y-8 bg-white p-6">
       <Heading htmlheading="h2" size="h4" font="display" weight="bold">
         Overskrifter
       </Heading>
 
       <!-- =========================================================
-       OVERSKRIFTSSTØRRELSER
-  ========================================================= -->
+           OVERSKRIFTSSTØRRELSER
+      ========================================================= -->
       <div class="grid gap-4">
         <article class="rounded-lg border border-(--neutral-200) p-4">
           <Text size="label_1" font="display" weight="semibold">h1</Text>
@@ -99,8 +105,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
       </div>
 
       <!-- =========================================================
-       HEADING FONTS
-  ========================================================= -->
+         HEADING FONTS
+       ========================================================= -->
       <div class="grid gap-4 md:grid-cols-2">
         <article class="rounded-lg border border-(--neutral-200) p-4">
           <Text size="label_1" font="display" weight="semibold">
@@ -119,8 +125,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
         </article>
 
         <!-- =========================================================
-         HEADING VÆGTE
-    ========================================================= -->
+             HEADING VÆGTE
+           ========================================================= -->
         <article class="rounded-lg border border-(--neutral-200) p-4">
           <Text size="label_1" font="display" weight="semibold"> Vægt </Text>
 
@@ -141,8 +147,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
       </div>
 
       <!-- =========================================================
-       PARAGRAPH TEXT
-  ========================================================= -->
+         PARAGRAPH TEXT
+       ========================================================= -->
       <div class="grid gap-4">
         <article class="rounded-lg border border-(--neutral-200) p-4">
           <Text size="label_1" font="display" weight="semibold">
@@ -173,8 +179,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
         </article>
 
         <!-- =========================================================
-         LABEL TEXT (SEPARAT SEKTION)
-    ========================================================= -->
+             LABEL TEXT (SEPARAT SEKTION)
+           ========================================================= -->
         <div class="grid gap-4 md:grid-cols-2">
           <article class="rounded-lg border border-(--neutral-200) p-4">
             <Text size="label_1" font="display" weight="semibold">
@@ -196,8 +202,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
     </section>
 
     <!-- =========================================================
-         1. SØGEKNAPPER
-    ========================================================= -->
+          1. SØGEKNAPPER
+        ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
       <Heading htmlheading="h2" size="h4" font="display" weight="bold"
         >Søgeknapper</Heading
@@ -210,8 +216,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
     </section>
 
     <!-- =========================================================
-         2. DROPDOWN-KNAPPER
-    ========================================================= -->
+          2. DROPDOWN-KNAPPER
+        ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
       <Heading htmlheading="h2" size="h4" font="display" weight="bold"
         >Dropdown buttons</Heading
@@ -252,8 +258,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
     </section>
 
     <!-- =========================================================
-     3. LOKATIONS-KNAPPER
-========================================================= -->
+          3. LOKATIONS-KNAPPER
+        ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
       <Heading htmlheading="h2" size="h4" font="display" weight="bold"
         >Lokations-knapper</Heading
@@ -314,8 +320,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
       </div>
     </section>
     <!-- =========================================================
-         4. STANDARD-KNAPPER
-    ========================================================= -->
+          4. STANDARD-KNAPPER
+        ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
       <Heading htmlheading="h2" size="h4" font="display" weight="bold"
         >Standard-knapper</Heading
@@ -356,8 +362,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
     </section>
 
     <!-- =========================================================
-         5. LINK-KNAPPER
-    ========================================================= -->
+          5. LINK-KNAPPER
+        ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
       <Heading htmlheading="h2" size="h4" font="display" weight="bold"
         >Link-knapper</Heading
@@ -395,8 +401,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
     </section>
 
     <!-- =========================================================
-         6. STANDARD-LINKS
-    ========================================================= -->
+          6. STANDARD-LINKS
+        ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
       <Heading htmlheading="h2" size="h4" font="display" weight="bold"
         >Standard links</Heading
@@ -414,34 +420,79 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
     </section>
 
     <!-- =========================================================
-         7. SOCIALE LINKS
-    ========================================================= -->
+          7. SOCIALE LINKS
+        ========================================================= -->
     <section class="my-4 space-y-6 bg-white p-6">
       <Heading htmlheading="h2" size="h4" font="display" weight="bold"
         >Sociale links</Heading
       >
 
       <div class="grid grid-cols-3 gap-4">
-        <SocialLink size="sm" network="facebook" href="#" />
-        <SocialLink size="sm" network="x" href="#" />
-        <SocialLink size="sm" network="instagram" href="#" />
+        <SocialLink
+          href="https://www.facebook.com/"
+          size="sm"
+          iconSrc={FacebookIcon}
+          iconAlt="Facebook"
+        />
+        <SocialLink
+          href="https://www.instagram.com/"
+          size="sm"
+          iconSrc={InstagramIcon}
+          iconAlt="Instagram"
+        />
+        <SocialLink
+          href="https://www.linkedin.com/company/mindful-dog"
+          size="sm"
+          iconSrc={LinkedInIcon}
+          iconAlt="LinkedIn"
+        />
       </div>
 
       <div class="grid grid-cols-3 gap-4">
-        <SocialLink size="md" network="facebook" href="#" />
-        <SocialLink size="md" network="x" href="#" />
-        <SocialLink size="md" network="instagram" href="#" />
+        <SocialLink
+          href="https://www.facebook.com/"
+          size="md"
+          iconSrc={FacebookIcon}
+          iconAlt="Facebook"
+        />
+        <SocialLink
+          href="https://www.instagram.com/"
+          size="md"
+          iconSrc={InstagramIcon}
+          iconAlt="Instagram"
+        />
+        <SocialLink
+          href="https://www.linkedin.com/company/mindful-dog"
+          size="md"
+          iconSrc={LinkedInIcon}
+          iconAlt="LinkedIn"
+        />
       </div>
 
       <div class="grid grid-cols-3 gap-4">
-        <SocialLink size="lg" network="facebook" href="#" />
-        <SocialLink size="lg" network="x" href="#" />
-        <SocialLink size="lg" network="instagram" href="#" />
+        <SocialLink
+          href="https://www.facebook.com/"
+          size="lg"
+          iconSrc={FacebookIcon}
+          iconAlt="Facebook"
+        />
+        <SocialLink
+          href="https://www.instagram.com/"
+          size="lg"
+          iconSrc={InstagramIcon}
+          iconAlt="Instagram"
+        />
+        <SocialLink
+          href="https://www.linkedin.com/company/mindful-dog"
+          size="lg"
+          iconSrc={LinkedInIcon}
+          iconAlt="LinkedIn"
+        />
       </div>
 
       <!-- =========================================================
          8. LÆS MERE
-    ========================================================= -->
+       ========================================================= -->
       <section class="my-4 space-y-6 bg-white p-6">
         <Heading htmlheading="h2" size="h4" font="display" weight="bold"
           >Læs mere link</Heading
@@ -453,7 +504,7 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
       </section>
       <!-- =========================================================
          9. BRØDKRUMME
-    ========================================================= -->
+       ========================================================= -->
       <section class="my-4 space-y-6 bg-white p-6">
         <Heading htmlheading="h2" size="h4" font="display" weight="bold"
           >Brødkrumme</Heading
@@ -462,8 +513,8 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
         <Breadcrumb trail={breadcrumbTrail} />
       </section>
       <!-- =========================================================
-           10. HERO-SEKTIONER
-      ========================================================= -->
+         10. HERO-SEKTIONER
+       ========================================================= -->
 
       <section class="my-4 space-y-12 rounded-lg bg-(--neutral-200) p-6">
         <Heading htmlheading="h2" size="h3" font="display" weight="bold">
@@ -493,7 +544,7 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
           <Hero_1
             titleHtml='<span class="text-(--main-400)">Mindful<br/>Dog<br/>Academy</span>'
             subtitle="Ro, mental balance og ægte forståelse mellem dig og din firbenede ven."
-            imageSrc="https://placehold.co/600x400"
+            imageSrc={HeroImageA}
             buttons={[
               { label: "SE VORES HOLD", color: "secondary", href: "#" },
             ]}
@@ -511,7 +562,7 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
             breadcrumbs="FORSIDE / OM OS"
             titleHtml='Vi træner hunden med <span class="text-(--accent-400)">Hjertet</span>'
             subtitle="Mød teamet bag din hunds nye yndlingssted og lær mere om vores positive værdigrundlag."
-            imageSrc="https://placehold.co/600x400"
+            imageSrc={HeroImageB}
             buttons={[
               { label: "MØD TEAMET", color: "main", href: "#" },
               { label: "LÆS VORES METODER", color: "outline", href: "#" },
@@ -529,7 +580,7 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
           <Hero_1
             titleHtml='Gør en <span class="text-(--main-400)">Forskel</span> i dag'
             subtitle="Tilmeld dig vores nyhedsbrev og få adgang til gratis ugentlige træningstips direkte i din indbakke."
-            imageSrc="https://placehold.co/600x400"
+            imageSrc={HeroImageC}
             buttons={[
               { label: "TILMELD NYHEDSBREV", color: "neutral", href: "#" },
             ]}
@@ -556,7 +607,7 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
             >Hero 2 - Type 1: Profil (Sabine Vejle)</Text
           >
           <Hero_2
-            imageSrc="https://placehold.co/800x800"
+            imageSrc={HeroImageA}
             imagePosition="left"
             topLabel="PROFIL"
             title="Sabine Vejle"
@@ -582,7 +633,7 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
             >Hero 2 - Type 2: Hold m/ Video Overlay</Text
           >
           <Hero_2
-            imageSrc="https://placehold.co/600x400"
+            imageSrc={HeroImageB}
             hasVideo={true}
             topLabel="HVALPE HOLD"
             title="Hvalpe Hold — Start den rigtige vej"
@@ -600,7 +651,7 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
             >Hero 2 - Type 3: Spejlet Layout (Højre-stillet billede)</Text
           >
           <Hero_2
-            imageSrc="https://placehold.co/600x400"
+            imageSrc={HeroImageC}
             imagePosition="right"
             topLabel="Uddannelse"
             title="Bliv Professionel Instruktør"
@@ -615,7 +666,7 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
             >Hero 2 - Type 4: Minimalistisk uden beskrivelse</Text
           >
           <Hero_2
-            imageSrc="https://placehold.co/600x400"
+            imageSrc={HeroImageA}
             topLabel="KONTAKT"
             title="Har du brug for hjælp til din hund?"
             tags={["Akut hjælp", "Enetimer"]}
@@ -629,7 +680,7 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
             >Hero 2 - Type 5: Enkel Service Hero</Text
           >
           <Hero_2
-            imageSrc="https://placehold.co/600x400"
+            imageSrc={HeroImageB}
             title="Adfærdsrådgivning på ejerens præmisser"
             description="Når hverdagen spænder ben, og din hund udviser uønsket adfærd, står vi klar med skræddersyede planer der virker uden brug af straf."
             buttons={[

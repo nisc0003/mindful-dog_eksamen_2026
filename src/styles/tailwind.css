@@ -201,7 +201,7 @@
   --page-space-inline: clamp(
     var(--primitive-space-20),
     4vw,
-    var(--primitive-space-128)
+    var(--primitive-space-40)
   );
 
   /* Sektion-layout: vertikal padding */
