@@ -1,5 +1,5 @@
 ---
-import Logo from "../assets/icon/snudeLogo.webp";
+import Logo from "../assets/icon/logoHund.svg";
 import InstaLogo from "../assets/icon/Instagram_Glyph_Green.svg";
 import FBLogo from "../assets/icon/Facebook_Logo_Green.svg";
 import LinkedInLogo from "../assets/icon/In-Bug_Green.svg";
@@ -44,7 +44,7 @@ import { Image } from "astro:assets";
     class="grid grid-cols-4 place-items-center gap-4 md:col-span-3 [&_span]:my-auto [&_span]:h-0.5 [&_span]:w-full [&_span]:bg-(--main-200) md:[&_span]:h-1"
   >
     <span class="col-span-2"></span>
-    <Image src={Logo} alt="Logo" class="h-auto w-4/5" />
+    <Logo class="h-4/5 w-4/5" />
     <span class="col-span-1"></span>
   </div>
 
@@ -73,7 +73,7 @@ import { Image } from "astro:assets";
       </a>
     </div>
     <a
-      href="/Nyhedsbrev"
+      href="/nyhedsbrev"
       class="h-fit w-[66vw] rounded-lg bg-(--main-200) px-6 py-2 text-center font-extrabold text-(--main-400) transition-colors duration-150 hover:bg-(--main-500) md:order-1 md:col-start-1 md:w-[33vw] md:text-[2cqw]"
       >TILMELD NYHEDSBREV</a
     >

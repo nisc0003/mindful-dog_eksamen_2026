@@ -14,11 +14,17 @@ import CrossI from "../assets/icon/cross_inverse.svg";
 import Medal from "../assets/icon/medal.svg";
 import Tid from "../assets/icon/tid.svg";
 import Lokation from "../assets/icon/lokation.svg";
+import Text from "../components/Text.astro";
 ---
 
 <MainLayout title="Infoboks">
   <section class="mx-auto w-[95cqw]">
-    <h1>Infoboks sandbox</h1>
+   <Heading
+          htmlheading="h1"
+          size="h1"
+          font="display"
+          weight="bold">Infobox Sandbox</Heading>
+
     <div class="flex flex-wrap gap-4">
       <!-- Infobox 1 -->
       <Infobox_1>
@@ -28,13 +34,14 @@ import Lokation from "../assets/icon/lokation.svg";
           htmlheading="h3"
           size="h3"
           font="display"
-          weight="semibold">Overskrift</Heading
+          weight="semibold"
+          stylingclasses="!text-size-30">Overskrift</Heading
         >
       </Infobox_1>
 
       <!-- Infobox 2 -->
       <Infobox_2>
-        <p slot="punkt">0.0</p>
+        <Text slot="punkt">0.0</Text>
         <Heading
           slot="overskrift"
           htmlheading="h6"
@@ -42,12 +49,12 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="indhold">Tekst er her</p></Infobox_2
+        <Text slot="indhold" size="p3">Tekst er her</Text></Infobox_2
       >
 
       <!-- Infobox 3 -->
       <Infobox_3>
-        <p slot="punkt">1.0</p>
+        <Text slot="punkt">1.0</Text>
         <Heading
           slot="overskrift"
           htmlheading="h6"
@@ -55,15 +62,15 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="indhold">Tekst er her</p></Infobox_3
+        <Text slot="indhold" size="p3">Tekst er her</Text></Infobox_3
       >
 
       <!-- Infobox 4 -->
       <Infobox_4
-        ><p slot="punkt"></p>
-        <p slot="topskrift" class="text-size-10 font-semibold tracking-widest">
+        ><Text slot="punkt"></Text>
+        <Text slot="topskrift" size="label_2" weight="semibold" stylingclasses="tracking-widest">
           Topskrift her
-        </p>
+        </Text>
         <Heading
           slot="overskrift"
           htmlheading="h6"
@@ -71,7 +78,7 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="indhold">Tekst er her</p></Infobox_4
+        <Text slot="indhold">Tekst er her</Text></Infobox_4
       >
 
       <!-- Infobox 5 -->
@@ -86,10 +93,10 @@ import Lokation from "../assets/icon/lokation.svg";
         >
         <ul
           slot="liste"
-          class="[&_li]:text-size-10 md:[&_li]:text-size-15 [&_li]:my-2 [&_li]:flex [&_li]:gap-4 [&_li]:font-sans"
+          class="[&_li]:my-2 [&_li]:flex [&_li]:gap-4"
         >
-          <li><CrossI class="size-6" /> Liste punkt her</li>
-          <li><CrossI class="size-6" />Andet slags listepunkt her</li>
+          <li><CrossI class="size-6" /><Text stylingclasses="!text-size-10 !md:text-size-15"> Liste punkt her</Text></li>
+          <li><CrossI class="size-6" /><Text stylingclasses="!text-size-10 !md:text-size-15"> Andet liste punkt her</Text></li>
         </ul>
       </Infobox_5>
 
@@ -104,19 +111,19 @@ import Lokation from "../assets/icon/lokation.svg";
         >
         <ul
           slot="liste"
-          class="[&_li]:text-size-10 md:[&_li]:text-size-15 [&_li]:my-2 [&_li]:flex [&_li]:gap-4 [&_li]:font-sans"
+          class="[&_li]:my-2 [&_li]:flex [&_li]:gap-4 [&_li]:font-sans"
         >
-          <li><CheckI class="size-6" /> Liste punkt her</li>
-          <li><CheckI class="size-6" />Andet slags listepunkt her</li>
+          <li><CheckI class="size-6" /> <Text stylingclasses="!text-size-10 !md:text-size-15"> Liste punkt her</Text></li>
+          <li><CheckI class="size-6" /><Text stylingclasses="!text-size-10 !md:text-size-15"> Andet liste punkt her</Text></li>
         </ul>
       </Infobox_5>
 
       <!-- Infobox 6 -->
       <Infobox_6
         ><Medal slot="punkt" />
-        <p slot="topskrift" class="text-size-10 font-semibold tracking-widest">
+        <Text slot="topskrift" size="label_2" weight="semibold" stylingclasses="tracking-widest">
           Topskrift her
-        </p>
+        </Text>
         <Heading
           slot="overskrift_1"
           htmlheading="h5"
@@ -124,7 +131,7 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="info_1">Info 1</p>
+        <Text slot="info_1" size="p3">Info 1</Text>
         <Heading
           slot="overskrift_2"
           htmlheading="h5"
@@ -132,7 +139,7 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="info_2">Info 2</p>
+        <Text slot="info_2" size="p3">Info 2</Text>
         <Heading
           slot="overskrift_3"
           htmlheading="h5"
@@ -140,13 +147,13 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="info_3">Info 3</p></Infobox_6
+        <Text slot="info_3" size="p3">Info 3</Text></Infobox_6
       >
       <Infobox_6
         ><Lokation slot="punkt" />
-        <p slot="topskrift" class="text-size-10 font-semibold tracking-widest">
+        <Text slot="topskrift" size="label_2" weight="semibold" stylingclasses="tracking-widest">
           Topskrift her
-        </p>
+        </Text>
         <Heading
           slot="overskrift_1"
           htmlheading="h5"
@@ -154,7 +161,7 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="info_1">Info 1</p>
+        <Text slot="info_1" size="p3">Info 1</Text>
         <Heading
           slot="overskrift_2"
           htmlheading="h5"
@@ -162,7 +169,7 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="info_2">Info 2</p>
+        <Text slot="info_2" size="p3">Info 2</Text>
         <Heading
           slot="overskrift_3"
           htmlheading="h5"
@@ -170,13 +177,13 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="info_3">Info 3</p></Infobox_6
+        <Text slot="info_3" size="p3">Info 3</Text></Infobox_6
       >
       <Infobox_6
         ><Tid slot="punkt" />
-        <p slot="topskrift" class="text-size-10 font-semibold tracking-widest">
+        <Text slot="topskrift" size="label_2" stylingclasses="tracking-widest">
           Topskrift her
-        </p>
+        </Text>
         <Heading
           slot="overskrift_1"
           htmlheading="h5"
@@ -184,7 +191,7 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="info_1">Info 1</p>
+        <Text slot="info_1" size="p3">Info 1</Text>
         <Heading
           slot="overskrift_2"
           htmlheading="h5"
@@ -192,7 +199,7 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="info_2">Info 2</p>
+        <Text slot="info_2" size="p3">Info 2</Text>
         <Heading
           slot="overskrift_3"
           htmlheading="h5"
@@ -200,7 +207,7 @@ import Lokation from "../assets/icon/lokation.svg";
           font="display"
           weight="semibold">Overskrift</Heading
         >
-        <p slot="info_3">Info 3</p></Infobox_6
+        <Text slot="info_3" size="p3">Info 3</Text></Infobox_6
       >
     </div>
   </section>
