@@ -1,0 +1,25 @@
+---
+import Heading from "./Heading.astro";
+import Text from "./Text.astro";
+import Button from "./Buttons__&_links/Button.astro";
+import Gave from "../assets/icon/gavekort.svg";
+---
+
+<article class="mx-auto my-16 rounded-md bg-(--neutral-100)">
+  <Text size="label_2" weight="semibold" stylingclasses="tracking-widest"
+    >GAVEKORT</Text
+  >
+  <div class="flex items-center gap-4">
+    <Heading htmlheading="h5" size="h5" font="display" weight="semibold">
+      Køb et Gavekort</Heading
+    ><Gave class="size-6" />
+  </div>
+  <Text stylingclasses="my-6 max-w-[50ch]"
+    >Vil du give en gave, der virkelig gør en forskel? <br /> Et gavekort til hundetræning
+    er en personlig, sjov og lærerig oplevelse for både hund og ejer.</Text
+  >
+  <div class="flex gap-4">
+    <Button color="primary" label="KØB GAVEKORT" />
+    <Button color="outline" label="HANDELSBETINGELSER" />
+  </div>
+</article>

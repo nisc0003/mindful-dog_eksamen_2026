@@ -22,7 +22,6 @@ import {
 
 const selectedLokation = Astro.props.selectedLokation || "Alle";
 
-const tjek = await getServices();
 const services = await getAllData();
 
 const filterLokation = getFilterLokation(services, selectedLokation);
@@ -72,6 +71,9 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
             {groupedByLokation[group].map((item, index) => {
               const prisTekst = krTilDKK.format(Number(item.pris));
               const t = item.traenere;
+              const xtraener = t?.fornavn_2
+                ? `${t?.fornavn_2 ?? ""}`.trim()
+                : null;
               return (
                 <ProductCard
                   type={item.type}
@@ -80,6 +82,7 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
                   hold={item.hold}
                   img={item.produkt_img}
                   traener={t?.fornavn}
+                  xtraener={xtraener}
                   path={item.slug}
                 />
               );
