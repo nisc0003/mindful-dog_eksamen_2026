@@ -1,128 +1,133 @@
 ---
 import Logo from "../assets/icon/logoSnude.svg";
+
+const { pathname } = Astro.url;
+
+const navItems = [
+  { href: "/", label: "FORSIDE" },
+  { href: "/Om_os", label: "OM OS" },
+  { href: "/Hold_oversigt", label: "HOLD OVERSIGT" },
+  { href: "/Kurv", label: "KURV" },
+].map((item) => ({
+  ...item,
+  active: pathname === item.href,
+}));
 ---
 
 <header class="bg-(--neutral-100)">
   <nav
-    class="m-auto mt-0 mb-8 flex w-[95cqw] grid-cols-5 items-center justify-between gap-4 p-4 text-center font-sans font-semibold md:grid"
+  data-site-nav
+  class="relative mx-auto flex h-[148px] w-full max-w-[1211px] items-center justify-between px-4 sm:px-6 lg:px-0"
   >
-    <a href="/" class="h-auto w-fit"
-            ><Logo class="h-18 w-18 aspect-square" /></a
-    >
-    <ul
-      class="menu first hidden list-none gap-8 md:col-span-3 md:flex md:justify-between [&_li]:relative [&_li]:my-4 [&_li]:block [&_li]:text-2xl [&_li]:text-(--neutral-500) [&_li]:no-underline [&_li]:transition-colors [&_li]:duration-150 [&_li]:hover:text-(--accent-200) [&_li]:md:mx-auto [&_li]:md:text-base [&_li]:lg:my-0 [&_li]:lg:text-xl"
-    >
-      <li>
-        <a href="/">FORSIDE</a>
-      </li>
-      <li>
-        <a href="/Hold_oversigt">HOLD OVERSIGT</a>
-      </li>
-      <li>
-        <a href="/Om_os">OM OS</a>
-      </li>
-      <li>
-        <a href="/Kontakt">KONTAKT</a>
-      </li>
+  <a href="/" class="shrink-0" aria-label="Mindful Dog Academy forside">
+    <Logo class="h-[74px] w-[74px]" />
+  </a>
+
+  <div class="hidden flex-1 items-center justify-end gap-36 lg:flex">
+    <ul class="flex items-center gap-16">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              "font-['Manrope'] text-[15px] font-semibold leading-[26px] transition-colors",
+              item.active
+                ? "text-(--accent-200)"
+                : "text-(--neutral-500) hover:text-(--accent-200)",
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
     </ul>
-    <div class="menu second hidden md:block md:justify-self-end">
+
+    <div class="flex items-center gap-7">
       <a
         href="/Bliv_instruktoer"
-        class="rounded-md bg-(--neutral-500) px-2 py-1 text-2xl whitespace-nowrap text-(--neutral-200) no-underline transition-colors duration-150 hover:bg-(--accent-200) md:place-self-end md:text-right md:text-base lg:text-xl"
-        >BLIV INSTRUKTØR</a
+        class="inline-flex items-center justify-center rounded-sm bg-(--neutral-500) px-5 py-1.5 font-['Manrope'] text-[15px] font-semibold uppercase leading-[16.5px] tracking-[2px] text-(--neutral-100) transition-colors hover:bg-(--accent-200)"
       >
+        BLIV INSTRUKTØR
+      </a>
+
+      <button
+        type="button"
+        aria-label="Søg"
+        class="flex h-5 w-5 items-center justify-center text-(--neutral-500) transition-colors hover:text-(--accent-200)"
+      >
+        <svg viewBox="0 0 20 20" aria-hidden="true" class="h-5 w-5 fill-none stroke-current stroke-[1.8]">
+          <circle cx="8.5" cy="8.5" r="5.5"></circle>
+          <path d="M12.5 12.5L17 17"></path>
+        </svg>
+      </button>
     </div>
-    <span class="menu mbg md:hidden"></span>
-    <span class="menu mline md:hidden"></span>
-    <div
-      id="burger"
-      class="rounded-5 relative z-10 mr-2 h-10 w-10 cursor-pointer md:hidden [&_span]:relative [&_span]:my-1.5 [&_span]:block [&_span]:h-1.5 [&_span]:w-full [&_span]:rounded-sm [&_span]:bg-(--neutral-500)"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
+  </div>
+
+  <button
+    id="burger"
+    data-burger
+    type="button"
+    aria-label="Åbn menu"
+    aria-expanded="false"
+    class="inline-flex h-10 w-10 items-center justify-center rounded-sm lg:hidden [&_span]:block [&_span]:h-0.5 [&_span]:w-6 [&_span]:rounded-sm [&_span]:bg-(--neutral-500) [&_span]:transition-all [&_span]:duration-500"
+  >
+    <span></span>
+    <span class="my-1.5"></span>
+    <span></span>
+  </button>
+
+  <div class="mobile-menu absolute inset-x-0 top-full z-20 hidden flex-col gap-6 border-t border-(--accent-300) bg-(--neutral-100) px-4 py-6 lg:hidden">
+    <ul class="flex flex-col gap-4">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            data-menu-close
+            class:list={[
+              "block font-['Manrope'] text-[15px] font-semibold leading-[26px] transition-colors",
+              item.active
+                ? "text-(--accent-200)"
+                : "text-(--neutral-500) hover:text-(--accent-200)",
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="flex items-center gap-4">
+      <a
+        href="/Bliv_instruktoer"
+        data-menu-close
+        class="inline-flex items-center justify-center rounded-sm bg-(--neutral-500) px-5 py-1.5 font-['Manrope'] text-[15px] font-semibold uppercase leading-[16.5px] tracking-[2px] text-(--neutral-100)"
+      >
+        BLIV INSTRUKTØR
+      </a>
     </div>
+  </div>
   </nav>
 </header>
 
 <style>
-  span {
-    transition:
-      transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-      opacity 0.55s ease;
+  #burger span {
+    transform-origin: center;
   }
 
-  nav > #burger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(0, -2px);
+  #burger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
   }
 
-  nav > #burger span:nth-child(1) {
-    transform-origin: 0% 0%;
-  }
-  nav > #burger.active span:nth-child(2) {
+  #burger.active span:nth-child(2) {
     opacity: 0;
-    transition: opacity 0.25s ease;
   }
 
-  nav > #burger span:nth-child(2) {
-    opacity: 1;
-    transition: opacity 0.55s ease-in;
+  #burger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 
-  nav > #burger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(0, 2px);
-  }
-  nav > #burger span:nth-child(3) {
-    transform-origin: 0% 100%;
-  }
-
-  nav.active .menu.first {
-    display: block;
-    position: absolute;
-    /* background-color: var(--neutral-100); */
-    top: calc(var(--spacing) * 21);
-    right: 0;
-    width: 100%;
-    z-index: 10;
-    text-align: right;
-    padding-right: calc(var(--spacing) * 4);
-  }
-
-  nav.active .menu.second {
-    display: block;
-    position: absolute;
-    /* background-color: var(--neutral-100); */
-    top: calc(var(--spacing) * 80);
-    right: 0;
-    width: 100%;
-    z-index: 10;
-    text-align: right;
-    padding-right: calc(var(--spacing) * 4);
-  }
-
-  nav.active .menu.mbg {
-    display: block;
-    position: absolute;
-    background-color: var(--neutral-100);
-    width: 100%;
-    height: 18rem;
-    top: calc(var(--spacing) * 21);
-    right: 0;
-    width: 100%;
-    z-index: 1;
-    border-top: 2px solid var(--accent-300);
-    /* border-bottom: 2px solid var(--accent-300); */
-  }
-  nav.active .menu.mline {
-    display: block;
-    position: absolute;
-    background-color: var(--accent-300);
-    width: 100%;
-    height: calc(var(--spacing) * 0.5);
-    top: calc(var(--spacing) * 74);
-    right: 0;
-    width: 100%;
-    z-index: 10;
+  nav.active .mobile-menu {
+    display: flex;
   }
 </style>
 
