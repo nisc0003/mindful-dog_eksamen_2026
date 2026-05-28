@@ -1,50 +1,54 @@
 ---
 /* ========================================================= 
-SOCIAL LINK (ICON-ONLY COLOR SYSTEM)
+SOCIAL LINK
 ========================================================= */
 
-type SocialLinkSize = "sm" | "md" | "lg";
-type SocialNetwork = "facebook" | "x" | "instagram";
+type SocialIcon = {
+  src: string;
+  width: number;
+  height: number;
+};
+
+type SocialLinkSize = "sm" | "md" | "lg" | "xl";
 
 interface Props {
   size?: SocialLinkSize;
-  network?: SocialNetwork;
   href?: string;
+  iconSrc: SocialIcon | string;
+  iconAlt?: string;
 }
 
-const { size = "md", network = "facebook", href = "#" } = Astro.props as Props;
+const {
+  size = "md",
+  href = "#",
+  iconSrc,
+  iconAlt = "Social Link",
+} = Astro.props as Props;
 
 const sizeClasses = {
   sm: "w-12 h-12",
   md: "w-16 h-16",
   lg: "w-20 h-20",
+  xl: "w-auto h-fill",
 };
+
+const imgSrc = typeof iconSrc === "string" ? iconSrc : iconSrc.src;
+const imgWidth = typeof iconSrc === "string" ? undefined : iconSrc.width;
+const imgHeight = typeof iconSrc === "string" ? undefined : iconSrc.height;
 ---
 
-<a href={href} aria-label={network} target="_blank" rel="noopener noreferrer">
-  {
-    network === "facebook" && (
-      <img
-        src="https://placehold.co/64x64"
-        alt="Facebook"
-        class={sizeClasses[size]}
-      />
-    )
-  }
-
-  {
-    network === "x" && (
-      <img src="https://placehold.co/64x64" alt="X" class={sizeClasses[size]} />
-    )
-  }
-
-  {
-    network === "instagram" && (
-      <img
-        src="https://placehold.co/64x64"
-        alt="Instagram"
-        class={sizeClasses[size]}
-      />
-    )
-  }
+<a
+  href={href}
+  aria-label={iconAlt}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="inline-flex items-center justify-center transition-transform hover:scale-105"
+>
+  <img
+    src={imgSrc}
+    alt={iconAlt}
+    width={imgWidth}
+    height={imgHeight}
+    class={`block ${sizeClasses[size]}`}
+  />
 </a>

@@ -18,6 +18,9 @@ import ReadMore from "../components/Buttons__&_links/ReadMore.astro";
 import Breadcrumb from "../components/Buttons__&_links/Breadcrumb.astro";
 import Hero_1 from "../components/HeroMain.astro";
 import Hero_2 from "../components/HeroSecond.astro";
+import FacebookIcon from "../assets/icon/Facebook_Logo_Dark.svg";
+import InstagramIcon from "../assets/icon/Instagram_Glyph_Dark.svg";
+import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
 
 const dropdownOptions = ["Hvalp", "Voksen", "Tricks"];
 
@@ -422,21 +425,66 @@ const weightVariants = ["bold", "semibold", "regular", "light"] as const;
       >
 
       <div class="grid grid-cols-3 gap-4">
-        <SocialLink size="sm" network="facebook" href="#" />
-        <SocialLink size="sm" network="x" href="#" />
-        <SocialLink size="sm" network="instagram" href="#" />
+        <SocialLink
+          size="sm"
+          iconSrc={FacebookIcon}
+          iconAlt="Facebook"
+          href="#"
+        />
+        <SocialLink
+          size="sm"
+          iconSrc={LinkedInIcon}
+          iconAlt="LinkedIn"
+          href="#"
+        />
+        <SocialLink
+          size="sm"
+          iconSrc={InstagramIcon}
+          iconAlt="Instagram"
+          href="#"
+        />
       </div>
 
       <div class="grid grid-cols-3 gap-4">
-        <SocialLink size="md" network="facebook" href="#" />
-        <SocialLink size="md" network="x" href="#" />
-        <SocialLink size="md" network="instagram" href="#" />
+        <SocialLink
+          size="md"
+          iconSrc={FacebookIcon}
+          iconAlt="Facebook"
+          href="#"
+        />
+        <SocialLink
+          size="md"
+          iconSrc={LinkedInIcon}
+          iconAlt="LinkedIn"
+          href="#"
+        />
+        <SocialLink
+          size="md"
+          iconSrc={InstagramIcon}
+          iconAlt="Instagram"
+          href="#"
+        />
       </div>
 
       <div class="grid grid-cols-3 gap-4">
-        <SocialLink size="lg" network="facebook" href="#" />
-        <SocialLink size="lg" network="x" href="#" />
-        <SocialLink size="lg" network="instagram" href="#" />
+        <SocialLink
+          size="lg"
+          iconSrc={FacebookIcon}
+          iconAlt="Facebook"
+          href="#"
+        />
+        <SocialLink
+          size="lg"
+          iconSrc={LinkedInIcon}
+          iconAlt="LinkedIn"
+          href="#"
+        />
+        <SocialLink
+          size="lg"
+          iconSrc={InstagramIcon}
+          iconAlt="Instagram"
+          href="#"
+        />
       </div>
 
       <!-- =========================================================
