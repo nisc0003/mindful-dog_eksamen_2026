@@ -19,12 +19,9 @@ type LinkButtonColor =
   | "outline";
 
 interface ButtonConfig {
-  // Available LinkButton props that can be mapped into HeroSecond buttons.
   label: string;
   color: LinkButtonColor;
   href: string;
-  // Size variants from LinkButton. Use these when the mapped button should
-  // differ from the default medium size.
   size?: LinkButtonSize;
   stylingclasses?: string;
   target?: string;
@@ -32,22 +29,16 @@ interface ButtonConfig {
 }
 
 interface Props {
-  // Accepts either an Astro image object or a plain string URL.
   imageSrc: HeroImage | string;
   imageAlt?: string;
-  // På mobil ligger billedet altid øverst. På større skærme kan billedet skiftes til højre.
   imagePosition?: "left" | "right";
-  // Small label above the main title.
   topLabel?: string;
-  // Main hero title.
   title: string;
-  // Optional chip labels rendered as mapped spans.
   tags?: string[];
-  // Supporting description under the title and tags.
   description?: string;
-  // Mapped call-to-action buttons. Each button supports LinkButton size,
-  // color, href, target, rel, and extra styling classes.
   buttons?: ButtonConfig[];
+  layoutGapClass?: string;
+  contentGapClass?: string;
 }
 
 const {
@@ -59,6 +50,8 @@ const {
   tags = [],
   description,
   buttons = [],
+  layoutGapClass = "gap-[clamp(2rem,4vw,5rem)]",
+  contentGapClass = "gap-[clamp(0.875rem,1.8vw,1.25rem)]",
 } = Astro.props as Props;
 
 const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
@@ -66,7 +59,7 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
 
 <section class="w-full">
   <div
-    class={`flex w-full flex-col items-start gap-[clamp(2rem,4vw,5rem)] md:flex-row md:items-center ${
+    class={`flex w-full flex-col items-start ${layoutGapClass} md:flex-row md:items-center ${
       imagePosition === "right" ? "md:flex-row-reverse" : ""
     }`}
   >
@@ -87,7 +80,7 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
       /* Indholdet får lov at vokse frit, så layoutet holder sig roligt ved alle mellemstørrelser. */
     }
     <div
-      class="flex w-full min-w-0 flex-col items-start gap-[clamp(0.875rem,1.8vw,1.25rem)] px-[clamp(1rem,4vw,4rem)] pt-[clamp(1rem,2vw,2rem)] md:w-1/2 md:px-[clamp(1.5rem,4vw,5rem)] md:pt-[clamp(2rem,4vw,4rem)]"
+      class={`flex w-full min-w-0 flex-col items-start ${contentGapClass} px-[clamp(1rem,4vw,4rem)] pt-[clamp(1rem,2vw,2rem)] md:w-1/2 md:px-[clamp(1.5rem,4vw,5rem)] md:pt-[clamp(2rem,4vw,4rem)]`}
     >
       {
         topLabel && (
@@ -131,6 +124,8 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
           </Text>
         )
       }
+
+      <slot />
 
       {
         buttons.length > 0 && (

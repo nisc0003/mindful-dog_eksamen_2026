@@ -12,6 +12,8 @@ interface Props {
   title?: string;
   // Supporting description text.
   description?: string;
+  // If set, description is rendered as a ReadMore block with this preview length.
+  readMorePreviewLength?: number;
   // Container utility classes.
   containerClass?: string;
   // Header wrapper utility classes.
@@ -29,6 +31,7 @@ const {
   topskrift = "Topskrift her",
   title = "Overskrift her",
   description = "Tekst her",
+  readMorePreviewLength,
   containerClass = "",
   headerClass = "",
   titleClass = "",
@@ -66,12 +69,51 @@ const {
     </div>
   </div>
 
-  <Text
-    size="p2"
-    font="sans"
-    weight="regular"
-    stylingclasses={descriptionClass}
-  >
-    {description}
-  </Text>
+  {
+    readMorePreviewLength ? (
+      <div
+        x-data={`{
+          open: false,
+          previewText: ${JSON.stringify(
+            description.length > readMorePreviewLength
+              ? `${description.slice(0, readMorePreviewLength)}…`
+              : description,
+          )},
+          fullText: ${JSON.stringify(description)},
+          toggle() {
+            this.open = !this.open;
+          }
+        }`}
+        class="flex flex-col gap-3"
+      >
+        <Text
+          size="p2"
+          font="sans"
+          weight="regular"
+          stylingclasses={descriptionClass}
+        >
+          <span x-text="open ? fullText : previewText" />
+        </Text>
+
+        {description.length > readMorePreviewLength && (
+          <button
+            type="button"
+            @click="toggle()"
+            class="inline-flex cursor-pointer self-start font-sans text-(--link-text) underline decoration-1 underline-offset-2 transition-opacity hover:opacity-70"
+          >
+            <span x-text="open ? 'Læs mindre' : 'Læs mere'" />
+          </button>
+        )}
+      </div>
+    ) : (
+      <Text
+        size="p2"
+        font="sans"
+        weight="regular"
+        stylingclasses={descriptionClass}
+      >
+        {description}
+      </Text>
+    )
+  }
 </article>
