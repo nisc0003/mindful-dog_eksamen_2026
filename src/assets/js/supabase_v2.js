@@ -195,6 +195,7 @@ export function getPageData(service) {
     afslut: service.afslut,
     img: service.produkt_img,
     tilmelding: service.tilmelding,
+    beskrivelse: service.hold_beskrivelse,
     slug: service.slug,
     // traenere
     fornavn: t?.fornavn,

@@ -2,8 +2,17 @@
 import Heading from "../Heading.astro";
 import Text from "../Text.astro";
 import LinkButton from "../Buttons__&_links/LinkButton.astro";
-const { img, type, traener, xtraener, path, lokation, hold, pris } =
-  Astro.props;
+const {
+  img,
+  type,
+  traener,
+  xtraener,
+  path,
+  lokation,
+  hold,
+  pris,
+  beskrivelse,
+} = Astro.props;
 ---
 
 <li class="row-span-3 mx-auto grid grid-rows-subgrid">
@@ -51,7 +60,7 @@ const { img, type, traener, xtraener, path, lokation, hold, pris } =
           <Heading htmlheading="h6" size="h6" font="display" weight="bold">
             {hold}
           </Heading>
-          <Text> Her skal der være en beskrivelse af holdet. </Text>
+          <Text stylingclasses="empty:hidden"> {beskrivelse} </Text>
         </div>
         <div class="mt-auto mb-4 flex items-center justify-between">
           <Text weight="bold">{pris}</Text>

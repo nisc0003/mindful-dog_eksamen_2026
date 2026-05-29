@@ -3,6 +3,7 @@ import Heading from "./Heading.astro";
 import Text from "./Text.astro";
 import Button from "./Buttons__&_links/Button.astro";
 import Gave from "../assets/icon/gavekort.svg";
+import LinkButton from "./Buttons__&_links/LinkButton.astro";
 ---
 
 <article class="mx-auto my-16 rounded-md bg-(--neutral-100)">
@@ -19,7 +20,11 @@ import Gave from "../assets/icon/gavekort.svg";
     er en personlig, sjov og lærerig oplevelse for både hund og ejer.</Text
   >
   <div class="flex gap-4">
-    <Button color="primary" label="KØB GAVEKORT" />
+    <LinkButton
+      color="primary"
+      label="KØB GAVEKORT"
+      href="/Hold_side/gavekort"
+    />
     <Button color="outline" label="HANDELSBETINGELSER" />
   </div>
 </article>

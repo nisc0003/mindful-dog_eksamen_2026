@@ -6,10 +6,11 @@ import Link from "../components/Buttons__&_links/Link.astro";
 import Text from "../components/Text.astro";
 import KontaktInfo from "../components/KontaktInfo.astro";
 import NyhedsbrevSign from "../components/NyhedsbrevSign.astro";
+import LinkButton from "../components/Buttons__&_links/LinkButton.astro";
 ---
 
 <MainLayout title="Kontakt">
-  <section class="mx-auto my-16 max-w-[55ch] place-self-center p-4">
+  <section class="mx-auto my-16 max-w-100 place-self-center p-4">
     <Text size="label_2" weight="semibold" stylingclasses="tracking-widest"
       >KONTAKT</Text
     >
@@ -24,18 +25,23 @@ import NyhedsbrevSign from "../components/NyhedsbrevSign.astro";
     </Heading>
     <KontaktInfo />
   </section>
-  <section class="mx-auto my-16 max-w-[55ch] place-self-center p-4">
+  <section class="mx-auto my-16 max-w-100 place-self-center p-4">
     <Text size="label_2" weight="semibold" stylingclasses="tracking-widest"
       >OFTE STILLEDE SPØRGSMÅL</Text
     >
     <Heading
-      htmlheading="h1"
-      size="h2"
+      htmlheading="h4"
+      size="h4"
       font="display"
       weight="bold"
-      stylingclasses="mb-6 !text-size-30 max-w-85"
+      stylingclasses="mb-6"
     >
       Måske Kan Du Finde Svaret Her:
     </Heading>
+    <LinkButton
+      href="https://www.google.com"
+      size="xl"
+      label="JEG PRØVER LYKKEN"
+    />
   </section>
 </MainLayout>

@@ -11,6 +11,7 @@ import SpringHund from "../assets/img/hold_img.webp";
 import Gavekort from "../components/Gavekort.astro";
 
 import Vandhund from "../assets/img/EKSAMEN_EDIT-7263.webp";
+import LinkButton from "../components/Buttons__&_links/LinkButton.astro";
 ---
 
 <MainLayout title="Hold oversigt">
@@ -25,6 +26,7 @@ import Vandhund from "../assets/img/EKSAMEN_EDIT-7263.webp";
       >
         Find dit hold
       </Heading>
+      <LinkButton href="#gavekort" label="GAVEKORT" color="accent" />
       <Image
         src={SpringHund}
         alt="Billede af en Bichon Havanais der springer, uden baggrund"
@@ -35,7 +37,7 @@ import Vandhund from "../assets/img/EKSAMEN_EDIT-7263.webp";
   <section>
     <Shop selectedLokation={Astro.url.searchParams.get("lokation") || "Alle"} />
     <div class="p4 mx-auto my-4 grid grid-cols-3 gap-4 place-self-center">
-      <span class="col-span-2">
+      <span id="gavekort" class="col-span-2">
         <Gavekort />
       </span>
       <Image
