@@ -2,7 +2,7 @@
 import Text from "./Text.astro";
 import Heading from "../components/Heading.astro";
 import { krTilDKK } from "../assets/js/supabase_v2";
-const { img, type, lokation, hold, pris } = Astro.props;
+const { img, type, lokation, hold, pris, beskrivelse } = Astro.props;
 
 const prisTekst = krTilDKK.format(Number(pris));
 ---
@@ -23,8 +23,8 @@ const prisTekst = krTilDKK.format(Number(pris));
       <Heading htmlheading="h4" size="h4" font="display" weight="semibold"
         >{hold}</Heading
       >
-      <Text stylingclasses="my-6">
-        Her skal der være en beskrivelse af holdet.
+      <Text stylingclasses="my-6 ">
+        {beskrivelse}
       </Text>
     </div>
     <div
@@ -39,8 +39,8 @@ const prisTekst = krTilDKK.format(Number(pris));
         <Text> LÆG I KURV </Text>
       </div>
       <a
-        href="/Hold_oversigt"
-        class="text-size-20) w-fit rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
+        href="#hSingle_inf"
+        class="text-size-20 w-fit rounded-md border-2 border-(--primary-500) bg-(--primary-500) px-4 py-2 text-(--text-main) transition-colors duration-150 hover:bg-(--accent-200)"
       >
         MERE INFO
       </a>

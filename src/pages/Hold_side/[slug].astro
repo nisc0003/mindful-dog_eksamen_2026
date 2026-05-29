@@ -52,6 +52,7 @@ const xtraener =
           pris={pageData.pris}
           img={pageData.img}
           lokation={pageData.lokation}
+          beskrivelse={pageData.beskrivelse}
           path={pageData.slug}
         />
       ) : (
@@ -76,11 +77,12 @@ const xtraener =
         xtraener={xtraener}
         profil_img={pageData.profil_img}
         traener_info={pageData.traener_info}
+        t_path={pageData.t_slug}
       />
     </span>
   </section>
 
-  <section class="px-8 py-16 md:py-24">
+  <section id="hSingle_inf" class="px-8 py-16 md:py-24">
     <Text size="label_1" weight="semibold" stylingclasses="tracking-widest"
       >INKLUDERET</Text
     >
@@ -95,28 +97,27 @@ const xtraener =
       vejledning, selvom du går på hold. Vi arbejder med positive metoder og et
       solidt fundament. Holdet inkludere:</Text
     >
-    <div class="mx-auto grid w-[80] grid-cols-2 gap-8 py-4">
+    <div class="mx-auto grid w-[80] gap-8 py-4 md:grid-cols-2">
       <InfoboxType1
         ><Check slot="punkt" />
         <Heading
           slot="overskrift"
-          htmlheading="h3"
-          size="h3"
+          htmlheading="h5"
+          size="h5"
           font="display"
           weight="semibold"
-          stylingclasses="!text-size-25 !leading-(--text-size-30)"
-          >Kontakt og fokus i hverdagen</Heading
+          stylingclasses="w-[30cqw]">Kontakt og fokus i hverdagen</Heading
         ></InfoboxType1
       >
       <InfoboxType1
         ><Check slot="punkt" />
         <Heading
           slot="overskrift"
-          htmlheading="h3"
-          size="h3"
+          htmlheading="h5"
+          size="h5"
           font="display"
           weight="semibold"
-          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          stylingclasses="w-[30cqw]"
           >Introduktion til at gå pænt i snor og indkald</Heading
         ></InfoboxType1
       >
@@ -124,11 +125,11 @@ const xtraener =
         ><Check slot="punkt" />
         <Heading
           slot="overskrift"
-          htmlheading="h3"
-          size="h3"
+          htmlheading="h5"
+          size="h5"
           font="display"
           weight="semibold"
-          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          stylingclasses="w-[30cqw]"
           >Forstå din hund - kropssprog og signaler</Heading
         ></InfoboxType1
       >
@@ -136,23 +137,22 @@ const xtraener =
         ><Check slot="punkt" />
         <Heading
           slot="overskrift"
-          htmlheading="h3"
-          size="h3"
+          htmlheading="h5"
+          size="h5"
           font="display"
           weight="semibold"
-          stylingclasses="!text-size-25 !leading-(--text-size-30)"
-          >Ro-træning ude og inde</Heading
+          stylingclasses="w-[30cqw]">Ro-træning ude og inde</Heading
         ></InfoboxType1
       >
       <InfoboxType1
         ><Check slot="punkt" />
         <Heading
           slot="overskrift"
-          htmlheading="h3"
-          size="h3"
+          htmlheading="h5"
+          size="h5"
           font="display"
           weight="semibold"
-          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          stylingclasses="w-[30cqw]"
           >Basale: nej, kom, hilse pænt oh øjenkontakt
         </Heading></InfoboxType1
       >
@@ -160,11 +160,11 @@ const xtraener =
         ><Check slot="punkt" />
         <Heading
           slot="overskrift"
-          htmlheading="h3"
-          size="h3"
+          htmlheading="h5"
+          size="h5"
           font="display"
           weight="semibold"
-          stylingclasses="!text-size-25 !leading-(--text-size-30)"
+          stylingclasses="w-[30cqw]"
           >Video af øvelser efter hver træning</Heading
         ></InfoboxType1
       >
@@ -198,7 +198,7 @@ const xtraener =
           htmlheading="h5"
           size="h5"
           font="display"
-          weight="semibold">Formål med hvalpehold</Heading
+          weight="semibold">Formål med hold</Heading
         >
         <ul
           slot="liste"
@@ -207,19 +207,28 @@ const xtraener =
           <li>
             <CheckI class="size-6" />
             <Text size="label_1">
-              En hund der bedere forstår hvad du forventer</Text
+              En hund der bedre forstår hvad du forventer</Text
             >
           </li>
           <li>
-            <CheckI class="size-6" /><Text size="label_1">
+            <CheckI class="size-6" /><Text
+              size="label_1"
+              stylingclasses="max-xl:w-[28cqw]"
+            >
               Mere opmærksomhed og samarbejde
             </Text>
           </li><li>
-            <CheckI class="size-6" /><Text size="label_1">
+            <CheckI class="size-6" /><Text
+              size="label_1"
+              stylingclasses="max-xl:w-[28cqw]"
+            >
               En stærkere relation og mere ro i hverdagen
             </Text>
           </li><li>
-            <CheckI class="size-6" /><Text size="label_1">
+            <CheckI class="size-6" /><Text
+              size="label_1"
+              stylingclasses="max-xl:w-[28cqw]"
+            >
               Tryg guidet undervisning i små hold
             </Text>
           </li>
@@ -233,21 +242,33 @@ const xtraener =
           htmlheading="h5"
           size="h5"
           font="display"
-          weight="semibold">Hvad forventes ikke på hvalpe hold</Heading
+          weight="semibold">Hvad forventes ikke på hold</Heading
         >
-        <ul slot="liste" class="[&_li]:my-2 [&_li]:flex [&_li]:gap-4">
+        <ul
+          slot="liste"
+          class="[&_li]:my-2 [&_li]:flex [&_li]:gap-2 [&_li]:py-2"
+        >
           <li>
-            <CrossI class="size-6" /><Text size="label_1">
+            <CrossI class="size-6" /><Text
+              size="label_1"
+              stylingclasses="max-xl:w-[28cqw]"
+            >
               Tvungen interaktion med andre hunde</Text
             >
           </li>
           <li>
-            <CrossI class="size-6" /><Text size="label_1">
-              Træning uden snor (alle hunde er i snor på hvalpe hold)</Text
+            <CrossI class="size-6" /><Text
+              size="label_1"
+              stylingclasses="max-xl:w-[28cqw]]"
+            >
+              Træning uden snor (alle hunde er i snor på hold)</Text
             >
           </li>
           <li>
-            <CrossI class="size-6" /><Text size="label_1">
+            <CrossI class="h-6 w-6" /><Text
+              size="label_1"
+              stylingclasses="max-xl:w-[28cqw]"
+            >
               Højt tempo mellem øvelser (vi sætter tempo efter dig og din hund)</Text
             >
           </li>

@@ -1,7 +1,8 @@
 ---
 import Heading from "../Heading.astro";
 import Text from "../Text.astro";
-const { hold, pris, adresse, status_ikon, status_txt } = Astro.props;
+
+const { hold, pris, adresse, status_ikon, status_txt, path } = Astro.props;
 ---
 
 <li class="row-span-2 grid">
@@ -31,7 +32,7 @@ const { hold, pris, adresse, status_ikon, status_txt } = Astro.props;
       </div>
       <span class="my-auto">
         <a
-          href="/Hold_oversigt"
+          href={"/Hold_side/" + path}
           class="text-size-14 md:text-size-16) rounded-md bg-(--main-400) px-4 py-2 whitespace-nowrap text-(--text-inverse) transition-colors duration-150 hover:bg-(--main-500)"
         >
           LÆS MERE
