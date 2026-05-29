@@ -1,181 +1,124 @@
 ---
+// =========================================================
+// INDEX.ASTRO – FORSIDE
+// Mindful Dog Academy's startside.
+// Data hentes server-side fra Supabase og sendes til Map-komponenten.
+// =========================================================
+
+// ── Komponent-imports ──────────────────────────────────────
 import MainLayout from "../layouts/MainLayout.astro";
 import Heading from "../components/Heading.astro";
 import Text from "../components/Text.astro";
 import Button from "../components/Buttons__&_links/Button.astro";
-import Infobox_4 from "../components/infobox/Infobox_type_4.astro";
-import MapSection from "../components/Map.astro";
+import LinkButton from "../components/Buttons__&_links/LinkButton.astro";
+import Link from "../components/Buttons__&_links/Link.astro";
+import SocialLink from "../components/Buttons__&_links/SocialLink.astro";
 import HeroMain from "../components/HeroMain.astro";
+import MapSection from "../components/Map.astro";
+import ReadMore from "../components/Buttons__&_links/ReadMore.astro";
+// ── Asset-imports ──────────────────────────────────────────
 import HeroMainImage from "../assets/testimages/forside_hero.png";
 import FacebookIcon from "../assets/icon/Facebook_Logo_Dark.svg";
 import InstagramIcon from "../assets/icon/Instagram_Glyph_Dark.svg";
 import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
 
-// Hent data direkte fra kilden via den præcise API-struktur
-// @ts-ignore
+// ── Data-hentning fra Supabase ─────────────────────────────
+// @ts-ignore – supabase_v2.js er plain JS uden typer
 import { getAllData } from "../assets/js/supabase_v2.js";
 
+// getAllData() henter services med nested trænere og ikoner
+// Vi definerer den type vi forventer for at undgå TypeScript-brok
 interface ServiceItem {
   lokation?: string;
   hold?: string;
+  slug?: string;
   traener?: {
+    fornavn?: string;
+    efternavn?: string;
+    slug?: string;
+    traener_slug?: string;
     adresse_1?: string;
     postnummer_1?: string;
     bynavn_1?: string;
+    adresse_2?: string;
+    postnummer_2?: string;
+    bynavn_2?: string;
   };
 }
 
-interface MapLocation {
-  id: string;
-  lokation: string;
-  address: string;
-  lat: number;
-  lng: number;
-  cities: string[];
-  holds: string[];
-}
-
 const rawData = await getAllData();
-const servicesData = (rawData as ServiceItem[]) || [];
+const servicesData: ServiceItem[] = Array.isArray(rawData) ? rawData : [];
 
-// 1. Fast koordinat-mapping baseret på dine lokationsnavne i databasen
-const coordinateMap: Record<string, { lat: number; lng: number }> = {
-  vestsjælland: { lat: 55.656, lng: 11.411 },
-  als: { lat: 54.891, lng: 9.974 },
-  ikast: { lat: 56.141, lng: 9.152 },
-  sønderjylland: { lat: 55.185, lng: 8.712 },
-  skærbæk: { lat: 55.185, lng: 8.712 },
-  svendborg: { lat: 55.021, lng: 10.611 },
-  vejen: { lat: 55.574, lng: 9.135 },
-};
-
-// 2. Optimeret O(N) datamapping via en midlertidig ordbog (Dictionary)
-const locationsDictionary: Record<string, MapLocation> = {};
-
-servicesData.forEach((current) => {
-  if (!current.lokation) return;
-
-  const normalizedId = current.lokation.toLowerCase().trim();
-  const holdName = current.hold ? current.hold.trim() : "";
-  const cityName = current.traener?.bynavn_1
-    ? current.traener.bynavn_1.trim()
-    : "";
-
-  if (locationsDictionary[normalizedId]) {
-    // Lokationen er oprettet, tilføj unikke hold og byer til arrays
-    const existing = locationsDictionary[normalizedId];
-    if (holdName && !existing.holds.includes(holdName)) {
-      existing.holds.push(holdName);
-    }
-    if (cityName && !existing.cities.includes(cityName)) {
-      existing.cities.push(cityName);
-    }
-  } else {
-    // Lokationen findes ikke endnu, opbyg adresse-streng og instantiér objektet
-    const traener = current.traener;
-    const addressString = traener
-      ? `${traener.adresse_1 || ""}, ${traener.postnummer_1 || ""} ${traener.bynavn_1 || ""}`
-          .trim()
-          .replace(/^,\s*/, "") // Rens eventuelle formateringskommaer i starten
-      : "";
-
-    // Hent koordinat, eller sæt en fornuftig standard placeret i midten af Danmark hvis ukendt
-    const coords = coordinateMap[normalizedId] || { lat: 56.0, lng: 11.0 };
-
-    locationsDictionary[normalizedId] = {
-      id: normalizedId,
-      lokation: current.lokation,
-      address: addressString,
-      lat: coords.lat,
-      lng: coords.lng,
-      cities: cityName ? [cityName] : [],
-      holds: holdName ? [holdName] : [],
-    };
-  }
-});
-
-// Konverter vores ordbog tilbage til et rent array som Map-komponenten forventer
-const processedLocations = Object.values(locationsDictionary);
-
-// Statiske UI elementer
-const keys = [
+// ── De fire nøgler – statisk indhold ──────────────────────
+// Kan erstattes med CMS-data hvis det bliver nødvendigt
+const nøgler = [
   {
-    punkt: "1",
+    nr: "1",
     eyebrow: "Nøgle #1",
-    title: "Overskrift",
-    description: "Lorem ipsum dolor sit amet, consectetur.",
+    titel: "Overskrift",
+    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
     href: "/noegle-1",
   },
   {
-    punkt: "2",
+    nr: "2",
     eyebrow: "Nøgle #2",
-    title: "Overskrift",
-    description: "Lorem ipsum dolor sit amet, consectetur.",
+    titel: "Overskrift",
+    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
     href: "/noegle-2",
   },
   {
-    punkt: "3",
+    nr: "3",
     eyebrow: "Nøgle #3",
-    title: "Overskrift",
-    description: "Lorem ipsum dolor sit amet, consectetur.",
+    titel: "Overskrift",
+    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
     href: "/noegle-3",
   },
   {
-    punkt: "4",
+    nr: "4",
     eyebrow: "Nøgle #4",
-    title: "Overskrift",
-    description: "Lorem ipsum dolor sit amet, consectetur.",
+    titel: "Overskrift",
+    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
     href: "/noegle-4",
   },
 ];
 
-type ButtonColor =
-  | "main"
-  | "primary"
-  | "secondary"
-  | "accent"
-  | "neutral"
-  | "outline";
-
-const heroButtons = [
-  { label: "SE VORES HOLD", color: "primary" as ButtonColor, href: "#teamet" },
-];
-
-const puppyButtons = [
-  {
-    size: "md" as const,
-    color: "neutral" as ButtonColor,
-    label: "LÆS MERE HER",
-  },
-  {
-    size: "md" as const,
-    color: "outline" as ButtonColor,
-    label: "SE HOLDOVERSIGT FOR HVALPE",
-    stylingclasses: "border-(--neutral-500) text-(--neutral-500)",
-  },
-];
 ---
 
 <MainLayout title="Mindful Dog Academy - Forside">
+
+  <!-- =========================================================
+       HERO SEKTION
+       Første sektion brugeren lander på – stor titel og CTA-knap.
+       Scroll-knappen peger på lokationskortet nedenfor via #lokationer.
+       ========================================================= -->
   <section class="pb-(--section-space-y) pl-(--page-space-inline)">
     <HeroMain
+      breadcrumbs="FORSIDE"
       titleHtml='<span class="text-(--main-400)">Mindful Dog <br/>Academy</span>'
-      subtitle="Ro og forståelse mellem dig og din hund."
+      subtitle="Ro, mental balance og ægte forståelse mellem dig og din firbenede ven."
       imageSrc={HeroMainImage}
-      buttons={heroButtons}
+      buttons={[
+        { label: "SE VORES HOLD", color: "primary", href: "#lokationer" },
+      ]}
     />
   </section>
 
+  <!-- =========================================================
+       DE FIRE NØGLER SEKTION
+       Viser metodens fire kerneprincipper som kort i et grid.
+       Looper over nøgler-arrayet defineret i frontmatter.
+       ========================================================= -->
   <section
     class="bg-(--main-100) px-(--page-space-inline) py-(--section-space-y)"
   >
+    <!-- Label og sektion-overskrift -->
     <Text
       size="label_1"
       font="sans"
       weight="regular"
-      stylingclasses="text-(--text-label) tracking-widest uppercase"
+      stylingclasses="mb-1 text-(--text-label) uppercase tracking-widest"
     >
-      nøgler
+      indhold
     </Text>
     <Heading
       htmlheading="h2"
@@ -187,49 +130,76 @@ const puppyButtons = [
       Mindful-Dog Metoden - De Fire Nøgler
     </Heading>
 
+    <!-- Nøgle-kort – 1 kolonne mobil, 2 tablet, 4 desktop -->
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       {
-        keys.map((k) => (
-          <div key={k.punkt}>
-            <Infobox_4
-              punkt={k.punkt}
-              topskrift={k.eyebrow}
-              title={k.title}
-              description={k.description}
-              containerClass="rounded-md bg-(--neutral-0) p-6 shadow-xs"
-              titleClass="text-(--neutral-500)"
-              topskriftClass="text-(--neutral-500)"
-              descriptionClass="text-(--neutral-500)"
-            />
-          </div>
+        nøgler.map((k) => (
+          <article class="flex flex-col gap-4 rounded-md bg-(--neutral-0) p-6">
+            <!-- Ikon-pladsholder + overskrift på samme linje -->
+            <div class="flex items-center gap-4">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-(--main-300) font-display text-size-20 font-bold text-(--neutral-0)">
+                {k.nr}
+              </div>
+              <Heading htmlheading="h3" size="h6" weight="semibold">
+          {k.titel}
+              </Heading>
+            </div>
+
+            <!-- Brødtekst + læs mere som ét sammenhængende afsnit -->
+          <ReadMore
+            stylingclasses="mt-auto"
+            previewLength={32}
+            fullText={k.beskrivelse}
+          />
+
+          </article>
         ))
       }
     </div>
   </section>
 
-  <MapSection
-    locations={processedLocations}
-    eyebrow="Hold oversigt"
-    title="Find En Træner Nær Dig"
-    bgClass="bg-(--neutral-0)"
-  />
+  <!-- =========================================================
+       LOKATIONER / INTERAKTIVT KORT SEKTION
+       Map-komponenten modtager servicesData og geocoder
+       adresserne server-side inden siden renderes.
+       id="lokationer" bruges af hero-knappens scroll-anker.
+       ========================================================= -->
+  <section id="lokationer">
+    <MapSection
+      services={servicesData}
+      eyebrow="Lokationer"
+      title="Find en træner nær dig"
+      bgClass="bg-(--neutral-100)"
+    />
+  </section>
 
+  <!-- =========================================================
+       HVALPE TRÆNING SEKTION
+       Fremhæver hvalpe-produktet med billede og to CTA-knapper.
+       ========================================================= -->
   <section
     class="bg-(--accent-200) px-(--page-space-inline) py-(--section-space-y)"
   >
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-      <img
-        src={HeroMainImage.src}
-        alt="Hundetræning video"
-        class="h-full w-full rounded-md object-cover shadow-sm"
-      />
+
+      <!-- Billede til venstre -->
+      <div class="relative aspect-video w-full overflow-hidden rounded-md">
+        <img
+          src={HeroMainImage.src}
+          alt="Hundetræning – hvalpe"
+          class="h-full w-full object-cover"
+        />
+      </div>
+
+      <!-- Tekst og knapper til højre -->
       <div class="flex flex-col items-start justify-center gap-6">
+        <!-- Label + overskrift + beskrivelse -->
         <div>
           <Text
             size="label_1"
             font="sans"
             weight="regular"
-            stylingclasses="mb-2 text-(--neutral-400) tracking-widest uppercase"
+            stylingclasses="mb-2 uppercase tracking-widest text-(--neutral-400)"
           >
             trænings typer
           </Text>
@@ -242,32 +212,72 @@ const puppyButtons = [
           >
             Hvalpe Træning
           </Heading>
-          <Text
-            size="p2"
-            font="sans"
-            weight="regular"
-            stylingclasses="text-(--neutral-500)"
-          >
+          <Text size="p2" font="sans" weight="regular" stylingclasses="mb-2 text-(--neutral-500)">
             Hos Mindful-Dog Academy tager vi udgangspunkt i både dig og din
-            hund. Øvelserne tilpasses din hunds alder og udvikling, så I får det
-            bedste fundament for et samarbejde i hverdagen.
+            hund. Øvelserne tilpasses din hunds alder og udvikling.
+          </Text>
+          <Text size="p3" font="sans" weight="regular" stylingclasses="opacity-80 text-(--neutral-500)">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </Text>
         </div>
 
-        <div class="mt-2 flex flex-wrap items-center gap-4">
-          {
-            puppyButtons.map((button) => (
-              <Button
-                key={button.label}
-                size={button.size}
-                color={button.color}
-                label={button.label}
-                stylingclasses={button.stylingclasses}
-              />
-            ))
-          }
+        <!-- CTA-knapper – LinkButton da de navigerer til andre sider -->
+        <div class="flex flex-wrap items-center gap-4">
+          <LinkButton size="md" color="neutral" href="/hvalpe" label="LÆS MERE HER" />
+          <LinkButton
+            size="md"
+            color="outline"
+            href="/hold?type=hvalpe"
+            stylingclasses="border-(--neutral-500) text-(--neutral-500)"
+            label="SE HOLDOVERSIGT FOR HVALPE"
+          />
         </div>
       </div>
+
     </div>
   </section>
+
+  <!-- =========================================================
+       NYHEDSBREV SEKTION
+       Email-tilmelding og sociale medier-links.
+       ========================================================= -->
+  <section class="px-(--page-space-inline) py-(--section-space-y)">
+    <div
+      class="grid grid-cols-1 gap-8 border-t border-(--neutral-200) pt-12 md:grid-cols-2 md:items-center md:pt-16"
+    >
+
+      <!-- Email-formular -->
+      <div class="flex flex-col gap-4">
+        <Text size="label_1" stylingclasses="text-(--text-label)">
+          NYHEDSBREV
+        </Text>
+        <Heading htmlheading="h3" size="h4">Hold Dig Opdateret</Heading>
+        <Text size="p3" stylingclasses="text-(--text-secondary)">
+          Tilmeld dig vores nyhedsbrev og få tips og tricks til hundetræning og
+          nye hold i dit lokalområde.
+        </Text>
+
+        <!-- Formular – submit håndteres server-side eller via integration -->
+        <form class="mt-2 flex w-full gap-2">
+          <input
+            type="email"
+            placeholder="Din emailadresse"
+            class="flex-1 rounded-md border border-(--neutral-300) px-4 py-2 font-sans text-size-15 focus:outline-none focus:ring-2 focus:ring-(--main-400)"
+            required
+          />
+          <!-- Button-komponent med type=submit -->
+          <Button type="submit" size="md" color="main" label="TILMELD" stylingclasses="px-6" />
+        </form>
+      </div>
+
+      <!-- Sociale medier -->
+      <div class="flex items-center gap-6 md:justify-end">
+        <SocialLink href="https://www.instagram.com/" size="sm" iconSrc={InstagramIcon} iconAlt="Instagram" />
+        <SocialLink href="https://www.facebook.com/" size="sm" iconSrc={FacebookIcon} iconAlt="Facebook" />
+        <SocialLink href="https://www.linkedin.com/company/mindful-dog" size="sm" iconSrc={LinkedInIcon} iconAlt="LinkedIn" />
+      </div>
+
+    </div>
+  </section>
+
 </MainLayout>
