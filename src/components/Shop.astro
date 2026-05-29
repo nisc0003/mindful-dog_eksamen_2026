@@ -46,7 +46,7 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
   }
 </div>
 
-<section>
+<section pb-(--section-space-y) pl-(--page-space-inline)>
   {
     displayedGroups.map((group) => {
       const groupClass = getLokationGroup(group);
