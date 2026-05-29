@@ -11,7 +11,11 @@ import HeroMain from "../components/HeroMain.astro";
 import MapSection from "../components/Map.astro";
 import ReadMore from "../components/Buttons__&_links/ReadMore.astro";
 // ── Asset-imports ──────────────────────────────────────────
-import HeroMainImage from "../assets/testimages/forside_hero.png";
+import HeroMainImage from "../assets/img/EKSAMEN_EDIT-7273.webp";
+import HvalpeImg1 from "../assets/img/EKSAMEN_EDIT-1270296.webp";
+import HvalpeImg2 from "../assets/img/EKSAMEN_EDIT-1270394.webp";
+import HvalpeImg3 from "../assets/img/EKSAMEN_EDIT-1270314.webp";
+import HvalpeImg4 from "../assets/img/EKSAMEN_EDIT-1270322.webp";
 import FacebookIcon from "../assets/icon/Facebook_Logo_Dark.svg";
 import InstagramIcon from "../assets/icon/Instagram_Glyph_Dark.svg";
 import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
@@ -42,6 +46,14 @@ interface ServiceItem {
 
 const rawData = await getAllData();
 const servicesData: ServiceItem[] = Array.isArray(rawData) ? rawData : [];
+
+// Billeder til Hvalpe-sektionen (autoplay carousel)
+const hvalpeImages = [
+  HvalpeImg1.src,
+  HvalpeImg2.src,
+  HvalpeImg3.src,
+  HvalpeImg4.src,
+];
 
 // ── De fire nøgler – statisk indhold ──────────────────────
 // Kan erstattes med CMS-data hvis det bliver nødvendigt
@@ -75,11 +87,9 @@ const nøgler = [
     href: "/noegle-4",
   },
 ];
-
 ---
 
 <MainLayout title="Mindful Dog Academy - Forside">
-
   <!-- =========================================================
        HERO SEKTION
        Første sektion brugeren lander på – stor titel og CTA-knap.
@@ -87,7 +97,6 @@ const nøgler = [
        ========================================================= -->
   <section class="pb-(--section-space-y) pl-(--page-space-inline)">
     <HeroMain
-      breadcrumbs="FORSIDE"
       titleHtml='<span class="text-(--main-400)">Mindful Dog <br/>Academy</span>'
       subtitle="Ro og forståelse mellem dig og din hund"
       imageSrc={HeroMainImage}
@@ -121,31 +130,28 @@ const nøgler = [
       weight="bold"
       stylingclasses="mb-8 md:mb-12"
     >
-      Mindful-Dog Metoden - De Fire Nøgler 
+      Mindful-Dog Metoden - De Fire Nøgler
     </Heading>
 
     <!-- Nøgle-kort – 1 kolonne mobil, 2 tablet, 4 desktop -->
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       {
         nøgler.map((k) => (
-          <article class="flex flex-col gap-4 rounded-md bg-(--neutral-0) p-6">
-            <!-- Ikon-pladsholder + overskrift på samme linje -->
+          <article class="flex flex-col gap-4 rounded-md bg-(--neutral-0) p-8 md:p-10">
             <div class="flex items-center gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-(--main-300) font-display text-size-20 font-bold text-(--neutral-0)">
+              <div class="font-display text-size-20 flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-(--main-300) font-bold text-(--neutral-0)">
                 {k.nr}
               </div>
               <Heading htmlheading="h3" size="h6" weight="semibold">
-          {k.titel}
+                {k.titel}
               </Heading>
             </div>
 
-            <!-- Brødtekst + læs mere som ét sammenhængende afsnit -->
-          <ReadMore
-            stylingclasses="mt-auto"
-            previewLength={32}
-            fullText={k.beskrivelse}
-          />
-
+            <ReadMore
+              stylingclasses="mt-auto"
+              previewLength={32}
+              fullText={k.beskrivelse}
+            />
           </article>
         ))
       }
@@ -174,19 +180,26 @@ const nøgler = [
   <section
     class="bg-(--accent-200) px-(--page-space-inline) py-(--section-space-y)"
   >
-    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-
-      <!-- Billede til venstre -->
-      <div class="relative aspect-video w-full overflow-hidden rounded-md">
-        <img
-          src={HeroMainImage.src}
-          alt="Hundetræning – hvalpe"
-          class="h-full w-full object-cover"
-        />
+    <div class="grid grid-cols-1 items-stretch gap-8 md:grid-cols-2 md:gap-16">
+      <!-- Billede til venstre (autoplay carousel) -->
+      <div
+        class="relative aspect-video w-full overflow-hidden rounded-md md:aspect-auto md:h-full"
+        x-data={`{ images: ${JSON.stringify(hvalpeImages)}, i:0, start(){ this._int = setInterval(()=> this.i = (this.i+1) % this.images.length, 3000) }, stop(){ clearInterval(this._int) } }`}
+        x-init="start()"
+        x-on:mouseenter="stop()"
+        x-on:mouseleave="start()"
+      >
+        <template x-for="(src, idx) in images" :key="idx">
+          <img
+            x-bind:src="src"
+            x-bind:class="{ 'absolute inset-0 h-full w-full object-cover transition-opacity duration-500 opacity-0': true, 'opacity-100': i === idx }"
+            alt="Hvalpe træning"
+          />
+        </template>
       </div>
 
       <!-- Tekst og knapper til højre -->
-      <div class="flex flex-col items-start justify-center gap-6">
+      <div class="flex h-full flex-col items-start justify-center gap-6">
         <!-- Label + overskrift + beskrivelse -->
         <div>
           <Text
@@ -206,28 +219,44 @@ const nøgler = [
           >
             Hvalpe Træning
           </Heading>
-          <Text size="p2" font="sans" weight="regular" stylingclasses="mb-2 text-(--neutral-500)">
+          <Text
+            size="p2"
+            font="sans"
+            weight="regular"
+            stylingclasses="mb-2 text-(--neutral-500)"
+          >
             Hos Mindful-Dog Academy tager vi udgangspunkt i både dig og din
-            hund. Øvelserne tilpasses din hunds alder og udvikling.
+            hund. Øvelserne tilpasses din hunds alder og udvikling, og du får
+            teknikker, du kan bruge direkte derhjemme. Når fundamentet er på
+            plads, bygger vi videre på de første trin af lydighedsøvelser.
           </Text>
-          <Text size="p3" font="sans" weight="regular" stylingclasses="opacity-80 text-(--neutral-500)">
+          <Text
+            size="p3"
+            font="sans"
+            weight="regular"
+            stylingclasses="opacity-80 text-(--neutral-500)"
+          >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </Text>
         </div>
 
         <!-- CTA-knapper – LinkButton da de navigerer til andre sider -->
         <div class="flex flex-wrap items-center gap-4">
-          <LinkButton size="md" color="neutral" href="/hvalpe" label="LÆS MERE HER" />
+          <LinkButton
+            size="md"
+            color="neutral"
+            href="/hvalpe"
+            label="LÆS OM HVALPE HOLD"
+          />
           <LinkButton
             size="md"
             color="outline"
             href="/hold?type=hvalpe"
             stylingclasses="border-(--neutral-500) text-(--neutral-500)"
-            label="SE HOLDOVERSIGT FOR HVALPE"
+            label="LÆS OM MINDFUL-DOG METODEN"
           />
         </div>
       </div>
-
     </div>
   </section>
 
@@ -239,16 +268,17 @@ const nøgler = [
     <div
       class="grid grid-cols-1 gap-8 border-t border-(--neutral-200) pt-12 md:grid-cols-2 md:items-center md:pt-16"
     >
-
       <!-- Email-formular -->
       <div class="flex flex-col gap-4">
         <Text size="label_1" stylingclasses="text-(--text-label)">
           NYHEDSBREV
         </Text>
-        <Heading htmlheading="h3" size="h4">Hold Dig Opdateret</Heading>
+        <Heading font="display" weight="bold" htmlheading="h3" size="h4"
+          >Hold Dig Opdateret</Heading
+        >
         <Text size="p3" stylingclasses="text-(--text-secondary)">
-          Tilmeld dig vores nyhedsbrev og få tips og tricks til hundetræning og
-          nye hold i dit lokalområde.
+          Tilmeld dig vores nyhedbrev og vær den første der hører om nye
+          rabatter og andre spændende tilbud.
         </Text>
 
         <!-- Formular – submit håndteres server-side eller via integration -->
@@ -256,22 +286,41 @@ const nøgler = [
           <input
             type="email"
             placeholder="Din emailadresse"
-            class="flex-1 rounded-md border border-(--neutral-300) px-4 py-2 font-sans text-size-15 focus:outline-none focus:ring-2 focus:ring-(--main-400)"
+            class="text-size-15 flex-1 rounded-md border border-(--neutral-300) px-4 py-2 font-sans focus:ring-2 focus:ring-(--main-400) focus:outline-none"
             required
           />
           <!-- Button-komponent med type=submit -->
-          <Button type="submit" size="md" color="main" label="TILMELD" stylingclasses="px-6" />
+          <Button
+            type="submit"
+            size="md"
+            color="main"
+            label="TILMELD"
+            stylingclasses="px-6"
+          />
         </form>
       </div>
 
       <!-- Sociale medier -->
       <div class="flex items-center gap-6 md:justify-end">
-        <SocialLink href="https://www.instagram.com/" size="sm" iconSrc={InstagramIcon} iconAlt="Instagram" />
-        <SocialLink href="https://www.facebook.com/" size="sm" iconSrc={FacebookIcon} iconAlt="Facebook" />
-        <SocialLink href="https://www.linkedin.com/company/mindful-dog" size="sm" iconSrc={LinkedInIcon} iconAlt="LinkedIn" />
+        <SocialLink
+          href="https://www.instagram.com/"
+          size="sm"
+          iconSrc={InstagramIcon}
+          iconAlt="Instagram"
+        />
+        <SocialLink
+          href="https://www.facebook.com/"
+          size="sm"
+          iconSrc={FacebookIcon}
+          iconAlt="Facebook"
+        />
+        <SocialLink
+          href="https://www.linkedin.com/company/mindful-dog"
+          size="sm"
+          iconSrc={LinkedInIcon}
+          iconAlt="LinkedIn"
+        />
       </div>
-
     </div>
   </section>
-
 </MainLayout>

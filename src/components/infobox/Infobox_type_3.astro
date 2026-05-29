@@ -12,6 +12,7 @@ interface Props {
   punkt?: string;
   title?: string;
   description?: string;
+  readMorePreviewLength?: number;
   points?: PointItem[];
   containerClass?: string;
   headerClass?: string;
@@ -27,6 +28,7 @@ const {
   punkt = "Punkt nummer her",
   title = "Overskrift her",
   description = "Tekst her",
+  readMorePreviewLength,
   points = [],
   containerClass = "",
   headerClass = "",
@@ -60,41 +62,103 @@ const {
     </div>
   </div>
 
-  <div class:list={["flex flex-col gap-4", bodyClass]}>
-    <Text
-      size="p2"
-      font="sans"
-      weight="regular"
-      stylingclasses={descriptionClass}
-    >
-      {description}
-    </Text>
+  {
+    readMorePreviewLength ? (
+      <div
+        x-data={`{
+          open: false,
+          previewText: ${JSON.stringify(
+            description.length > readMorePreviewLength
+              ? `${description.slice(0, readMorePreviewLength)}…`
+              : description,
+          )},
+          fullText: ${JSON.stringify(description)},
+          toggle() {
+            this.open = !this.open;
+          }
+        }`}
+        class:list={["flex flex-col gap-4", bodyClass]}
+      >
+        <Text
+          size="p2"
+          font="sans"
+          weight="regular"
+          stylingclasses={descriptionClass}
+        >
+          <span x-text="open ? fullText : previewText" />
+        </Text>
 
-    {
-      points.length > 0 && (
-        <div class="flex flex-col gap-4">
-          {points.map((point) => (
-            <div class:list={[pointItemClass]}>
-              <Text
-                size="label_1"
-                font="display"
-                weight="bold"
-                stylingclasses={pointLabelClass}
-              >
-                {point.label}
-              </Text>
-              <Text
-                size="p2"
-                font="sans"
-                weight="regular"
-                stylingclasses={pointTextClass}
-              >
-                {point.text}
-              </Text>
-            </div>
-          ))}
-        </div>
-      )
-    }
-  </div>
+        {points.length > 0 && (
+          <div x-show="open" x-cloak class="flex flex-col gap-4">
+            {points.map((point) => (
+              <div class:list={[pointItemClass]}>
+                <Text
+                  size="label_1"
+                  font="display"
+                  weight="bold"
+                  stylingclasses={pointLabelClass}
+                >
+                  {point.label}
+                </Text>
+                <Text
+                  size="p2"
+                  font="sans"
+                  weight="regular"
+                  stylingclasses={pointTextClass}
+                >
+                  {point.text}
+                </Text>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {description.length > readMorePreviewLength && (
+          <button
+            type="button"
+            @click="toggle()"
+            class="inline-flex cursor-pointer self-start font-sans text-(--link-text) underline decoration-1 underline-offset-2 transition-opacity hover:opacity-70"
+          >
+            <span x-text="open ? 'Læs mindre' : 'Læs mere'" />
+          </button>
+        )}
+      </div>
+    ) : (
+      <div class:list={["flex flex-col gap-4", bodyClass]}>
+        <Text
+          size="p2"
+          font="sans"
+          weight="regular"
+          stylingclasses={descriptionClass}
+        >
+          {description}
+        </Text>
+
+        {points.length > 0 && (
+          <div class="flex flex-col gap-4">
+            {points.map((point) => (
+              <div class:list={[pointItemClass]}>
+                <Text
+                  size="label_1"
+                  font="display"
+                  weight="bold"
+                  stylingclasses={pointLabelClass}
+                >
+                  {point.label}
+                </Text>
+                <Text
+                  size="p2"
+                  font="sans"
+                  weight="regular"
+                  stylingclasses={pointTextClass}
+                >
+                  {point.text}
+                </Text>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
 </article>
