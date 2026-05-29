@@ -9,7 +9,6 @@ import ProductCard from "../components/cards/ProductCard.astro";
 
 import {
   getAllData,
-  getTraenerDisplayName,
   lokationGroups,
   groupStyles,
   getLokationGroup,
@@ -84,6 +83,7 @@ const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
                   traener={t?.fornavn}
                   xtraener={xtraener}
                   path={item.slug}
+                  t_path={t?.traener_slug}
                 />
               );
             })}

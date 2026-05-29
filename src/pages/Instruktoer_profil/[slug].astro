@@ -1,0 +1,199 @@
+---
+// @ts-nocheck
+import MainLayout from "../../layouts/MainLayout.astro";
+import Heading from "../../components/Heading.astro";
+import Text from "../../components/Text.astro";
+import InfoboxType3 from "../../components/infobox/Infobox_type_3.astro";
+import ProfileCard from "../../components/cards/ProfileCard.astro";
+import Button from "../../components/Buttons__&_links/Button.astro";
+import LinkButton from "../../components/Buttons__&_links/LinkButton.astro";
+import {
+  getAllData,
+  getTraenereSlugs,
+  getServicesBySlug,
+  krTilDKK,
+  getPageData,
+  firstRow,
+} from "../../assets/js/supabase_v2";
+import HoldCard from "../../components/cards/HoldCard.astro";
+
+export async function getStaticPaths() {
+  const slugs = await getTraenereSlugs();
+
+  return slugs.map((item) => ({
+    params: { slug: item.traener_slug },
+  }));
+}
+const cTjek = await getStaticPaths();
+console.log(cTjek);
+
+const allServices = await getAllData();
+
+const slug = Astro.params.slug?.trim();
+
+const service = allServices.find((s) => s.traenere?.traener_slug === slug);
+
+const pageData = getPageData(service);
+const individuelleServices = allServices
+  .filter(
+    (s) =>
+      s.traenere?.traener_slug === slug &&
+      ["individuel", "hjemmevurdering"].includes(s.type?.toLowerCase()),
+  )
+  .sort((a, b) => a.hold.localeCompare(b.hold, "da"))
+  .map((s) => getPageData(s));
+
+const traeningsHold = allServices
+  .filter(
+    (s) =>
+      s.traenere?.traener_slug === slug &&
+      s.type?.toLowerCase().includes("træningshold"),
+  )
+  .sort((a, b) => a.hold.localeCompare(b.hold, "da"))
+  .map((s) => getPageData(s));
+
+const tNavn = `${pageData.fornavn} ${pageData.efternavn}`;
+
+console.log(individuelleServices);
+// console.log("slug", slug);
+// console.log("rows", rows);
+// console.log("traener", traener);
+---
+
+<MainLayout>
+  <section class="px-8 py-16 md:py-24">
+    <img
+      src={pageData.profil_img}
+      alt={tNavn}
+      class="mx-auto my-auto max-w-[45vw] rounded-md"
+    />
+    <Text size="label_1" weight="semibold" stylingclasses="tracking-widest"
+      >PROFIL</Text
+    ><Heading
+      htmlheading="h3"
+      size="h3"
+      font="display"
+      weight="semibold"
+      stylingclasses="my-8">{tNavn}</Heading
+    >
+    <span>GRID HER MED LOKATION ON HOLD</span>
+    <Text stylingclasses="my-8 max-w-[60ch]">{pageData.traener_info}</Text>
+    <div class="justify-even flex flex-wrap gap-6">
+      <LinkButton
+        href={"/Hold_oversigt?lokation=" + pageData.lokation}
+        size="lg"
+        color="neutral"
+        label={pageData.fornavn + "S HOLD"}
+        stylingclasses="uppercase"
+      />
+      <LinkButton
+        href={"#individuel"}
+        size="lg"
+        color="accent"
+        label="ENE UNDERVISNING"
+      />
+      <LinkButton
+        href={"#kvalProfil"}
+        size="lg"
+        color="outline"
+        label="MERE INFO"
+      />
+    </div>
+  </section>
+  <section id="kvalProfil" class="bg-(--main-200) p-8 md:p-16">
+    <Text
+      size="label_1"
+      weight="semibold"
+      stylingclasses="text-(--main-400) tracking-widest"
+    >
+      BAGGRUND
+    </Text>
+    <Heading htmlheading="h4" size="h4" font="display" weight="semibold"
+      >Kvalifikationer</Heading
+    >
+    <InfoboxType3
+      punkt=" "
+      title="Udannet hundetræner ved Grace Hidalgo i 2022"
+      description="Som har været aktiv som hundetræner i over 40 sæsoner"
+      containerClass="w-[60vw] mx-auto mb-4 mt-8"
+    />
+    <InfoboxType3
+      punkt=" "
+      title="Erfaring med en bred vifte af forskellige hunderacer"
+      bodyClass="hidden"
+      containerClass="w-[60vw] mx-auto mt-4 mb-8"
+    />
+  </section>
+  <section class="p-8 md:p-16">
+    <div id="trHold" class="my-8">
+      <Text
+        size="label_1"
+        weight="semibold"
+        stylingclasses="text-(--main-400) tracking-widest"
+      >
+        HOLD
+      </Text>
+      <Heading htmlheading="h4" size="h4" font="display" weight="semibold"
+        >{pageData?.fornavn}s hold</Heading
+      >
+    </div>
+    <div class="flex flex-col gap-4 p-8">
+      {
+        traeningsHold.map((item) => {
+          const prisTekst = krTilDKK.format(Number(item.pris));
+          return (
+            <HoldCard
+              hold={item.hold}
+              pris={prisTekst}
+              adresse={
+                item?.adresse_1 +
+                ", " +
+                item?.postnummer_1 +
+                " " +
+                item?.bynavn_1
+              }
+              status_ikon={item?.status_ikon}
+              status_txt={item?.status_txt}
+              path={pageData?.slug}
+            />
+          );
+        })
+      }
+    </div>
+    <div id="individuel" class="my-8">
+      <Text
+        size="label_1"
+        weight="semibold"
+        stylingclasses="text-(--main-400) tracking-widest"
+      >
+        INDIVIDUEL UNDERVISNING
+      </Text>
+      <Heading htmlheading="h4" size="h4" font="display" weight="semibold"
+        >Muligheder for En-til-En undervisning</Heading
+      >
+    </div>
+    <div class="flex flex-col gap-4 p-8">
+      {
+        individuelleServices.map((item) => {
+          const prisTekst = krTilDKK.format(Number(item.pris));
+          return (
+            <HoldCard
+              hold={item.hold}
+              pris={prisTekst}
+              adresse={
+                item?.adresse_1 +
+                ", " +
+                item?.postnummer_1 +
+                " " +
+                item?.bynavn_1
+              }
+              status_ikon={item?.status_ikon}
+              status_txt={item?.status_txt}
+              path={pageData?.slug}
+            />
+          );
+        })
+      }
+    </div>
+  </section>
+</MainLayout>

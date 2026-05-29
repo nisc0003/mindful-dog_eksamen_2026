@@ -86,13 +86,21 @@ export async function getServicesSlugs() {
   return res.json();
 }
 
-// export async function getTraenereBySlug(slug) {
-//   const res = await fetch(
-//     `${url}/traenere?traener_slug=eq.${encodeURIComponent(slug)}&select=*`,
-//     options,
-//   );
-//   return res.json();
-// }
+export async function getTraenereBySlug(slug) {
+  const res = await fetch(
+    `${url}/traenere?traener_slug=eq.${encodeURIComponent(slug)}&select=*`,
+    options,
+  );
+  return res.json();
+}
+
+export async function getTraenereSlugs() {
+  const res = await fetch(`${url}/traenere?select=traener_slug`, options);
+
+  const data = await res.json();
+
+  return Array.isArray(data) ? data : [];
+}
 
 // Definerer lokationsgrupperne, hvor hver gruppe indeholder en liste af lokationer
 export const lokationGroups = {
@@ -206,6 +214,7 @@ export function getPageData(service) {
     testimonial_3: t?.testimonial_3,
     fornavn_2: t?.fornavn_2,
     efternavn_2: t?.efternavn_2,
+    t_slug: t?.traener_slug,
     // ikoner
     status_txt: i?.status_txt,
     status_ikon: i?.ikon_url,

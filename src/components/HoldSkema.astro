@@ -27,14 +27,20 @@ const groupedByLokation = getGroupedByLokation(filterLokation);
 const displayedGroups = getDisplayedGroups(groupedByLokation, selectedLokation);
 ---
 
-<div
-  class="m-6 grid grid-cols-3 gap-4"
->
-<LinkButton size="sm" color="accent" href="?lokation=Alle" label="Alle" />
+<div class="m-6 grid grid-cols-3 gap-4">
+  <LinkButton size="sm" color="accent" href="?lokation=Alle" label="Alle" />
   {
     displayedGroups.map((filter) => {
       const groupClass = getLokationGroup(filter);
-      return <LinkButton size="sm" color="primary" href={`?lokation=${encodeURIComponent(filter)}`}>{filter}</LinkButton>;
+      return (
+        <LinkButton
+          size="sm"
+          color="primary"
+          href={`?lokation=${encodeURIComponent(filter)}`}
+        >
+          {filter}
+        </LinkButton>
+      );
     })
   }
 </div>

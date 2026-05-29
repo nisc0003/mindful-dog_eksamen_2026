@@ -2,8 +2,9 @@
 import Heading from "../Heading.astro";
 import Text from "../Text.astro";
 import LinkButton from "../Buttons__&_links/LinkButton.astro";
-const { traener, xtraener, traener_info, profil_img } = Astro.props;
-const beggeTraener = xtraener ? `${traener} & ${traener}` : traener;
+
+const { traener, xtraener, traener_info, profil_img, t_path } = Astro.props;
+const beggeTraener = xtraener ? `${traener} & ${xtraener}` : traener;
 ---
 
 <article class="grid grid-cols-2 gap-4 bg-(--neutral-100) p-8 md:grid-cols-5">
@@ -25,5 +26,9 @@ const beggeTraener = xtraener ? `${traener} & ${traener}` : traener;
   <Text stylingclasses="col-span-2 md:col-span-3">
     {traener_info}
   </Text>
-  <LinkButton href="#" label="SE PROFIL" stylingclasses="md:row-span-2" />
+  <LinkButton
+    href={"/Instruktoer_profil/" + t_path}
+    label="SE PROFIL"
+    stylingclasses="md:row-span-2"
+  />
 </article>
