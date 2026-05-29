@@ -1,10 +1,4 @@
 ---
-// =========================================================
-// INDEX.ASTRO – FORSIDE
-// Mindful Dog Academy's startside.
-// Data hentes server-side fra Supabase og sendes til Map-komponenten.
-// =========================================================
-
 // ── Komponent-imports ──────────────────────────────────────
 import MainLayout from "../layouts/MainLayout.astro";
 import Heading from "../components/Heading.astro";
@@ -55,29 +49,29 @@ const nøgler = [
   {
     nr: "1",
     eyebrow: "Nøgle #1",
-    titel: "Overskrift",
-    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
+    titel: "Nærvær",
+    beskrivelse: "Nærværet mellem ejer og hund er essentielt for at ",
     href: "/noegle-1",
   },
   {
     nr: "2",
     eyebrow: "Nøgle #2",
-    titel: "Overskrift",
-    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
+    titel: "Ro og Fokus",
+    beskrivelse: "Ro og fokus er afgørende for at skabe et trygt og ",
     href: "/noegle-2",
   },
   {
     nr: "3",
     eyebrow: "Nøgle #3",
-    titel: "Overskrift",
-    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
+    titel: "Konsistent",
+    beskrivelse: "At være konsistent i din træning er afgørende for at ",
     href: "/noegle-3",
   },
   {
     nr: "4",
     eyebrow: "Nøgle #4",
-    titel: "Overskrift",
-    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
+    titel: "Positiv Læring",
+    beskrivelse: "Mindful-Dog metoden benytter sig udelukkende af",
     href: "/noegle-4",
   },
 ];
@@ -95,7 +89,7 @@ const nøgler = [
     <HeroMain
       breadcrumbs="FORSIDE"
       titleHtml='<span class="text-(--main-400)">Mindful Dog <br/>Academy</span>'
-      subtitle="Ro, mental balance og ægte forståelse mellem dig og din firbenede ven."
+      subtitle="Ro og forståelse mellem dig og din hund"
       imageSrc={HeroMainImage}
       buttons={[
         { label: "SE VORES HOLD", color: "primary", href: "#lokationer" },
@@ -118,7 +112,7 @@ const nøgler = [
       weight="regular"
       stylingclasses="mb-1 text-(--text-label) uppercase tracking-widest"
     >
-      indhold
+      nøgler
     </Text>
     <Heading
       htmlheading="h2"
@@ -127,7 +121,7 @@ const nøgler = [
       weight="bold"
       stylingclasses="mb-8 md:mb-12"
     >
-      Mindful-Dog Metoden - De Fire Nøgler
+      Mindful-Dog Metoden - De Fire Nøgler 
     </Heading>
 
     <!-- Nøgle-kort – 1 kolonne mobil, 2 tablet, 4 desktop -->
