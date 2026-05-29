@@ -14,12 +14,19 @@ type LinkButtonColor =
   | "outline";
 
 interface Props {
+  // Supported size variants.
   size?: LinkButtonSize;
+  // Supported color variants.
   color?: LinkButtonColor;
+  // Optional link destination.
   href?: string;
+  // Default label when no slot content is provided.
   label?: string;
+  // Extra utility classes to append.
   stylingclasses?: string;
+  // Passed through to the anchor tag when needed.
   target?: string;
+  // Passed through to the anchor tag when needed.
   rel?: string;
 }
 
@@ -31,7 +38,9 @@ const {
   stylingclasses = "",
   target,
   rel,
-} = Astro.props as Props;
+  class: className,
+  ...rest
+} = Astro.props as Props & { class?: string } & Record<string, unknown>;
 
 const sizeClasses = {
   sm: "h-[35px] px-4 text-size-14 rounded-sm gap-2",
@@ -59,11 +68,12 @@ const linkClass = [
   sizeClasses[size],
   colorClasses[color],
   stylingclasses,
+  className,
 ]
   .filter(Boolean)
   .join(" ");
 ---
 
-<a href={href} target={target} rel={rel} class={linkClass}>
+<a href={href} target={target} rel={rel} class={linkClass} {...rest}>
   <slot>{label}</slot>
 </a>
