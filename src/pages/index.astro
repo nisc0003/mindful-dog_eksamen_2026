@@ -9,7 +9,6 @@ import Link from "../components/Buttons__&_links/Link.astro";
 import SocialLink from "../components/Buttons__&_links/SocialLink.astro";
 import HeroMain from "../components/HeroMain.astro";
 import MapSection from "../components/Map.astro";
-import ReadMore from "../components/Buttons__&_links/ReadMore.astro";
 // ── Asset-imports ──────────────────────────────────────────
 import HeroMainImage from "../assets/img/EKSAMEN_EDIT-7273.webp";
 import HvalpeImg1 from "../assets/img/EKSAMEN_EDIT-1270296.webp";
@@ -55,6 +54,17 @@ const hvalpeImages = [
   HvalpeImg4.src,
 ];
 
+// Mappable HeroMain props — edit these values rather than the JSX below.
+const heroMain = {
+  titleHtml: '<span class="text-(--main-400)">Mindful Dog <br/>Academy</span>',
+  subtitle: "Ro og forståelse mellem dig og din hund",
+  imageSrc: HeroMainImage,
+  imageClass: "transform scale-x-[-1]",
+  buttons: [
+    { label: "SE VORES HOLD", color: "secondary", href: "#lokationer" },
+  ],
+};
+
 // ── De fire nøgler – statisk indhold ──────────────────────
 // Kan erstattes med CMS-data hvis det bliver nødvendigt
 const nøgler = [
@@ -96,14 +106,7 @@ const nøgler = [
        Scroll-knappen peger på lokationskortet nedenfor via #lokationer.
        ========================================================= -->
   <section class="px-(--page-space-inline) py-(--section-space-y)">
-    <HeroMain
-      titleHtml='<span class="text-(--main-400)">Mindful Dog <br/>Academy</span>'
-      subtitle="Ro og forståelse mellem dig og din hund"
-      imageSrc={HeroMainImage}
-      buttons={[
-        { label: "SE VORES HOLD", color: "primary", href: "#lokationer" },
-      ]}
-    />
+    <HeroMain {...heroMain as any} />
   </section>
 
   <!-- =========================================================
@@ -128,17 +131,19 @@ const nøgler = [
       size="h3"
       font="display"
       weight="bold"
-      stylingclasses="mb-8 md:mb-12"
+      stylingclasses="mb-8 md:mb-12 gap-"
     >
       Mindful-Dog Metoden - De Fire Nøgler
     </Heading>
 
     <!-- Nøgle-kort – 1 kolonne mobil, 2 tablet, 4 desktop -->
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <div
+      class="grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 lg:grid-cols-4"
+    >
       {
         nøgler.map((k) => (
-          <article class="flex flex-col gap-4 rounded-md bg-(--neutral-0) p-8 md:p-10">
-            <div class="flex items-center gap-4">
+          <article class="grid h-full grid-rows-[auto_auto_1fr] gap-4 rounded-md bg-(--neutral-0) p-8 md:p-10">
+            <div class="flex items-center gap-4 self-start">
               <div class="font-display text-size-20 flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-(--main-300) font-bold text-(--neutral-0)">
                 {k.nr}
               </div>
@@ -147,11 +152,14 @@ const nøgler = [
               </Heading>
             </div>
 
-            <ReadMore
-              stylingclasses="mt-auto"
-              previewLength={32}
-              fullText={k.beskrivelse}
-            />
+            <Text
+              size="p2"
+              font="sans"
+              weight="regular"
+              stylingclasses="text-(--neutral-500) self-end"
+            >
+              {k.beskrivelse}
+            </Text>
           </article>
         ))
       }
@@ -245,13 +253,13 @@ const nøgler = [
           <LinkButton
             size="md"
             color="neutral"
-            href="/hvalpe"
+            href="#"
             label="LÆS OM HVALPE HOLD"
           />
           <LinkButton
             size="md"
             color="outline"
-            href="/hold?type=hvalpe"
+            href="#"
             stylingclasses="border-(--neutral-500) text-(--neutral-500)"
             label="LÆS OM MINDFUL-DOG METODEN"
           />

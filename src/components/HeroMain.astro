@@ -41,6 +41,15 @@ interface Props {
   // Accepts either an Astro image object or a plain string URL.
   imageSrc: HeroImage | string;
   imageAlt?: string;
+  // Optional extra classes applied to the image element (e.g. flip)
+  imageClass?: string;
+  // Optional extra classes applied to the image wrapper.
+  imageWrapperClass?: string;
+  // Optional layout overrides for page-specific hero tuning.
+  layoutGapClass?: string;
+  contentGapClass?: string;
+  titleClass?: string;
+  subtitleClass?: string;
   buttons?: ButtonConfig[];
 }
 
@@ -50,6 +59,12 @@ const {
   subtitle,
   imageSrc,
   imageAlt = "Hero transparent billede",
+  imageClass = "",
+  imageWrapperClass = "",
+  layoutGapClass = "gap-8 md:gap-12 lg:gap-20",
+  contentGapClass = "gap-4 md:gap-6",
+  titleClass = "",
+  subtitleClass = "",
   buttons = [],
 } = Astro.props as Props;
 
@@ -58,10 +73,10 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
 
 <!-- No section/padding here — the page owns spacing via px-(--page-space-inline) py-(--section-space-y) -->
 <div
-  class="grid w-full grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-20"
+  class={`grid w-full grid-cols-1 ${layoutGapClass} md:grid-cols-[3fr_2fr] md:items-center`}
 >
   <!-- Text column -->
-  <div class="flex flex-col gap-4 md:gap-6">
+  <div class={`flex max-w-3xl flex-col ${contentGapClass}`}>
     {
       breadcrumbs && (
         <Text
@@ -79,14 +94,17 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
       size="h1"
       font="display"
       weight="bold"
-      stylingclasses="text-[clamp(var(--heading-1-mobile),8vw,var(--heading-1-size))] leading-[1.05] text-(--neutral-500) [text-wrap:balance] z-1 translate-y-3"
+      stylingclasses="text-[clamp(var(--heading-1-mobile),8vw,var(--heading-1-size))] leading-[1.05] text-(--neutral-500) [text-wrap:balance]"
     >
       <span class="block w-full" set:html={titleHtml} />
     </Heading>
 
     {
       subtitle && (
-        <Text size="p1" stylingclasses="text-(--neutral-500)">
+        <Text
+          size="p1"
+          stylingclasses={`text-(--neutral-500) ${subtitleClass}`}
+        >
           {subtitle}
         </Text>
       )
@@ -112,12 +130,14 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
   </div>
 
   <!-- Image column — sits at bottom so figure "stands" on the section edge -->
-  <div class="flex items-end justify-center md:justify-end">
+  <div
+    class={`flex items-end justify-center md:items-center md:justify-end ${imageWrapperClass}`}
+  >
     <img
       src={imgSrc}
       alt={imageAlt}
       loading="eager"
-      class="h-auto w-full object-contain object-bottom"
+      class:list={["h-auto w-full object-cover object-bottom", imageClass]}
     />
   </div>
 </div>

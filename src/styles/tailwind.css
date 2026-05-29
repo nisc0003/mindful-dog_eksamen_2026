@@ -159,23 +159,6 @@
    ========================================================= */
 
 :root {
-  /* =========================
-     SIDE OG SEKTIONER
-     ========================= */
-
-  /*
-  ORIGINAL (kept)
-  --page-space-inline: clamp(
-    var(--primitive-space-20),
-    4vw,
-    var(--primitive-space-128)
-  );
-  */
-
-  /*
-  Modern side spacing: small screens stay comfortable, while larger screens
-  gradually move toward roughly 20% whitespace on each side.
-  */
   --page-space-inline-standard: clamp(var(--primitive-space-16), 3vw, 10vw);
   --page-space-inline-sm: clamp(var(--primitive-space-20), 4vw, 10vw);
   --page-space-inline-md: clamp(var(--primitive-space-28), 6vw, 12vw);
@@ -184,17 +167,6 @@
   --page-space-inline-2xl: clamp(var(--primitive-space-48), 14vw, 18vw);
   --page-space-inline: var(--page-space-inline-standard);
 
-  /*
-  ORIGINAL (kept)
-  --section-space-y: clamp(
-    var(--primitive-space-20),
-    6vw,
-    var(--primitive-space-128)
-  );
-  */
-
-  /* Vertical spacing follows viewport height a bit more aggressively so
-     sections breathe like a modern editorial layout. */
   --section-space-y-standard: clamp(
     var(--primitive-space-48),
     8vh,
@@ -318,12 +290,6 @@
   --section-bg-3: var(--main-400);
   --section-bg-4: var(--accent-400);
 }
-
-/* =========================================================
-  RESPONSIVE SPACING TOKENS
-  Skifter automatisk mellem sm/md/lg/xl/2xl uden at komponenter
-  skal kende breakpoints direkte.
-  ========================================================= */
 
 @media (min-width: 40rem) {
   :root {

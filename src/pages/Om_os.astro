@@ -9,13 +9,12 @@ import Infobox_4 from "../components/infobox/Infobox_type_4.astro";
 import TeamMemberCard from "../components/cards/TeamMemberCard.astro";
 import HeroMainImage from "../assets/img/EKSAMEN_EDIT-1280445.webp";
 import HeroSecondImage from "../assets/img/EKSAMEN_EDIT-7303.webp";
-import alexandra from "../assets/testimages/alexandra.png";
-import eva from "../assets/testimages/eva.png";
-import freja from "../assets/testimages/freja.png";
-import grace from "../assets/testimages/grace.png";
-import pia from "../assets/testimages/pia.png";
-import sabine from "../assets/testimages/sabine.png";
-import isabell from "../assets/testimages/isabell.png";
+import AlexandraImg from "../assets/img/profil-img/Paprotny_Profil.webp";
+import EvaImg from "../assets/img/profil-img/Eva_Profil.webp";
+import FrejaImg from "../assets/img/profil-img/Freja_Profil.webp";
+import GraceImg from "../assets/img/profil-img/Grace_Profil.webp";
+import PiaImg from "../assets/img/profil-img/Pia_Profil.webp";
+import SabineImg from "../assets/img/profil-img/Sabine_Profil.webp";
 
 const philosophyCards = [
   {
@@ -119,26 +118,36 @@ const methodCards = [
 const teamMembers = [
   {
     name: "Alexandra",
-    location: "Nordsjælland",
+    location: "Vejen",
     slug: "alexandra",
-    image: alexandra,
+    image: AlexandraImg,
   },
-  { name: "Eva", location: "København", slug: "eva", image: eva },
+  { name: "Eva", location: "Ikast", slug: "eva", image: EvaImg },
   {
     name: "Freja",
-    location: "Midtsjælland",
+    location: "Als",
     slug: "freja",
-    image: freja,
+    image: FrejaImg,
   },
   {
     name: "Grace",
-    location: "Hovedkontor",
+    location: "Sønderjylland",
     slug: "grace-hidalgo",
-    image: grace,
+    image: GraceImg,
   },
-  { name: "Pia", location: "Fyn", slug: "pia", image: pia },
-  { name: "Sabine", location: "Sydsjælland", slug: "sabine", image: sabine },
-  { name: "Isabell", location: "Vestjylland", slug: "isabell", image: isabell },
+  { name: "Pia", location: "Svendborg", slug: "pia", image: PiaImg },
+  {
+    name: "Sabine",
+    location: "Vestsjælland",
+    slug: "sabine",
+    image: SabineImg,
+  },
+  {
+    name: "Isabell",
+    location: "Sønderjylland",
+    slug: "isabell",
+    image: AlexandraImg,
+  },
 ];
 
 const graceDescription = `Jeg er Grace Hidalgo, grundlæggeren af  Mindful-Dog Academy. Min rejse begyndte for over 20 år siden, da jeg stod i en situation, hvor jeg havde udfordringer med min egen  hund. Det var først da jeg  tilfældigt mødte en dyreadfærdsterapeut, at jeg fik den indsigt og  hjælp, jeg savnede. Den viden følte jeg en stærk trang til at  videregive. da det for mig var en kæmpe øjenåbner, at arbejde ud fra  positive indlæringsmetoder. Jeg underviste i dette i over 10 år i  mit eget træningscenter. Jeg opdagede dog undervejs, at der manglede en vigtig dimension. Derfor udviklede jeg Mindful-Dog metoden, en tilgang der går ud over den traditionelle træningstilgang.`;
