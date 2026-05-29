@@ -94,7 +94,7 @@ const imgSrc = typeof imageSrc === "string" ? imageSrc : imageSrc.src;
       size="h1"
       font="display"
       weight="bold"
-      stylingclasses={`text-[clamp(3.5rem,7vw,8rem)] leading-[1.02] text-(--neutral-500) [text-wrap:balance] md:max-w-[38rem] ${titleClass}`}
+      stylingclasses="text-[clamp(var(--heading-1-mobile),8vw,var(--heading-1-size))] leading-[1.05] text-(--neutral-500) [text-wrap:balance]"
     >
       <span class="block w-full" set:html={titleHtml} />
     </Heading>

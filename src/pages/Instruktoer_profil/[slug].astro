@@ -61,46 +61,55 @@ console.log(individuelleServices);
 ---
 
 <MainLayout>
-  <section class="px-8 py-16 md:py-24">
+  <section
+    class="flex flex-col px-(--page-space-inline) py-(--section-space-y)"
+  >
     <img
       src={pageData.profil_img}
       alt={tNavn}
       class="mx-auto my-auto max-w-[45vw] rounded-md"
     />
-    <Text size="label_1" weight="semibold" stylingclasses="tracking-widest"
-      >PROFIL</Text
-    ><Heading
-      htmlheading="h3"
-      size="h3"
-      font="display"
-      weight="semibold"
-      stylingclasses="my-8">{tNavn}</Heading
-    >
-    <span>GRID HER MED LOKATION ON HOLD</span>
-    <Text stylingclasses="my-8 max-w-[60ch]">{pageData.traener_info}</Text>
-    <div class="justify-even flex flex-wrap gap-6">
-      <LinkButton
-        href={"/Hold_oversigt?lokation=" + pageData.lokation}
-        size="lg"
-        color="neutral"
-        label={pageData.fornavn + "S HOLD"}
-        stylingclasses="uppercase"
-      />
-      <LinkButton
-        href={"#individuel"}
-        size="lg"
-        color="accent"
-        label="ENE UNDERVISNING"
-      />
-      <LinkButton
-        href={"#kvalProfil"}
-        size="lg"
-        color="outline"
-        label="MERE INFO"
-      />
+    <div class="mx-auto">
+      <Text
+        size="label_1"
+        weight="semibold"
+        stylingclasses="mt-8 mx-auto tracking-widest">PROFIL</Text
+      ><Heading
+        htmlheading="h3"
+        size="h3"
+        font="display"
+        weight="semibold"
+        stylingclasses="my-8 mx-auto">{tNavn}</Heading
+      >
+
+      <Text stylingclasses="my-8 max-w-[60ch]">{pageData.traener_info}</Text>
+      <div class="justify-even flex flex-wrap gap-6">
+        <LinkButton
+          href={"/Hold_oversigt?lokation=" + pageData.lokation}
+          size="lg"
+          color="neutral"
+          label={pageData.fornavn + "S HOLD"}
+          stylingclasses="uppercase"
+        />
+        <LinkButton
+          href={"#individuel"}
+          size="lg"
+          color="accent"
+          label="ENE UNDERVISNING"
+        />
+        <LinkButton
+          href={"#kvalProfil"}
+          size="lg"
+          color="outline"
+          label="MERE INFO"
+        />
+      </div>
     </div>
   </section>
-  <section id="kvalProfil" class="bg-(--main-200) p-8 md:p-16">
+  <section
+    id="kvalProfil"
+    class="bg-(--main-200) px-(--page-space-inline) py-(--section-space-y)"
+  >
     <Text
       size="label_1"
       weight="semibold"
@@ -124,7 +133,7 @@ console.log(individuelleServices);
       containerClass="w-[60vw] mx-auto mt-4 mb-8"
     />
   </section>
-  <section class="p-8 md:p-16">
+  <section class="px-(--page-space-inline) py-(--section-space-y)">
     <div id="trHold" class="my-8">
       <Text
         size="label_1"

@@ -8,7 +8,7 @@ const prisTekst = krTilDKK.format(Number(pris));
 ---
 
 <section
-  class="mx-auto grid w-[90vw] gap-4 overflow-hidden lg:grid-cols-2 lg:gap-4"
+  class="mx-auto grid gap-4 overflow-hidden px-(--page-space-inline) py-(--section-space-y) lg:grid-cols-2 lg:gap-4"
 >
   <img
     src={img}
@@ -31,7 +31,7 @@ const prisTekst = krTilDKK.format(Number(pris));
       class="my-4 flex flex-col justify-between gap-4 lg:flex-row lg:items-center"
     >
       <div
-        class="text-size-20) flex w-fit gap-4 rounded-md bg-(--main-400) px-4 py-2 text-(--text-inverse) lg:items-center"
+        class="text-size-20 flex w-fit gap-4 rounded-md bg-(--main-400) px-4 py-2 text-(--text-inverse) lg:items-center"
       >
         <Text weight="bold">
           {prisTekst}
