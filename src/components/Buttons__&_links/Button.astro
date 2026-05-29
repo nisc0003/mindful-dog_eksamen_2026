@@ -31,7 +31,7 @@ const {
   color = "primary",
   label = "Knap",
   type = "button",
-  stylingclasses = "",
+  stylingclasses = "duration-200 hover:scale-[1.01]",
 } = Astro.props as Props;
 
 const sizeClasses = {
@@ -48,7 +48,7 @@ const colorClasses = {
   secondary:
     "bg-(--button-secondary-bg) text-(--button-secondary-text) hover:bg-(--button-secondary-bg-hover)",
   accent:
-    "bg-(--button-accent-bg) text-(--button-accent-text) hover:bg-(--button-accent-bg-hover)",
+    "bg-(--button-accent-bg) text-(--button-accent-text) hover:bg-(--button-accent-bg-hover) ",
   neutral:
     "bg-(--button-neutral-bg) text-(--button-neutral-text) hover:bg-(--button-neutral-bg-hover)",
   outline:

@@ -172,32 +172,16 @@
   );
   */
 
-  --page-space-inline-standard: 4vw;
-  --page-space-inline-sm: clamp(
-    var(--primitive-space-20),
-    4vw,
-    var(--primitive-space-32)
-  );
-  --page-space-inline-md: clamp(
-    var(--primitive-space-24),
-    4.5vw,
-    var(--primitive-space-40)
-  );
-  --page-space-inline-lg: clamp(
-    var(--primitive-space-32),
-    5vw,
-    var(--primitive-space-56)
-  );
-  --page-space-inline-xl: clamp(
-    var(--primitive-space-40),
-    6vw,
-    var(--primitive-space-72)
-  );
-  --page-space-inline-2xl: clamp(
-    var(--primitive-space-48),
-    7vw,
-    var(--primitive-space-96)
-  );
+  /*
+  Modern side spacing: small screens stay comfortable, while larger screens
+  gradually move toward roughly 20% whitespace on each side.
+  */
+  --page-space-inline-standard: clamp(var(--primitive-space-16), 3vw, 10vw);
+  --page-space-inline-sm: clamp(var(--primitive-space-20), 4vw, 10vw);
+  --page-space-inline-md: clamp(var(--primitive-space-28), 6vw, 12vw);
+  --page-space-inline-lg: clamp(var(--primitive-space-32), 10vw, 14vw);
+  --page-space-inline-xl: clamp(var(--primitive-space-40), 12vw, 16vw);
+  --page-space-inline-2xl: clamp(var(--primitive-space-48), 14vw, 18vw);
   --page-space-inline: var(--page-space-inline-standard);
 
   /*
@@ -209,33 +193,36 @@
   );
   */
 
-  --section-space-y-standard: max(
+  /* Vertical spacing follows viewport height a bit more aggressively so
+     sections breathe like a modern editorial layout. */
+  --section-space-y-standard: clamp(
     var(--primitive-space-48),
-    clamp(10vh, 6vw, 128px)
+    8vh,
+    var(--primitive-space-128)
   );
   --section-space-y-sm: clamp(
-    var(--primitive-space-24),
-    6vw,
-    var(--primitive-space-48)
+    var(--primitive-space-32),
+    8vh,
+    var(--primitive-space-72)
   );
   --section-space-y-md: clamp(
-    var(--primitive-space-32),
-    6vw,
-    var(--primitive-space-64)
-  );
-  --section-space-y-lg: clamp(
     var(--primitive-space-40),
-    6.5vw,
+    9vh,
     var(--primitive-space-80)
   );
-  --section-space-y-xl: clamp(
+  --section-space-y-lg: clamp(
     var(--primitive-space-48),
-    7vw,
+    10vh,
     var(--primitive-space-96)
   );
-  --section-space-y-2xl: clamp(
+  --section-space-y-xl: clamp(
     var(--primitive-space-56),
-    8vw,
+    11vh,
+    var(--primitive-space-112)
+  );
+  --section-space-y-2xl: clamp(
+    var(--primitive-space-64),
+    12vh,
     var(--primitive-space-128)
   );
   --section-space-y: var(--section-space-y-standard);
@@ -330,4 +317,45 @@
   --section-bg-2: var(--accent-200);
   --section-bg-3: var(--main-400);
   --section-bg-4: var(--accent-400);
+}
+
+/* =========================================================
+  RESPONSIVE SPACING TOKENS
+  Skifter automatisk mellem sm/md/lg/xl/2xl uden at komponenter
+  skal kende breakpoints direkte.
+  ========================================================= */
+
+@media (min-width: 40rem) {
+  :root {
+    --page-space-inline: var(--page-space-inline-sm);
+    --section-space-y: var(--section-space-y-sm);
+  }
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --page-space-inline: var(--page-space-inline-md);
+    --section-space-y: var(--section-space-y-md);
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --page-space-inline: var(--page-space-inline-lg);
+    --section-space-y: var(--section-space-y-lg);
+  }
+}
+
+@media (min-width: 80rem) {
+  :root {
+    --page-space-inline: var(--page-space-inline-xl);
+    --section-space-y: var(--section-space-y-xl);
+  }
+}
+
+@media (min-width: 96rem) {
+  :root {
+    --page-space-inline: var(--page-space-inline-2xl);
+    --section-space-y: var(--section-space-y-2xl);
+  }
 }
