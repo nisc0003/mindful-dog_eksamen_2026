@@ -16,7 +16,10 @@ interface Props {
   stylingclasses?: string;
 }
 
-const props = Astro.props as Props & { class?: string } & Record<string, unknown>;
+const props = Astro.props as Props & { class?: string } & Record<
+    string,
+    unknown
+  >;
 
 const {
   size = "md",
@@ -58,11 +61,7 @@ const buttonClass = [
   .join(" ");
 ---
 
-<button
-  type="button"
-  class={buttonClass}
-  {...rest}
->
+<button type="button" class={buttonClass} {...rest}>
   <span class="font-display leading-tight">
     {location}
   </span>
