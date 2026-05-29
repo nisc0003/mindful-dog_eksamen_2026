@@ -170,7 +170,7 @@
   );
   */
 
-  --page-space-inline-standard: max(var(--primitive-space-32), 12vw);
+  --page-space-inline-standard: 4vw;
   --page-space-inline-sm: clamp(
     var(--primitive-space-20),
     4vw,
