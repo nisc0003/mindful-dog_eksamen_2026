@@ -1,157 +1,125 @@
 ---
+// =========================================================
+// INDEX.ASTRO – FORSIDE
+// Mindful Dog Academy's startside.
+// Data hentes server-side fra Supabase og sendes til Map-komponenten.
+// =========================================================
+
+// ── Komponent-imports ──────────────────────────────────────
 import MainLayout from "../layouts/MainLayout.astro";
 import Heading from "../components/Heading.astro";
 import Text from "../components/Text.astro";
 import Button from "../components/Buttons__&_links/Button.astro";
+import LinkButton from "../components/Buttons__&_links/LinkButton.astro";
 import Link from "../components/Buttons__&_links/Link.astro";
 import SocialLink from "../components/Buttons__&_links/SocialLink.astro";
 import HeroMain from "../components/HeroMain.astro";
-import Infobox_4 from "../components/infobox/Infobox_type_4.astro";
+import MapSection from "../components/Map.astro";
+import ReadMore from "../components/Buttons__&_links/ReadMore.astro";
+// ── Asset-imports ──────────────────────────────────────────
 import HeroMainImage from "../assets/testimages/forside_hero.png";
 import FacebookIcon from "../assets/icon/Facebook_Logo_Dark.svg";
 import InstagramIcon from "../assets/icon/Instagram_Glyph_Dark.svg";
 import LinkedInIcon from "../assets/icon/In-Bug_Dark.svg";
-import map from "../components/Map.astro";
 
-// Her kan du fetche data fra Supabase, f.eks.:
-// const { data: noegler } = await supabase.from('noegler').select('*');
+// ── Data-hentning fra Supabase ─────────────────────────────
+// @ts-ignore – supabase_v2.js er plain JS uden typer
+import { getAllData } from "../assets/js/supabase_v2.js";
 
-const keys = [
+// getAllData() henter services med nested trænere og ikoner
+// Vi definerer den type vi forventer for at undgå TypeScript-brok
+interface ServiceItem {
+  lokation?: string;
+  hold?: string;
+  slug?: string;
+  traener?: {
+    fornavn?: string;
+    efternavn?: string;
+    slug?: string;
+    traener_slug?: string;
+    adresse_1?: string;
+    postnummer_1?: string;
+    bynavn_1?: string;
+    adresse_2?: string;
+    postnummer_2?: string;
+    bynavn_2?: string;
+  };
+}
+
+const rawData = await getAllData();
+const servicesData: ServiceItem[] = Array.isArray(rawData) ? rawData : [];
+
+// ── De fire nøgler – statisk indhold ──────────────────────
+// Kan erstattes med CMS-data hvis det bliver nødvendigt
+const nøgler = [
   {
-    punkt: "1",
+    nr: "1",
     eyebrow: "Nøgle #1",
-    title: "Overskrift",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    titel: "Overskrift",
+    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
     href: "/noegle-1",
   },
   {
-    punkt: "2",
+    nr: "2",
     eyebrow: "Nøgle #2",
-    title: "Overskrift",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    titel: "Overskrift",
+    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
     href: "/noegle-2",
   },
   {
-    punkt: "3",
+    nr: "3",
     eyebrow: "Nøgle #3",
-    title: "Overskrift",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    titel: "Overskrift",
+    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
     href: "/noegle-3",
   },
   {
-    punkt: "4",
+    nr: "4",
     eyebrow: "Nøgle #4",
-    title: "Overskrift",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    titel: "Overskrift",
+    beskrivelse: "Mindful-Dog Academy arbejder med en holistisk og relationsbaseret tilgang til",
     href: "/noegle-4",
   },
 ];
 
-type ButtonColor =
-  | "main"
-  | "primary"
-  | "secondary"
-  | "accent"
-  | "neutral"
-  | "outline";
-
-const heroButtons = [
-  { label: "SE VORES HOLD", color: "primary", href: "#teamet" },
-] satisfies { label: string; color: ButtonColor; href: string }[];
-
-const locationFilters = [
-  { label: "Nordsjælland", color: "main" },
-  { label: "Midtsjælland", color: "outline" },
-  { label: "Syd/Vestjælland", color: "outline" },
-  { label: "Fyn / Syddanmark", color: "outline" },
-] satisfies { label: string; color: ButtonColor }[];
-
-const locations = [
-  {
-    title: "Nordsjælland",
-    description: "Lorem ipsum dolor sit amet.",
-    featured: true,
-  },
-  {
-    title: "Allerød",
-    description: "Lorem ipsum dolor sit amet.",
-    featured: false,
-  },
-  {
-    title: "Farum",
-    description: "Lorem ipsum dolor sit amet.",
-    featured: false,
-  },
-];
-
-const socialLinks = [
-  {
-    href: "https://www.instagram.com/",
-    iconSrc: InstagramIcon,
-    iconAlt: "Instagram",
-  },
-  {
-    href: "https://www.facebook.com/",
-    iconSrc: FacebookIcon,
-    iconAlt: "Facebook",
-  },
-  {
-    href: "https://www.linkedin.com/company/mindful-dog",
-    iconSrc: LinkedInIcon,
-    iconAlt: "LinkedIn",
-  },
-];
-
-type PuppyButton = {
-  size: "md";
-  color: ButtonColor;
-  label: string;
-  stylingclasses?: string;
-};
-
-const puppyButtons: PuppyButton[] = [
-  {
-    size: "md",
-    color: "neutral",
-    label: "LÆS MERE HER",
-  },
-  {
-    size: "md",
-    color: "outline",
-    label: "SE HOLDOVERSIGT FOR HVALPE",
-    stylingclasses: "border-(--neutral-500) text-(--neutral-500)",
-  },
-] as const;
 ---
 
 <MainLayout title="Mindful Dog Academy - Forside">
+
   <!-- =========================================================
        HERO SEKTION
-  ========================================================= -->
+       Første sektion brugeren lander på – stor titel og CTA-knap.
+       Scroll-knappen peger på lokationskortet nedenfor via #lokationer.
+       ========================================================= -->
   <section class="pb-(--section-space-y) pl-(--page-space-inline)">
     <HeroMain
+      breadcrumbs="FORSIDE"
       titleHtml='<span class="text-(--main-400)">Mindful Dog <br/>Academy</span>'
-      subtitle="Ro og forståelse mellem dig og din hund."
+      subtitle="Ro, mental balance og ægte forståelse mellem dig og din firbenede ven."
       imageSrc={HeroMainImage}
-      buttons={heroButtons}
+      buttons={[
+        { label: "SE VORES HOLD", color: "primary", href: "#lokationer" },
+      ]}
     />
   </section>
 
   <!-- =========================================================
-      DE FIRE NØGLER SEKTION
-  ========================================================= -->
+       DE FIRE NØGLER SEKTION
+       Viser metodens fire kerneprincipper som kort i et grid.
+       Looper over nøgler-arrayet defineret i frontmatter.
+       ========================================================= -->
   <section
     class="bg-(--main-100) px-(--page-space-inline) py-(--section-space-y)"
   >
+    <!-- Label og sektion-overskrift -->
     <Text
       size="label_1"
       font="sans"
       weight="regular"
-      stylingclasses="text-(--text-label) tracking-widest uppercase"
+      stylingclasses="mb-1 text-(--text-label) uppercase tracking-widest"
     >
-      INDHOLD
+      indhold
     </Text>
-
     <Heading
       htmlheading="h2"
       size="h3"
@@ -162,240 +130,154 @@ const puppyButtons: PuppyButton[] = [
       Mindful-Dog Metoden - De Fire Nøgler
     </Heading>
 
+    <!-- Nøgle-kort – 1 kolonne mobil, 2 tablet, 4 desktop -->
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       {
-        keys.map((k) => (
-          <div>
-            <Infobox_4
-              punkt ={ k.punkt},
-              topskrift={k.eyebrow}
-              title={k.title}
-              description={k.description}
-              containerClass="rounded-md bg-(--neutral-0) p-6"
-              titleClass="text-(--neutral-500)"
-              topskriftClass="text-(--neutral-500)"
-              descriptionClass="text-(--neutral-500)"
-            />
-          </div>
+        nøgler.map((k) => (
+          <article class="flex flex-col gap-4 rounded-md bg-(--neutral-0) p-6">
+            <!-- Ikon-pladsholder + overskrift på samme linje -->
+            <div class="flex items-center gap-4">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-(--main-300) font-display text-size-20 font-bold text-(--neutral-0)">
+                {k.nr}
+              </div>
+              <Heading htmlheading="h3" size="h6" weight="semibold">
+          {k.titel}
+              </Heading>
+            </div>
+
+            <!-- Brødtekst + læs mere som ét sammenhængende afsnit -->
+          <ReadMore
+            stylingclasses="mt-auto"
+            previewLength={32}
+            fullText={k.beskrivelse}
+          />
+
+          </article>
         ))
       }
     </div>
   </section>
 
   <!-- =========================================================
-      LOKATIONER SEKTION
-  ========================================================= -->
-  <section class="px-(--page-space-inline) py-(--section-space-y)">
-    <Text
-      size="label_1"
-      font="sans"
-      weight="regular"
-      stylingclasses="mb-2 text-(--text-label) tracking-widest uppercase"
-    >
-      LOKATIONER
-    </Text>
-    <Heading
-      htmlheading="h2"
-      size="h3"
-      font="display"
-      weight="bold"
-      stylingclasses="mb-8">Find En Træner Nær Dig</Heading
-    >
-
-    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-      <div class="flex flex-col gap-6">
-        <div
-          class="relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-md bg-(--neutral-200)"
-        >
-          <span class="text-(--neutral-400)"
-            >[ Interaktivt Kort Placeholder ]</span
-          >
-        </div>
-
-        <div class="flex flex-wrap gap-2">
-          {
-            locationFilters.map((filter) => (
-              <Button size="sm" color={filter.color} label={filter.label} />
-            ))
-          }
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-4">
-        <Text
-          size="label_1"
-          font="sans"
-          weight="regular"
-          stylingclasses="mb-2 lg:hidden text-(--text-label) tracking-widest uppercase"
-        >
-          LOKATIONER
-        </Text>
-
-        {
-          locations.map((location) =>
-            location.featured ? (
-              <div class="rounded-md bg-(--main-400) p-4 text-(--neutral-100)">
-                <Heading
-                  htmlheading="h4"
-                  size="h6"
-                  font="display"
-                  weight="bold"
-                  stylingclasses="mb-1"
-                >
-                  {location.title}
-                </Heading>
-                <Text size="p4" font="sans" weight="regular">
-                  {location.description}
-                </Text>
-              </div>
-            ) : (
-              <div class="flex items-center justify-between rounded-md bg-(--main-100) p-4">
-                <div>
-                  <Heading
-                    htmlheading="h4"
-                    size="h6"
-                    font="display"
-                    weight="bold"
-                    stylingclasses="mb-1"
-                  >
-                    {location.title}
-                  </Heading>
-                  <Text
-                    size="p4"
-                    font="sans"
-                    weight="regular"
-                    stylingclasses="text-(--text-secondary)"
-                  >
-                    {location.description}
-                  </Text>
-                </div>
-              </div>
-            ),
-          )
-        }
-      </div>
-    </div>
+       LOKATIONER / INTERAKTIVT KORT SEKTION
+       Map-komponenten modtager servicesData og geocoder
+       adresserne server-side inden siden renderes.
+       id="lokationer" bruges af hero-knappens scroll-anker.
+       ========================================================= -->
+  <section id="lokationer">
+    <MapSection
+      services={servicesData}
+      eyebrow="Lokationer"
+      title="Find en træner nær dig"
+      bgClass="bg-(--neutral-100)"
+    />
   </section>
 
   <!-- =========================================================
-      HVALPE TRÆNING SEKTION
-  ========================================================= -->
+       HVALPE TRÆNING SEKTION
+       Fremhæver hvalpe-produktet med billede og to CTA-knapper.
+       ========================================================= -->
   <section
     class="bg-(--accent-200) px-(--page-space-inline) py-(--section-space-y)"
   >
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-      <div
-        class="relative aspect-video w-full overflow-hidden rounded-md bg-(--neutral-300)"
-      >
+
+      <!-- Billede til venstre -->
+      <div class="relative aspect-video w-full overflow-hidden rounded-md">
         <img
           src={HeroMainImage.src}
-          alt="Hundetræning video"
-          class="h-fill w-full object-cover opacity-60"
+          alt="Hundetræning – hvalpe"
+          class="h-full w-full object-cover"
         />
-        <div class="absolute inset-0 flex items-center justify-center"></div>
       </div>
 
-      <div class="flex flex-col items-start gap-6">
+      <!-- Tekst og knapper til højre -->
+      <div class="flex flex-col items-start justify-center gap-6">
+        <!-- Label + overskrift + beskrivelse -->
         <div>
           <Text
             size="label_1"
             font="sans"
             weight="regular"
-            stylingclasses="mb-2 text-(--neutral-400) tracking-widest uppercase"
+            stylingclasses="mb-2 uppercase tracking-widest text-(--neutral-400)"
           >
-            hold typer
+            trænings typer
           </Text>
           <Heading
             htmlheading="h2"
             size="h3"
             font="display"
             weight="bold"
-            stylingclasses="mb-4">Hvalpe Træning</Heading
+            stylingclasses="mb-4"
           >
-          <Text size="p2" font="sans" weight="regular" stylingclasses="mb-2"
-            >Hos Mindful-Dog Academy tager vi udgangspunkt i både dig og din
-            hund. Øvelserne tilpasses din hunds alder og udvikling, og du får
-            teknikker, du kan bruge direkte derhjemme.Når fundamentet er på
-            plads, bygger vi videre på de første trin af lydighedsøvelser.</Text
-          >
-          <Text
-            size="p3"
-            font="sans"
-            weight="regular"
-            stylingclasses="opacity-80"
-            >Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text
-          >
+            Hvalpe Træning
+          </Heading>
+          <Text size="p2" font="sans" weight="regular" stylingclasses="mb-2 text-(--neutral-500)">
+            Hos Mindful-Dog Academy tager vi udgangspunkt i både dig og din
+            hund. Øvelserne tilpasses din hunds alder og udvikling.
+          </Text>
+          <Text size="p3" font="sans" weight="regular" stylingclasses="opacity-80 text-(--neutral-500)">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </Text>
         </div>
 
-        <div class="mt-2 flex flex-wrap items-center gap-4">
-          {
-            puppyButtons.map((button) => (
-              <Button
-                size={button.size}
-                color={button.color}
-                label={button.label}
-                stylingclasses={button.stylingclasses}
-              />
-            ))
-          }
+        <!-- CTA-knapper – LinkButton da de navigerer til andre sider -->
+        <div class="flex flex-wrap items-center gap-4">
+          <LinkButton size="md" color="neutral" href="/hvalpe" label="LÆS MERE HER" />
+          <LinkButton
+            size="md"
+            color="outline"
+            href="/hold?type=hvalpe"
+            stylingclasses="border-(--neutral-500) text-(--neutral-500)"
+            label="SE HOLDOVERSIGT FOR HVALPE"
+          />
         </div>
       </div>
+
     </div>
   </section>
 
   <!-- =========================================================
-      NYHEDSBREV SEKTION
-  ========================================================= -->
+       NYHEDSBREV SEKTION
+       Email-tilmelding og sociale medier-links.
+       ========================================================= -->
   <section class="px-(--page-space-inline) py-(--section-space-y)">
     <div
-      class="grid grid-cols-1 items-center gap-8 border-t border-(--neutral-200) pt-12 md:gap-0 lg:grid-cols-2 lg:gap-26 lg:pt-16"
+      class="grid grid-cols-1 gap-8 border-t border-(--neutral-200) pt-12 md:grid-cols-2 md:items-center md:pt-16"
     >
+
+      <!-- Email-formular -->
       <div class="flex flex-col gap-4">
-        <Text
-          size="label_1"
-          font="sans"
-          weight="regular"
-          stylingclasses="text-(--text-label) tracking-widest uppercase"
-        >
+        <Text size="label_1" stylingclasses="text-(--text-label)">
           NYHEDSBREV
         </Text>
-        <Heading htmlheading="h3" size="h4" font="display" weight="bold"
-          >Hold Dig Opdateret</Heading
-        >
+        <Heading htmlheading="h3" size="h4">Hold Dig Opdateret</Heading>
         <Text size="p3" stylingclasses="text-(--text-secondary)">
           Tilmeld dig vores nyhedsbrev og få tips og tricks til hundetræning og
           nye hold i dit lokalområde.
         </Text>
 
+        <!-- Formular – submit håndteres server-side eller via integration -->
         <form class="mt-2 flex w-full gap-2">
           <input
             type="email"
             placeholder="Din emailadresse"
-            class="flex-1 rounded-md border border-(--neutral-300) px-4 py-2 focus:ring-2 focus:ring-(--main-400) focus:outline-none"
+            class="flex-1 rounded-md border border-(--neutral-300) px-4 py-2 font-sans text-size-15 focus:outline-none focus:ring-2 focus:ring-(--main-400)"
             required
           />
-          <Button
-            type="submit"
-            size="md"
-            color="main"
-            label="TILMELD"
-            stylingclasses="px-6"
-          />
+          <!-- Button-komponent med type=submit -->
+          <Button type="submit" size="md" color="main" label="TILMELD" stylingclasses="px-6" />
         </form>
       </div>
 
-      <div class="p grid grid-cols-3 items-center gap-6 md:justify-end">
-        {
-          socialLinks.map((link) => (
-            <SocialLink
-              href={link.href}
-              size="xl"
-              iconSrc={link.iconSrc}
-              iconAlt={link.iconAlt}
-            />
-          ))
-        }
+      <!-- Sociale medier -->
+      <div class="flex items-center gap-6 md:justify-end">
+        <SocialLink href="https://www.instagram.com/" size="sm" iconSrc={InstagramIcon} iconAlt="Instagram" />
+        <SocialLink href="https://www.facebook.com/" size="sm" iconSrc={FacebookIcon} iconAlt="Facebook" />
+        <SocialLink href="https://www.linkedin.com/company/mindful-dog" size="sm" iconSrc={LinkedInIcon} iconAlt="LinkedIn" />
       </div>
+
     </div>
   </section>
+
 </MainLayout>

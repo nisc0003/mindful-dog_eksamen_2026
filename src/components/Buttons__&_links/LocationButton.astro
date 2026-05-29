@@ -16,13 +16,20 @@ interface Props {
   stylingclasses?: string;
 }
 
+const props = Astro.props as Props & { class?: string } & Record<
+    string,
+    unknown
+  >;
+
 const {
   size = "md",
   color = "main",
   location = "",
   address = "",
   stylingclasses = "",
-} = Astro.props as Props;
+  class: className,
+  ...rest
+} = props;
 
 // Bruger text-size-* tokens fra tailwind.css i stedet for Tailwinds egne text-sm/base/lg.
 const sizeClasses = {
@@ -48,17 +55,13 @@ const buttonClass = [
   sizeClasses[size],
   colorClasses[color],
   stylingclasses,
+  className,
 ]
   .filter(Boolean)
   .join(" ");
 ---
 
-<button
-  type="button"
-  x-data="{ active: false }"
-  @click="active = !active"
-  class={buttonClass}
->
+<button type="button" class={buttonClass} {...rest}>
   <span class="font-display leading-tight">
     {location}
   </span>

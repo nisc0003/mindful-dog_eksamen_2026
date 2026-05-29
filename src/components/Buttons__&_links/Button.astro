@@ -14,10 +14,15 @@ type StandardButtonColor =
   | "outline";
 
 interface Props {
+  // Supported size variants.
   size?: StandardButtonSize;
+  // Supported color variants.
   color?: StandardButtonColor;
+  // Default text when the slot is empty.
   label?: string;
+  // Standard button type.
   type?: "button" | "submit" | "reset";
+  // Extra utility classes to append.
   stylingclasses?: string;
 }
 

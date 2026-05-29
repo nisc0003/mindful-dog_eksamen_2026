@@ -1,3 +1,987 @@
 ---
+import Heading from "./Heading.astro";
+import Text from "./Text.astro";
+import LocationButton from "./Buttons__&_links/LocationButton.astro";
+import LinkButton from "./Buttons__&_links/LinkButton.astro";
 
+// -----------------------------------------------------------------------------
+// Types — input/output shapes (kort, koordinater, props)
+// Korte beskrivelser under hver interface — hold kun væsentlige felter.
+// -----------------------------------------------------------------------------
+
+// Sådan ser ét service-objekt ud fra Supabase (mange felter er valgfrie)
+interface ServiceItem {
+  // Overordnet region, f.eks. "Vestsjælland"
+  lokation?: string;
+  // Navn på holdet, f.eks. "Hvalpetræning basis"
+  hold?: string;
+  // URL-venligt id til holdsiden, f.eks. "hvalpetræning-basis"
+  slug?: string;
+  // Træner kan komme i flere formater afhængigt af endpoint
+  traener?: {
+    fornavn?: string;
+    efternavn?: string;
+    // URL-venligt id til trænerprofilen
+    slug?: string;
+    // Alternativt slug-felt (bruges hvis slug mangler)
+    traener_slug?: string;
+    // Primær gadenavn + nummer, f.eks. "Fittingvej 57"
+    adresse_1?: string;
+    // Postnummer til primær adresse, f.eks. "6622"
+    postnummer_1?: string;
+    // Bynavn til primær adresse, f.eks. "Bække"
+    bynavn_1?: string;
+    // Sekundær adresse (ikke alle trænere har denne)
+    adresse_2?: string;
+    postnummer_2?: string;
+    bynavn_2?: string;
+    fornavn_2?: string;
+    efternavn_2?: string;
+  };
+  traenere?: ServiceItem["traener"] | ServiceItem["traener"][] | null;
+}
+
+// Et koordinat-par — det vi gemmer efter geocoding
+interface Koordinater {
+  // Breddegrad (nord-syd), f.eks. 55.47
+  lat: number;
+  // Længdegrad (øst-vest), f.eks. 9.13
+  lng: number;
+}
+
+// Den samlede lokation vi til sidst sender til klienten som JSON
+interface KortLokation {
+  // Unikt id baseret på adressen
+  id: string;
+  // Visningsnavn, f.eks. "Bække"
+  label: string;
+  // Fuld adresselinje
+  adresse: string;
+  lat: number;
+  lng: number;
+  // Byer på denne lokation
+  byer: string[];
+  // Hold med link til holdside
+  hold: { titel: string; href: string }[];
+  // Trænere med link til profil
+  traenere: { navn: string; href: string }[];
+}
+
+// Den hjælpestruktur vi bygger op mens vi samler data
+// Vi bruger plain objekter i stedet for Set/Map for at undgå TS-fejl i Astro
+interface LokationsAkkumulator {
+  id: string;
+  label: string;
+  adresse: string;
+  // Den tekst vi sender til geocoding-API'et
+  søgeTekst: string;
+  // Array i stedet for Set (undgår TS-fejl)
+  byerArr: string[];
+  // { holdNavn: holdHref }
+  holdObj: Record<string, string>;
+  // { trænernavn: trænerHref }
+  traenereObj: Record<string, string>;
+}
+
+// Props — det som index.astro sender ind i denne komponent
+interface Props {
+  // Lille tekst over overskriften, f.eks. "Lokationer"
+  eyebrow?: string;
+  // Sektionens overskrift
+  title?: string;
+  // Den rå Supabase-data
+  services?: ServiceItem[];
+  // Baggrundsfarve-klasse, f.eks. "bg-(--neutral-0)"
+  bgClass?: string;
+}
+
+// Hent props og sæt standardværdier hvis de ikke er givet
+const {
+  eyebrow = "Lokationer",
+  title = "Find en træner nær dig",
+  services = [],
+  bgClass = "bg-(--neutral-0)",
+} = Astro.props;
+
+// =============================================================================
+// HJÆLPEFUNKTIONER
+// Små, genbrugelige funktioner vi bruger til at bearbejde data
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// lagId(vaerdi)
+// Laver et URL-venligt id ud fra en vilkårlig tekststreng.
+// Eksempel: "Parkeringsplads P2 - Løvbakke" → "parkeringsplads-p2-lovbakke"
+// Vi bruger dette id til at identificere unikke lokationer i vores dictionary.
+// -----------------------------------------------------------------------------
+function lagId(vaerdi: string): string {
+  return (
+    vaerdi
+      .toLowerCase()
+      .trim()
+      // NFKD-normalisering splitter sammensatte tegn, f.eks. "ø" → "o" + diakritisk
+      .normalize("NFKD")
+      // Fjern alle diakritiske tegn (accent-tegn, omlyde osv.)
+      .replace(/[\u0300-\u036f]/g, "")
+      // Erstat alt der ikke er bogstaver eller tal med bindestreg
+      .replace(/[^a-z0-9]+/g, "-")
+      // Fjern bindestreger i starten og slutningen
+      .replace(/^-+|-+$/g, "") || "ukendt"
+  );
+}
+
+// -----------------------------------------------------------------------------
+// formatAdresse(gade, postnr, by)
+// Sætter tre adressefelter sammen til én læsbar linje.
+// Eksempel: ("Fittingvej 57", "6622", "Bække") → "Fittingvej 57, 6622 Bække"
+// Felter der er undefined eller tomme bliver simpelthen udeladt.
+// -----------------------------------------------------------------------------
+function formatAdresse(gade?: string, postnr?: string, by?: string): string {
+  // Sæt postnummer og by sammen til "6622 Bække"
+  const byDel = [postnr?.trim(), by?.trim()].filter(Boolean).join(" ");
+  // Sæt gadenavn og bydel sammen med komma
+  return [gade?.trim(), byDel].filter(Boolean).join(", ").trim();
+}
+
+// -----------------------------------------------------------------------------
+// decodeHtml(tekst)
+// Nogle hold-navne kan komme med HTML entities fra API'et (f.eks. "&amp;").
+// Vi normaliserer til læsbar tekst før visning i popup og detaljer.
+// -----------------------------------------------------------------------------
+function decodeHtml(tekst: string): string {
+  return tekst
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+// -----------------------------------------------------------------------------
+// erVirtuelLokation(tekst)
+// Filtrerer ikke-fysiske lokationer væk fra kortet, så brugeren kun ser steder
+// der kan vises meningsfuldt med en markør.
+// -----------------------------------------------------------------------------
+function erVirtuelLokation(tekst: string): boolean {
+  const normaliseret = tekst
+    .toLowerCase()
+    .trim()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  return (
+    normaliseret === "pr. aftale" ||
+    normaliseret === "pr aftale" ||
+    normaliseret === "efter aftale"
+  );
+}
+
+// -----------------------------------------------------------------------------
+// hentTraener(service)
+// Understøtter både service.traener og service.traenere (objekt eller array).
+// Returnerer første gyldige trænerobjekt eller null.
+// -----------------------------------------------------------------------------
+function hentTraener(
+  service: ServiceItem,
+): NonNullable<ServiceItem["traener"]> | null {
+  if (service.traener && typeof service.traener === "object") {
+    return service.traener;
+  }
+
+  if (service.traenere && Array.isArray(service.traenere)) {
+    const første = service.traenere[0];
+    return første && typeof første === "object" ? første : null;
+  }
+
+  if (service.traenere && typeof service.traenere === "object") {
+    return service.traenere;
+  }
+
+  return null;
+}
+
+// -----------------------------------------------------------------------------
+// hentTraenerNavn(t)
+// Understøtter profiler med to navnepar (f.eks. mor/datter-team).
+// Returnerer et samlet visningsnavn til lokationens instruktør-link.
+// -----------------------------------------------------------------------------
+// Forklaring af nøglesyntaks brugt i implementeringen (linje-for-linje):
+// - `t.fornavn?.trim()` : `?.` = optional chaining — kald `trim()` kun hvis `t.fornavn` findes.
+// - `.trim()` : fjerner førende/efterfølgende whitespace fra strengen.
+// - `?? ""` : nullish coalescing — hvis venstre side er `null` eller `undefined`, brug tom streng `""`.
+// - `[ ... ].filter(Boolean)` : fjerner falsy værdier (fx `""`, `null`, `undefined`) fra arrayet.
+// - `.join(" ")` : sætter array-elementer sammen til en streng med et mellemrum imellem.
+// - `` `${navn1} & ${navn2}` `` : template literal — indsætter værdierne adskilt af ` & `.
+// - `return navn1 || navn2` : logisk OR — returnerer det første truthy (ikke-tomme) navn.
+// Brug denne liste som reference for hvad hvert kodeudtryk betyder præcist.
+// -----------------------------------------------------------------------------
+function hentTraenerNavn(
+  t: NonNullable<ServiceItem["traener"]> | null,
+): string {
+  if (!t) return "";
+
+  const navn1 = [t.fornavn?.trim() ?? "", t.efternavn?.trim() ?? ""]
+    .filter(Boolean)
+    .join(" ");
+
+  const navn2 = [t.fornavn_2?.trim() ?? "", t.efternavn_2?.trim() ?? ""]
+    .filter(Boolean)
+    .join(" ");
+
+  if (navn1 && navn2) return `${navn1} & ${navn2}`;
+  return navn1 || navn2;
+}
+
+// =============================================================================
+// GEOCODING-OPSÆTNING
+// Geocoding = at oversætte en tekstadresse til GPS-koordinater.
+// Vi bruger Nominatim som er OpenStreetMaps gratis geocoding-API.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// HARDCODEDE KOORDINATER
+// Disse adresser kan Nominatim ikke finde korrekt,
+// så vi giver dem præcise koordinater direkte.
+// Nøglen er en del af adressefeltet der identificerer stedet.
+// -----------------------------------------------------------------------------
+const HARDCODE: Record<string, Koordinater> = {
+  // Løvbakke Dyrehave er en parkeringsplads i naturen — ikke en normal adresse.
+  // Hvis adressen indeholder "løvbakke" eller "loevbakke" bruger vi disse koordinater.
+  løvbakke: { lat: 56.17859336611557, lng: 8.948975835171785 },
+  loevbakke: { lat: 56.17859336611557, lng: 8.948975835171785 },
+};
+
+// -----------------------------------------------------------------------------
+// FALLBACK-KOORDINATER
+// Hvis geocoding fejler helt, bruger vi disse koordinater per region.
+// De er omtrentlige center-punkter for de regioner vi kender.
+// -----------------------------------------------------------------------------
+const FALLBACK: Record<string, Koordinater> = {
+  svendborg: { lat: 55.0598, lng: 10.6087 },
+  vestsjælland: { lat: 55.4038, lng: 11.3544 },
+  ikast: { lat: 56.1393, lng: 9.1578 },
+  vejen: { lat: 55.479, lng: 9.1363 },
+  sydjylland: { lat: 55.4913, lng: 9.4721 },
+  skærbæk: { lat: 55.1566, lng: 8.7669 },
+  sønderjylland: { lat: 55.0439, lng: 9.4169 },
+  als: { lat: 54.9134, lng: 9.8516 },
+};
+
+// Cache til geocoding-svar — vi gemmer promises så vi ikke kalder API'et
+// to gange for den samme adresse selv om den forekommer i mange services
+const geocodeCache: Record<string, Promise<Koordinater | null>> = {};
+
+// -----------------------------------------------------------------------------
+// geocodAdresse(søgeTekst)
+// Sender en adresse til Nominatim og får koordinater tilbage.
+// Returnerer { lat, lng } hvis den lykkes, ellers null.
+// Flow:
+// 1) Match mod hardcodede adresser først.
+// 2) Genbrug cache så samme adresse ikke kalder API'et flere gange.
+// 3) Læs første API-resultat og returner null hvis lat/lon mangler.
+// 4) Konverter lat/lon fra string til number.
+// Faktuelt:
+// - if (!første?.lat || !første?.lon) betyder at Nominatim ikke gav et brugbart koordinat.
+// - .catch(() => null) gør netværksfejl ufarlige for SSR-renderingen.
+// Tjek først om adressen matcher vores hardcodede undtagelser
+// Vi bruger toLowerCase() for at matche uanset store/små bogstaver
+// Match fundet — returner de hardcodede koordinater med det samme
+// -----------------------------------------------------------------------------
+async function geocodAdresse(søgeTekst: string): Promise<Koordinater | null> {
+  const søgeLower = søgeTekst.toLowerCase();
+
+  for (const nøgle of Object.keys(HARDCODE)) {
+    if (søgeLower.includes(nøgle)) {
+      return HARDCODE[nøgle];
+    }
+  }
+
+  // Opret et nyt geocoding-kald hvis vi ikke allerede har et for denne adresse
+  // Byg Nominatim-URL med countrycodes=dk for kun at søge i Danmark
+  if (!geocodeCache[søgeTekst]) {
+    const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=dk&q=${encodeURIComponent(søgeTekst)}`;
+
+    // fetch() henter data fra Nominatim — vi gemmer selve promise'et i cachen
+    // User-Agent er påkrævet af Nominatim's fair-use politik
+    geocodeCache[søgeTekst] = fetch(url, {
+      headers: {
+        Accept: "application/json",
+        "Accept-Language": "da",
+        "User-Agent": "mindful-dog-eksamen/1.0",
+      },
+    })
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data: { lat?: string; lon?: string }[]) => {
+        // Træk lat/lng ud af første resultat
+        const første = Array.isArray(data) ? data[0] : null;
+
+        // Returner null hvis Nominatim ikke fandt noget
+        if (!første?.lat || !første?.lon) return null;
+
+        // Konverter fra streng til tal (Nominatim sender strings)
+        return { lat: Number(første.lat), lng: Number(første.lon) };
+      })
+
+      // Hvis fetch fejler (netværksfejl osv.) returnerer vi bare null
+      .catch(() => null);
+  }
+
+  // Vent på resultatet fra cachen (kan allerede være klart eller stadig afvente)
+  return geocodeCache[søgeTekst]!;
+}
+
+// -----------------------------------------------------------------------------
+// getFallback(lokation)
+// Slår en regionsnøgle op i FALLBACK-tabellen.
+// Bruges som sikkerhedsnet hvis geocoding returnerer null.
+// Hvis regionen heller ikke er i tabellen, bruger vi midt-Danmark som default.
+// -----------------------------------------------------------------------------
+function getFallback(lokation: string): Koordinater {
+  // normalize("NFKD") + replace fjerner danske bogstaver til opslag
+  const nøgle = lokation
+    .toLowerCase()
+    .trim()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "");
+  return (
+    FALLBACK[lokation.toLowerCase().trim()] ??
+    FALLBACK[nøgle] ?? { lat: 56.0, lng: 10.5 }
+  );
+}
+
+// =============================================================================
+// Lokations-aggregation
+// Samler services per fysisk adresse og akkumulerer holds/trænere.
+// - Normaliserer trænerdata, bygger adresse-entries (adresse_1/2), springer virtuelle lokationer over
+// - Resultat: `lokationsDict` med id → { label, adresse, søgeTekst, byerArr, holdObj, traenereObj }
+// =============================================================================
+
+const lokationsDict: Record<string, LokationsAkkumulator> = {};
+
+for (const service of services) {
+  // Hold: titel + link
+  const holdTitel = decodeHtml(service.hold?.trim() ?? "");
+  const holdHref = service.slug ? `/Hold_side/${service.slug}` : "";
+
+  // Træner: objekt, navn og profil-link
+  const t = hentTraener(service);
+  const trainerNavn = hentTraenerNavn(t);
+  const trainerSlug = t?.traener_slug?.trim() ?? t?.slug?.trim() ?? "";
+  const trainerHref = trainerSlug ? `/Instruktoer_profil/${trainerSlug}` : "";
+
+  const lokNavn = service.lokation?.trim() ?? "";
+  if (erVirtuelLokation(lokNavn)) continue; // skip non-physical locations
+
+  // Adresse-entries: primær og evt. sekundær (brug region hvis ingen adresse)
+  type AdresseEntry = { adresse: string; by: string; label: string };
+  const entries: AdresseEntry[] = [];
+  const adr1 = formatAdresse(t?.adresse_1, t?.postnummer_1, t?.bynavn_1);
+  if (adr1)
+    entries.push({
+      adresse: adr1,
+      by: t?.bynavn_1?.trim() ?? "",
+      label: t?.bynavn_1?.trim() || lokNavn || adr1,
+    });
+  const adr2 = formatAdresse(t?.adresse_2, t?.postnummer_2, t?.bynavn_2);
+  if (adr2)
+    entries.push({
+      adresse: adr2,
+      by: t?.bynavn_2?.trim() ?? "",
+      label: t?.bynavn_2?.trim() || lokNavn || adr2,
+    });
+  if (entries.length === 0 && lokNavn)
+    entries.push({ adresse: lokNavn, by: lokNavn, label: lokNavn });
+
+  // Akkumuler i dictionary
+  for (const entry of entries) {
+    const id = lagId(entry.adresse);
+    if (!lokationsDict[id]) {
+      lokationsDict[id] = {
+        id,
+        label: entry.label,
+        adresse: entry.adresse,
+        søgeTekst: `${entry.adresse}, Danmark`,
+        byerArr: entry.by ? [entry.by] : [],
+        holdObj: {},
+        traenereObj: {},
+      };
+    }
+
+    const lok = lokationsDict[id];
+    if (entry.by && !lok.byerArr.includes(entry.by)) lok.byerArr.push(entry.by);
+    if (holdTitel && holdHref) lok.holdObj[holdTitel] = holdHref;
+    if (trainerNavn && trainerHref) lok.traenereObj[trainerNavn] = trainerHref;
+  }
+}
+
+// =============================================================================
+// GEOCOD ALLE LOKATIONER
+// Nu geocoder vi alle adresser parallelt med Promise.all — meget hurtigere
+// end at vente på dem én efter én.
+// =============================================================================
+
+// Konverter vores dictionary til et array af promises
+const lokationer: KortLokation[] = await Promise.all(
+  Object.values(lokationsDict).map(async (lok) => {
+    // Forsøg geocoding med Nominatim
+    const coords = await geocodAdresse(lok.søgeTekst);
+
+    // Hvis geocoding fejlede, brug fallback-koordinater baseret på label
+    const endeligeKoords: Koordinater = coords ?? getFallback(lok.label);
+
+    // Konverter holdObj og traenereObj til arrays som Alpine kan loope over
+    return {
+      id: lok.id,
+      label: lok.label,
+      adresse: lok.adresse,
+      lat: endeligeKoords.lat,
+      lng: endeligeKoords.lng,
+      byer: lok.byerArr,
+      // Object.entries giver [nøgle, værdi]-par som vi mapper til { titel, href }
+      hold: Object.entries(lok.holdObj).map(([titel, href]) => ({
+        titel,
+        href,
+      })),
+      traenere: Object.entries(lok.traenereObj).map(([navn, href]) => ({
+        navn,
+        href,
+      })),
+    } satisfies KortLokation;
+  }),
+);
+
+// ID på den første lokation — bruges som Alpine's startvalg
+const startId = lokationer[0]?.id ?? "";
 ---
+
+<!-- =============================================================================
+     HTML-TEMPLATE — Alt herunder renderes i browseren
+     ============================================================================= -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<!-- =============================================================================
+     KORTSEKTION
+     x-data fortæller Alpine at dette element er en komponent.
+     Vi sender lokationsdata og startId ned som JSON.
+     x-init="init()" kører automatisk når Alpine starter dette element op.
+     ============================================================================= -->
+<section
+  class:list={[
+    "px-(--page-space-inline) py-(--section-space-y) select-none",
+    bgClass,
+  ]}
+  x-data={`kortKomponent(${JSON.stringify({ lokationer, startId })})`}
+  x-init="init()"
+>
+  <!-- ---------------------------------------------------------------------------
+       SEKTION-HEADER
+       Lille label-tekst over overskriften — bruges til at kategorisere sektionen
+       --------------------------------------------------------------------------- -->
+  <div class="mb-8">
+    <Text
+      size="label_2"
+      font="sans"
+      weight="semibold"
+      stylingclasses="mb-1 tracking-widest text-(--text-label) uppercase"
+    >
+      {eyebrow}
+    </Text>
+    <Heading
+      htmlheading="h2"
+      size="h4"
+      font="display"
+      weight="semibold"
+      stylingclasses="text-(--text-primary)"
+    >
+      {title}
+    </Heading>
+  </div>
+
+  <!-- ---------------------------------------------------------------------------
+       HOVED-GRID
+       På mobil: kort øverst, liste nedenunder (én kolonne)
+       På desktop: kort fylder 2/3, liste fylder 1/3 (tre kolonner)
+       --------------------------------------------------------------------------- -->
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-5 xl:grid-cols-3">
+    <!-- ── KORTCONTAINER ────────────────────────────────────────────────────── -->
+    <!-- x-ref="kortCanvas" bruges af Alpine til at finde dette DOM-element
+         og montere Leaflet-kortet indeni det -->
+    <div class="relative lg:col-span-3 xl:col-span-2">
+      <div
+        x-ref="kortCanvas"
+        class="1/1 h-[50vh] w-[100%] overflow-hidden rounded-xl border border-(--neutral-200) shadow-sm lg:h-[560px]"
+        style="z-index: 0;"
+      >
+      </div>
+
+      <!-- Spinner der vises mens init() kører og Leaflet bygger kortet -->
+      <div
+        x-show="indlæser"
+        class="absolute inset-0 flex items-center justify-center rounded-xl bg-(--neutral-100)/80"
+      >
+        <div
+          class="h-8 w-8 animate-spin rounded-full border-4 border-(--main-200) border-t-(--main-400)"
+        >
+        </div>
+      </div>
+    </div>
+
+    <!-- ── LOKATIONSLISTE ────────────────────────────────────────────────────
+          Server-renderede LocationButton-komponenter med Alpine click-binding.
+          ─────────────────────────────────────────────────────────────────── -->
+    <div
+      class="flex flex-col gap-2 overflow-y-auto rounded-xl border border-(--neutral-200) bg-(--neutral-0) p-3 shadow-sm lg:col-span-2 lg:max-h-[560px] xl:col-span-1"
+    >
+      <Text
+        size="label_2"
+        font="sans"
+        weight="semibold"
+        stylingclasses="px-2 pt-1 tracking-wider text-(--text-label) uppercase"
+      >
+        Vælg lokation
+      </Text>
+
+      <!-- Vis en besked hvis der ingen lokationer er (data mangler) -->
+      <template x-if="lokationer.length === 0">
+        <Text
+          size="p4"
+          font="sans"
+          weight="regular"
+          stylingclasses="px-2 py-4 text-(--text-muted) italic"
+        >
+          Ingen lokationer fundet.
+        </Text>
+      </template>
+
+      {
+        lokationer.map((lok) => (
+          <LocationButton
+            size="lg"
+            color="main"
+            location={lok.label}
+            address={lok.adresse}
+            stylingclasses="w-full border border-transparent"
+            x-on:click={`vælgLokation(${JSON.stringify(lok.id)})`}
+            x-bind:class={`aktivId === ${JSON.stringify(lok.id)}
+            ? 'border-(--main-300) bg-(--button-main-bg) text-(--button-main-text) shadow-sm'
+            : 'bg-(--main-100) text-(--text-primary) hover:bg-(--main-200)'`}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- ---------------------------------------------------------------------------
+       DETALJE-PANEL
+       Vises under kortet og listen når en lokation er valgt.
+       x-show skjuler panelet hvis den aktive lokation ikke har hold eller trænere.
+       x-transition tilføjer en blød fade+slide animation når det dukker op.
+       --------------------------------------------------------------------------- -->
+  <div
+    x-show="aktivLokation && (aktivLokation.hold.length > 0 || aktivLokation.traenere.length > 0)"
+    x-transition:enter="transition duration-300 ease-out"
+    x-transition:enter-start="opacity-0 translate-y-2"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition duration-150 ease-in"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="mt-6 rounded-xl border border-(--neutral-200) bg-(--neutral-0) p-6 shadow-sm"
+  >
+    <Text
+      size="label_2"
+      font="sans"
+      weight="semibold"
+      stylingclasses="mb-4 tracking-wider text-(--text-label) uppercase"
+    >
+      Lokation, udbud og instruktører
+    </Text>
+
+    <!-- Lokation: navn + adresse -->
+    <div
+      x-show="aktivLokation"
+      class="mb-5 rounded-lg border-2 border-(--main-100) bg-(--neutral-100) p-4"
+    >
+      <Text
+        size="label_2"
+        font="sans"
+        weight="semibold"
+        stylingclasses="mb-1 text-(--text-label) uppercase tracking-widest"
+      >
+        Lokation >
+      </Text>
+      <Heading htmlheading="h3" size="h4" font="display" weight="bold">
+        <span x-text="aktivLokation?.label"></span>
+      </Heading>
+      <Text
+        size="p3"
+        font="sans"
+        weight="regular"
+        stylingclasses="mt-1 text-(--text-muted)"
+      >
+        <span x-text="aktivLokation?.adresse"></span>
+      </Text>
+    </div>
+
+    <!-- Udbud-links: vises kun hvis der er hold på lokationen -->
+    <div x-show="aktivLokation?.hold?.length > 0" class="mb-5">
+      <Text
+        size="label_2"
+        font="sans"
+        4
+        weight="regular"
+        stylingclasses="mb-2 tracking-widest text-(--text-muted) uppercase"
+      >
+        Udbud
+      </Text>
+      <div class="flex flex-wrap gap-3">
+        <template x-for="hold in aktivLokation?.hold" x-bind:key="hold.href">
+          <LinkButton
+            size="sm"
+            color="secondary"
+            x-bind:href="hold.href"
+            x-text="hold.titel"
+          />
+        </template>
+      </div>
+    </div>
+
+    <!-- Instruktør-links: vises kun hvis der er trænere på lokationen -->
+    <div x-show="aktivLokation?.traenere?.length > 0">
+      <Text
+        size="label_2"
+        font="sans"
+        weight="regular"
+        stylingclasses="mb-2 tracking-widest text-(--text-muted) uppercase"
+      >
+        Instruktører
+      </Text>
+      <div class="flex flex-wrap gap-3">
+        <template
+          x-for="traener in aktivLokation?.traenere"
+          x-bind:key="traener.href"
+        >
+          <LinkButton
+            size="sm"
+            color="main"
+            x-bind:href="traener.href"
+            x-text="traener.navn"
+          />
+        </template>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================================
+     LEAFLET JS
+     Vi loader Leaflet FØR Alpine så kortbiblioteket er klar når Alpine starter.
+     Integrity-attributten er en sikkerhedscheck (SRI) der sikrer filen ikke er manipuleret.
+     ============================================================================= -->
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""></script>
+
+<!-- =============================================================================
+     ALPINE JS
+     defer betyder at scriptet loades asynkront og kører efter hele HTML'en er parsed.
+     Vi bruger CDN-versionen så vi ikke behøver installere noget.
+     ============================================================================= -->
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+></script>
+
+<!-- =============================================================================
+     ALPINE-KOMPONENT: kortKomponent(config)
+     is:inline fortæller Astro at dette script IKKE skal bundleres som et modul —
+     det skal ligge direkte i HTML'en. Det er nødvendigt fordi Alpine leder efter
+     funktionen i det globale window-scope, og moduler har deres eget scope.
+     ============================================================================= -->
+<script is:inline>
+  // =============================================================================
+  // kortKomponent(config)
+  // Denne funktion returnerer et objekt med al den data og logik som Alpine
+  // bruger til at styre kortkomponenten.
+  // Den kaldes automatisk fra x-data i HTML'en ovenfor.
+  // config = { lokationer: [...], startId: "..." }
+  // =============================================================================
+  function kortKomponent(config) {
+    return {
+      // ── State & Computed ───────────────────────────────────────────────────
+      // Reaktiv tilstand og beregnede værdier for Alpine-komponenten.
+      lokationer: config.lokationer,
+      aktivId: config.startId,
+      indlæser: true,
+      kortInstans: null,
+      markørMap: {},
+
+      // Aktiv lokation (beregnet fra `aktivId`)
+      get aktivLokation() {
+        return this.lokationer.find((l) => l.id === this.aktivId) ?? null;
+      },
+
+      // ── Lifecycle: init ────────────────────────────────────────────────────
+      // Kører ved komponentstart; venter på DOM og initialiserer kortet.
+      init() {
+        // $nextTick venter til DOM'en er fuldt opdateret inden vi fortsætter
+        this.$nextTick(() => {
+          this.opsætKort();
+          // Skjul spinner nu kortet er bygget
+          this.indlæser = false;
+        });
+      },
+      // ── Map: initialize & markers ──────────────────────────────────────────
+      // Ensures Leaflet is loaded, creates the map, adds tiles, places markers
+      // (custom icon + popup), stores markers, and sets the initial view.
+      opsætKort() {
+        if (!window.L) return;
+
+        this.kortInstans = window.L.map(this.$refs.kortCanvas, {
+          zoomControl: true,
+          scrollWheelZoom: false,
+          attributionControl: false,
+        });
+
+        window.L.tileLayer(
+          "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+          { maxZoom: 19 },
+        ).addTo(this.kortInstans);
+
+        this.lokationer.forEach((lok) => {
+          const markør = window.L.marker([lok.lat, lok.lng], {
+            icon: this.lagIkon(lok.id === this.aktivId),
+          }).addTo(this.kortInstans);
+          markør.bindPopup(this.lagPopupHTML(lok), {
+            maxWidth: 280,
+            className: "mda-popup",
+          });
+          markør.on("click", () => this.vælgLokation(lok.id));
+          this.markørMap[lok.id] = markør;
+        });
+
+        if (this.lokationer.length > 1) {
+          const bounds = window.L.latLngBounds(
+            this.lokationer.map((l) => [l.lat, l.lng]),
+          );
+          this.kortInstans.fitBounds(bounds.pad(0.25), { animate: false });
+        } else if (this.lokationer.length === 1) {
+          this.kortInstans.setView(
+            [this.lokationer[0].lat, this.lokationer[0].lng],
+            12,
+          );
+        }
+      },
+
+      // ── Actions: vælgLokation(id) ───────────────────────────────────────────
+      // Update active id, refresh icons, fly to marker, open popup, and scroll on mobile.
+      vælgLokation(id) {
+        // Opdater den reaktive tilstand — Alpine opdaterer automatisk UI'et
+        this.aktivId = id;
+
+        // Loop over alle markører og opdater deres ikon
+        // Aktiv markør får et mørkere/større ikon end de inaktive
+        Object.entries(this.markørMap).forEach(([markørId, markør]) => {
+          // setIcon() bytter ikonet ud på en eksisterende markør
+          markør.setIcon(this.lagIkon(markørId === id));
+        });
+
+        // Flyvning til den valgte markør og åbn dens popup
+        const lok = this.aktivLokation;
+        if (lok && this.kortInstans) {
+          // flyTo() animerer kortvisningen til de angivne koordinater og zoom-niveau
+          // duration: 0.8 = animationen tager 0.8 sekunder
+          this.kortInstans.flyTo([lok.lat, lok.lng], 13, {
+            animate: true,
+            duration: 0.8,
+          });
+          // Åbn popup for markøren med det tilsvarende id
+          this.markørMap[id]?.openPopup();
+        }
+
+        // Mobil-hjælp: scroll ned til detalje-panelet
+        if (window.innerWidth < 1024) {
+          // $nextTick venter til Alpine har opdateret DOM'en (panelet er nu synligt)
+          this.$nextTick(() => {
+            // Find det første x-show-element og scroll til det
+            const panel = this.$el.querySelector("[x-show]");
+            if (panel)
+              panel.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        }
+      },
+
+      // ── UI helper: lagIkon(erAktiv) ────────────────────────────────────────
+      // Returns a Leaflet divIcon (HTML/CSS). `erAktiv` toggles active styling.
+      lagIkon(erAktiv) {
+        // L.divIcon() lader os bruge HTML som ikon
+        return window.L.divIcon({
+          // Klasse på wrapper-elementet
+          className: "mda-pin-wrapper",
+          // Ikonets størrelse i pixels
+          iconSize: [36, 48],
+          // Det punkt på ikonet der peger på koordinaterne (nederste midte)
+          iconAnchor: [17, 46],
+          // HTML-strengen der renderes som ikon
+          // CSS-klasserne mda-pin, mda-pin__body og mda-pin__center er defineret i <style is:global> nedenfor
+          html: `
+            <div class="mda-pin ${erAktiv ? "mda-pin--aktiv" : ""}">
+              <div class="mda-pin__body">
+                <div class="mda-pin__center"></div>
+              </div>
+            </div>
+          `,
+        });
+      },
+
+      // ── UI helper: lagPopupHTML(lok) ───────────────────────────────────────
+      // Builds the popup HTML string for a location (uses inline styles).
+      lagPopupHTML(lok) {
+        // Byg HTML for træner-links — samme mønster
+        const trænereHTML = lok.traenere
+          .map(
+            (t) => `
+              <a href="${t.href}"
+                style="display:block; font-family:var(--font-body); font-weight:600;
+                       font-size:12px; color:var(--link-text); margin-top:4px;
+                       text-decoration:none;"
+                onmouseover="this.style.textDecoration='underline'"
+                onmouseout="this.style.textDecoration='none'">
+                ↗ ${t.navn}
+              </a>`,
+          )
+          .join("");
+
+        // Sæt hele popup-indholdet sammen
+        return `
+          <div style="font-family:var(--font-body); min-width:210px;">
+
+            <p style="margin:0 0 2px; font-size:10px; letter-spacing:.08em;
+                      text-transform:uppercase; color:var(--text-label);">
+              Lokation
+            </p>
+
+            <p style="margin:0 0 3px; font-family:var(--font-heading);
+                      font-size:16px; font-weight:600; color:var(--text-primary);">
+              ${lok.label}
+            </p>
+
+            <p style="margin:0 0 10px; font-size:12px; color:var(--text-secondary);">
+              ${lok.adresse}
+            </p>
+
+            <!-- Instruktør-sektionen vises kun hvis der er trænere -->
+            ${
+              trænereHTML
+                ? `<p style="margin:6px 0 3px; font-size:10px; text-transform:uppercase;
+                            letter-spacing:.06em; color:var(--text-label);">Instruktører</p>
+                 ${trænereHTML}`
+                : ""
+            }
+          </div>
+        `;
+      },
+      // Slut på det objekt kortKomponent returnerer
+    };
+    // Slut på kortKomponent-funktionen
+  }
+</script>
+
+<!-- =============================================================================
+     GLOBAL STYLING — Popup og markør
+     is:global er nødvendigt fordi Leaflet tilføjer popup-elementer UDENFOR
+     vores komponentens DOM — Astro's scoped CSS kan ikke nå dem.
+     ============================================================================= -->
+<style is:global>
+  /* ── Leaflet popup-wrapper ──────────────────────────────────────────────────
+     Overskriver Leaflets standard hvide kasse med vores design-tokens */
+  .mda-popup .leaflet-popup-content-wrapper {
+    border-radius: var(--primitive-radius-lg);
+    border: 1px solid var(--neutral-200);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* Indholds-margin inde i popup'en */
+  .mda-popup .leaflet-popup-content {
+    margin: var(--primitive-space-12) var(--primitive-space-16);
+  }
+
+  /* Den lille pil i bunden af popup'en — marginfix */
+  .mda-popup .leaflet-popup-tip-container {
+    margin-top: -1px;
+  }
+
+  /* Luk-knappen i popup'ens øverste højre hjørne */
+  .mda-popup .leaflet-popup-close-button {
+    color: var(--neutral-400);
+    font-size: var(--text-size-15);
+    padding: var(--primitive-space-4) var(--primitive-space-8);
+  }
+
+  /* ── Markør wrapper ─────────────────────────────────────────────────────────
+     Leaflet tilføjer en wrapper rundt om vores divIcon-HTML.
+     Vi nulstiller dens default-styling så den ikke forstyrrer. */
+  .mda-pin-wrapper {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* ── Selve markøren ─────────────────────────────────────────────────────────
+     Centrerer indholdet og sætter en blød spring-animation ved aktivering */
+  .mda-pin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--primitive-space-40);
+    height: var(--primitive-space-40);
+    transform-origin: 50% 100%;
+    transition: transform 0.2s ease;
+  }
+
+  /* Aktiv markør er lidt større — skaber visuel prioritet */
+  .mda-pin--aktiv {
+    transform: scale(1.08);
+  }
+
+  /* ── Pin-krop ───────────────────────────────────────────────────────────────
+     Klassisk kort-pin med dråbeform */
+  .mda-pin__body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--primitive-space-40);
+    height: var(--primitive-space-40);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    background: var(--accent-400);
+    border: 2px solid var(--neutral-100);
+    transition:
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  /* Aktiv pin — mørkere farve og lidt tydeligere skygge */
+  .mda-pin--aktiv .mda-pin__body {
+    background: var(--accent-500);
+  }
+
+  /* ── Center-prik ────────────────────────────────────────────────────────────
+     Den lyse prik i midten af pin'en */
+  .mda-pin__center {
+    width: var(--primitive-space-12);
+    height: var(--primitive-space-12);
+    border-radius: var(--primitive-radius-full);
+    background: var(--neutral-0);
+    transform: rotate(45deg);
+    transition: background-color 0.2s ease;
+  }
+
+  /* Aktiv center-prik bliver en anelse varmere i tonen */
+  .mda-pin--aktiv .mda-pin__center {
+    background: var(--neutral-100);
+  }
+</style>
