@@ -22,15 +22,20 @@ import LinkButton from "../components/Buttons__&_links/LinkButton.astro";
         size="h1"
         font="display"
         weight="bold"
-        stylingclasses="mb-6 col-span-3 col-start-1 row-start-1"
+        stylingclasses="mb-6 col-span-3 col-start-1 row-start-1 z-1"
       >
         Find dit hold
       </Heading>
-      <LinkButton href="#gavekort" label="GAVEKORT" color="accent" />
+      <LinkButton
+        href="#gavekort"
+        label="GAVEKORT"
+        color="accent"
+        stylingclasses="row-start-2 col-start-1"
+      />
       <Image
         src={SpringHund}
         alt="Billede af en Bichon Havanais der springer, uden baggrund"
-        class="-z-10 col-span-2 col-start-3 row-span-3 row-start-1 m-auto h-auto w-auto"
+        class="col-span-2 col-end-5 row-span-3 row-start-1 m-auto h-auto w-auto"
       />
     </div>
   </article>
