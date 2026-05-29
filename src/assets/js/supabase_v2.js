@@ -61,7 +61,7 @@ export async function getServicesAndTraenerBySlug(slug) {
   const row = data[0];
   if (row.traenere) return data;
 
-  const traenerId = getServiceTraenerId(row);
+  const traenerId = getTraenerId(row);
   if (traenerId == null) return data;
 
   const tRes = await fetch(
